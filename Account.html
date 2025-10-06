@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkFit Club - Member Sign In</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>WorkFit Club - Sign In</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
             margin: 0;
@@ -14,21 +14,20 @@
         }
 
         body {
-            background-color: white;
+            background: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         nav {
-            background-color: #ffffff; /* Navy blue */
+            background-color: #1a2a6c;
             padding: 20px 40px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
             height: 40px;
-            width: auto;
         }
 
         .container {
@@ -47,6 +46,7 @@
             width: 100%;
             max-width: 420px;
             border: 1px solid #f0f0f0;
+            text-align: center;
         }
 
         .login-header {
@@ -65,110 +65,74 @@
             font-size: 16px;
         }
 
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 14px;
-            background-color: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #444;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 25px;
-        }
-
-        .google-btn:hover {
+        .user-info {
+            margin-top: 20px;
+            padding: 15px;
             background-color: #f8f9fa;
-            border-color: #d0d0d0;
-        }
-
-        .google-btn img {
-            width: 20px;
-            margin-right: 12px;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .divider span {
-            padding: 0 15px;
-            color: #888;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            border-color: #1a2a6c;
-            outline: none;
-        }
-
-        .signin-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #1a2a6c;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .signin-btn:hover {
-            background-color: #15225a;
-        }
-
-        .signup-link {
-            margin-top: 25px;
-            font-size: 15px;
-            color: #666;
+            border-left: 4px solid #1a2a6c;
             text-align: center;
         }
 
-        .signup-link a {
+        .user-info h3 {
             color: #1a2a6c;
-            font-weight: 600;
-            text-decoration: none;
+            margin-bottom: 10px;
         }
 
-        .signup-link a:hover {
-            text-decoration: underline;
+        .user-info p {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+
+        .continue-btn {
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .continue-btn:hover {
+            background-color: #15225a;
         }
 
         @media (max-width: 480px) {
@@ -194,51 +158,139 @@
                 <p>Access your WorkFit Club account</p>
             </div>
             
-            <button class="google-btn" id="googleSignIn">
-                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
-                Sign in with Google
-            </button>
-            
-            <div class="divider">
-                <span>or sign in with credentials</span>
+            <!-- Google Sign-In Button -->
+            <div id="g_id_onload"
+                 data-client_id="300549925887-vqlki9icfsg47fa5ogv978hiasilsodo.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signin_with"
+                 data-size="large"
+                 data-logo_alignment="left"
+                 data-width="100%">
             </div>
             
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username" required>
+            <div id="userInfo" class="user-info" style="display: none;">
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i> Successfully signed in!
                 </div>
+                <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
+                <h3>Welcome to WorkFit Club!</h3>
+                <p><strong>Name:</strong> <span id="userName"></span></p>
+                <p><strong>Email:</strong> <span id="userEmail"></span></p>
                 
-                <div class="form-group">
-                    <label for="passcode">Passcode</label>
-                    <input type="password" id="passcode" placeholder="Enter your passcode" required>
-                </div>
+                <a href="https://yourusername.github.io/workfit-fitness-tracker/app.html" class="continue-btn">
+                    Continue to Fitness Tracker
+                </a>
                 
-                <button type="submit" class="signin-btn">Sign In</button>
-            </form>
-            
-            <div class="signup-link">
-                Don't have an account? <a href="#">Join WorkFit Club</a>
+                <button class="logout-btn" onclick="handleSignOut()">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const passcode = document.getElementById('passcode').value;
+        // Handle Google Sign-In response
+        function handleCredentialResponse(response) {
+            console.log("Google Sign-In successful!", response);
             
-            // In a real application, you would send this data to your backend
-            console.log('Login attempt:', { username, passcode });
-            alert('Login functionality would be implemented here. In a real app, this would authenticate with your backend.');
-        });
+            // Decode the JWT token to get user info
+            const responsePayload = parseJwt(response.credential);
+            
+            console.log("User ID: " + responsePayload.sub);
+            console.log("User Name: " + responsePayload.name);
+            console.log("User Email: " + responsePayload.email);
+            console.log("Picture: " + responsePayload.picture);
+            
+            // Display user information
+            document.getElementById('userName').textContent = responsePayload.name;
+            document.getElementById('userEmail').textContent = responsePayload.email;
+            
+            // Display user avatar if available
+            if (responsePayload.picture) {
+                document.getElementById('userAvatar').src = responsePayload.picture;
+            }
+            
+            // Show user info and hide Google button
+            document.getElementById('userInfo').style.display = 'block';
+            document.querySelector('.g_id_signin').style.display = 'none';
+            
+            // Store user info in localStorage for the fitness tracker
+            localStorage.setItem('workfit_user', JSON.stringify({
+                name: responsePayload.name,
+                email: responsePayload.email,
+                picture: responsePayload.picture,
+                id: responsePayload.sub
+            }));
+            
+            // You can send this token to your backend here if needed
+            sendTokenToBackend(response.credential);
+        }
 
-        document.getElementById('googleSignIn').addEventListener('click', function() {
-            // In a real application, this would trigger Google OAuth flow
-            console.log('Google Sign-In clicked');
-            alert('Google Sign-In would be implemented here. In a real app, this would redirect to Google OAuth.');
-        });
+        // Parse JWT token
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error('Error parsing JWT:', e);
+                return {};
+            }
+        }
+
+        // Send token to backend (optional - for future use)
+        function sendTokenToBackend(token) {
+            console.log("Ready to send token to backend:", token);
+            // You can implement backend API call here later
+        }
+
+        // Handle sign out
+        function handleSignOut() {
+            // Clear stored user data
+            localStorage.removeItem('workfit_user');
+            
+            // Reset UI
+            document.getElementById('userInfo').style.display = 'none';
+            document.querySelector('.g_id_signin').style.display = 'block';
+            
+            // Google sign out
+            google.accounts.id.disableAutoSelect();
+            console.log("User signed out.");
+        }
+
+        // Check if user is already signed in
+        function checkExistingSignIn() {
+            const userData = localStorage.getItem('workfit_user');
+            if (userData) {
+                const user = JSON.parse(userData);
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userEmail').textContent = user.email;
+                if (user.picture) {
+                    document.getElementById('userAvatar').src = user.picture;
+                }
+                document.getElementById('userInfo').style.display = 'block';
+                document.querySelector('.g_id_signin').style.display = 'none';
+            }
+        }
+
+        // Check for existing sign-in on page load
+        document.addEventListener('DOMContentLoaded', checkExistingSignIn);
     </script>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>
