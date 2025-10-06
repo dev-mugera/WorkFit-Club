@@ -88,6 +88,43 @@
 
         .google-btn-container {
             margin: 20px 0;
+            min-height: 44px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .custom-google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 300px;
+            height: 44px;
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #3c4043;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .custom-google-btn:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-google-btn:active {
+            background-color: #f1f3f4;
+        }
+
+        .custom-google-btn img {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
         }
 
         .signup-link {
@@ -177,6 +214,10 @@
             nav {
                 padding: 15px 25px;
             }
+            
+            .custom-google-btn {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -198,22 +239,31 @@
             
             <!-- Google Sign-In Button -->
             <div class="google-btn-container">
-                <div id="g_id_onload"
-                     data-client_id="300549925887-0qk7l5eeiaohtlh2m2rlvnf48uf7c70i.apps.googleusercontent.com"
-                     data-context="signin"
-                     data-ux_mode="popup"
-                     data-callback="handleCredentialResponse"
-                     data-auto_prompt="false">
+                <!-- Custom Google Button as fallback -->
+                <div id="customGoogleBtn" class="custom-google-btn">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo">
+                    Sign in with Google
                 </div>
+                
+                <!-- Original Google button (hidden by default, shown via JS if needed) -->
+                <div id="googleButton" style="display: none;">
+                    <div id="g_id_onload"
+                         data-client_id="300549925887-0qk7l5eeiaohtlh2m2rlvnf48uf7c70i.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="handleCredentialResponse"
+                         data-auto_prompt="false">
+                    </div>
 
-                <div class="g_id_signin"
-                     data-type="standard"
-                     data-shape="rectangular"
-                     data-theme="outline"
-                     data-text="signin_with"
-                     data-size="large"
-                     data-logo_alignment="left"
-                     data-width="100%">
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="100%">
+                    </div>
                 </div>
             </div>
             
@@ -237,6 +287,24 @@
     </div>
 
     <script>
+        // Initialize Google Sign-In
+        function initializeGoogleSignIn() {
+            // Show the original Google button on desktop, custom on mobile
+            if (window.innerWidth > 768) {
+                document.getElementById('googleButton').style.display = 'block';
+                document.getElementById('customGoogleBtn').style.display = 'none';
+            } else {
+                document.getElementById('googleButton').style.display = 'none';
+                document.getElementById('customGoogleBtn').style.display = 'flex';
+            }
+        }
+
+        // Handle custom Google button click
+        document.getElementById('customGoogleBtn').addEventListener('click', function() {
+            // Trigger Google Sign-In
+            google.accounts.id.prompt();
+        });
+
         // Handle Google Sign-In response
         function handleCredentialResponse(response) {
             console.log("Google Sign-In successful!", response);
@@ -261,7 +329,7 @@
             // Show user info and hide login form
             document.getElementById('userInfo').style.display = 'block';
             document.querySelector('.info-message').style.display = 'none';
-            document.querySelector('.g_id_signin').style.display = 'none';
+            document.querySelector('.google-btn-container').style.display = 'none';
             document.querySelector('.signup-link').style.display = 'none';
             
             // You can send this token to your backend here
@@ -295,7 +363,7 @@
             // Clear UI
             document.getElementById('userInfo').style.display = 'none';
             document.querySelector('.info-message').style.display = 'block';
-            document.querySelector('.g_id_signin').style.display = 'block';
+            document.querySelector('.google-btn-container').style.display = 'block';
             document.querySelector('.signup-link').style.display = 'block';
             
             // Google sign out
@@ -307,6 +375,10 @@
         function showSignUpInfo() {
             alert("To create an account, simply click the 'Sign in with Google' button. If you don't have an account yet, we'll create one for you automatically using your Google account.");
         }
+
+        // Initialize on load and resize
+        window.addEventListener('load', initializeGoogleSignIn);
+        window.addEventListener('resize', initializeGoogleSignIn);
     </script>
 </body>
 </html>
