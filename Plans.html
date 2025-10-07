@@ -10,16 +10,19 @@
             --navy: #001f3f;
             --navy-light: #003366;
             --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
             --gold: #FFD700;
             --accent: #C73E1D;
-            --success: #4CAF50;
-            --error: #f44336;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f5f5;
+            --light: #F7F7F7;
+            --gray: #777777;
+            --white: #FFFFFF;
             --text-primary: #222222;
             --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
             --border-color: #ddd;
             --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
         }
 
         * {
@@ -27,15 +30,20 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 2rem;
         }
 
-        /* Header */
+        /* Navigation */
         header {
             background-color: var(--bg-primary);
             box-shadow: 0 2px 10px var(--shadow-color);
@@ -51,6 +59,7 @@
             padding: 1rem;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
 
         .logo {
@@ -58,615 +67,722 @@
             width: auto;
         }
 
-        /* Main Content */
-        .container {
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--navy-dark);
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        /* Sections */
+        section {
+            padding: 2rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
         }
 
         .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
             color: var(--navy);
-            font-size: 2.5rem;
+            position: relative;
+            font-size: 1.5rem;
+            padding-left: 10px;
+            border-left: 4px solid var(--gold);
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--gold);
-            margin: 1rem auto;
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
-        /* Packages Grid */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+        .intro {
+            text-align: center;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            color: var(--navy);
         }
-
+        
+        .packages-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
         .package-card {
             background: var(--bg-primary);
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 8px 25px var(--shadow-color);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 350px;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
-
+        
         .package-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
-
-        .package-card.featured {
-            border: 3px solid var(--gold);
-            transform: scale(1.05);
-        }
-
-        .package-header {
+        
+        .card-header {
             background: var(--navy);
-            color: white;
-            padding: 2rem;
+            color: var(--white);
+            padding: 1.5rem;
             text-align: center;
         }
-
-        .package-header h3 {
+        
+        .card-header h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
-
-        .package-price {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 1rem 0;
+        
+        .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
         }
-
-        .package-period {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: normal;
         }
-
-        .package-features {
-            padding: 2rem;
+        
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
-
-        .feature-list {
-            list-style: none;
-            margin-bottom: 2rem;
+        
+        .features {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+            flex: 1;
         }
-
-        .feature-list li {
-            padding: 0.8rem 0;
+        
+        .features li {
+            padding: 0.5rem 0;
             border-bottom: 1px dashed var(--border-color);
             display: flex;
             align-items: center;
         }
-
-        .feature-list li i {
+        
+        .features li i {
             color: var(--gold);
-            margin-right: 1rem;
-            width: 20px;
+            margin-right: 0.5rem;
         }
-
+        
         .btn {
             display: block;
             width: 100%;
-            padding: 1rem;
+            padding: 0.8rem;
             background: var(--navy);
-            color: white;
+            color: var(--white);
             border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
+            border-radius: 4px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s ease;
             text-align: center;
             text-decoration: none;
+            margin-top: auto;
         }
-
+        
         .btn:hover {
             background: var(--navy-light);
         }
-
-        .btn-featured {
-            background: var(--gold);
-            color: var(--navy);
+        
+        .contact-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
         }
-
-        .btn-featured:hover {
-            background: #ffed4a;
+        
+        .contact-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--gold);
         }
-
-        /* Modal */
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            border: 2px solid var(--gold);
+            transform: scale(1.03);
+        }
+        
+        .highlight .card-header {
+            background: var(--navy-light);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
+            z-index: 1000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
         }
-
+        
         .modal-content {
-            background: var(--bg-primary);
-            border-radius: 12px;
+            background-color: var(--bg-primary);
+            margin: 5% auto;
+            padding: 1.5rem;
+            border-radius: 8px;
             width: 90%;
             max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
             position: relative;
-            animation: modalSlideIn 0.3s ease;
+            animation: modalFade 0.3s;
+            color: var(--text-primary);
         }
-
-        @keyframes modalSlideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            background: var(--navy);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: white;
+        
+        .close {
+            color: var(--gray);
+            float: right;
             font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+            right: 1rem;
+            top: 0.5rem;
             cursor: pointer;
         }
-
-        .modal-body {
-            padding: 2rem;
+        
+        .close:hover,
+        .close:focus {
+            color: var(--navy);
         }
-
+        
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
-
+        
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--navy);
+            font-size: 0.9rem;
         }
-
+        
         .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group select {
             width: 100%;
             padding: 0.8rem;
+            background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            color: var(--text-primary);
         }
-
+        
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group select:focus {
             outline: none;
             border-color: var(--navy);
         }
-
-        .alert {
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-            text-align: center;
-            display: none;
+        
+        .required {
+            color: var(--accent);
         }
-
-        .alert-success {
+        
+        #successMessage {
+            display: none;
             background: #d4edda;
             color: #155724;
-            border: 1px solid #c3e6cb;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
         }
-
-        .alert-error {
+        
+        #errorMessage {
+            display: none;
             background: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
         }
-
+        
         .loading {
             display: none;
             text-align: center;
-            padding: 1rem;
+            margin-top: 1rem;
         }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--navy);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
+        
+        .loading i {
+            color: var(--navy);
+            font-size: 1.5rem;
             animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
         }
-
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Contact Section */
-        .contact-section {
-            background: var(--navy);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-            margin-top: 3rem;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
-        .contact-section h3 {
-            margin-bottom: 1rem;
-            color: var(--gold);
+        
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .privacy-notice {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 1rem;
-            text-align: center;
-            padding: 0 1rem;
-        }
-
+        
         /* Responsive */
+        @media (max-width: 1024px) {
+            .package-card {
+                max-width: calc(50% - 1rem);
+            }
+        }
+
         @media (max-width: 768px) {
-            .packages-grid {
-                grid-template-columns: 1fr;
+            nav {
+                padding: 0.8rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--navy);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px var(--shadow-color);
+                z-index: 99;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .package-card {
+                max-width: 100%;
             }
             
-            .package-card.featured {
-                transform: none;
-            }
-            
-            .section-title {
-                font-size: 2rem;
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
-            <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo" loading="lazy">
+            <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="#packages">Membership</a>
+                <a href="#contact">Contact</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+                    </svg>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        <h1 class="section-title">Choose Your Fitness Journey</h1>
+    <section id="packages">
+        <h2 class="section-title">Membership Plans</h2>
         
-        <!-- Packages Grid -->
-        <div class="packages-grid">
+        <div class="intro">
+            <p>Choose the perfect plan for your fitness journey. All plans include guided training sessions</p>
+        </div>
+        
+        <div class="packages-container">
             <!-- Freemium Package -->
             <div class="package-card">
-                <div class="package-header">
-                    <h3>FREEMIUM</h3>
-                    <div class="package-price">Free</div>
-                    <div class="package-period">per month</div>
+                <div class="card-header">
+                    <h2>FREEMIUM</h2>
+                    <div class="price">Free /month</div>
                 </div>
-                <div class="package-features">
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> Guided group training sessions</li>
-                        <li><i class="fas fa-check"></i> Access to community events</li>
-                        <li><i class="fas fa-check"></i> Basic workout plans</li>
-                        <li><i class="fas fa-check"></i> Online resources access</li>
-                        <li><i class="fas fa-check"></i> Email support</li>
-                        <li><i class="fas fa-check"></i> Upgrade options available</li>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Guided group training sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Access to community events</li>     
+                        <li><i class="fas fa-check-circle"></i> Basic workout plans</li>
+                        <li><i class="fas fa-check-circle"></i> Access to online resources</li>
+                        <li><i class="fas fa-check-circle"></i> Email support</li>
+                        <li><i class="fas fa-check-circle"></i> Option to upgrade to paid plans</li>
+                        <li><i class="fas fa-check-circle"></i> Suitable for beginners</li>
                     </ul>
-                    <button class="btn" onclick="openRegistration('Freemium', 0)" aria-label="Get started with Freemium plan">Get Started Free</button>
+                    <button class="btn" onclick="openForm('Freemium', 0)">Select Plan</button>
                 </div>
             </div>
-
-            <!-- Basic Package -->
-            <div class="package-card featured">
-                <div class="package-header">
-                    <h3>BASIC</h3>
-                    <div class="package-price">1,500 KES</div>
-                    <div class="package-period">per month</div>
+               <!-- 
+            <div class="package-card highlight">
+                <div class="popular-badge">POPULAR</div>
+                <div class="card-header">
+                    <h2>BASIC</h2>
+                    <div class="price">1500 KES/month</div>
                 </div>
-                <div class="package-features">
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> All Freemium features</li>
-                        <li><i class="fas fa-check"></i> 2 Weekly gym sessions</li>
-                        <li><i class="fas fa-check"></i> 2 Weekly Zumba sessions</li>
-                        <li><i class="fas fa-check"></i> Individual meal plans</li>
-                        <li><i class="fas fa-check"></i> Progress tracking</li>
-                        <li><i class="fas fa-check"></i> Priority support</li>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Guided outdoor group training sessions</li>
+                        <li><i class="fas fa-check-circle"></i> 2 Gyms Sessions (Saturdays)</li>
+                        <li><i class="fas fa-check-circle"></i> 2 Zumba Sessions (Saturdays)</li>
+                        <li><i class="fas fa-check-circle"></i> Individual Weekly meal plans</li>
                     </ul>
-                    <button class="btn btn-featured" onclick="openRegistration('Basic', 1500)" aria-label="Choose Basic plan">Choose Basic</button>
+                    <button class="btn" onclick="openForm('Basic', 1500)">Select Plan</button>
                 </div>
             </div>
-
-            <!-- Premium Package -->
+            
             <div class="package-card">
-                <div class="package-header">
-                    <h3>PREMIUM</h3>
-                    <div class="package-price">3,500 KES</div>
-                    <div class="package-period">per month</div>
+                <div class="card-header">
+                    <h2>STANDARD</h2>
+                    <div class="price">2500 KES/month</div>
                 </div>
-                <div class="package-features">
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> All Basic features</li>
-                        <li><i class="fas fa-check"></i> Unlimited gym access</li>
-                        <li><i class="fas fa-check"></i> Personal trainer sessions</li>
-                        <li><i class="fas fa-check"></i> Advanced nutrition plans</li>
-                        <li><i class="fas fa-check"></i> Event discounts</li>
-                        <li><i class="fas fa-check"></i> 24/7 premium support</li>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> All Basic features</li>
+                        <li><i class="fas fa-check-circle"></i> Free access to selected events</li>
+                        <li><i class="fas fa-check-circle"></i> Additional gym sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Personalized fitness assessment</li>
                     </ul>
-                    <button class="btn" onclick="openRegistration('Premium', 3500)" aria-label="Go Premium plan">Go Premium</button>
+                    <button class="btn" onclick="openForm('Standard', 2500)">Select Plan</button>
+                </div>
+            </div>
+            
+            <div class="package-card">
+                <div class="card-header">
+                    <h2>PREMIUM</h2>
+                    <div class="price">3500 KES/month</div>
+                </div>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> All Standard features</li>
+                        <li><i class="fas fa-check-circle"></i> Discounts on products and events</li>
+                        <li><i class="fas fa-check-circle"></i> Priority booking for sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Nutrition consultation</li>
+                    </ul>
+                    <button class="btn" onclick="openForm('Premium', 3500)">Select Plan</button>
                 </div>
             </div>
         </div>
-
+        -->
         <!-- Registration Modal -->
         <div id="registrationModal" class="modal">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modalTitle">Join WorkFit</h2>
-                    <button class="close-modal" onclick="closeModal()" aria-label="Close modal">&times;</button>
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Register for <span id="selectedPackage"></span></h2>
+                <p id="packagePrice"></p>
+                
+                <form id="registrationForm">
+                    <input type="hidden" id="packageName" name="packageName">
+                    <input type="hidden" id="packagePriceValue" name="packagePrice">
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Select Location <span class="required">*</span></label>
+                        <select id="location" name="location" required>
+                            <option value="">Select a location</option>
+                            <option value="NBO">Nairobi</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn">Complete Registration</button>
+                </form>
+                
+                <div id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Registration Successful!</h3>
+                    <p>Thank you for registering. We've sent a confirmation email.</p>
                 </div>
-                <div class="modal-body">
-                    <form id="registrationForm">
-                        <input type="hidden" id="packageName" name="packageName">
-                        <input type="hidden" id="packagePrice" name="packagePrice">
-                        
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="location">Training Location *</label>
-                            <select id="location" name="location" required>
-                                <option value="">Select Location</option>
-                                <option value="Uthiru">Uthiru Furnace</option>
-                                <option value="Wangige">Wangige Furnace</option>
-                                <option value="Nairobi">Nairobi Central</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="notes">Additional Notes (Optional)</label>
-                            <textarea id="notes" name="notes" rows="3" placeholder="Any specific goals or questions..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn" id="submitButton">Complete Registration</button>
-                    </form>
-                    
-                    <div class="privacy-notice">
-                        <p>We respect your privacy. Your information is secure and will not be shared with third parties.</p>
-                    </div>
-                    
-                    <div id="successAlert" class="alert alert-success">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Welcome to WorkFit!</h3>
-                        <p>Your account has been created. Check your email for login credentials.</p>
-                        <div id="accountDetails" style="margin-top: 1rem; display: none;">
-                            <p><strong>Username:</strong> <span id="displayUsername"></span></p>
-                            <p><strong>Passcode:</strong> <span id="displayPasscode"></span></p>
-                        </div>
-                    </div>
-                    
-                    <div id="errorAlert" class="alert alert-error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <h3>Registration Issue</h3>
-                        <p id="errorMessage">Please try again or contact support.</p>
-                    </div>
-                    
-                    <div id="loadingIndicator" class="loading">
-                        <div class="spinner"></div>
-                        <p>Creating your account...</p>
-                    </div>
+                
+                <div id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Registration Failed</h3>
+                    <p id="errorText">Please try again later.</p>
+                </div>
+                
+                <div class="loading" id="loadingIndicator">
+                    <i class="fas fa-spinner"></i>
+                    <p>Processing your registration...</p>
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <h3>Need Help Choosing?</h3>
-        <p>Contact our team for personalized guidance</p>
-        <p>📞 +254 784599322 | ✉️ sales.workfit@gmail.com</p>
+    </section>
+    
+    <section id="contact" class="contact-info">
+        <h3>Have Questions?</h3>
+        <p>Phone: +254 784599322</p>
+        <p>Email: sales.workfit@gmail.com</p>
     </section>
 
     <script>
-        // Configuration - REPLACE WITH YOUR DEPLOYED SCRIPT URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGJtEC-NLC2dxWKHuvo1BcyyMtBN-0KcdLL0r7K4Odwsvk-6XBXavNQ1EKfJLE9Vc3dA/exec';
+        // Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
         
-        let currentPackage = '';
-        let currentPrice = 0;
-
-        function openRegistration(packageName, price) {
-            currentPackage = packageName;
-            currentPrice = price;
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateThemeIcon('dark');
+        }
+        
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20极-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+            } else {
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s极.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+            }
+        }
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            // Only apply system theme if user hasn't set a preference
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            
+            // Change icon based on menu state
+            const icon = menuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = menuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Prevent clicks inside nav from closing it
+        navLinks.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                }
+                
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
+                const icon = menuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                
+                // Scroll to section
+                if (this.getAttribute('href') !== '#') {
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Replace this with your Google Apps Script Web App URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwvSoWfARGlnGqpT0cne811U01WyuDIMO-lnYFCWvQAYjwIwM5UOnU0Y8B3pmW2conbiA/exec';
+        
+        let selectedPackage = '';
+        let selectedPrice = 0;
+        
+        function openForm(packageName, price) {
+            selectedPackage = packageName;
+            selectedPrice = price;
+            
+            document.getElementById('selectedPackage').textContent = packageName;
             document.getElementById('packageName').value = packageName;
-            document.getElementById('packagePrice').value = price;
-            document.getElementById('modalTitle').textContent = `Join ${packageName} Plan`;
+            document.getElementById('packagePriceValue').value = price;
+            
+            if (price === 0) {
+                document.getElementById('packagePrice').textContent = 'Free Plan';
+            } else {
+                document.getElementById('packagePrice').textContent = price + ' KES per month';
+            }
             
             // Reset form and messages
             document.getElementById('registrationForm').reset();
             document.getElementById('registrationForm').style.display = 'block';
-            document.getElementById('successAlert').style.display = 'none';
-            document.getElementById('errorAlert').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('loadingIndicator').style.display = 'none';
-            document.getElementById('accountDetails').style.display = 'none';
             
-            // Show modal
-            document.getElementById('registrationModal').style.display = 'flex';
+            // Show modal  
+            document.getElementById('registrationModal').style.display = 'block';
         }
-
+        
         function closeModal() {
             document.getElementById('registrationModal').style.display = 'none';
         }
-
-        // Form validation
-        function validateForm(data) {
-            if (!data.name || data.name.trim().length < 2) {
-                throw new Error('Please enter a valid name (minimum 2 characters)');
-            }
-            if (!data.email || !data.email.includes('@') || !data.email.includes('.')) {
-                throw new Error('Please enter a valid email address');
-            }
-            if (!data.phone || data.phone.replace(/\D/g, '').length < 10) {
-                throw new Error('Please enter a valid phone number');
-            }
-            if (!data.location) {
-                throw new Error('Please select a training location');
-            }
-            return true;
+        
+        function contactSales() {
+            alert("Please contact our sales team at sales.workfit@gmail.com or +254 784599322 for VIP membership details.");
         }
-
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('registrationModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
         // Handle form submission
         document.getElementById('registrationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const submitButton = document.getElementById('submitButton');
-            const originalButtonText = submitButton.innerHTML;
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('registrationForm').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
             
             try {
-                // Client-side validation
                 const formData = new FormData(e.target);
-                const data = {
-                    name: formData.get('name').trim(),
-                    email: formData.get('email').trim(),
-                    phone: formData.get('phone').trim(),
-                    location: formData.get('location'),
-                    packageName: formData.get('packageName'),
-                    packagePrice: formData.get('packagePrice'),
-                    notes: formData.get('notes')?.trim() || ''
-                };
+                formData.append('timestamp', new Date().toISOString());
                 
-                validateForm(data);
-                
-                // Update UI for loading state
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                document.getElementById('loadingIndicator').style.display = 'block';
-                document.getElementById('registrationForm').style.display = 'none';
-                document.getElementById('errorAlert').style.display = 'none';
-                
-                console.log('Submitting data:', data);
-                
-                // Add timeout to fetch request
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-                
-                const response = await fetch(SCRIPT_URL, {
+                const response = await fetch(scriptURL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                    signal: controller.signal
+                    body: formData
                 });
                 
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
                 const result = await response.json();
-                console.log('Response received:', result);
                 
-                if (result.success) {
+                if (result.result === 'success') {
                     // Show success message
-                    document.getElementById('successAlert').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'block';
                     document.getElementById('loadingIndicator').style.display = 'none';
-                    
-                    if (result.username) {
-                        document.getElementById('displayUsername').textContent = result.username;
-                        document.getElementById('displayPasscode').textContent = result.passcode;
-                        document.getElementById('accountDetails').style.display = 'block';
-                    }
-                    
-                    // Clear form
-                    document.getElementById('registrationForm').reset();
-                    
                 } else {
-                    throw new Error(result.message || 'Registration failed. Please try again.');
+                    throw new Error(result.message);
                 }
-                
             } catch (error) {
-                console.error('Submission error:', error);
-                
-                let errorMessage = 'Registration failed. Please try again.';
-                if (error.name === 'AbortError') {
-                    errorMessage = 'Request timeout. Please check your connection and try again.';
-                } else if (error.message.includes('Failed to fetch')) {
-                    errorMessage = 'Network error. Please check your internet connection and try again.';
-                } else {
-                    errorMessage = error.message;
-                }
-                
-                document.getElementById('errorMessage').textContent = errorMessage;
-                document.getElementById('errorAlert').style.display = 'block';
+                // Show error message
+                document.getElementById('errorText').textContent = error.message || 'An error occurred. Please try again.';
+                document.getElementById('errorMessage').style.display = 'block';
                 document.getElementById('loadingIndicator').style.display = 'none';
                 document.getElementById('registrationForm').style.display = 'block';
-            } finally {
-                // Reset button state
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonText;
-            }
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === document.getElementById('registrationModal')) {
-                closeModal();
-            }
-        });
-
-        // Test backend connection on load
-        window.addEventListener('load', async () => {
-            try {
-                console.log('Testing backend connection...');
-                const response = await fetch(SCRIPT_URL);
-                const result = await response.json();
-                console.log('Backend connection successful:', result);
-            } catch (error) {
-                console.warn('Backend connection test failed:', error);
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
             }
         });
     </script>
