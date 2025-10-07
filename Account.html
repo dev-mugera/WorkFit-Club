@@ -1,244 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkFit Club - Member Sign In</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>WorkFit - User Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --success: #4CAF50;
+      --error: #f44336;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --text-primary: #222222;
+      --text-secondary: #5a5a5a;
+      --border-color: #ddd;
+    }
 
-        body {
-            background-color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        nav {
-            background-color: #ffffff; /* Navy blue */
-            padding: 20px 40px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-bottom: 2rem;
+    }
 
-        .logo {
-            height: 40px;
-            width: auto;
-        }
+    header {
+      background-color: var(--bg-primary);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .login-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 40px;
-            width: 100%;
-            max-width: 420px;
-            border: 1px solid #f0f0f0;
-        }
+    .logo {
+      height: 40px;
+      width: auto;
+    }
 
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-        .login-header h1 {
-            color: #1a2a6c;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+    section {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .login-header p {
-            color: #666;
-            font-size: 16px;
-        }
+    .section-title {
+      text-align: left;
+      margin-bottom: 1.5rem;
+      color: var(--navy);
+      position: relative;
+      font-size: 1.5rem;
+      padding-left: 10px;
+      border-left: 4px solid var(--gold);
+    }
 
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 14px;
-            background-color: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #444;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 25px;
-        }
+    .card {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
 
-        .google-btn:hover {
-            background-color: #f8f9fa;
-            border-color: #d0d0d0;
-        }
+    .form-group {
+      margin-bottom: 1rem;
+    }
 
-        .google-btn img {
-            width: 20px;
-            margin-right: 12px;
-        }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-        }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
 
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    .btn {
+      display: inline-block;
+      background: var(--navy);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
 
-        .divider span {
-            padding: 0 15px;
-            color: #888;
-            font-size: 14px;
-        }
+    .btn:hover {
+      background: var(--navy-light);
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .btn-success {
+      background: var(--success);
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
+    .btn-warning {
+      background: var(--accent);
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+    .alert {
+      padding: 0.8rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 600;
+    }
 
-        .form-group input:focus {
-            border-color: #1a2a6c;
-            outline: none;
-        }
+    .alert-success {
+      background-color: rgba(76, 175, 80, 0.2);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
 
-        .signin-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #1a2a6c;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
+    .alert-error {
+      background-color: rgba(244, 67, 54, 0.2);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
 
-        .signin-btn:hover {
-            background-color: #15225a;
-        }
+    .tabs {
+      display: flex;
+      background-color: var(--bg-primary);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
 
-        .signup-link {
-            margin-top: 25px;
-            font-size: 15px;
-            color: #666;
-            text-align: center;
-        }
+    .tab-button {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-secondary);
+      min-width: 140px;
+    }
 
-        .signup-link a {
-            color: #1a2a6c;
-            font-weight: 600;
-            text-decoration: none;
-        }
+    .tab-button.active {
+      background-color: var(--navy);
+      color: white;
+    }
 
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
+    .tab-content {
+      display: none;
+    }
 
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 30px 25px;
-            }
-            
-            nav {
-                padding: 15px 25px;
-            }
-        }
-    </style>
+    .tab-content.active {
+      display: block;
+    }
+
+    .rating-stars {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .star {
+      font-size: 2rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .star.active {
+      color: var(--gold);
+    }
+
+    .subscription-info {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .login-section {
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+
+    .user-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-card {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .tabs {
+        flex-direction: column;
+      }
+      
+      .user-dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
     <nav>
-        <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Club Logo" class="logo">
+      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <div class="user-info">
+        <span id="welcome-message"></span>
+        <button id="logout-btn" class="btn btn-warning hidden">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
     </nav>
+  </header>
 
-    <div class="container">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>Member Sign In</h1>
-                <p>Access your WorkFit Club account</p>
-            </div>
-            
-            <button class="google-btn" id="googleSignIn">
-                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
-                Sign in with Google
-            </button>
-            
-            <div class="divider">
-                <span>or sign in with credentials</span>
-            </div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="passcode">Passcode</label>
-                    <input type="password" id="passcode" placeholder="Enter your passcode" required>
-                </div>
-                
-                <button type="submit" class="signin-btn">Sign In</button>
-            </form>
-            
-            <div class="signup-link">
-                Don't have an account? <a href="#">Join WorkFit Club</a>
-            </div>
+  <section id="login-section" class="login-section">
+    <div class="card">
+      <h2 class="section-title">User Profile</h2>
+      <div id="alert-area"></div>
+      
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" placeholder="Enter your username">
+      </div>
+      
+      <div class="form-group">
+        <label for="passcode">Passcode</label>
+        <input type="password" id="passcode" class="form-control" placeholder="Enter your 4-digit passcode" maxlength="4">
+      </div>
+      
+      <button id="login-btn" class="btn btn-success" style="width: 100%;">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+  </section>
+
+  <section id="main-section" class="hidden">
+    <div id="alert-area-main"></div>
+
+    <div class="user-dashboard">
+      <div class="dashboard-card">
+        <h3><i class="fas fa-user"></i> Account Info</h3>
+        <div id="user-details">
+          <p><strong>Name:</strong> <span id="user-name"></span></p>
+          <p><strong>Furnace:</strong> <span id="user-furnace"></span></p>
+          <p><strong>Status:</strong> <span id="user-status">Active</span></p>
         </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <h3><i class="fas fa-chart-line"></i> Quick Stats</h3>
+        <div id="quick-stats">
+          <p><strong>This Week:</strong> <span id="week-sessions">0 sessions</span></p>
+          <p><strong>This Month:</strong> <span id="month-sessions">0 sessions</span></p>
+          <p><strong>Attendance Rate:</strong> <span id="attendance-rate">0%</span></p>
+        </div>
+      </div>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const passcode = document.getElementById('passcode').value;
-            
-            // In a real application, you would send this data to your backend
-            console.log('Login attempt:', { username, passcode });
-            alert('Login functionality would be implemented here. In a real app, this would authenticate with your backend.');
-        });
+    <div class="tabs">
+      <button class="tab-button active" data-tab="account">
+        <i class="fas fa-user-cog"></i> Account Management
+      </button>
+      <button class="tab-button" data-tab="passcode">
+        <i class="fas fa-key"></i> Passcode Management
+      </button>
+      <button class="tab-button" data-tab="subscription">
+        <i class="fas fa-id-card"></i> Subscription Info
+      </button>
+      <button class="tab-button" data-tab="attendance">
+        <i class="fas fa-calendar-check"></i> Attendance
+      </button>
+      <button class="tab-button" data-tab="rating">
+        <i class="fas fa-star"></i> Daily Rating
+      </button>
+    </div>
 
-        document.getElementById('googleSignIn').addEventListener('click', function() {
-            // In a real application, this would trigger Google OAuth flow
-            console.log('Google Sign-In clicked');
-            alert('Google Sign-In would be implemented here. In a real app, this would redirect to Google OAuth.');
+    <!-- Account Management Tab -->
+    <div class="tab-content active" id="account">
+      <h2 class="section-title">Account Management</h2>
+      <div class="card">
+        <div class="form-group">
+          <label for="update-email">Email Address</label>
+          <input type="email" id="update-email" class="form-control" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+          <label for="update-phone">Phone Number</label>
+          <input type="tel" id="update-phone" class="form-control" placeholder="Enter your phone number">
+        </div>
+        
+        <div class="form-group">
+          <label for="update-furnace">Preferred Furnace</label>
+          <select id="update-furnace" class="form-control">
+            <option value="">Select your furnace</option>
+            <option value="Uthiru Furnace">Uthiru Furnace</option>
+            <option value="Wangige Furnace">Wangige Furnace</option>
+          </select>
+        </div>
+        
+        <button id="update-account-btn" class="btn btn-success">
+          <i class="fas fa-save"></i> Update Account
+        </button>
+      </div>
+    </div>
+
+    <!-- Passcode Management Tab -->
+    <div class="tab-content" id="passcode">
+      <h2 class="section-title">Passcode Management</h2>
+      <div class="card">
+        <div class="form-group">
+          <label for="current-passcode">Current Passcode</label>
+          <input type="password" id="current-passcode" class="form-control" placeholder="Enter current passcode" maxlength="4">
+        </div>
+        
+        <div class="form-group">
+          <label for="new-passcode">New Passcode</label>
+          <input type="password" id="new-passcode" class="form-control" placeholder="Enter new 4-digit passcode" maxlength="4">
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm-passcode">Confirm New Passcode</label>
+          <input type="password" id="confirm-passcode" class="form-control" placeholder="Confirm new passcode" maxlength="4">
+        </div>
+        
+        <button id="change-passcode-btn" class="btn btn-warning">
+          <i class="fas fa-key"></i> Change Passcode
+        </button>
+        
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+          <h4>Reset Forgotten Passcode</h4>
+          <div class="form-group">
+            <label for="reset-email">Registered Email</label>
+            <input type="email" id="reset-email" class="form-control" placeholder="Enter your registered email">
+          </div>
+          <button id="reset-passcode-btn" class="btn">
+            <i class="fas fa-redo"></i> Reset Passcode
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subscription Info Tab -->
+    <div class="tab-content" id="subscription">
+      <h2 class="section-title">Subscription Information</h2>
+      <div class="card">
+        <div class="subscription-info">
+          <h3><i class="fas fa-crown"></i> WorkFit Premium</h3>
+          <p>Member since: <span id="member-since">Loading...</span></p>
+          <p>Furnace: <span id="subscription-furnace">Loading...</span></p>
+          <p>Status: <span id="subscription-status">Active</span></p>
+        </div>
+        
+        <button id="refresh-subscription" class="btn">
+          <i class="fas fa-sync"></i> Refresh Subscription Info
+        </button>
+        
+        <div id="subscription-details" style="margin-top: 1.5rem;">
+          <h4>Subscription History</h4>
+          <div id="subscription-data">
+            <p>Loading subscription details...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance Tab -->
+    <div class="tab-content" id="attendance">
+      <h2 class="section-title">Attendance Tracking</h2>
+      <div class="card">
+        <div class="form-group">
+          <label for="attendance-furnace">Furnace</label>
+          <select id="attendance-furnace" class="form-control">
+            <option value="">Select your furnace</option>
+            <option value="Uthiru Furnace">Uthiru Furnace</option>
+            <option value="Wangige Furnace">Wangige Furnace</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="attendance-date">Training Date</label>
+          <input type="date" id="attendance-date" class="form-control">
+        </div>
+        
+        <button id="mark-attendance" class="btn btn-success">
+          <i class="fas fa-check-circle"></i> Mark Attendance
+        </button>
+      </div>
+      
+      <div class="card">
+        <h4>Recent Attendance</h4>
+        <div id="attendance-history">
+          <p>Loading attendance history...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Rating Tab -->
+    <div class="tab-content" id="rating">
+      <h2 class="section-title">Daily Activity Rating</h2>
+      <div class="card">
+        <div class="form-group">
+          <label for="rating-date">Date</label>
+          <input type="date" id="rating-date" class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label>How was your workout today?</label>
+          <div class="rating-stars">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+          </div>
+          <input type="hidden" id="workout-rating" value="0">
+        </div>
+        
+        <div class="form-group">
+          <label for="energy-level">Energy Level (1-10)</label>
+          <input type="range" id="energy-level" class="form-control" min="1" max="10" value="5">
+          <span id="energy-value">5</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="workout-comments">Additional Comments</label>
+          <textarea id="workout-comments" class="form-control" placeholder="How did you feel during your workout?"></textarea>
+        </div>
+        
+        <button id="submit-rating" class="btn btn-success">
+          <i class="fas fa-star"></i> Submit Rating
+        </button>
+      </div>
+      
+      <div class="card">
+        <h4>Recent Ratings</h4>
+        <div id="ratings-history">
+          <p>Loading your recent ratings...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Configuration - ADD YOUR DEPLOYED PROFILE SCRIPT URL HERE
+    const PROFILE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynR5tNwqwspGnFqiWEMq6C4Y5Obmh9ZwlQAJhwtGLJUQfGLPRAvAPJH65aO16fAoJz/exec';
+    
+    // Global variables
+    let currentUser = null;
+
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is already logged in
+      const savedUser = localStorage.getItem('workfit_profile_user');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        showMainInterface();
+      }
+
+      // Set default dates
+      document.getElementById('attendance-date').valueAsDate = new Date();
+      document.getElementById('rating-date').valueAsDate = new Date();
+    });
+
+    // Google Apps Script API calls
+    function callProfileScript(functionName, params = {}) {
+      return new Promise((resolve, reject) => {
+        google.script.run
+          .withSuccessHandler(resolve)
+          .withFailureHandler(reject)
+          [functionName](params);
+      });
+    }
+
+    // Alert System
+    function showAlert(message, type, isMain = false) {
+      const alertArea = document.getElementById(isMain ? 'alert-area-main' : 'alert-area');
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.textContent = message;
+      alertArea.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.remove();
+      }, 5000);
+    }
+
+    // Login functionality
+    document.getElementById('login-btn').addEventListener('click', async function() {
+      const username = document.getElementById('username').value;
+      const passcode = document.getElementById('passcode').value;
+      
+      if (!username || !passcode) {
+        showAlert('Please fill in all fields', 'error');
+        return;
+      }
+      
+      try {
+        const result = await callProfileScript('verifyUser', { username, passcode });
+        
+        if (result.success) {
+          currentUser = {
+            username: username,
+            name: result.name,
+            furnace: result.furnace,
+            email: result.email,
+            phone: result.phone
+          };
+          
+          // Save user session
+          localStorage.setItem('workfit_profile_user', JSON.stringify(currentUser));
+          showMainInterface();
+          showAlert(`Welcome back, ${result.name}!`, 'success', true);
+        } else {
+          showAlert(result.message, 'error');
+        }
+      } catch (error) {
+        showAlert('Login failed: ' + error.toString(), 'error');
+      }
+    });
+
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', function() {
+      localStorage.removeItem('workfit_profile_user');
+      currentUser = null;
+      
+      document.getElementById('login-section').classList.remove('hidden');
+      document.getElementById('main-section').classList.add('hidden');
+      document.getElementById('username').value = '';
+      document.getElementById('passcode').value = '';
+    });
+
+    function showMainInterface() {
+      document.getElementById('login-section').classList.add('hidden');
+      document.getElementById('main-section').classList.remove('hidden');
+      document.getElementById('logout-btn').classList.remove('hidden');
+      document.getElementById('welcome-message').textContent = `Welcome, ${currentUser.name}`;
+      
+      // Update user details
+      document.getElementById('user-name').textContent = currentUser.name;
+      document.getElementById('user-furnace').textContent = currentUser.furnace;
+      
+      // Load user data
+      loadUserData();
+      loadQuickStats();
+      loadAttendanceHistory();
+      loadRatingsHistory();
+    }
+
+    // Tab Switching
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        tabContents.forEach(content => content.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Star Rating
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => {
+      star.addEventListener('click', function() {
+        const rating = this.getAttribute('data-rating');
+        document.getElementById('workout-rating').value = rating;
+        
+        stars.forEach(s => {
+          if (s.getAttribute('data-rating') <= rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
         });
-    </script>
+      });
+    });
+
+    // Energy Level Slider
+    const energySlider = document.getElementById('energy-level');
+    const energyValue = document.getElementById('energy-value');
+    
+    energySlider.addEventListener('input', function() {
+      energyValue.textContent = this.value;
+    });
+
+    // Load user data
+    async function loadUserData() {
+      try {
+        const userData = await callProfileScript('getUserData', { username: currentUser.username });
+        
+        if (userData.success) {
+          // Update form fields
+          document.getElementById('update-email').value = userData.email || '';
+          document.getElementById('update-phone').value = userData.phone || '';
+          document.getElementById('update-furnace').value = userData.furnace || '';
+          
+          // Update subscription info
+          document.getElementById('subscription-furnace').textContent = userData.furnace || 'Not assigned';
+          document.getElementById('member-since').textContent = userData.joinDate || 'N/A';
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      }
+    }
+
+    // Load quick stats
+    async function loadQuickStats() {
+      try {
+        const stats = await callProfileScript('getQuickStats', { username: currentUser.username });
+        
+        if (stats.success) {
+          document.getElementById('week-sessions').textContent = `${stats.weekSessions} sessions`;
+          document.getElementById('month-sessions').textContent = `${stats.monthSessions} sessions`;
+          document.getElementById('attendance-rate').textContent = `${stats.attendanceRate}%`;
+        }
+      } catch (error) {
+        console.error('Error loading stats:', error);
+      }
+    }
+
+    // Update Account
+    document.getElementById('update-account-btn').addEventListener('click', async function() {
+      const email = document.getElementById('update-email').value;
+      const phone = document.getElementById('update-phone').value;
+      const furnace = document.getElementById('update-furnace').value;
+      
+      try {
+        const result = await callProfileScript('updateUserAccount', {
+          username: currentUser.username,
+          email: email,
+          phone: phone,
+          furnace: furnace
+        });
+        
+        if (result.success) {
+          showAlert('Account updated successfully!', 'success', true);
+          // Update current user data
+          currentUser.email = email;
+          currentUser.phone = phone;
+          currentUser.furnace = furnace;
+          localStorage.setItem('workfit_profile_user', JSON.stringify(currentUser));
+        } else {
+          showAlert(result.message, 'error', true);
+        }
+      } catch (error) {
+        showAlert('Error updating account: ' + error.toString(), 'error', true);
+      }
+    });
+
+    // Change Passcode
+    document.getElementById('change-passcode-btn').addEventListener('click', async function() {
+      const currentPasscode = document.getElementById('current-passcode').value;
+      const newPasscode = document.getElementById('new-passcode').value;
+      const confirmPasscode = document.getElementById('confirm-passcode').value;
+      
+      if (!currentPasscode || !newPasscode || !confirmPasscode) {
+        showAlert('Please fill in all fields', 'error', true);
+        return;
+      }
+      
+      if (newPasscode !== confirmPasscode) {
+        showAlert('New passcodes do not match', 'error', true);
+        return;
+      }
+      
+      try {
+        const result = await callProfileScript('changePasscode', {
+          username: currentUser.username,
+          currentPasscode: currentPasscode,
+          newPasscode: newPasscode
+        });
+        
+        if (result.success) {
+          showAlert('Passcode changed successfully!', 'success', true);
+          // Clear form
+          document.getElementById('current-passcode').value = '';
+          document.getElementById('new-passcode').value = '';
+          document.getElementById('confirm-passcode').value = '';
+        } else {
+          showAlert(result.message, 'error', true);
+        }
+      } catch (error) {
+        showAlert('Error changing passcode: ' + error.toString(), 'error', true);
+      }
+    });
+
+    // Mark Attendance
+    document.getElementById('mark-attendance').addEventListener('click', async function() {
+      const furnace = document.getElementById('attendance-furnace').value;
+      const date = document.getElementById('attendance-date').value;
+      
+      if (!furnace || !date) {
+        showAlert('Please fill in all fields', 'error', true);
+        return;
+      }
+      
+      try {
+        const result = await callProfileScript('markAttendance', {
+          username: currentUser.username,
+          furnace: furnace,
+          date: date
+        });
+        
+        if (result.success) {
+          showAlert('Attendance marked successfully!', 'success', true);
+          loadAttendanceHistory();
+          loadQuickStats();
+        } else {
+          showAlert(result.message, 'error', true);
+        }
+      } catch (error) {
+        showAlert('Error marking attendance: ' + error.toString(), 'error', true);
+      }
+    });
+
+    // Load attendance history
+    async function loadAttendanceHistory() {
+      try {
+        const attendance = await callProfileScript('getAttendanceHistory', { 
+          username: currentUser.username 
+        });
+        
+        const historyDiv = document.getElementById('attendance-history');
+        if (attendance.success && attendance.history.length > 0) {
+          let html = '';
+          attendance.history.forEach(record => {
+            html += `<p>${record.date} - ${record.furnace} - ${record.status}</p>`;
+          });
+          historyDiv.innerHTML = html;
+        } else {
+          historyDiv.innerHTML = '<p>No attendance records found.</p>';
+        }
+      } catch (error) {
+        console.error('Error loading attendance history:', error);
+      }
+    }
+
+    // Submit Rating
+    document.getElementById('submit-rating').addEventListener('click', async function() {
+      const date = document.getElementById('rating-date').value;
+      const rating = document.getElementById('workout-rating').value;
+      const energy = document.getElementById('energy-level').value;
+      const comments = document.getElementById('workout-comments').value;
+      
+      if (!rating) {
+        showAlert('Please rate your workout', 'error', true);
+        return;
+      }
+      
+      try {
+        const result = await callProfileScript('submitDailyRating', {
+          username: currentUser.username,
+          date: date,
+          rating: rating,
+          energy: energy,
+          comments: comments
+        });
+        
+        if (result.success) {
+          showAlert('Rating submitted successfully!', 'success', true);
+          // Clear form
+          document.getElementById('workout-comments').value = '';
+          stars.forEach(star => star.classList.remove('active'));
+          document.getElementById('workout-rating').value = '0';
+          document.getElementById('energy-level').value = '5';
+          document.getElementById('energy-value').textContent = '5';
+          
+          loadRatingsHistory();
+        } else {
+          showAlert(result.message, 'error', true);
+        }
+      } catch (error) {
+        showAlert('Error submitting rating: ' + error.toString(), 'error', true);
+      }
+    });
+
+    // Load ratings history
+    async function loadRatingsHistory() {
+      try {
+        const ratings = await callProfileScript('getRatingsHistory', { 
+          username: currentUser.username 
+        });
+        
+        const historyDiv = document.getElementById('ratings-history');
+        if (ratings.success && ratings.history.length > 0) {
+          let html = '';
+          ratings.history.forEach(rating => {
+            const stars = '★'.repeat(rating.rating) + '☆'.repeat(5 - rating.rating);
+            html += `
+              <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
+                <p><strong>${rating.date}</strong> - ${stars}</p>
+                <p>Energy: ${rating.energy}/10</p>
+                ${rating.comments ? `<p>Comments: ${rating.comments}</p>` : ''}
+              </div>
+            `;
+          });
+          historyDiv.innerHTML = html;
+        } else {
+          historyDiv.innerHTML = '<p>No ratings submitted yet.</p>';
+        }
+      } catch (error) {
+        console.error('Error loading ratings history:', error);
+      }
+    }
+  </script>
+
+  <!-- Add the Google Apps Script API -->
+  <script>
+    // This would be replaced with your actual deployed script URL
+    const scriptUrl = PROFILE_SCRIPT_URL;
+    
+    // Mock google.script.run for development - REMOVE THIS IN PRODUCTION
+    if (typeof google === 'undefined') {
+      window.google = {
+        script: {
+          run: {
+            withSuccessHandler: function(handler) {
+              this.successHandler = handler;
+              return this;
+            },
+            withFailureHandler: function(handler) {
+              this.failureHandler = handler;
+              return this;
+            },
+            verifyUser: function(params) {
+              // Mock response
+              setTimeout(() => {
+                if (params.username === 'demo' && params.passcode === '1234') {
+                  this.successHandler({
+                    success: true,
+                    name: 'Demo User',
+                    furnace: 'Uthiru Furnace',
+                    email: 'demo@example.com',
+                    phone: '+254700000000'
+                  });
+                } else {
+                  this.successHandler({
+                    success: false,
+                    message: 'Invalid credentials'
+                  });
+                }
+              }, 1000);
+            },
+            // Add other mock methods as needed...
+          }
+        }
+      };
+    }
+  </script>
 </body>
 </html>
