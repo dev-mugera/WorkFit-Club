@@ -276,6 +276,14 @@
       <button id="login-btn" class="btn btn-success" style="width: 100%;">
         <i class="fas fa-sign-in-alt"></i> Sign In
       </button>
+      
+      <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+        <p style="font-size: 0.9rem; color: #666; text-align: center;">
+          <strong>Demo Account:</strong><br>
+          Username: <code>demo</code><br>
+          Passcode: <code>1234</code>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -371,17 +379,6 @@
         <button id="change-passcode-btn" class="btn btn-warning">
           <i class="fas fa-key"></i> Change Passcode
         </button>
-        
-        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-          <h4>Reset Forgotten Passcode</h4>
-          <div class="form-group">
-            <label for="reset-email">Registered Email</label>
-            <input type="email" id="reset-email" class="form-control" placeholder="Enter your registered email">
-          </div>
-          <button id="reset-passcode-btn" class="btn">
-            <i class="fas fa-redo"></i> Reset Passcode
-          </button>
-        </div>
       </div>
     </div>
 
@@ -399,13 +396,6 @@
         <button id="refresh-subscription" class="btn">
           <i class="fas fa-sync"></i> Refresh Subscription Info
         </button>
-        
-        <div id="subscription-details" style="margin-top: 1.5rem;">
-          <h4>Subscription History</h4>
-          <div id="subscription-data">
-            <p>Loading subscription details...</p>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -487,8 +477,8 @@
   </section>
 
   <script>
-    // Configuration - ADD YOUR DEPLOYED PROFILE SCRIPT URL HERE
-    const PROFILE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynR5tNwqwspGnFqiWEMq6C4Y5Obmh9ZwlQAJhwtGLJUQfGLPRAvAPJH65aO16fAoJz/exec';
+    // Configuration - REPLACE WITH YOUR ACTUAL DEPLOYED SCRIPT URL
+    const PROFILE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxONOvNgqhEa7eE4-LTVehBbodw0kQkM1WjGG14aMPte7BSgUNW7MEMYhYW0rkRIGey/exec';
     
     // Global variables
     let currentUser = null;
@@ -503,18 +493,30 @@
       }
 
       // Set default dates
-      document.getElementById('attendance-date').valueAsDate = new Date();
-      document.getElementById('rating-date').valueAsDate = new Date();
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('attendance-date').value = today;
+      document.getElementById('rating-date').value = today;
     });
 
-    // Google Apps Script API calls
-    function callProfileScript(functionName, params = {}) {
-      return new Promise((resolve, reject) => {
-        google.script.run
-          .withSuccessHandler(resolve)
-          .withFailureHandler(reject)
-          [functionName](params);
-      });
+    // Google Apps Script API call function
+    async function callProfileScript(action, params = {}) {
+      try {
+        const response = await fetch(PROFILE_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: action,
+            ...params
+          })
+        });
+        
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        throw new Error('Network error: ' + error.message);
+      }
     }
 
     // Alert System
@@ -549,7 +551,8 @@
             name: result.name,
             furnace: result.furnace,
             email: result.email,
-            phone: result.phone
+            phone: result.phone,
+            userId: result.userId
           };
           
           // Save user session
@@ -643,10 +646,16 @@
           document.getElementById('update-email').value = userData.email || '';
           document.getElementById('update-phone').value = userData.phone || '';
           document.getElementById('update-furnace').value = userData.furnace || '';
+          document.getElementById('attendance-furnace').value = userData.furnace || '';
           
           // Update subscription info
           document.getElementById('subscription-furnace').textContent = userData.furnace || 'Not assigned';
           document.getElementById('member-since').textContent = userData.joinDate || 'N/A';
+          
+          // Update current user data
+          currentUser.email = userData.email;
+          currentUser.phone = userData.phone;
+          currentUser.furnace = userData.furnace;
         }
       } catch (error) {
         console.error('Error loading user data:', error);
@@ -689,6 +698,10 @@
           currentUser.phone = phone;
           currentUser.furnace = furnace;
           localStorage.setItem('workfit_profile_user', JSON.stringify(currentUser));
+          
+          // Update display
+          document.getElementById('user-furnace').textContent = furnace;
+          document.getElementById('subscription-furnace').textContent = furnace;
         } else {
           showAlert(result.message, 'error', true);
         }
@@ -710,6 +723,11 @@
       
       if (newPasscode !== confirmPasscode) {
         showAlert('New passcodes do not match', 'error', true);
+        return;
+      }
+      
+      if (newPasscode.length !== 4) {
+        showAlert('Passcode must be 4 digits', 'error', true);
         return;
       }
       
@@ -747,6 +765,7 @@
       try {
         const result = await callProfileScript('markAttendance', {
           username: currentUser.username,
+          userId: currentUser.userId,
           furnace: furnace,
           date: date
         });
@@ -774,7 +793,7 @@
         if (attendance.success && attendance.history.length > 0) {
           let html = '';
           attendance.history.forEach(record => {
-            html += `<p>${record.date} - ${record.furnace} - ${record.status}</p>`;
+            html += `<p><strong>${record.date}</strong> - ${record.furnace} - <span style="color: var(--success);">${record.status}</span></p>`;
           });
           historyDiv.innerHTML = html;
         } else {
@@ -782,6 +801,7 @@
         }
       } catch (error) {
         console.error('Error loading attendance history:', error);
+        document.getElementById('attendance-history').innerHTML = '<p>Error loading attendance history.</p>';
       }
     }
 
@@ -792,7 +812,7 @@
       const energy = document.getElementById('energy-level').value;
       const comments = document.getElementById('workout-comments').value;
       
-      if (!rating) {
+      if (rating === '0') {
         showAlert('Please rate your workout', 'error', true);
         return;
       }
@@ -800,6 +820,7 @@
       try {
         const result = await callProfileScript('submitDailyRating', {
           username: currentUser.username,
+          userId: currentUser.userId,
           date: date,
           rating: rating,
           energy: energy,
@@ -850,52 +871,15 @@
         }
       } catch (error) {
         console.error('Error loading ratings history:', error);
+        document.getElementById('ratings-history').innerHTML = '<p>Error loading ratings history.</p>';
       }
     }
-  </script>
 
-  <!-- Add the Google Apps Script API -->
-  <script>
-    // This would be replaced with your actual deployed script URL
-    const scriptUrl = PROFILE_SCRIPT_URL;
-    
-    // Mock google.script.run for development - REMOVE THIS IN PRODUCTION
-    if (typeof google === 'undefined') {
-      window.google = {
-        script: {
-          run: {
-            withSuccessHandler: function(handler) {
-              this.successHandler = handler;
-              return this;
-            },
-            withFailureHandler: function(handler) {
-              this.failureHandler = handler;
-              return this;
-            },
-            verifyUser: function(params) {
-              // Mock response
-              setTimeout(() => {
-                if (params.username === 'demo' && params.passcode === '1234') {
-                  this.successHandler({
-                    success: true,
-                    name: 'Demo User',
-                    furnace: 'Uthiru Furnace',
-                    email: 'demo@example.com',
-                    phone: '+254700000000'
-                  });
-                } else {
-                  this.successHandler({
-                    success: false,
-                    message: 'Invalid credentials'
-                  });
-                }
-              }, 1000);
-            },
-            // Add other mock methods as needed...
-          }
-        }
-      };
-    }
+    // Refresh subscription info
+    document.getElementById('refresh-subscription').addEventListener('click', function() {
+      loadUserData();
+      showAlert('Subscription info refreshed!', 'success', true);
+    });
   </script>
 </body>
 </html>
