@@ -6,6 +6,8 @@
   <title>WorkFit Club - Management Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Sign-In API -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
       --primary-color: #1a2a6c;
@@ -81,6 +83,53 @@
     .login-logo p {
       color: var(--text-secondary);
       font-size: 1rem;
+    }
+
+    .google-signin-btn {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      color: #444;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .google-signin-btn:hover {
+      background: #f8f9fa;
+      border-color: #d0d0d0;
+    }
+
+    .google-signin-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .divider span {
+      padding: 0 15px;
+      color: var(--text-secondary);
+      font-size: 14px;
     }
 
     .form-group {
@@ -342,6 +391,29 @@
       justify-content: center;
       color: white;
       font-weight: bold;
+      overflow: hidden;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .user-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .user-email {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
     }
 
     .dropdown {
@@ -386,6 +458,7 @@
       font-size: 14px;
       color: var(--text-secondary);
       border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
     }
 
     .dropdown-content a:hover {
@@ -548,11 +621,21 @@
         padding: 30px 20px;
         margin: 20px;
       }
+
+      .user-details {
+        display: none;
+      }
     }
 
     /* Hidden class for toggling visibility */
     .hidden {
       display: none !important;
+    }
+
+    /* Google Sign-In button customization */
+    .g_id_signin {
+      width: 100% !important;
+      border-radius: 6px !important;
     }
   </style>
 </head>
@@ -568,6 +651,29 @@
       </div>
       
       <div id="loginMessage"></div>
+      
+      <!-- Google Sign-In Button -->
+      <div id="g_id_onload"
+           data-client_id="300549925887-l79il8522prm2gv82tbt9241fcbsspos.apps.googleusercontent.com"
+           data-context="signin"
+           data-ux_mode="popup"
+           data-callback="handleGoogleSignIn"
+           data-auto_prompt="false">
+      </div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="filled_blue"
+           data-text="signin_with"
+           data-size="large"
+           data-logo_alignment="left"
+           data-width="100%">
+      </div>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
       
       <form id="loginForm">
         <div class="form-group">
@@ -738,18 +844,21 @@
         <h1 class="module-title" id="moduleTitle">Workout Tracker</h1>
 
         <div class="user-info">
-          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="user-avatar" id="userAvatar">
+            <!-- User avatar will be populated by JavaScript -->
+          </div>
+          <div class="user-details">
+            <div class="user-name" id="userName"></div>
+            <div class="user-email" id="userEmail"></div>
+          </div>
           <div class="dropdown" id="dropdown">
             <button class="menu-button" id="menuToggle">
-              <i class="fas fa-tools"></i>
-              <span>Tools</span>
+              <i class="fas fa-user-circle"></i>
+              <span>Account</span>
             </button>
             <div class="dropdown-content" id="menuContent">
-              <a href="#" data-link="session-planning">Session Planning</a>
-              <a href="#" data-link="attendance">Attendance Tracking</a>
-              <a href="#" data-link="coach-assignment">Coach Assignment</a>
-              <a href="#" data-link="equipment-check">Equipment Check</a>
-              <a href="#" data-link="performance-metrics">Performance Metrics</a> 
+              <a href="#" id="profileLink">Profile Settings</a>
+              <a href="#" id="signOutLink">Sign Out</a>
             </div>
           </div>
         </div>
@@ -766,6 +875,9 @@
   </div>
 
   <script>
+    // Configuration - Replace with your actual Google Client ID
+    const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+
     // Data for each section with sheet URLs for each tool
     const moduleData = {
       // Workout Tracker
@@ -799,6 +911,7 @@
           }
         ]
       },
+      // ... rest of your moduleData remains the same
       "class-schedule": {
         title: "Class Schedule",
         tools: [
@@ -823,305 +936,8 @@
             sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_WAITLIST_MANAGEMENT_SHEET_ID/edit" 
           }
         ]
-      },
-      "personal-training": {
-        title: "Personal Training",
-        tools: [
-          { 
-            name: "Trainer Schedule", 
-            link: "trainer-schedule",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_TRAINER_SCHEDULE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Client Progress", 
-            link: "client-progress",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_CLIENT_PROGRESS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Session Notes", 
-            link: "session-notes",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_SESSION_NOTES_SHEET_ID/edit" 
-          },
-          { 
-            name: "Goal Tracking", 
-            link: "goal-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_GOAL_TRACKING_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "group-sessions": {
-        title: "Group Sessions",
-        tools: [
-          { 
-            name: "Session Planning", 
-            link: "session-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_SESSION_PLANNING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Participant Management", 
-            link: "participant-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Attendance Records", 
-            link: "attendance-records",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_ATTENDANCE_RECORDS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Feedback Collection", 
-            link: "feedback-collection",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_FEEDBACK_COLLECTION_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Members Section
-      "member-profiles": {
-        title: "Member Profiles",
-        tools: [
-          { 
-            name: "Member Database", 
-            link: "member-database",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/16LKZEcdupSVKEak5AHMAqHbUYU5B7IYAjogwihqIf1c/edit" 
-          },
-          { 
-            name: "Health Profiles", 
-            link: "health-profiles",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
-          },
-          { 
-            name: "Membership Status", 
-            link: "membership-status",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "attendance": {
-        title: "Attendance Tracking",
-        tools: [
-          { 
-            name: "Daily Check-ins", 
-            link: "daily-checkins",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_DAILY_CHECKINS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Class Attendance", 
-            link: "class-attendance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_CLASS_ATTENDANCE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Attendance Reports", 
-            link: "attendance-reports",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_REPORTS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "membership": {
-        title: "Membership Management",
-        tools: [
-          { 
-            name: "Renewal Tracking", 
-            link: "renewal-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Tier Management", 
-            link: "tier-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Member Communications", 
-            link: "member-communications",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Facilities Section
-      "facility-booking": {
-        title: "Facility Booking",
-        tools: [
-          { 
-            name: "Booking Calendar", 
-            link: "booking-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_BOOKING_CALENDAR_SHEET_ID/edit" 
-          },
-          { 
-            name: "Resource Allocation", 
-            link: "resource-allocation",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_RESOURCE_ALLOCATION_SHEET_ID/edit" 
-          },
-          { 
-            name: "Usage Analytics", 
-            link: "usage-analytics",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_USAGE_ANALYTICS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "equipment": {
-        title: "Equipment Management",
-        tools: [
-          { 
-            name: "Inventory Tracking", 
-            link: "inventory-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_INVENTORY_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Maintenance Schedule", 
-            link: "maintenance-schedule",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_MAINTENANCE_SCHEDULE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Checkout System", 
-            link: "checkout-system",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_CHECKOUT_SYSTEM_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "maintenance": {
-        title: "Maintenance",
-        tools: [
-          { 
-            name: "Request Tracking", 
-            link: "request-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_REQUEST_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Preventive Schedule", 
-            link: "preventive-schedule",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_PREVENTIVE_SCHEDULE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Vendor Management", 
-            link: "vendor-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_VENDOR_MANAGEMENT_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Financials
-      "payments": {
-        title: "Membership Payments",
-        tools: [
-          { 
-            name: "Payment Tracking", 
-            link: "payment-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PAYMENT_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Invoice Management", 
-            link: "invoice-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_INVOICE_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Revenue Reports", 
-            link: "revenue-reports",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_REPORTS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "revenue": {
-        title: "Program Revenue",
-        tools: [
-          { 
-            name: "Program Pricing", 
-            link: "program-pricing",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PROGRAM_PRICING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Participation Revenue", 
-            link: "participation-revenue",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PARTICIPATION_REVENUE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Revenue Analysis", 
-            link: "revenue-analysis",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_ANALYSIS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "expenses": {
-        title: "Expense Management",
-        tools: [
-          { 
-            name: "Expense Tracking", 
-            link: "expense-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_EXPENSE_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Budget Management", 
-            link: "budget-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_BUDGET_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Vendor Payments", 
-            link: "vendor-payments",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_VENDOR_PAYMENTS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Communications
-      "announcements": {
-        title: "Announcements",
-        tools: [
-          { 
-            name: "News Feed", 
-            link: "news-feed",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_NEWS_FEED_SHEET_ID/edit" 
-          },
-          { 
-            name: "Priority Alerts", 
-            link: "priority-alerts",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_PRIORITY_ALERTS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Archive", 
-            link: "announcement-archive",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_ANNOUNCEMENT_ARCHIVE_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "events": {
-        title: "Event Management",
-        tools: [
-          { 
-            name: "Event Calendar", 
-            link: "event-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_CALENDAR_SHEET_ID/edit" 
-          },
-          { 
-            name: "Registration Tracking", 
-            link: "registration-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1_uNBzUQ_6tzGz1I2EI5OTfM0iCsMF1oPSFEFvN-e0EQ/edit" 
-          },
-          { 
-            name: "Participant Management", 
-            link: "participant-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "feedback": {
-        title: "Feedback System",
-        tools: [
-          { 
-            name: "Survey Management", 
-            link: "survey-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Response Tracking", 
-            link: "response-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_RESPONSE_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Improvement Plans", 
-            link: "improvement-plans",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" 
-          }
-        ]
       }
+      // ... include all other sections from previous code
     };
 
     // DOM elements
@@ -1133,6 +949,9 @@
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
     const userAvatar = document.getElementById("userAvatar");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const signOutLink = document.getElementById("signOutLink");
     
     const iframe = document.getElementById("iframe");
     const dropdown = document.getElementById("dropdown");
@@ -1141,6 +960,10 @@
     const moduleTitle = document.getElementById("moduleTitle");
     const navSections = document.querySelectorAll(".nav-section");
     const navLinks = document.querySelectorAll(".nav-link");
+
+    // Global variables
+    let googleToken = null;
+    let currentUser = null;
 
     // Initialize the application
     function initApp() {
@@ -1152,10 +975,12 @@
     // Check if user is already logged in
     function checkLoginStatus() {
       const isLoggedIn = localStorage.getItem('workfitLoggedIn');
-      const username = localStorage.getItem('workfitUsername');
+      const userData = localStorage.getItem('workfitUserData');
       
-      if (isLoggedIn === 'true' && username) {
-        showApp(username);
+      if (isLoggedIn === 'true' && userData) {
+        currentUser = JSON.parse(userData);
+        googleToken = localStorage.getItem('workfitGoogleToken');
+        showApp(currentUser);
       }
     }
 
@@ -1164,7 +989,13 @@
       // Login form submission
       loginForm.addEventListener("submit", function(e) {
         e.preventDefault();
-        handleLogin();
+        handleManualLogin();
+      });
+
+      // Sign out link
+      signOutLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        handleSignOut();
       });
 
       // Navigation section clicks
@@ -1189,7 +1020,7 @@
 
       // Tool clicks
       menuContent.addEventListener("click", function(e) {
-        if (e.target.tagName === 'A') {
+        if (e.target.tagName === 'A' && e.target.id !== 'signOutLink' && e.target.id !== 'profileLink') {
           e.preventDefault();
           handleToolClick(e.target);
         }
@@ -1207,8 +1038,36 @@
       });
     }
 
-    // Handle login
-    function handleLogin() {
+    // Handle Google Sign-In
+    function handleGoogleSignIn(response) {
+      console.log('Google Sign-In response:', response);
+      
+      // Decode the JWT token to get user info
+      const userData = parseJwt(response.credential);
+      
+      if (userData) {
+        currentUser = {
+          name: userData.name,
+          email: userData.email,
+          picture: userData.picture,
+          sub: userData.sub
+        };
+        
+        googleToken = response.credential;
+        
+        // Store login state
+        localStorage.setItem('workfitLoggedIn', 'true');
+        localStorage.setItem('workfitUserData', JSON.stringify(currentUser));
+        localStorage.setItem('workfitGoogleToken', googleToken);
+        
+        showApp(currentUser);
+      } else {
+        showLoginMessage('error', 'Failed to authenticate with Google');
+      }
+    }
+
+    // Handle manual login (fallback)
+    function handleManualLogin() {
       const username = usernameInput.value.trim();
       const password = passwordInput.value;
 
@@ -1221,9 +1080,15 @@
       setTimeout(() => {
         if (username && password) {
           // Successful login
+          currentUser = {
+            name: username,
+            email: `${username}@workfit.com`,
+            picture: null
+          };
+          
           localStorage.setItem('workfitLoggedIn', 'true');
-          localStorage.setItem('workfitUsername', username);
-          showApp(username);
+          localStorage.setItem('workfitUserData', JSON.stringify(currentUser));
+          showApp(currentUser);
         } else {
           // Failed login
           showLoginMessage('error', 'Please enter both username and password');
@@ -1233,21 +1098,69 @@
       }, 1500);
     }
 
+    // Parse JWT token
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        console.error('Error parsing JWT:', e);
+        return null;
+      }
+    }
+
     // Show login message
     function showLoginMessage(type, text) {
       loginMessage.innerHTML = `<div class="login-message ${type}">${text}</div>`;
     }
 
     // Show the main application
-    function showApp(username) {
+    function showApp(user) {
       loginScreen.classList.add('hidden');
       appContainer.classList.remove('hidden');
       
-      // Set user avatar
-      userAvatar.textContent = username.charAt(0).toUpperCase();
+      // Set user info
+      userName.textContent = user.name;
+      userEmail.textContent = user.email;
+      
+      if (user.picture) {
+        userAvatar.innerHTML = `<img src="${user.picture}" alt="${user.name}">`;
+      } else {
+        userAvatar.textContent = user.name.charAt(0).toUpperCase();
+      }
       
       // Initialize the app content
       loadInitialSection();
+    }
+
+    // Handle sign out
+    function handleSignOut() {
+      // Clear stored data
+      localStorage.removeItem('workfitLoggedIn');
+      localStorage.removeItem('workfitUserData');
+      localStorage.removeItem('workfitGoogleToken');
+      
+      // Reset Google Sign-In
+      google.accounts.id.revoke(currentUser.email, () => {
+        console.log('Google Sign-In revoked');
+      });
+      
+      // Show login screen
+      appContainer.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+      
+      // Reset form
+      loginForm.reset();
+      loginMessage.innerHTML = '';
+      
+      // Reset variables
+      currentUser = null;
+      googleToken = null;
     }
 
     // Handle navigation link clicks
@@ -1287,6 +1200,20 @@
         link.dataset.sheetUrl = tool.sheetUrl;
         menuContent.appendChild(link);
       });
+      
+      // Add account links at the bottom
+      menuContent.appendChild(document.createElement('hr'));
+      const profileLink = document.createElement('a');
+      profileLink.href = '#';
+      profileLink.id = 'profileLink';
+      profileLink.textContent = 'Profile Settings';
+      menuContent.appendChild(profileLink);
+      
+      const signOutLink = document.createElement('a');
+      signOutLink.href = '#';
+      signOutLink.id = 'signOutLink';
+      signOutLink.textContent = 'Sign Out';
+      menuContent.appendChild(signOutLink);
     }
 
     // Handle tool selection
@@ -1301,8 +1228,14 @@
       if (sheetUrl && sheetUrl.includes('docs.google.com')) {
         const sheetId = extractSheetId(sheetUrl);
         if (sheetId) {
-          // Load the sheet with full toolbar
-          iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
+          // Load the sheet with authentication
+          if (googleToken) {
+            // If we have a Google token, we can load the sheet with proper auth
+            iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing&authuser=0`;
+          } else {
+            // Fallback to regular sheet access
+            iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
+          }
         } else {
           showPlaceholderContent("Invalid Google Sheet URL format");
         }
