@@ -84,7 +84,7 @@
     }
 
     .login-logo img {
-      height: 50px; /* Reduced logo size */
+      height: 50px;
       margin-bottom: 15px;
       filter: drop-shadow(0 5px 15px rgba(253, 187, 45, 0.3));
     }
@@ -121,8 +121,51 @@
     /* Fixed Google Sign-In Button Container */
     .google-signin-container {
       position: relative;
-      height: 44px; /* Fixed height for consistent placement */
-      margin: 20px 0;
+      width: 100%;
+      height: 44px;
+      margin: 25px 0 10px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Custom Google Sign-In Button Styling */
+    .custom-google-btn {
+      width: 100%;
+      height: 44px;
+      background: white;
+      color: #444;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .custom-google-btn:hover {
+      background: #f8f9fa;
+      border-color: #d0d0d0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .custom-google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .custom-google-btn span {
+      color: #444;
+    }
+
+    /* Hide the default Google button */
+    #g_id_onload,
+    .g_id_signin {
+      display: none !important;
     }
 
     /* Layout structure */
@@ -157,7 +200,7 @@
     }
 
     .logo-img {
-      height: 45px; /* Reduced logo size */
+      height: 45px;
     }
 
     .outlet-code {
@@ -727,15 +770,6 @@
     .hidden {
       display: none !important;
     }
-
-    /* Google Sign-In button customization */
-    .g_id_signin {
-      width: 100% !important;
-      border-radius: 8px !important;
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-    }
   </style>
 </head>
 <body>
@@ -751,25 +785,31 @@
       
       <div id="loginMessage"></div>
       
-      <!-- Fixed Google Sign-In Button Container -->
+      <!-- Custom Google Sign-In Button -->
       <div class="google-signin-container">
-        <div id="g_id_onload"
-             data-client_id="300549925887-l79il8522prm2gv82tbt9241fcbsspos.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="handleGoogleSignIn"
-             data-auto_prompt="false">
-        </div>
+        <button class="custom-google-btn" id="customGoogleBtn">
+          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
+          <span>Sign in with Google</span>
+        </button>
+      </div>
 
-        <div class="g_id_signin"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="filled_blue"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left"
-             data-width="100%">
-        </div>
+      <!-- Hidden Google Sign-In -->
+      <div id="g_id_onload"
+           data-client_id="300549925887-l79il8522prm2gv82tbt9241fcbsspos.apps.googleusercontent.com"
+           data-context="signin"
+           data-ux_mode="popup"
+           data-callback="handleGoogleSignIn"
+           data-auto_prompt="false">
+      </div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="filled_blue"
+           data-text="signin_with"
+           data-size="large"
+           data-logo_alignment="left"
+           data-width="100%">
       </div>
     </div>
   </div>
@@ -1036,6 +1076,7 @@
     const loginScreen = document.getElementById("loginScreen");
     const appContainer = document.getElementById("appContainer");
     const loginMessage = document.getElementById("loginMessage");
+    const customGoogleBtn = document.getElementById("customGoogleBtn");
     const profileAvatar = document.getElementById("profileAvatar");
     const profileName = document.getElementById("profileName");
     const profileEmail = document.getElementById("profileEmail");
@@ -1078,6 +1119,13 @@
 
     // Set up all event listeners
     function setupEventListeners() {
+      // Custom Google Sign-In button
+      customGoogleBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        // Trigger the hidden Google Sign-In button
+        document.querySelector('.g_id_signin iframe').click();
+      });
+
       // Sign out button
       signOutBtn.addEventListener("click", function(e) {
         e.preventDefault();
