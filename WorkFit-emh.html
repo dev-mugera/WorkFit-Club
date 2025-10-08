@@ -62,6 +62,7 @@
       width: 100%;
       max-width: 420px;
       border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
     }
 
     .login-logo {
@@ -83,111 +84,7 @@
     .login-logo p {
       color: var(--text-secondary);
       font-size: 1rem;
-    }
-
-    .google-signin-btn {
-      width: 100%;
-      padding: 12px;
-      background: white;
-      color: #444;
-      border: 2px solid #e0e0e0;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
       margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .google-signin-btn:hover {
-      background: #f8f9fa;
-      border-color: #d0d0d0;
-    }
-
-    .google-signin-btn img {
-      width: 20px;
-      height: 20px;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 20px 0;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .divider span {
-      padding: 0 15px;
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      font-size: 16px;
-      color: var(--text-primary);
-      transition: all 0.3s;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 2px rgba(253, 187, 45, 0.2);
-    }
-
-    .login-btn {
-      width: 100%;
-      padding: 14px;
-      background: var(--gradient-accent);
-      color: #333;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(253, 187, 45, 0.3);
-    }
-
-    .login-btn:disabled {
-      background: #6c757d;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
     }
 
     .login-message {
@@ -202,12 +99,6 @@
       background-color: rgba(220, 53, 69, 0.2);
       color: #f8d7da;
       border: 1px solid rgba(220, 53, 69, 0.3);
-    }
-
-    .login-message.success {
-      background-color: rgba(40, 167, 69, 0.2);
-      color: #d4edda;
-      border: 1px solid rgba(40, 167, 69, 0.3);
     }
 
     /* Layout structure */
@@ -228,6 +119,7 @@
       box-shadow: 2px 0 10px rgba(0,0,0,0.2);
       flex-shrink: 0;
       z-index: 10;
+      position: relative;
     }
 
     .nav-logo-placeholder {
@@ -257,7 +149,7 @@
     }
 
     .nav-spacer {
-      height: 30px;
+      flex: 1;
     }
 
     .nav-links {
@@ -343,6 +235,96 @@
       border-radius: 50%;
     }
 
+    /* User Account Section in Sidebar */
+    .user-account {
+      padding: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info-sidebar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .user-avatar-sidebar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .user-avatar-sidebar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-details-sidebar {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name-sidebar {
+      font-weight: 500;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email-sidebar {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .account-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .account-btn {
+      padding: 10px 15px;
+      background: rgba(253, 187, 45, 0.1);
+      color: var(--accent-color);
+      border: 1px solid rgba(253, 187, 45, 0.2);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .account-btn:hover {
+      background: rgba(253, 187, 45, 0.2);
+    }
+
+    .account-btn.sign-out {
+      background: rgba(220, 53, 69, 0.1);
+      color: #f8d7da;
+      border-color: rgba(220, 53, 69, 0.2);
+    }
+
+    .account-btn.sign-out:hover {
+      background: rgba(220, 53, 69, 0.2);
+    }
+
     /* Main content area */
     .main-content {
       flex: 1;
@@ -375,45 +357,10 @@
       margin: 0;
     }
 
-    .user-info {
+    .header-tools {
       display: flex;
       align-items: center;
       gap: 15px;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--gradient-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      overflow: hidden;
-    }
-
-    .user-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .user-details {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-
-    .user-name {
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    .user-email {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
     }
 
     .dropdown {
@@ -518,7 +465,8 @@
         width: 80px;
       }
       
-      .outlet-code, .nav-section-title span, .nav-link span {
+      .outlet-code, .nav-section-title span, .nav-link span, 
+      .user-details-sidebar, .account-btn span {
         display: none;
       }
       
@@ -541,6 +489,15 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
+
+      .user-info-sidebar {
+        justify-content: center;
+      }
+
+      .account-btn {
+        justify-content: center;
+        padding: 12px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -554,7 +511,8 @@
         height: auto;
       }
       
-      .nav-logo-placeholder, .outlet-code, .nav-spacer {
+      .nav-logo-placeholder, .outlet-code, .nav-spacer,
+      .user-account {
         display: none;
       }
       
@@ -621,10 +579,6 @@
         padding: 30px 20px;
         margin: 20px;
       }
-
-      .user-details {
-        display: none;
-      }
     }
 
     /* Hidden class for toggling visibility */
@@ -647,7 +601,10 @@
       <div class="login-logo">
         <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Club Logo">
         <h1>WorkFit Club</h1>
-        <p>Management Hub Login</p>
+        <p>Management Hub</p>
+        <p style="color: var(--accent-color); font-size: 0.9rem; margin-top: 10px;">
+          Please sign in with your Google account to continue
+        </p>
       </div>
       
       <div id="loginMessage"></div>
@@ -670,26 +627,6 @@
            data-logo_alignment="left"
            data-width="100%">
       </div>
-
-      <div class="divider">
-        <span>or</span>
-      </div>
-      
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" placeholder="Enter your username" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" required>
-        </div>
-        
-        <button type="submit" class="login-btn" id="loginBtn">
-          <i class="fas fa-sign-in-alt"></i> Sign In
-        </button>
-      </form>
     </div>
   </div>
 
@@ -703,9 +640,7 @@
       
       <div class="outlet-code">WorkFit Club Hub</div>
       
-      <div class="nav-spacer"></div>
-      
-      <ul class="nav-links">
+      <div class="nav-links">
         <!-- Programs Section -->
         <li class="nav-section active">
           <div class="nav-section-title">
@@ -836,6 +771,31 @@
           </ul>
         </li>
       </ul>
+
+      <div class="nav-spacer"></div>
+
+      <!-- User Account Section in Sidebar -->
+      <div class="user-account">
+        <div class="user-info-sidebar">
+          <div class="user-avatar-sidebar" id="userAvatarSidebar">
+            <!-- User avatar will be populated by JavaScript -->
+          </div>
+          <div class="user-details-sidebar">
+            <div class="user-name-sidebar" id="userNameSidebar"></div>
+            <div class="user-email-sidebar" id="userEmailSidebar"></div>
+          </div>
+        </div>
+        <div class="account-actions">
+          <a href="#" class="account-btn" id="profileBtn">
+            <i class="fas fa-user-cog"></i>
+            <span>Profile Settings</span>
+          </a>
+          <a href="#" class="account-btn sign-out" id="signOutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign Out</span>
+          </a>
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
@@ -843,22 +803,14 @@
       <header>
         <h1 class="module-title" id="moduleTitle">Workout Tracker</h1>
 
-        <div class="user-info">
-          <div class="user-avatar" id="userAvatar">
-            <!-- User avatar will be populated by JavaScript -->
-          </div>
-          <div class="user-details">
-            <div class="user-name" id="userName"></div>
-            <div class="user-email" id="userEmail"></div>
-          </div>
+        <div class="header-tools">
           <div class="dropdown" id="dropdown">
             <button class="menu-button" id="menuToggle">
-              <i class="fas fa-user-circle"></i>
-              <span>Account</span>
+              <i class="fas fa-tools"></i>
+              <span>Tools</span>
             </button>
             <div class="dropdown-content" id="menuContent">
-              <a href="#" id="profileLink">Profile Settings</a>
-              <a href="#" id="signOutLink">Sign Out</a>
+              <!-- Tools will be populated by JavaScript -->
             </div>
           </div>
         </div>
@@ -911,7 +863,6 @@
           }
         ]
       },
-      // ... rest of your moduleData remains the same
       "class-schedule": {
         title: "Class Schedule",
         tools: [
@@ -936,22 +887,318 @@
             sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_WAITLIST_MANAGEMENT_SHEET_ID/edit" 
           }
         ]
+      },
+      "personal-training": {
+        title: "Personal Training",
+        tools: [
+          { 
+            name: "Trainer Schedule", 
+            link: "trainer-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_TRAINER_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Client Progress", 
+            link: "client-progress",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_CLIENT_PROGRESS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Session Notes", 
+            link: "session-notes",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_SESSION_NOTES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Goal Tracking", 
+            link: "goal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_GOAL_TRACKING_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "group-sessions": {
+        title: "Group Sessions",
+        tools: [
+          { 
+            name: "Session Planning", 
+            link: "session-planning",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_SESSION_PLANNING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participant Management", 
+            link: "participant-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Attendance Records", 
+            link: "attendance-records",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_ATTENDANCE_RECORDS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Feedback Collection", 
+            link: "feedback-collection",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_FEEDBACK_COLLECTION_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Members Section
+      "member-profiles": {
+        title: "Member Profiles",
+        tools: [
+          { 
+            name: "Member Database", 
+            link: "member-database",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/16LKZEcdupSVKEak5AHMAqHbUYU5B7IYAjogwihqIf1c/edit" 
+          },
+          { 
+            name: "Health Profiles", 
+            link: "health-profiles",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Membership Status", 
+            link: "membership-status",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "attendance": {
+        title: "Attendance Tracking",
+        tools: [
+          { 
+            name: "Daily Check-ins", 
+            link: "daily-checkins",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_DAILY_CHECKINS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Class Attendance", 
+            link: "class-attendance",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_CLASS_ATTENDANCE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Attendance Reports", 
+            link: "attendance-reports",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_REPORTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "membership": {
+        title: "Membership Management",
+        tools: [
+          { 
+            name: "Renewal Tracking", 
+            link: "renewal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Tier Management", 
+            link: "tier-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Member Communications", 
+            link: "member-communications",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Facilities Section
+      "facility-booking": {
+        title: "Facility Booking",
+        tools: [
+          { 
+            name: "Booking Calendar", 
+            link: "booking-calendar",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_BOOKING_CALENDAR_SHEET_ID/edit" 
+          },
+          { 
+            name: "Resource Allocation", 
+            link: "resource-allocation",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_RESOURCE_ALLOCATION_SHEET_ID/edit" 
+          },
+          { 
+            name: "Usage Analytics", 
+            link: "usage-analytics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_USAGE_ANALYTICS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "equipment": {
+        title: "Equipment Management",
+        tools: [
+          { 
+            name: "Inventory Tracking", 
+            link: "inventory-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_INVENTORY_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Maintenance Schedule", 
+            link: "maintenance-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_MAINTENANCE_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Checkout System", 
+            link: "checkout-system",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_CHECKOUT_SYSTEM_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "maintenance": {
+        title: "Maintenance",
+        tools: [
+          { 
+            name: "Request Tracking", 
+            link: "request-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_REQUEST_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Preventive Schedule", 
+            link: "preventive-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_PREVENTIVE_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Vendor Management", 
+            link: "vendor-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_VENDOR_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Financials
+      "payments": {
+        title: "Membership Payments",
+        tools: [
+          { 
+            name: "Payment Tracking", 
+            link: "payment-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PAYMENT_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Invoice Management", 
+            link: "invoice-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_INVOICE_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Revenue Reports", 
+            link: "revenue-reports",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_REPORTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "revenue": {
+        title: "Program Revenue",
+        tools: [
+          { 
+            name: "Program Pricing", 
+            link: "program-pricing",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PROGRAM_PRICING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participation Revenue", 
+            link: "participation-revenue",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PARTICIPATION_REVENUE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Revenue Analysis", 
+            link: "revenue-analysis",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_ANALYSIS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "expenses": {
+        title: "Expense Management",
+        tools: [
+          { 
+            name: "Expense Tracking", 
+            link: "expense-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_EXPENSE_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Budget Management", 
+            link: "budget-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_BUDGET_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Vendor Payments", 
+            link: "vendor-payments",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_VENDOR_PAYMENTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Communications
+      "announcements": {
+        title: "Announcements",
+        tools: [
+          { 
+            name: "News Feed", 
+            link: "news-feed",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_NEWS_FEED_SHEET_ID/edit" 
+          },
+          { 
+            name: "Priority Alerts", 
+            link: "priority-alerts",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_PRIORITY_ALERTS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Archive", 
+            link: "announcement-archive",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_ANNOUNCEMENT_ARCHIVE_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "events": {
+        title: "Event Management",
+        tools: [
+          { 
+            name: "Event Calendar", 
+            link: "event-calendar",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_CALENDAR_SHEET_ID/edit" 
+          },
+          { 
+            name: "Registration Tracking", 
+            link: "registration-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1_uNBzUQ_6tzGz1I2EI5OTfM0iCsMF1oPSFEFvN-e0EQ/edit" 
+          },
+          { 
+            name: "Participant Management", 
+            link: "participant-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "feedback": {
+        title: "Feedback System",
+        tools: [
+          { 
+            name: "Survey Management", 
+            link: "survey-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Response Tracking", 
+            link: "response-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_RESPONSE_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Improvement Plans", 
+            link: "improvement-plans",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" 
+          }
+        ]
       }
-      // ... include all other sections from previous code
     };
 
     // DOM elements
     const loginScreen = document.getElementById("loginScreen");
     const appContainer = document.getElementById("appContainer");
-    const loginForm = document.getElementById("loginForm");
-    const loginBtn = document.getElementById("loginBtn");
     const loginMessage = document.getElementById("loginMessage");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-    const userAvatar = document.getElementById("userAvatar");
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
-    const signOutLink = document.getElementById("signOutLink");
+    
+    // Sidebar user elements
+    const userAvatarSidebar = document.getElementById("userAvatarSidebar");
+    const userNameSidebar = document.getElementById("userNameSidebar");
+    const userEmailSidebar = document.getElementById("userEmailSidebar");
+    const signOutBtn = document.getElementById("signOutBtn");
+    const profileBtn = document.getElementById("profileBtn");
     
     const iframe = document.getElementById("iframe");
     const dropdown = document.getElementById("dropdown");
@@ -986,16 +1233,16 @@
 
     // Set up all event listeners
     function setupEventListeners() {
-      // Login form submission
-      loginForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        handleManualLogin();
-      });
-
-      // Sign out link
-      signOutLink.addEventListener("click", function(e) {
+      // Sign out button
+      signOutBtn.addEventListener("click", function(e) {
         e.preventDefault();
         handleSignOut();
+      });
+
+      // Profile button
+      profileBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        handleProfileClick();
       });
 
       // Navigation section clicks
@@ -1020,7 +1267,7 @@
 
       // Tool clicks
       menuContent.addEventListener("click", function(e) {
-        if (e.target.tagName === 'A' && e.target.id !== 'signOutLink' && e.target.id !== 'profileLink') {
+        if (e.target.tagName === 'A') {
           e.preventDefault();
           handleToolClick(e.target);
         }
@@ -1066,38 +1313,6 @@
       }
     }
 
-    // Handle manual login (fallback)
-    function handleManualLogin() {
-      const username = usernameInput.value.trim();
-      const password = passwordInput.value;
-
-      // Show loading state
-      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
-      loginBtn.disabled = true;
-      loginMessage.innerHTML = '';
-
-      // Simple authentication (in a real app, this would call a backend)
-      setTimeout(() => {
-        if (username && password) {
-          // Successful login
-          currentUser = {
-            name: username,
-            email: `${username}@workfit.com`,
-            picture: null
-          };
-          
-          localStorage.setItem('workfitLoggedIn', 'true');
-          localStorage.setItem('workfitUserData', JSON.stringify(currentUser));
-          showApp(currentUser);
-        } else {
-          // Failed login
-          showLoginMessage('error', 'Please enter both username and password');
-          loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-          loginBtn.disabled = false;
-        }
-      }, 1500);
-    }
-
     // Parse JWT token
     function parseJwt(token) {
       try {
@@ -1124,14 +1339,14 @@
       loginScreen.classList.add('hidden');
       appContainer.classList.remove('hidden');
       
-      // Set user info
-      userName.textContent = user.name;
-      userEmail.textContent = user.email;
+      // Set user info in sidebar
+      userNameSidebar.textContent = user.name;
+      userEmailSidebar.textContent = user.email;
       
       if (user.picture) {
-        userAvatar.innerHTML = `<img src="${user.picture}" alt="${user.name}">`;
+        userAvatarSidebar.innerHTML = `<img src="${user.picture}" alt="${user.name}">`;
       } else {
-        userAvatar.textContent = user.name.charAt(0).toUpperCase();
+        userAvatarSidebar.textContent = user.name.charAt(0).toUpperCase();
       }
       
       // Initialize the app content
@@ -1145,22 +1360,30 @@
       localStorage.removeItem('workfitUserData');
       localStorage.removeItem('workfitGoogleToken');
       
-      // Reset Google Sign-In
-      google.accounts.id.revoke(currentUser.email, () => {
-        console.log('Google Sign-In revoked');
-      });
+      // Revoke Google Sign-In
+      if (currentUser && google.accounts && google.accounts.id) {
+        google.accounts.id.revoke(currentUser.email, () => {
+          console.log('Google Sign-In revoked');
+        });
+      }
       
       // Show login screen
       appContainer.classList.add('hidden');
       loginScreen.classList.remove('hidden');
       
-      // Reset form
-      loginForm.reset();
-      loginMessage.innerHTML = '';
-      
       // Reset variables
       currentUser = null;
       googleToken = null;
+      
+      // Reload the page to reset Google Sign-In
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    }
+
+    // Handle profile click
+    function handleProfileClick() {
+      alert(`Profile Settings for ${currentUser.name}\n\nThis feature would allow you to:\n• Update your profile information\n• Change notification settings\n• Manage account preferences\n\nThis functionality can be implemented based on your specific requirements.`);
     }
 
     // Handle navigation link clicks
@@ -1200,20 +1423,6 @@
         link.dataset.sheetUrl = tool.sheetUrl;
         menuContent.appendChild(link);
       });
-      
-      // Add account links at the bottom
-      menuContent.appendChild(document.createElement('hr'));
-      const profileLink = document.createElement('a');
-      profileLink.href = '#';
-      profileLink.id = 'profileLink';
-      profileLink.textContent = 'Profile Settings';
-      menuContent.appendChild(profileLink);
-      
-      const signOutLink = document.createElement('a');
-      signOutLink.href = '#';
-      signOutLink.id = 'signOutLink';
-      signOutLink.textContent = 'Sign Out';
-      menuContent.appendChild(signOutLink);
     }
 
     // Handle tool selection
