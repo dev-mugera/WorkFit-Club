@@ -9,18 +9,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
     <style>
         :root {
-            --primary: #0c4c74ff;
-            --primary-dark: #1857a0;
-            --primary-light: #f8d7e3;
-            --accent: #5d4e6a;
-            --white: #ffffff;
-            --off-white: #faf7f9;
-            --light-gray: #e8e4e9;
-            --medium-gray: #9d93a5;
-            --dark-gray: #4a4453;
-            --success: #4caf50;
-            --error: #e53935;
-            --gold: #ffd700;
+            --navy: #001f3f;
+            --navy-light: #003366;
+            --navy-dark: #001a33;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #F7F7F7;
+            --gray: #777777;
+            --white: #FFFFFF;
+            --text-primary: #222222;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --success: #4CAF50;
+            --error: #f44336;
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
             --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
@@ -36,70 +41,10 @@
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--off-white);
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
         }
 
-        /* Navigation Styles */
-        nav {
-            background-color: var(--white);
-            padding: 15px 40px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-gray);
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark-gray);
-            cursor: pointer;
-        }
-        
         /* Combined Header with Carousel Background */
         .hero-section {
             position: relative;
@@ -198,7 +143,7 @@
         }
         
         .search-btn {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border: none;
             padding: 0 1.5rem;
@@ -212,7 +157,7 @@
         }
         
         .search-btn:hover {
-            background: var(--primary-dark);
+            background: var(--navy-light);
         }
         
         .swiper-pagination-bullet {
@@ -223,7 +168,7 @@
         }
         
         .swiper-pagination-bullet-active {
-            background: var(--primary);
+            background: var(--gold);
             opacity: 1;
         }
         
@@ -245,7 +190,7 @@
         
         .section-header h2 {
             font-size: 1.8rem;
-            color: var(--primary-dark);
+            color: var(--navy);
             margin-bottom: 0.5rem;
             position: relative;
             display: inline-block;
@@ -259,12 +204,12 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: var(--primary);
+            background: var(--gold);
             border-radius: 2px;
         }
         
         .section-header p {
-            color: var(--medium-gray);
+            color: var(--gray);
             max-width: 600px;
             margin: 0 auto;
             font-size: 0.95rem;
@@ -280,7 +225,7 @@
         
         .category-btn {
             background: var(--white);
-            border: 1px solid var(--light-gray);
+            border: 1px solid var(--border-color);
             padding: 0.5rem 1.2rem;
             border-radius: 50px;
             cursor: pointer;
@@ -290,9 +235,9 @@
         }
         
         .category-btn.active, .category-btn:hover {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
-            border-color: var(--primary);
+            border-color: var(--navy);
         }
         
         .product-grid {
@@ -302,7 +247,7 @@
         }
         
         .product-card {
-            background: var(--white);
+            background: var(--card-bg);
             border-radius: 12px;
             box-shadow: var(--shadow-sm);
             overflow: hidden;
@@ -349,7 +294,7 @@
             position: absolute;
             top: 0.8rem;
             left: 0.8rem;
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             padding: 0.2rem 0.6rem;
             border-radius: 50px;
@@ -366,7 +311,7 @@
         }
         
         .product-title {
-            color: var(--dark-gray);
+            color: var(--text-primary);
             margin: 0 0 0.3rem;
             font-size: 0.95rem;
             font-weight: 600;
@@ -375,7 +320,7 @@
         
         .product-price {
             font-weight: 700;
-            color: var(--primary);
+            color: var(--navy);
             font-size: 1rem;
             margin-bottom: 0.5rem;
         }
@@ -384,7 +329,7 @@
             display: flex;
             gap: 0.8rem;
             margin-bottom: 0.8rem;
-            color: var(--medium-gray);
+            color: var(--gray);
             font-size: 0.8rem;
             flex-wrap: wrap;
         }
@@ -404,7 +349,7 @@
         
         /* Updated button style for Add To Cart */
         .add-to-cart-btn {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border: none;
             padding: 0.5rem 1rem;
@@ -421,7 +366,7 @@
         }
         
         .add-to-cart-btn:hover {
-            background: var(--primary-dark);
+            background: var(--navy-light);
             transform: translateY(-2px);
         }
         
@@ -430,7 +375,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border: none;
             width: 50px;
@@ -446,7 +391,7 @@
         }
         
         .cart-btn:hover {
-            background: var(--primary-dark);
+            background: var(--navy-light);
             transform: translateY(-2px);
         }
         
@@ -454,7 +399,7 @@
             position: absolute;
             top: -5px;
             right: -5px;
-            background: var(--error);
+            background: var(--accent);
             color: white;
             border-radius: 50%;
             width: 22px;
@@ -487,11 +432,11 @@
         
         .cart-header {
             padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
         }
         
@@ -516,14 +461,14 @@
         .cart-empty {
             text-align: center;
             padding: 2rem 1rem;
-            color: var(--medium-gray);
+            color: var(--gray);
         }
         
         .cart-item {
             display: flex;
             gap: 1rem;
             padding: 1rem 0;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .cart-item-image {
@@ -547,19 +492,19 @@
         .cart-item-title {
             font-size: 0.95rem;
             margin-bottom: 0.3rem;
-            color: var(--dark-gray);
+            color: var(--text-primary);
         }
         
         .cart-item-price {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--navy);
             margin-bottom: 0.3rem;
             font-size: 0.9rem;
         }
         
         .cart-item-options {
             font-size: 0.8rem;
-            color: var(--medium-gray);
+            color: var(--gray);
             margin-bottom: 0.5rem;
         }
         
@@ -570,7 +515,7 @@
         }
         
         .quantity-btn {
-            background: var(--light-gray);
+            background: var(--light);
             border: none;
             width: 25px;
             height: 25px;
@@ -584,7 +529,7 @@
         .quantity-input {
             width: 40px;
             text-align: center;
-            border: 1px solid var(--light-gray);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 0.2rem;
         }
@@ -600,7 +545,7 @@
         
         .cart-footer {
             padding: 1.2rem 1.5rem;
-            border-top: 1px solid var(--light-gray);
+            border-top: 1px solid var(--border-color);
         }
         
         .cart-total {
@@ -612,7 +557,7 @@
         }
         
         .checkout-btn {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border: none;
             padding: 0.8rem;
@@ -624,7 +569,7 @@
         }
         
         .checkout-btn:hover {
-            background: var(--primary-dark);
+            background: var(--navy-light);
         }
         
         /* Image Modal */
@@ -732,11 +677,11 @@
         
         .form-header {
             padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border-radius: 12px 12px 0 0;
         }
@@ -765,20 +710,20 @@
         .order-summary {
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .order-summary-title {
             font-size: 1rem;
             margin-bottom: 1rem;
-            color: var(--dark-gray);
+            color: var(--text-primary);
         }
         
         .order-item {
             display: flex;
             gap: 1rem;
             padding: 0.8rem 0;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .order-item:last-child {
@@ -806,24 +751,24 @@
         .order-item-title {
             font-size: 0.9rem;
             margin-bottom: 0.2rem;
-            color: var(--dark-gray);
+            color: var(--text-primary);
         }
         
         .order-item-price {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--navy);
             margin-bottom: 0.2rem;
             font-size: 0.85rem;
         }
         
         .order-item-options {
             font-size: 0.75rem;
-            color: var(--medium-gray);
+            color: var(--gray);
         }
         
         .order-item-quantity {
             font-size: 0.8rem;
-            color: var(--dark-gray);
+            color: var(--text-primary);
         }
         
         .form-row {
@@ -841,14 +786,14 @@
             display: block;
             margin-bottom: 0.4rem;
             font-weight: 500;
-            color: var(--dark-gray);
+            color: var(--text-primary);
             font-size: 0.9rem;
         }
         
         .form-control {
             width: 100%;
             padding: 0.7rem 1rem;
-            border: 1px solid var(--light-gray);
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             font-size: 0.9rem;
             transition: var(--transition);
@@ -856,8 +801,8 @@
         
         .form-control:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(214, 76, 120, 0.1);
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
         }
         
         select.form-control {
@@ -874,7 +819,7 @@
         }
         
         .customer-info {
-            background: var(--off-white);
+            background: var(--light);
             padding: 1.2rem;
             border-radius: 8px;
             margin-bottom: 1rem;
@@ -883,7 +828,7 @@
         .customer-info-title {
             font-weight: 600;
             margin-bottom: 0.8rem;
-            color: var(--primary-dark);
+            color: var(--navy);
             font-size: 0.95rem;
         }
         
@@ -891,11 +836,11 @@
             display: flex;
             justify-content: flex-end;
             padding: 1.2rem 1.5rem;
-            border-top: 1px solid var(--light-gray);
+            border-top: 1px solid var(--border-color);
         }
         
         .submit-btn {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border: none;
             padding: 0.7rem 1.5rem;
@@ -909,7 +854,7 @@
         }
         
         .submit-btn:hover {
-            background: var(--primary-dark);
+            background: var(--navy-light);
             transform: translateY(-2px);
         }
         
@@ -998,11 +943,11 @@
         
         .customization-header {
             padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border-radius: 12px 12px 0 0;
         }
@@ -1023,7 +968,7 @@
             display: block;
             margin-bottom: 0.8rem;
             font-weight: 500;
-            color: var(--dark-gray);
+            color: var(--text-primary);
         }
         
         .option-items {
@@ -1044,7 +989,7 @@
         .option-item label {
             display: inline-block;
             padding: 0.7rem 1rem;
-            border: 1px solid var(--light-gray);
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             cursor: pointer;
             background: var(--white);
@@ -1054,9 +999,9 @@
         }
         
         .option-item input[type="radio"]:checked + label {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
-            border-color: var(--primary);
+            border-color: var(--navy);
         }
         
         .customization-footer {
@@ -1064,36 +1009,16 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.2rem 1.5rem;
-            border-top: 1px solid var(--light-gray);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Predefined product options for faster loading */
+        .product-options {
+            display: none;
         }
         
         /* Responsive Adjustments */
         @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
-            }
-            
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--white);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: var(--shadow-md);
-                gap: 15px;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
             .hero-section {
                 height: 400px;
             }
@@ -1191,21 +1116,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Store Logo" class="logo">
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-    </nav>
-    
     <!-- Combined Hero Section with Carousel Background -->
     <section class="hero-section">
         <div class="hero-carousel">
@@ -1288,7 +1198,7 @@
         
         <div class="product-grid" id="productListingsContainer">
             <div class="product-card" style="text-align: center; padding: 2rem;">
-                <div class="loading" style="margin: 0 auto; border-top-color: var(--primary);"></div>
+                <div class="loading" style="margin: 0 auto; border-top-color: var(--navy);"></div>
                 <p style="margin-top: 1rem; font-size: 0.9rem;">Loading products...</p>
             </div>
         </div>
@@ -1324,7 +1234,7 @@
             <div class="form-content">
                 <div class="success-message" id="successMessage">
                     <i class="fas fa-check-circle message-icon"></i>
-                    <div>
+                                       <div>
                         <h4>Order Submitted!</h4>
                         <p>Thank you for your order. We'll start working on it right away.</p>
                     </div>
@@ -1440,21 +1350,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    navLinks.classList.remove('active');
-                }
-            });
-            
             // Initialize hero swiper
             const heroSwiper = new Swiper('.heroSwiper', {
                 loop: true,
@@ -1513,29 +1408,59 @@
             // Current product being customized
             let currentProduct = null;
             
+            // Predefined product options for faster loading
+            const productOptions = {
+                'RN-T001': {
+                    colors: ['Black', 'Navy', 'Gray'],
+                    materials: ['Cotton', 'Polyester Blend'],
+                    types: ['Regular Fit', 'Slim Fit']
+                },
+                'RN-T002': {
+                    colors: ['Black', 'Blue', 'Red'],
+                    materials: ['Polyester', 'Spandex Blend'],
+                    types: ['Performance Fit', 'Compression']
+                },
+                'RN-T003': {
+                    colors: ['Black', 'White', 'Charcoal'],
+                    materials: ['Cotton', 'Bamboo Blend'],
+                    types: ['Regular', 'Long Sleeve']
+                },
+                'WHS-H001': {
+                    colors: ['Black/White', 'Blue/White', 'Gray/Orange'],
+                    materials: ['Mesh', 'Synthetic Leather'],
+                    types: ['Running', 'Training', 'Walking']
+                },
+                'ACR-A001': {
+                    colors: ['Blue', 'Green', 'Purple'],
+                    materials: ['Plastic', 'Stainless Steel'],
+                    types: ['750ml', '1L', '1.5L']
+                },
+                'ELC-001': {
+                    colors: ['Black', 'Silver', 'Space Gray'],
+                    materials: ['Plastic', 'Metal'],
+                    types: ['Basic', 'Pro', 'Max']
+                }
+            };
+            
             // Sample product images with multiple images per product
             const productImages = {
                 'RN-T001': [
                     'https://i.postimg.cc/fWSyDd8Z/20250912-1138-Work-Fit-Training-Tee-simple-compose-01k4yh5jq2fnmtx0ehct39gwwe.png'
-                    ],
+                ],
                 'RN-T002': [
-                    'https://i.postimg.cc/Xq5YLMrX/20250912-1138-Work-Fit-Training-Tee-simple-compose-01k4yh5jpxf5wrk33w3z65fm3j.png',
-                   
+                    'https://i.postimg.cc/Xq5YLMrX/20250912-1138-Work-Fit-Training-Tee-simple-compose-01k4yh5jpxf5wrk33w3z65fm3j.png'
                 ],
                 'RN-T003': [
-                    'https://i.postimg.cc/907cZzbs/modern-gym-composition-with-sport-elements-removebg-preview.png',
+                    'https://i.postimg.cc/907cZzbs/modern-gym-composition-with-sport-elements-removebg-preview.png'
                 ],
                 'WHS-H001': [
-                    'https://i.postimg.cc/zX6cDjGf/Discipline-1.png',
-                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80&orient=1',
+                    'https://i.postimg.cc/zX6cDjGf/Discipline-1.png'
                 ],
                 'ACR-A001': [
-                    'https://i.postimg.cc/d0dD5B21/20250912-1125-Fitare-Sports-Bottle-simple-compose-01k4ygdzc7e1s9pb1cwptw5qg0.png',
-                    'https://i.postimg.cc/sgmnHkr6/20250912-1125-Fitare-Sports-Bottle-simple-compose-01k4ygdzc6fg3vn9dv5ajq61cz.png'
+                    'https://i.postimg.cc/d0dD5B21/20250912-1125-Fitare-Sports-Bottle-simple-compose-01k4ygdzc7e1s9pb1cwptw5qg0.png'
                 ],
                 'ELC-001': [
-                    'https://i.postimg.cc/yYFFMcYW/pngwing-com-7-removebg-preview.png',
-                    'https://i.postimg.cc/yN5j1BqN/simon-daoudi-2w-Foa040m8g-unsplash-removebg-preview.png'
+                    'https://i.postimg.cc/yYFFMcYW/pngwing-com-7-removebg-preview.png'
                 ]
             };
             
@@ -1706,7 +1631,7 @@
                 const productCards = document.querySelectorAll('.product-card');
                 
                 productCards.forEach(card => {
-                    if (category === 'all') {
+                    if (category === 'all-products') {
                         card.style.display = 'flex';
                     } else {
                         const productCategory = card.getAttribute('data-category');
@@ -1778,12 +1703,12 @@
                 if (!hasResults) {
                     productListingsContainer.innerHTML = `
                         <div class="product-card" style="text-align: center; padding: 2rem; grid-column: 1 / -1;">
-                            <i class="fas fa-search" style="font-size: 1.5rem; color: var(--medium-gray); margin-bottom: 1rem;"></i>
+                            <i class="fas fa-search" style="font-size: 1.5rem; color: var(--gray); margin-bottom: 1rem;"></i>
                             <h3 style="font-size: 1.1rem;">No Products Found</h3>
                             <p style="font-size: 0.9rem;">No products match your search criteria. Try different keywords.</p>
                             <button onclick="loadProducts()" style="
-                                background: var(--primary-light);
-                                color: var(--primary);
+                                background: var(--light);
+                                color: var(--navy);
                                 border: none;
                                 padding: 0.5rem 1rem;
                                 border-radius: 4px;
@@ -1822,7 +1747,7 @@
                     cartItems.push({
                         id: product.id,
                         name: product.name,
-                        basePrice: product.basePrice,
+                        basePrice: parseFloat(product.basePrice),
                         quantity: parseInt(selectedOptions.quantity) || 1,
                         selectedColor: selectedOptions.color,
                         selectedMaterial: selectedOptions.material,
@@ -1887,7 +1812,7 @@
                             </div>
                             <div class="cart-item-details">
                                 <h4 class="cart-item-title">${item.name}</h4>
-                                <div class="cart-item-price">KSh ${item.basePrice}</div>
+                                <div class="cart-item-price">KSh ${item.basePrice.toFixed(2)}</div>
                                 <div class="cart-item-options">
                                     ${item.selectedColor ? `<span>Color: ${item.selectedColor}</span>` : ''}
                                     ${item.selectedMaterial ? `<span>Material: ${item.selectedMaterial}</span>` : ''}
@@ -1937,7 +1862,7 @@
                     if (data.length === 0) {
                         productListingsContainer.innerHTML = `
                             <div class="product-card" style="text-align: center; padding: 2rem; grid-column: 1 / -1;">
-                                <i class="fas fa-box-open" style="font-size: 1.5rem; color: var(--medium-gray); margin-bottom: 1rem;"></i>
+                                <i class="fas fa-box-open" style="font-size: 1.5rem; color: var(--gray); margin-bottom: 1rem;"></i>
                                 <h3 style="font-size: 1.1rem;">No Products Available</h3>
                                 <p style="font-size: 0.9rem;">There are no products available at the moment. Please check back later.</p>
                             </div>
@@ -1994,7 +1919,7 @@
                                 <div class="product-price">KSh ${product.basePrice}</div>
                                 <div class="product-meta">
                                     <span><i class="fas fa-tag"></i> ${product.category}</span>
-                                    ${product.availableColors ? `<span><i class="fas fa-palette"></i> ${product.availableColors.split(',').length} colors</span>` : ''}
+                                    ${productOptions[product.id]?.colors ? `<span><i class="fas fa-palette"></i> ${productOptions[product.id].colors.length} colors</span>` : ''}
                                 </div>
                                 <div class="product-footer">
                                     <button class="add-to-cart-btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.basePrice}" data-product-desc="${product.description}">
@@ -2066,92 +1991,92 @@
                 document.getElementById('materialOptions').style.display = 'none';
                 document.getElementById('typeOptions').style.display = 'none';
                 
-                // Load product details to get customization options
+                // Load predefined customization options instantly
                 loadCustomizationOptions(product.id);
                 
                 // Open the modal
                 openCustomizationModal();
             }
             
-            async function loadCustomizationOptions(productId) {
-                try {
-                    const response = await fetch(`${scriptUrl}?action=getProduct&productId=${productId}`);
-                    
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    
-                    const product = await response.json();
-                    
-                    if (product.success === false) {
-                        throw new Error(product.message || 'Failed to load product details');
-                    }
-                    
-                    // Add color options
-                    if (product.availableColors) {
-                        document.getElementById('colorOptions').style.display = 'block';
-                        const colors = product.availableColors.split(',');
-                        colors.forEach(color => {
-                            const trimmedColor = color.trim();
-                            colorOptionsContainer.innerHTML += `
-                                <div class="option-item color-option">
-                                    <input type="radio" id="color-${trimmedColor}" name="selectedColor" value="${trimmedColor}" required>
-                                    <label for="color-${trimmedColor}" style="background-color: ${getColorCode(trimmedColor)};" title="${trimmedColor}"></label>
-                                </div>
-                            `;
-                        });
-                        
-                        // Select first color by default
-                        if (colors.length > 0) {
-                            document.getElementById(`color-${colors[0].trim()}`).checked = true;
-                        }
-                    }
-                    
-                    // Add material options
-                    if (product.availableMaterials) {
-                        document.getElementById('materialOptions').style.display = 'block';
-                        const materials = product.availableMaterials.split(',');
-                        materials.forEach(material => {
-                            const trimmedMaterial = material.trim();
-                            materialOptionsContainer.innerHTML += `
-                                <div class="option-item">
-                                    <input type="radio" id="material-${trimmedMaterial}" name="selectedMaterial" value="${trimmedMaterial}" required>
-                                    <label for="material-${trimmedMaterial}">${trimmedMaterial}</label>
-                                </div>
-                            `;
-                        });
-                        
-                        // Select first material by default
-                        if (materials.length > 0) {
-                            document.getElementById(`material-${materials[0].trim()}`).checked = true;
-                        }
-                    }
-                    
-                    // Add type options
-                    if (product.availableTypes) {
-                        document.getElementById('typeOptions').style.display = 'block';
-                        const types = product.availableTypes.split(',');
-                        types.forEach(type => {
-                            const trimmedType = type.trim();
-                            typeOptionsContainer.innerHTML += `
-                                <div class="option-item">
-                                    <input type="radio" id="type-${trimmedType}" name="selectedType" value="${trimmedType}" required>
-                                    <label for="type-${trimmedType}">${trimmedType}</label>
-                                </div>
-                            `;
-                        });
-                        
-                        // Select first type by default
-                        if (types.length > 0) {
-                            document.getElementById(`type-${types[0].trim()}`).checked = true;
-                        }
-                    }
-                    
-                } catch (error) {
-                    console.error('Error loading customization options:', error);
-                    // If options fail to load, still allow adding to cart with default values
-                    document.getElementById('colorOptions').innerHTML = '<p>Error loading options. Please try again.</p>';
+            function loadCustomizationOptions(productId) {
+                const options = productOptions[productId];
+                
+                if (!options) {
+                    // If no predefined options, show default options
+                    showDefaultOptions();
+                    return;
                 }
+                
+                // Add color options
+                if (options.colors && options.colors.length > 0) {
+                    document.getElementById('colorOptions').style.display = 'block';
+                    options.colors.forEach(color => {
+                        const trimmedColor = color.trim();
+                        colorOptionsContainer.innerHTML += `
+                            <div class="option-item color-option">
+                                <input type="radio" id="color-${trimmedColor}" name="selectedColor" value="${trimmedColor}" required>
+                                <label for="color-${trimmedColor}" style="background-color: ${getColorCode(trimmedColor)};" title="${trimmedColor}"></label>
+                            </div>
+                        `;
+                    });
+                    
+                    // Select first color by default
+                    document.getElementById(`color-${options.colors[0].trim()}`).checked = true;
+                }
+                
+                // Add material options
+                if (options.materials && options.materials.length > 0) {
+                    document.getElementById('materialOptions').style.display = 'block';
+                    options.materials.forEach(material => {
+                        const trimmedMaterial = material.trim();
+                        materialOptionsContainer.innerHTML += `
+                            <div class="option-item">
+                                <input type="radio" id="material-${trimmedMaterial}" name="selectedMaterial" value="${trimmedMaterial}" required>
+                                <label for="material-${trimmedMaterial}">${trimmedMaterial}</label>
+                            </div>
+                        `;
+                    });
+                    
+                    // Select first material by default
+                    document.getElementById(`material-${options.materials[0].trim()}`).checked = true;
+                }
+                
+                // Add type options
+                if (options.types && options.types.length > 0) {
+                    document.getElementById('typeOptions').style.display = 'block';
+                    options.types.forEach(type => {
+                        const trimmedType = type.trim();
+                        typeOptionsContainer.innerHTML += `
+                            <div class="option-item">
+                                <input type="radio" id="type-${trimmedType}" name="selectedType" value="${trimmedType}" required>
+                                <label for="type-${trimmedType}">${trimmedType}</label>
+                            </div>
+                        `;
+                    });
+                    
+                    // Select first type by default
+                    document.getElementById(`type-${options.types[0].trim()}`).checked = true;
+                }
+            }
+            
+            function showDefaultOptions() {
+                // Show default color options
+                document.getElementById('colorOptions').style.display = 'block';
+                colorOptionsContainer.innerHTML = `
+                    <div class="option-item color-option">
+                        <input type="radio" id="color-default" name="selectedColor" value="Default" checked required>
+                        <label for="color-default" style="background-color: #666;" title="Default"></label>
+                    </div>
+                `;
+                
+                // Show default material option
+                document.getElementById('materialOptions').style.display = 'block';
+                materialOptionsContainer.innerHTML = `
+                    <div class="option-item">
+                        <input type="radio" id="material-default" name="selectedMaterial" value="Standard" checked required>
+                        <label for="material-default">Standard</label>
+                    </div>
+                `;
             }
             
             // Add to cart from customization modal
@@ -2162,8 +2087,8 @@
                 const selectedOptions = {
                     quantity: parseInt(customQuantity.value) || 1,
                     color: document.querySelector('input[name="selectedColor"]:checked')?.value || 'Default',
-                    material: document.querySelector('input[name="selectedMaterial"]:checked')?.value || 'Default',
-                    type: document.querySelector('input[name="selectedType"]:checked')?.value || 'Default'
+                    material: document.querySelector('input[name="selectedMaterial"]:checked')?.value || 'Standard',
+                    type: document.querySelector('input[name="selectedType"]:checked')?.value || 'Regular'
                 };
                 
                 // Add to cart
@@ -2182,7 +2107,15 @@
                     'White': '#f8f9fa',
                     'Purple': '#ae3ec9',
                     'Teal': '#0ca678',
-                    'Navy': '#1c7ed6'
+                    'Navy': '#001f3f',
+                    'Gray': '#6c757d',
+                    'Charcoal': '#495057',
+                    'Orange': '#fd7e14',
+                    'Blue/White': 'linear-gradient(45deg, #001f3f 50%, #ffffff 50%)',
+                    'Gray/Orange': 'linear-gradient(45deg, #6c757d 50%, #fd7e14 50%)',
+                    'Black/White': 'linear-gradient(45deg, #000000 50%, #ffffff 50%)',
+                    'Silver': '#c0c0c0',
+                    'Space Gray': '#717378'
                 };
                 
                 return colorMap[colorName] || '#ccc';
@@ -2267,8 +2200,8 @@
                                 <h4 style="font-size: 1.1rem;">Error Loading Products</h4>
                                 <p style="font-size: 0.9rem;">${message}</p>
                                 <button onclick="loadProducts()" style="
-                                    background: var(--primary-light);
-                                    color: var(--primary);
+                                    background: var(--light);
+                                    color: var(--navy);
                                     border: none;
                                     padding: 0.5rem 1rem;
                                     border-radius: 4px;
