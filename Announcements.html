@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Announcements - WorkFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #F7F7F7;
+      --gray: #777777;
+      --white: #FFFFFF;
+      --text-primary: #222222;
+      --text-secondary: #5a5a5a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+
+    /* Dark mode variables */
+    [data-theme="dark"] {
+      --navy: #0a2e57;
+      --navy-light: #1a3e67;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #1a1a1a;
+      --gray: #aaaaaa;
+      --white: #222222;
+      --text-primary: #f0f0f0;
+      --text-secondary: #cccccc;
+      --bg-primary: #121212;
+      --bg-secondary: #1a1a1a;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding-bottom: 1rem;
+    }
+
+    /* App Header */
+    .app-header {
+      background-color: var(--bg-primary);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    .logo {
+      height: 35px;
+      width: auto;
+    }
+
+    .header-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .icon-btn:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-primary);
+    }
+
+    /* Meeting Reminder Banner */
+    .meeting-reminder {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0 0 12px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meeting-reminder::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path fill="white" d="M20,20 L80,20 L80,80 L20,80 Z M30,30 L70,30 L70,70 L30,70 Z M40,40 L60,40 L60,60 L40,60 Z"/></svg>');
+      background-size: 200px;
+    }
+
+    .reminder-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .reminder-icon {
+      font-size: 1.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    .reminder-text {
+      flex: 1;
+    }
+
+    .reminder-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .reminder-message {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Hero Slideshow */
+    .hero-slideshow {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 0 1rem 1rem 1rem;
+    }
+
+    .slides-container {
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      color: white;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
+      border-radius: 12px;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .slide-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .slide-description {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .slide-indicators {
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      z-index: 3;
+    }
+
+    .slide-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .slide-indicator.active {
+      background-color: white;
+      transform: scale(1.2);
+    }
+
+    /* Announcements Container */
+    .announcements-container {
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-title h2 {
+      font-size: 1.3rem;
+      color: var(--navy);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .filter-tab {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .filter-tab:hover {
+      background: var(--navy-light);
+      color: white;
+    }
+
+    .filter-tab.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    /* Announcement Cards */
+    .announcement-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow-color);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .announcement-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-color);
+    }
+
+    .announcement-card.urgent {
+      border-left: 4px solid var(--accent);
+    }
+
+    .announcement-card.important {
+      border-left: 4px solid var(--gold);
+    }
+
+    .announcement-card.info {
+      border-left: 4px solid var(--navy-light);
+    }
+
+    .announcement-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .announcement-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
+    }
+
+    .announcement-meta {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .announcement-category {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .announcement-date {
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    .announcement-priority {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .announcement-priority.urgent {
+      background: var(--accent);
+      color: white;
+    }
+
+    .announcement-priority.important {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .announcement-priority.info {
+      background: var(--navy-light);
+      color: white;
+    }
+
+    .announcement-body {
+      padding: 1rem;
+    }
+
+    .announcement-content {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    .announcement-image {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      max-height: 180px;
+      object-fit: cover;
+    }
+
+    /* Attendance Notice */
+    .attendance-notice {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px var(--shadow-color);
+      border: 2px solid var(--gold);
+      text-align: center;
+    }
+
+    .notice-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .notice-icon {
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+
+    .notice-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .notice-message {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .notice-highlight {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--gray);
+    }
+
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--border-color);
+    }
+
+    .empty-state h3 {
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .app-header {
+        padding: 0.8rem;
+      }
+      
+      .logo {
+        height: 30px;
+      }
+      
+      .header-title {
+        font-size: 1.1rem;
+      }
+      
+      .hero-slideshow {
+        height: 180px;
+      }
+      
+      .slide {
+        padding: 1.2rem;
+      }
+      
+      .slide-title {
+        font-size: 1.1rem;
+      }
+      
+      .announcements-container {
+        padding: 0 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-slideshow {
+        height: 160px;
+      }
+      
+      .slide {
+        padding: 1rem;
+      }
+      
+      .slide-title {
+        font-size: 1rem;
+      }
+      
+      .slide-description {
+        font-size: 0.8rem;
+      }
+      
+      .reminder-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- App Header -->
+  <div class="app-header">
+    <div class="header-content">
+      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <div class="header-title">Announcements</div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="searchBtn" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meeting Reminder Banner -->
+  <div class="meeting-reminder" id="meetingReminder">
+    <div class="reminder-content">
+      <div class="reminder-icon">📅</div>
+      <div class="reminder-text">
+        <div class="reminder-title" id="reminderTitle">Meeting Day Reminder</div>
+        <div class="reminder-message" id="reminderMessage">Remember to mark your attendance on the tracker before the session!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Slideshow -->
+  <div class="hero-slideshow">
+    <div class="slides-container" id="slidesContainer">
+      <!-- Slide 1 -->
+      <div class="slide active" style="background-image: url('https://i.postimg.cc/prGQXpbX/FUN-3.png')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <span class="slide-badge">Event Update</span>
+          <h3 class="slide-title">The Fun Run is On!!</h3>
+          <p class="slide-description">Scheduled for Sept 1st</p>
+        </div>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <span class="slide-badge">New Challenge</span>
+          <h3 class="slide-title">October Fitness Challenges Are Live!</h3>
+          <p class="slide-description">Join now and track your progress</p>
+        </div>
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1340&q=80')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <span class="slide-badge">New Location</span>
+          <h3 class="slide-title">Welcome Uthiru Furnace!</h3>
+          <p class="slide-description">Opened on July  7th</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-indicators" id="slideIndicators">
+      <!-- Indicators will be added by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Attendance Notice -->
+  <div class="attendance-notice">
+    <div class="notice-header">
+      <div class="notice-icon">📝</div>
+      <div class="notice-title">Attendance Tracking</div>
+    </div>
+    <div class="notice-message">
+      <p>To keep accurate fitness records for the club, please remember to mark your attendance on the tracker before each session.</p>
+    </div>
+    <div class="notice-highlight">
+      Mark your attendance on the tracker before every Monday, Wednesday, and Friday session!
+    </div>
+  </div>
+
+  <!-- Announcements Container -->
+  <div class="announcements-container">
+    <div class="section-title">
+      <h2>All Announcements</h2>
+    </div>
+    
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="urgent">Urgent</button>
+      <button class="filter-tab" data-filter="important">Important</button>
+      <button class="filter-tab" data-filter="events">Events</button>
+      <button class="filter-tab" data-filter="challenges">Challenges</button>
+    </div>
+
+    <!-- Announcements List -->
+    <div id="announcementsList">
+      <!-- Urgent Announcement -->
+      <div class="announcement-card urgent" data-category="urgent" data-priority="urgent">
+        <div class="announcement-header">
+          <h3 class="announcement-title">🚨 The Fun Run is On!!</h3>
+          <div class="announcement-meta">
+            <span class="announcement-category">Event Update</span>
+            <span class="announcement-date">Oct 5, 2025</span>
+            <span class="announcement-priority urgent">Urgent</span>
+          </div>
+        </div>
+        <div class="announcement-body">
+          <div class="announcement-content">
+            <p>The run is still on as scheduled for Saturday, 1st September, starting at 8:00 AM. The event will be held at the Jaffery's Sports Club in Lavington.</p>
+            <p>All members are encouraged to register to secure their spot.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Important Announcement -->
+      <div class="announcement-card important" data-category="challenges" data-priority="important">
+        <div class="announcement-header">
+          <h3 class="announcement-title">🏆 October Fitness Challenges Are Live!</h3>
+          <div class="announcement-meta">
+            <span class="announcement-category">Monthly Challenge</span>
+            <span class="announcement-date">Oct 1, 2025</span>
+            <span class="announcement-priority important">Important</span>
+          </div>
+        </div>
+        <div class="announcement-body">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="October Challenges" class="announcement-image">
+          <div class="announcement-content">
+            <p>Get ready to push your limits this October! We've launched three exciting challenges:</p>
+            <ul>
+              <li><strong>Mountain Climbers Challenge:</strong> 3,000 reps this month</li>
+              <li><strong>Plank Hold Challenge:</strong> 60 minutes total plank time</li>
+              <li><strong>Step Up Challenge:</strong> 300,000 steps collectively</li>
+            </ul>
+            <p>Track your progress and compete for the top spots on our leaderboard!</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Information Announcement -->
+      <div class="announcement-card info" data-category="general" data-priority="info">
+        <div class="announcement-header">
+          <h3 class="announcement-title">📢 Updated Session Schedule</h3>
+          <div class="announcement-meta">
+            <span class="announcement-category">Schedule Update</span>
+            <span class="announcement-date">Sep 25, 2025</span>
+            <span class="announcement-priority info">Information</span>
+          </div>
+        </div>
+        <div class="announcement-body">
+          <div class="announcement-content">
+            <p>Starting November 1st, we're making adjustments to our session schedule:</p>
+            <p><strong>New Morning Sessions:</strong></p>
+            <ul>
+              <li>Uthiru Furnace: 5:00 AM - 6:30 AM (Mon, Wed, Fri)</li>
+              <li>Wangige Furnace: 5:00 AM - 6:30 AM (Tue, Thu, Sat)</li>
+              <li>Weekend Bootcamp: 7:00 AM - 8:30 AM (Saturdays)</li>
+            </ul>
+            <p><strong>New Evening Option:</strong></p>
+            <ul>
+              <li>Uthiru Furnace: 6:00 PM - 7:30 PM (Tue, Thu)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State (hidden by default) -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <i class="fas fa-bell-slash"></i>
+      <h3>No Announcements Found</h3>
+      <p>There are no announcements matching your current filter.</p>
+    </div>
+  </div>
+
+  <script>
+    // Theme Management
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+    } else if (systemPrefersDark) {
+      htmlElement.setAttribute('data-theme', 'dark');
+    }
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        htmlElement.setAttribute('data-theme', newTheme);
+      }
+    });
+
+    // Meeting Day Reminder System
+    const meetingReminder = document.getElementById('meetingReminder');
+    const reminderTitle = document.getElementById('reminderTitle');
+    const reminderMessage = document.getElementById('reminderMessage');
+    
+    // Meeting days: Monday (1), Wednesday (3), Friday (5)
+    const meetingDays = [1, 3, 5];
+    
+    function updateMeetingReminder() {
+      const now = new Date();
+      const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+      const currentHour = now.getHours();
+      
+      // Check if today is a meeting day
+      const isMeetingDay = meetingDays.includes(currentDay);
+      
+      if (isMeetingDay) {
+        // Show reminder on meeting days
+        meetingReminder.style.display = 'block';
+        
+        // Determine if it's before or after the meeting time (assuming morning sessions)
+        if (currentHour < 12) {
+          reminderTitle.textContent = "Today's Session Reminder";
+          reminderMessage.textContent = "Remember to mark your attendance on the tracker before the session to keep your fitness records updated!";
+        } else {
+          reminderTitle.textContent = "Attendance Check";
+          reminderMessage.textContent = "If you attended today's session, please ensure you marked your attendance on the tracker.";
+        }
+      } else {
+        // Check if tomorrow is a meeting day
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowDay = tomorrow.getDay();
+        
+        if (meetingDays.includes(tomorrowDay)) {
+          // Show reminder the day before a meeting
+          meetingReminder.style.display = 'block';
+          reminderTitle.textContent = "Tomorrow's Session Reminder";
+          reminderMessage.textContent = "Get ready for tomorrow's session! Remember to mark your attendance on the tracker when you arrive.";
+        } else {
+          // Hide reminder on non-meeting days
+          meetingReminder.style.display = 'none';
+        }
+      }
+    }
+
+    // Hero Slideshow Functionality
+    const slidesContainer = document.getElementById('slidesContainer');
+    const slides = document.querySelectorAll('.slide');
+    const slideIndicators = document.getElementById('slideIndicators');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Create indicators
+    slides.forEach((_, index) => {
+      const indicator = document.createElement('div');
+      indicator.classList.add('slide-indicator');
+      if (index === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        goToSlide(index);
+      });
+      slideIndicators.appendChild(indicator);
+    });
+
+    function goToSlide(index) {
+      // Update slides
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index].classList.add('active');
+      
+      // Update indicators
+      document.querySelectorAll('.slide-indicator').forEach((indicator, i) => {
+        if (i === index) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+      
+      currentSlide = index;
+      
+      // Reset auto-slide timer
+      resetSlideInterval();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      goToSlide(currentSlide);
+    }
+
+    function startSlideInterval() {
+      slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+
+    function resetSlideInterval() {
+      clearInterval(slideInterval);
+      startSlideInterval();
+    }
+
+    // Pause on hover/touch
+    slidesContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slidesContainer.addEventListener('mouseleave', startSlideInterval);
+    slidesContainer.addEventListener('touchstart', () => clearInterval(slideInterval));
+    slidesContainer.addEventListener('touchend', startSlideInterval);
+
+    // Announcement Filtering
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const announcements = document.querySelectorAll('.announcement-card');
+    const emptyState = document.getElementById('emptyState');
+    
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const filter = this.dataset.filter;
+        
+        // Update active tab
+        filterTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter announcements
+        let visibleCount = 0;
+        announcements.forEach(announcement => {
+          const category = announcement.dataset.category;
+          const priority = announcement.dataset.priority;
+          
+          if (filter === 'all' || category === filter || priority === filter) {
+            announcement.style.display = 'block';
+            visibleCount++;
+          } else {
+            announcement.style.display = 'none';
+          }
+        });
+        
+        // Show empty state if no announcements match the filter
+        if (visibleCount === 0) {
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+        }
+      });
+    });
+
+    // Initialize
+    updateMeetingReminder();
+    startSlideInterval();
+    
+    // Update reminder every hour to account for time changes
+    setInterval(updateMeetingReminder, 60 * 60 * 1000);
+  </script>
+</body>
+</html>
