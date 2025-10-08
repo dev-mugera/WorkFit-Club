@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorkFit Club - Management Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #1a2a6c;
+      --secondary-color: #b21f1f;
+      --accent-color: #fdbb2d;
+      --dark-bg: #0a192f;
+      --medium-bg: #172a45;
+      --light-bg: #243b55;
+      --text-primary: #e6f1ff;
+      --text-secondary: #a8b2d1;
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+      --gradient-primary: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 100%);
+      --gradient-accent: linear-gradient(135deg, #fdbb2d 0%, #f7a400 100%);
+      --gradient-bg: linear-gradient(135deg, #0a192f 0%, #1a2a6c 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: var(--gradient-bg);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Login Screen Styles */
+    .login-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: var(--gradient-bg);
+    }
+
+    .login-container {
+      background: var(--medium-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-logo img {
+      height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .login-logo h1 {
+      color: var(--accent-color);
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .login-logo p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 16px;
+      color: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(253, 187, 45, 0.2);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient-accent);
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(253, 187, 45, 0.3);
+    }
+
+    .login-btn:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .login-message {
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .login-message.error {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: #f8d7da;
+      border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+
+    .login-message.success {
+      background-color: rgba(40, 167, 69, 0.2);
+      color: #d4edda;
+      border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+
+    /* Layout structure */
+    .app-container {
+      display: flex;
+      flex: 1;
+      height: 100%;
+      min-height: 0;
+    }
+
+    /* Side navigation */
+    .sidenav {
+      width: 280px;
+      background: var(--medium-bg);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .nav-logo-placeholder {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-img {
+      height: 60px;
+    }
+
+    .outlet-code {
+      padding: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+      color: var(--accent-color);
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-spacer {
+      height: 30px;
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 0 15px;
+      margin: 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 15px;
+    }
+
+    .nav-section-title {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: var(--accent-color);
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .nav-section-title:hover {
+      background: rgba(253, 187, 45, 0.1);
+    }
+
+    .nav-section-title i {
+      margin-right: 15px;
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .nav-submenu {
+      list-style: none;
+      padding: 0;
+      margin: 5px 0 15px 0;
+      display: none;
+    }
+
+    .nav-section.active .nav-submenu {
+      display: block;
+    }
+
+    .nav-link {
+      padding: 12px 20px 12px 50px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      position: relative;
+      user-select: none;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: rgba(253, 187, 45, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--accent-color);
+      font-weight: 500;
+      background: rgba(253, 187, 45, 0.1);
+    }
+
+    .nav-link.active::before {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent-color);
+      border-radius: 50%;
+    }
+
+    /* Main content area */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--dark-bg);
+      min-height: 0;
+      position: relative;
+    }
+
+    /* Header styles */
+    header {
+      background: var(--medium-bg);
+      color: var(--text-primary);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      flex-shrink: 0;
+      z-index: 5;
+    }
+
+    .module-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--accent-color);
+      margin: 0;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .menu-button {
+      background: rgba(253, 187, 45, 0.1);
+      color: var(--accent-color);
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(253, 187, 45, 0.2);
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .menu-button:hover {
+      background: rgba(253, 187, 45, 0.2);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: calc(100% + 5px);
+      right: 0;
+      min-width: 220px;
+      background: var(--medium-bg);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .dropdown-content a:hover {
+      color: var(--text-primary);
+      background: rgba(253, 187, 45, 0.05);
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+
+    /* Content area */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .iframe-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--medium-bg);
+      color: var(--text-secondary);
+      text-align: center;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      flex-shrink: 0;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .sidenav {
+        width: 80px;
+      }
+      
+      .outlet-code, .nav-section-title span, .nav-link span {
+        display: none;
+      }
+      
+      .nav-section-title {
+        justify-content: center;
+        padding: 16px 0;
+      }
+      
+      .nav-section-title i {
+        margin-right: 0;
+        font-size: 1.3rem;
+      }
+
+      .nav-link {
+        padding: 16px 0;
+        justify-content: center;
+      }
+
+      .nav-link.active::before {
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      
+      .sidenav {
+        width: 100%;
+        flex-direction: row;
+        height: auto;
+      }
+      
+      .nav-logo-placeholder, .outlet-code, .nav-spacer {
+        display: none;
+      }
+      
+      .nav-links {
+        display: flex;
+        overflow-x: auto;
+        padding: 0 10px;
+      }
+      
+      .nav-section {
+        margin-bottom: 0;
+        margin-right: 5px;
+        min-width: 80px;
+      }
+
+      .nav-section-title {
+        padding: 15px 10px;
+        border-radius: 0;
+        white-space: nowrap;
+      }
+
+      .nav-submenu {
+        position: absolute;
+        background: var(--medium-bg);
+        z-index: 100;
+        min-width: 200px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      }
+
+      .nav-link {
+        padding: 12px 15px;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+      }
+
+      .module-title {
+        font-size: 1.1rem;
+      }
+
+      .dropdown {
+        width: 100%;
+      }
+
+      .dropdown-content {
+        left: 0;
+        right: auto;
+        width: 100%;
+      }
+
+      .menu-button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .login-container {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+    }
+
+    /* Hidden class for toggling visibility */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-container">
+      <div class="login-logo">
+        <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Club Logo">
+        <h1>WorkFit Club</h1>
+        <p>Management Hub Login</p>
+      </div>
+      
+      <div id="loginMessage"></div>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        
+        <button type="submit" class="login-btn" id="loginBtn">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Application -->
+  <div class="app-container hidden" id="appContainer">
+    <!-- Side Navigation -->
+    <nav class="sidenav">
+      <div class="nav-logo-placeholder">
+        <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Club Logo" class="logo-img">
+      </div>
+      
+      <div class="outlet-code">WorkFit Club Hub</div>
+      
+      <div class="nav-spacer"></div>
+      
+      <ul class="nav-links">
+        <!-- Programs Section -->
+        <li class="nav-section active">
+          <div class="nav-section-title">
+            <i class="fas fa-dumbbell"></i>
+            <span>Fitness Programs</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link active" data-section="workout-tracker">
+                <span>Workout Tracker</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="class-schedule">
+                <span>Class Schedule</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="personal-training">
+                <span>Personal Training</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="group-sessions">
+                <span>Group Sessions</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Members Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-users"></i>
+            <span>Members</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="member-profiles">
+                <span>Member Profiles</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="attendance">
+                <span>Attendance Tracking</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="membership">
+                <span>Membership Management</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Facilities Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-building"></i>
+            <span>Facilities</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="facility-booking">
+                <span>Facility Booking</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="equipment">
+                <span>Equipment Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="maintenance">
+                <span>Maintenance</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Financials Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-chart-line"></i>
+            <span>Financials</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="payments">
+                <span>Membership Payments</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="revenue">
+                <span>Program Revenue</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="expenses">
+                <span>Expense Management</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Communications Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="announcements">
+                <span>Announcements</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="events">
+                <span>Event Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="feedback">
+                <span>Feedback System</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header>
+        <h1 class="module-title" id="moduleTitle">Workout Tracker</h1>
+
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="dropdown" id="dropdown">
+            <button class="menu-button" id="menuToggle">
+              <i class="fas fa-tools"></i>
+              <span>Tools</span>
+            </button>
+            <div class="dropdown-content" id="menuContent">
+              <a href="#" data-link="session-planning">Session Planning</a>
+              <a href="#" data-link="attendance">Attendance Tracking</a>
+              <a href="#" data-link="coach-assignment">Coach Assignment</a>
+              <a href="#" data-link="equipment-check">Equipment Check</a>
+              <a href="#" data-link="performance-metrics">Performance Metrics</a> 
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="iframe-container">
+          <iframe id="iframe" loading="lazy" title="WorkFit Club Management Content"></iframe>
+        </div>
+      </main>
+
+      <footer>Powered by WorkFit Club Management System &copy; 2025</footer>
+    </div>
+  </div>
+
+  <script>
+    // Data for each section with sheet URLs for each tool
+    const moduleData = {
+      // Workout Tracker
+      "workout-tracker": {
+        title: "Workout Tracker",
+        tools: [
+          { 
+            name: "Session Planning", 
+            link: "session-planning",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
+          },
+          { 
+            name: "Attendance Tracking", 
+            link: "attendance",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1OfoZ3HHwTIhLvx5Mg9QVrJK6S3hKU4yzHh3JkP3u_Xw/edit" 
+          },
+          { 
+            name: "Coach Assignment", 
+            link: "coach-assignment",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WORKOUT_COACH_ASSIGNMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Equipment Check", 
+            link: "equipment-check",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WORKOUT_EQUIPMENT_CHECK_SHEET_ID/edit" 
+          },
+          { 
+            name: "Performance Metrics", 
+            link: "performance-metrics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WORKOUT_PERFORMANCE_METRICS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "class-schedule": {
+        title: "Class Schedule",
+        tools: [
+          { 
+            name: "Schedule Management", 
+            link: "schedule-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_SCHEDULE_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Instructor Assignments", 
+            link: "instructor-assignments",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_INSTRUCTOR_ASSIGNMENTS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Class Capacity", 
+            link: "class-capacity",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_CAPACITY_SHEET_ID/edit" 
+          },
+          { 
+            name: "Waitlist Management", 
+            link: "waitlist-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_WAITLIST_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "personal-training": {
+        title: "Personal Training",
+        tools: [
+          { 
+            name: "Trainer Schedule", 
+            link: "trainer-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_TRAINER_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Client Progress", 
+            link: "client-progress",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_CLIENT_PROGRESS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Session Notes", 
+            link: "session-notes",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_SESSION_NOTES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Goal Tracking", 
+            link: "goal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_GOAL_TRACKING_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "group-sessions": {
+        title: "Group Sessions",
+        tools: [
+          { 
+            name: "Session Planning", 
+            link: "session-planning",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_SESSION_PLANNING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participant Management", 
+            link: "participant-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Attendance Records", 
+            link: "attendance-records",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_ATTENDANCE_RECORDS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Feedback Collection", 
+            link: "feedback-collection",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_FEEDBACK_COLLECTION_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Members Section
+      "member-profiles": {
+        title: "Member Profiles",
+        tools: [
+          { 
+            name: "Member Database", 
+            link: "member-database",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/16LKZEcdupSVKEak5AHMAqHbUYU5B7IYAjogwihqIf1c/edit" 
+          },
+          { 
+            name: "Health Profiles", 
+            link: "health-profiles",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Membership Status", 
+            link: "membership-status",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "attendance": {
+        title: "Attendance Tracking",
+        tools: [
+          { 
+            name: "Daily Check-ins", 
+            link: "daily-checkins",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_DAILY_CHECKINS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Class Attendance", 
+            link: "class-attendance",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_CLASS_ATTENDANCE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Attendance Reports", 
+            link: "attendance-reports",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_REPORTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "membership": {
+        title: "Membership Management",
+        tools: [
+          { 
+            name: "Renewal Tracking", 
+            link: "renewal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Tier Management", 
+            link: "tier-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Member Communications", 
+            link: "member-communications",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Facilities Section
+      "facility-booking": {
+        title: "Facility Booking",
+        tools: [
+          { 
+            name: "Booking Calendar", 
+            link: "booking-calendar",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_BOOKING_CALENDAR_SHEET_ID/edit" 
+          },
+          { 
+            name: "Resource Allocation", 
+            link: "resource-allocation",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_RESOURCE_ALLOCATION_SHEET_ID/edit" 
+          },
+          { 
+            name: "Usage Analytics", 
+            link: "usage-analytics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_USAGE_ANALYTICS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "equipment": {
+        title: "Equipment Management",
+        tools: [
+          { 
+            name: "Inventory Tracking", 
+            link: "inventory-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_INVENTORY_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Maintenance Schedule", 
+            link: "maintenance-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_MAINTENANCE_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Checkout System", 
+            link: "checkout-system",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_CHECKOUT_SYSTEM_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "maintenance": {
+        title: "Maintenance",
+        tools: [
+          { 
+            name: "Request Tracking", 
+            link: "request-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_REQUEST_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Preventive Schedule", 
+            link: "preventive-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_PREVENTIVE_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Vendor Management", 
+            link: "vendor-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_VENDOR_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Financials
+      "payments": {
+        title: "Membership Payments",
+        tools: [
+          { 
+            name: "Payment Tracking", 
+            link: "payment-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PAYMENT_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Invoice Management", 
+            link: "invoice-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_INVOICE_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Revenue Reports", 
+            link: "revenue-reports",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_REPORTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "revenue": {
+        title: "Program Revenue",
+        tools: [
+          { 
+            name: "Program Pricing", 
+            link: "program-pricing",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PROGRAM_PRICING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participation Revenue", 
+            link: "participation-revenue",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PARTICIPATION_REVENUE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Revenue Analysis", 
+            link: "revenue-analysis",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_ANALYSIS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "expenses": {
+        title: "Expense Management",
+        tools: [
+          { 
+            name: "Expense Tracking", 
+            link: "expense-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_EXPENSE_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Budget Management", 
+            link: "budget-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_BUDGET_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Vendor Payments", 
+            link: "vendor-payments",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_VENDOR_PAYMENTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Communications
+      "announcements": {
+        title: "Announcements",
+        tools: [
+          { 
+            name: "News Feed", 
+            link: "news-feed",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_NEWS_FEED_SHEET_ID/edit" 
+          },
+          { 
+            name: "Priority Alerts", 
+            link: "priority-alerts",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_PRIORITY_ALERTS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Archive", 
+            link: "announcement-archive",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_ANNOUNCEMENT_ARCHIVE_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "events": {
+        title: "Event Management",
+        tools: [
+          { 
+            name: "Event Calendar", 
+            link: "event-calendar",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_CALENDAR_SHEET_ID/edit" 
+          },
+          { 
+            name: "Registration Tracking", 
+            link: "registration-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1_uNBzUQ_6tzGz1I2EI5OTfM0iCsMF1oPSFEFvN-e0EQ/edit" 
+          },
+          { 
+            name: "Participant Management", 
+            link: "participant-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "feedback": {
+        title: "Feedback System",
+        tools: [
+          { 
+            name: "Survey Management", 
+            link: "survey-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Response Tracking", 
+            link: "response-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_RESPONSE_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Improvement Plans", 
+            link: "improvement-plans",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" 
+          }
+        ]
+      }
+    };
+
+    // DOM elements
+    const loginScreen = document.getElementById("loginScreen");
+    const appContainer = document.getElementById("appContainer");
+    const loginForm = document.getElementById("loginForm");
+    const loginBtn = document.getElementById("loginBtn");
+    const loginMessage = document.getElementById("loginMessage");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const userAvatar = document.getElementById("userAvatar");
+    
+    const iframe = document.getElementById("iframe");
+    const dropdown = document.getElementById("dropdown");
+    const menuToggle = document.getElementById("menuToggle");
+    const menuContent = document.getElementById("menuContent");
+    const moduleTitle = document.getElementById("moduleTitle");
+    const navSections = document.querySelectorAll(".nav-section");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    // Initialize the application
+    function initApp() {
+      setupEventListeners();
+      // Check if user is already logged in
+      checkLoginStatus();
+    }
+
+    // Check if user is already logged in
+    function checkLoginStatus() {
+      const isLoggedIn = localStorage.getItem('workfitLoggedIn');
+      const username = localStorage.getItem('workfitUsername');
+      
+      if (isLoggedIn === 'true' && username) {
+        showApp(username);
+      }
+    }
+
+    // Set up all event listeners
+    function setupEventListeners() {
+      // Login form submission
+      loginForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        handleLogin();
+      });
+
+      // Navigation section clicks
+      document.querySelectorAll(".nav-section-title").forEach(title => {
+        title.addEventListener("click", function(e) {
+          e.stopPropagation();
+          const section = this.parentElement;
+          navSections.forEach(s => {
+            if (s !== section) s.classList.remove("active");
+          });
+          section.classList.toggle("active");
+        });
+      });
+
+      // Nav link clicks
+      navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          handleNavLinkClick(this);
+        });
+      });
+
+      // Tool clicks
+      menuContent.addEventListener("click", function(e) {
+        if (e.target.tagName === 'A') {
+          e.preventDefault();
+          handleToolClick(e.target);
+        }
+      });
+
+      // Toggle dropdown
+      menuToggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        dropdown.classList.toggle("open");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function() {
+        dropdown.classList.remove("open");
+      });
+    }
+
+    // Handle login
+    function handleLogin() {
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      // Show loading state
+      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+      loginBtn.disabled = true;
+      loginMessage.innerHTML = '';
+
+      // Simple authentication (in a real app, this would call a backend)
+      setTimeout(() => {
+        if (username && password) {
+          // Successful login
+          localStorage.setItem('workfitLoggedIn', 'true');
+          localStorage.setItem('workfitUsername', username);
+          showApp(username);
+        } else {
+          // Failed login
+          showLoginMessage('error', 'Please enter both username and password');
+          loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+          loginBtn.disabled = false;
+        }
+      }, 1500);
+    }
+
+    // Show login message
+    function showLoginMessage(type, text) {
+      loginMessage.innerHTML = `<div class="login-message ${type}">${text}</div>`;
+    }
+
+    // Show the main application
+    function showApp(username) {
+      loginScreen.classList.add('hidden');
+      appContainer.classList.remove('hidden');
+      
+      // Set user avatar
+      userAvatar.textContent = username.charAt(0).toUpperCase();
+      
+      // Initialize the app content
+      loadInitialSection();
+    }
+
+    // Handle navigation link clicks
+    function handleNavLinkClick(link) {
+      // Update active states
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+      
+      // Update content
+      const section = link.dataset.section;
+      const data = moduleData[section];
+      
+      if (!data) {
+        console.error("No data found for section:", section);
+        return;
+      }
+      
+      moduleTitle.textContent = data.title;
+      
+      // Update tools dropdown
+      updateToolsMenu(data.tools);
+      
+      // Load the first tool's content by default
+      if (data.tools.length > 0) {
+        loadToolContent(data.tools[0].sheetUrl);
+      }
+    }
+
+    // Update the tools dropdown menu
+    function updateToolsMenu(tools) {
+      menuContent.innerHTML = '';
+      tools.forEach(tool => {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = tool.name;
+        link.dataset.link = tool.link;
+        link.dataset.sheetUrl = tool.sheetUrl;
+        menuContent.appendChild(link);
+      });
+    }
+
+    // Handle tool selection
+    function handleToolClick(toolElement) {
+      dropdown.classList.remove("open");
+      const sheetUrl = toolElement.dataset.sheetUrl;
+      loadToolContent(sheetUrl);
+    }
+
+    // Load content for a tool
+    function loadToolContent(sheetUrl) {
+      if (sheetUrl && sheetUrl.includes('docs.google.com')) {
+        const sheetId = extractSheetId(sheetUrl);
+        if (sheetId) {
+          // Load the sheet with full toolbar
+          iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
+        } else {
+          showPlaceholderContent("Invalid Google Sheet URL format");
+        }
+      } else {
+        showPlaceholderContent("No Google Sheet configured for this tool");
+      }
+    }
+
+    // Show placeholder content
+    function showPlaceholderContent(message) {
+      iframe.srcdoc = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+              font-family: Arial, sans-serif;
+              color: #666;
+              background: #f9f9f9;
+            }
+            .content {
+              text-align: center;
+              padding: 20px;
+              max-width: 500px;
+            }
+            i {
+              font-size: 3rem;
+              color: #ddd;
+              margin-bottom: 20px;
+            }
+            h2 {
+              color: #444;
+              margin: 0 0 15px 0;
+            }
+            p {
+              margin: 5px 0;
+              line-height: 1.5;
+            }
+          </style>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        </head>
+        <body>
+          <div class="content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Content Not Available</h2>
+            <p>${message}</p>
+            ${message.includes('configured') ? '<p>Please configure a valid Google Sheet URL in the moduleData object.</p>' : ''}
+          </div>
+        </body>
+        </html>
+      `;
+    }
+
+    // Helper function to extract sheet ID from URL
+    function extractSheetId(url) {
+      try {
+        const match = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+        return match ? match[1] : null;
+      } catch (e) {
+        console.error("Error extracting sheet ID:", e);
+        return null;
+      }
+    }
+
+    // Load initial section
+    function loadInitialSection() {
+      const activeLink = document.querySelector('.nav-link.active');
+      if (activeLink) {
+        handleNavLinkClick(activeLink);
+      } else if (navLinks.length > 0) {
+        // Activate first link if none is active
+        navLinks[0].classList.add("active");
+        handleNavLinkClick(navLinks[0]);
+      }
+    }
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+
+</body>
+</html>
