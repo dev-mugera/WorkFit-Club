@@ -23,12 +23,16 @@
       --border-color: #ddd;
       --shadow-color: rgba(0, 0, 0, 0.1);
       --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
     }
 
+    /* Dark mode variables */
     [data-theme="dark"] {
       --navy: #0a2e57;
       --navy-light: #1a3e67;
       --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
       --gold: #FFD700;
       --accent: #C73E1D;
       --light: #1a1a1a;
@@ -55,10 +59,13 @@
       background-color: var(--bg-secondary);
       color: var(--text-primary);
       line-height: 1.6;
-      overflow-x: hidden;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding-bottom: 2rem;
     }
 
-    /* Header */
+    /* Navigation */
     header {
       background-color: var(--bg-primary);
       box-shadow: 0 2px 10px var(--shadow-color);
@@ -74,6 +81,7 @@
       padding: 1rem;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
     }
 
     .logo {
@@ -81,41 +89,51 @@
       width: auto;
     }
 
-    .nav-controls {
+    .nav-links {
       display: flex;
-      align-items: center;
       gap: 1rem;
-    }
-
-    .search-container {
-      position: relative;
-      display: flex;
       align-items: center;
     }
 
-    .search-input {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      background: var(--bg-primary);
+    .nav-links a {
       color: var(--text-primary);
-      width: 200px;
-      transition: width 0.3s ease;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+      padding: 0.5rem;
     }
 
-    .search-input:focus {
-      outline: none;
-      border-color: var(--navy);
-      width: 250px;
+    .nav-links a:hover {
+      color: var(--gold);
     }
 
-    .search-button {
+    .back-btn {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .back-btn:hover {
+      background: var(--navy-light);
+    }
+
+    .mobile-menu-btn {
+      display: none;
       background: none;
       border: none;
-      color: var(--text-primary);
-      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--navy-dark);
       padding: 0.5rem;
-      margin-left: -2.5rem;
+      cursor: pointer;
+      z-index: 101;
     }
 
     .theme-toggle {
@@ -143,14 +161,10 @@
     }
 
     /* Sections */
-    .tutorial-section {
+    section {
       padding: 2rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
-    }
-
-    .tutorial-section:nth-child(even) {
-      background-color: var(--bg-primary);
     }
 
     .section-title {
@@ -163,61 +177,92 @@
       border-left: 4px solid var(--gold);
     }
 
-    /* Carousel */
-    .carousel-container {
-      position: relative;
-      overflow-x: auto;
-      padding: 0.5rem 0;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    }
-    
-    .carousel-container::-webkit-scrollbar {
-      display: none;
+    /* Workout Tutorials Section */
+    .workout-tutorials {
+      background-color: var(--bg-primary);
+      padding: 2rem 1rem;
     }
 
-    .carousel-track {
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Tutorials Filter */
+    .tutorials-filter {
       display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    /* Tutorials Grid */
+    .tutorials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
-      padding: 0.5rem;
-      transition: transform 0.3s ease;
-      will-change: transform; /* Performance optimization */
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .tutorial-card {
       background: var(--card-bg);
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 5px 7px var(--shadow-color);
-      transition: transform 0.3s;
-      display: flex;
-      flex-direction: column;
-      flex: 0 0 calc(33.333% - 1rem);
-      min-width: 280px;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      position: relative;
-      transform: translateZ(0); /* Hardware acceleration */
     }
 
     .tutorial-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 25px var(--shadow-color);
     }
 
-    .video-container {
-      height: 140px;
-      overflow: hidden;
+    /* Video Container */
+    .tutorial-video-container {
       position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .video-placeholder {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
     }
 
     .video-thumbnail {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.3s ease;
     }
 
-    .tutorial-card:hover .video-thumbnail {
+    .video-placeholder:hover .video-thumbnail {
       transform: scale(1.05);
     }
 
@@ -226,33 +271,30 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      z-index: 2;
     }
 
     .play-button i {
       color: var(--navy);
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       margin-left: 4px;
     }
 
-    .tutorial-card:hover .play-button {
+    .video-placeholder:hover .play-button {
       background: var(--gold);
       transform: translate(-50%, -50%) scale(1.1);
     }
 
+    /* Tutorial Content */
     .tutorial-content {
-      padding: 1.2rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      padding: 1.5rem;
     }
 
     .tutorial-category {
@@ -260,23 +302,24 @@
       background: var(--gold);
       color: var(--navy);
       padding: 0.3rem 0.8rem;
-      border-radius: 20px;
+      border-radius: 15px;
       font-size: 0.75rem;
-      margin-bottom: 0.5rem;
       font-weight: 600;
+      margin-bottom: 0.8rem;
     }
 
     .tutorial-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
       color: var(--navy);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
     }
 
     .tutorial-description {
-      margin-bottom: 1.2rem;
-      flex: 1;
-      font-size: 0.9rem;
       color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
     }
 
     .tutorial-meta {
@@ -304,36 +347,13 @@
 
     .difficulty.advanced {
       background: rgba(244, 67, 54, 0.2);
-      color: #f44336;
+      color: #F44336;
     }
 
     .duration {
       color: var(--gray);
       font-size: 0.8rem;
       font-weight: 600;
-    }
-
-    /* Carousel Navigation */
-    .carousel-nav {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-      gap: 0.5rem;
-    }
-
-    .carousel-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--border-color);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .carousel-dot.active {
-      background: var(--navy);
-      width: 20px;
-      border-radius: 4px;
     }
 
     /* Video Modal */
@@ -379,16 +399,21 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
+      transition: background 0.3s ease;
     }
 
-    .video-container-modal {
+    .video-modal-close:hover {
+      background: var(--accent);
+    }
+
+    .video-container {
       position: relative;
       width: 100%;
       height: 0;
-      padding-bottom: 56.25%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
     }
 
-    .video-container-modal iframe {
+    .video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -397,97 +422,71 @@
       border: none;
     }
 
-    /* Search Results */
-    .search-results {
-      display: none;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .search-results.active {
-      display: block;
-    }
-
-    .search-results-title {
-      margin-bottom: 1rem;
-      color: var(--navy);
-    }
-
-    .search-results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 2rem;
-      color: var(--text-secondary);
-      grid-column: 1 / -1;
-    }
-
-    /* Clear Search Button */
-    .clear-search {
-      display: none;
-      background: var(--navy);
-      color: var(--white);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 0.5rem;
-      font-weight: 600;
-      transition: background 0.3s;
-    }
-
-    .clear-search:hover {
-      background: var(--navy-light);
-    }
-
-    .clear-search.active {
-      display: inline-block;
-    }
-
-    /* Responsive */
+    /* Responsive Design */
     @media (max-width: 768px) {
-      .tutorial-card {
-        flex: 0 0 calc(50% - 1rem);
+      .tutorials-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
       
-      .nav-controls {
+      .tutorials-filter {
         gap: 0.5rem;
       }
       
-      .search-input {
-        width: 150px;
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
       }
       
-      .search-input:focus {
-        width: 180px;
+      .tutorial-video-container {
+        height: 180px;
+      }
+      
+      .video-modal-content {
+        margin: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--navy);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        z-index: 99;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        color: var(--white);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      section {
+        padding: 1.5rem 0.8rem;
       }
     }
 
     @media (max-width: 480px) {
-      .tutorial-card {
-        flex: 0 0 100%;
+      .tutorial-content {
+        padding: 1rem;
       }
       
-      .tutorial-section {
-        padding: 1.5rem 0.8rem;
-      }
-      
-      .search-input {
-        width: 120px;
-      }
-      
-      .search-input:focus {
-        width: 140px;
-      }
-      
-      .nav-controls {
-        flex-wrap: wrap;
-        justify-content: flex-end;
+      .tutorial-title {
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -495,15 +494,13 @@
 <body>
   <header>
     <nav>
-      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
-      <div class="nav-controls">
-        <div class="search-container">
-          <input type="text" class="search-input" id="searchInput" placeholder="Search videos...">
-          <button class="search-button" id="searchButton">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-        <button class="clear-search" id="clearSearch">Clear</button>
+      <img src="https://i.postimg.cc/C1ggFwhK/Untitled-1.png" alt="WorkFit Logo" class="logo">
+      <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+          <i class="fas fa-arrow-left"></i>
+        </a>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -514,253 +511,186 @@
     </nav>
   </header>
 
-  <!-- Search Results Section -->
-  <section class="search-results" id="searchResults">
-    <h2 class="search-results-title">Search Results</h2>
-    <div class="search-results-grid" id="searchResultsGrid">
-      <!-- Search results will be populated here -->
+  <section class="workout-tutorials" id="tutorials">
+    <h2 class="section-title">Workout Tutorials</h2>
+    <p class="section-subtitle">Learn proper form and technique for all exercises. Click any video to play.</p>
+    
+    <div class="tutorials-filter">
+      <button class="filter-btn active" data-filter="all">All Tutorials</button>
+      <button class="filter-btn" data-filter="strength">Strength</button>
+      <button class="filter-btn" data-filter="cardio">Cardio</button>
+      <button class="filter-btn" data-filter="flexibility">Flexibility</button>
+      <button class="filter-btn" data-filter="warmup">Warm-up</button>
     </div>
-  </section>
 
-  <!-- Strength Training Section -->
-  <section class="tutorial-section" id="strengthTraining">
-    <h2 class="section-title">Strength Training</h2>
-    <div class="carousel-container">
-      <div class="carousel-track" id="strengthTrack">
-        <!-- Video 1 -->
-        <div class="tutorial-card" data-video-id="cnyTQDSE884" data-title="Mountain Climbers" data-category="Strength" data-difficulty="beginner" data-duration="5 min">
-          <div class="video-container">
-            <img src="https://i.postimg.cc/bw96QkjY/20250929-1639-Outdoor-Mountain-Climbers-simple-compose-01k6atyjrgfccs8nnj0tmtpbaf.png" alt="Mountain Climbers" class="video-thumbnail">
+    <div class="tutorials-grid">
+      <!-- Mountain Climbers Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="nmwgIRg75L4">
+            <img src="https://img.youtube.com/vi/nmwgIRg75L4/maxresdefault.jpg" alt="Mountain Climbers Tutorial" class="video-thumbnail">
             <div class="play-button">
               <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Strength</span>
-            <h3 class="tutorial-title">Mountain Climbers</h3>
-            <p class="tutorial-description">Learn proper form for mountain climbers to engage your core effectively.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty beginner">Beginner</span>
-              <span class="duration">5 min</span>
             </div>
           </div>
         </div>
-
-        <!-- Video 2 -->
-        <div class="tutorial-card" data-video-id="aclHkVaku9U" data-title="Perfect Squat Form" data-category="Strength" data-difficulty="intermediate" data-duration="6 min">
-          <div class="video-container">
-            <img src="https://i.postimg.cc/05nCQPPr/pngwing-com-1-removebg-preview.png" alt="Perfect Squats" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Strength</span>
-            <h3 class="tutorial-title">Perfect Squat Form</h3>
-            <p class="tutorial-description">Master the squat with proper technique to build leg strength safely.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty intermediate">Intermediate</span>
-              <span class="duration">6 min</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video 3 -->
-        <div class="tutorial-card" data-video-id="qhqrKtTRD5E" data-title="Plank Variations" data-category="Strength" data-difficulty="intermediate" data-duration="7 min">
-          <div class="video-container">
-            <img src="https://i.postimg.cc/QCfPk77k/20250929-1709-Outdoor-Plank-Workout-simple-compose-01k6awvva7f2zb7zxyrvdeh2mj.png" alt="Plank Variations" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Strength</span>
-            <h3 class="tutorial-title">Plank Variations</h3>
-            <p class="tutorial-description">Different plank variations to challenge your core from every angle.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty intermediate">Intermediate</span>
-              <span class="duration">7 min</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Video 4 -->
-        <div class="tutorial-card" data-video-id="4Y2ZdHCOXok" data-title="Push-Up Mastery" data-category="Strength" data-difficulty="intermediate" data-duration="8 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Push-Ups" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Strength</span>
-            <h3 class="tutorial-title">Push-Up Mastery</h3>
-            <p class="tutorial-description">Learn proper push-up form and variations for upper body strength.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty intermediate">Intermediate</span>
-              <span class="duration">8 min</span>
-            </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Mountain Climbers - Proper Form</h3>
+          <p class="tutorial-description">Learn the correct technique for mountain climbers to maximize core engagement and avoid injury.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">5 min</span>
           </div>
         </div>
       </div>
-    </div>
-    <div class="carousel-nav" id="strengthNav">
-      <!-- Dots will be added by JavaScript -->
-    </div>
-  </section>
 
-  <!-- Cardio Workouts Section -->
-  <section class="tutorial-section" id="cardioWorkouts">
-    <h2 class="section-title">Cardio Workouts</h2>
-    <div class="carousel-container">
-      <div class="carousel-track" id="cardioTrack">
-        <!-- Video 1 -->
-        <div class="tutorial-card" data-video-id="2sECj4v6-1w" data-title="Proper Running Form" data-category="Cardio" data-difficulty="intermediate" data-duration="8 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Running Form" class="video-thumbnail">
+      <!-- Plank Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="BQu26ABuVS0">
+            <img src="https://img.youtube.com/vi/BQu26ABuVS0/maxresdefault.jpg" alt="Plank Tutorial" class="video-thumbnail">
             <div class="play-button">
               <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Cardio</span>
-            <h3 class="tutorial-title">Proper Running Form</h3>
-            <p class="tutorial-description">Improve your running efficiency and reduce injury risk.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty intermediate">Intermediate</span>
-              <span class="duration">8 min</span>
             </div>
           </div>
         </div>
-
-        <!-- Video 2 -->
-        <div class="tutorial-card" data-video-id="1BZM2Vre5oc" data-title="Jump Rope Basics" data-category="Cardio" data-difficulty="beginner" data-duration="6 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jump Rope" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Cardio</span>
-            <h3 class="tutorial-title">Jump Rope Basics</h3>
-            <p class="tutorial-description">Master jump rope techniques for effective cardio workouts.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty beginner">Beginner</span>
-              <span class="duration">6 min</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Video 3 -->
-        <div class="tutorial-card" data-video-id="ml6cT4xq0aE" data-title="HIIT Workout" data-category="Cardio" data-difficulty="advanced" data-duration="15 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="HIIT Workout" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Cardio</span>
-            <h3 class="tutorial-title">HIIT Workout</h3>
-            <p class="tutorial-description">High-intensity interval training for maximum calorie burn.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty advanced">Advanced</span>
-              <span class="duration">15 min</span>
-            </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Perfect Plank Form</h3>
+          <p class="tutorial-description">Master the plank with proper alignment and breathing techniques for maximum core strength.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">4 min</span>
           </div>
         </div>
       </div>
-    </div>
-    <div class="carousel-nav" id="cardioNav">
-      <!-- Dots will be added by JavaScript -->
-    </div>
-  </section>
 
-  <!-- Flexibility & Mobility Section -->
-  <section class="tutorial-section" id="flexibilityMobility">
-    <h2 class="section-title">Flexibility & Mobility</h2>
-    <div class="carousel-container">
-      <div class="carousel-track" id="flexibilityTrack">
-        <!-- Video 1 -->
-        <div class="tutorial-card" data-video-id="4vTJ5UBXTG4" data-title="Full Body Stretching" data-category="Flexibility" data-difficulty="beginner" data-duration="10 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Full Body Stretch" class="video-thumbnail">
+      <!-- Warm-up Routine -->
+      <div class="tutorial-card" data-category="warmup">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="JPJ6yP2fcwI">
+            <img src="https://img.youtube.com/vi/JPJ6yP2fcwI/maxresdefault.jpg" alt="Warm-up Routine" class="video-thumbnail">
             <div class="play-button">
               <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Flexibility</span>
-            <h3 class="tutorial-title">Full Body Stretching</h3>
-            <p class="tutorial-description">Complete stretching routine to improve flexibility and recovery.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty beginner">Beginner</span>
-              <span class="duration">10 min</span>
             </div>
           </div>
         </div>
-
-        <!-- Video 2 -->
-        <div class="tutorial-card" data-video-id="Vao6QR0xw-c" data-title="Yoga for Beginners" data-category="Flexibility" data-difficulty="beginner" data-duration="12 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Yoga Basics" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Flexibility</span>
-            <h3 class="tutorial-title">Yoga for Beginners</h3>
-            <p class="tutorial-description">Basic yoga poses to improve flexibility and mental focus.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty beginner">Beginner</span>
-              <span class="duration">12 min</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Video 3 -->
-        <div class="tutorial-card" data-video-id="L_xrDAtykMI" data-title="Hip Mobility Routine" data-category="Flexibility" data-difficulty="intermediate" data-duration="8 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hip Mobility" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Flexibility</span>
-            <h3 class="tutorial-title">Hip Mobility Routine</h3>
-            <p class="tutorial-description">Improve hip flexibility and reduce lower back pain.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty intermediate">Intermediate</span>
-              <span class="duration">8 min</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Video 4 -->
-        <div class="tutorial-card" data-video-id="E9M9s7D7Z0Y" data-title="Shoulder Mobility" data-category="Flexibility" data-difficulty="intermediate" data-duration="7 min">
-          <div class="video-container">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Shoulder Mobility" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-          <div class="tutorial-content">
-            <span class="tutorial-category">Flexibility</span>
-            <h3 class="tutorial-title">Shoulder Mobility</h3>
-            <p class="tutorial-description">Exercises to improve shoulder flexibility and prevent injuries.</p>
-            <div class="tutorial-meta">
-              <span class="difficulty intermediate">Intermediate</span>
-              <span class="duration">7 min</span>
-            </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Warm-up</span>
+          <h3 class="tutorial-title">5-Minute Dynamic Warm-up</h3>
+          <p class="tutorial-description">Essential warm-up routine to prepare your body for any workout and prevent injuries.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">5 min</span>
           </div>
         </div>
       </div>
-    </div>
-    <div class="carousel-nav" id="flexibilityNav">
-      <!-- Dots will be added by JavaScript -->
+
+      <!-- Squat Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="1EuSIwoe_j3IrQiS7cYpHVAHFt8sE99D8ab6iUK4w0FQ">
+            <img src="https://img.youtube.com/vi/aclHkVaku9U/maxresdefault.jpg" alt="Squat Tutorial" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Perfect Squat Form</h3>
+          <p class="tutorial-description">Learn proper squat technique to build leg strength and protect your knees and back.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty intermediate">Intermediate</span>
+            <span class="duration">6 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stretching Routine -->
+      <div class="tutorial-card" data-category="flexibility">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="4pKly2JojMw">
+            <img src="https://img.youtube.com/vi/4pKly2JojMw/maxresdefault.jpg" alt="Stretching Routine" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Flexibility</span>
+          <h3 class="tutorial-title">Full Body Stretching</h3>
+          <p class="tutorial-description">Complete stretching routine to improve flexibility and aid muscle recovery.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">8 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Running Form -->
+      <div class="tutorial-card" data-category="cardio">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="5umbf2psTcg">
+            <img src="https://img.youtube.com/vi/5umbf2psTcg/maxresdefault.jpg" alt="Running Form" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Cardio</span>
+          <h3 class="tutorial-title">Proper Running Form</h3>
+          <p class="tutorial-description">Improve your running efficiency and reduce injury risk with proper running technique.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty intermediate">Intermediate</span>
+            <span class="duration">7 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Push-up Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="IODxDxX7oi4">
+            <img src="https://img.youtube.com/vi/IODxDxX7oi4/maxresdefault.jpg" alt="Push-up Tutorial" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Perfect Push-up Form</h3>
+          <p class="tutorial-description">Master the push-up with proper chest, shoulder, and core engagement techniques.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">5 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cool Down Routine -->
+      <div class="tutorial-card" data-category="flexibility">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="4vTJGB1vqOA">
+            <img src="https://img.youtube.com/vi/4vTJGB1vqOA/maxresdefault.jpg" alt="Cool Down Routine" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Flexibility</span>
+          <h3 class="tutorial-title">Post-Workout Cool Down</h3>
+          <p class="tutorial-description">Essential cool down routine to aid recovery and improve flexibility after workouts.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">6 min</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -770,8 +700,8 @@
       <button class="video-modal-close" id="videoModalClose">
         <i class="fas fa-times"></i>
       </button>
-      <div class="video-container-modal" id="videoContainer">
-        <!-- YouTube video will be embedded here -->
+      <div class="video-container" id="videoContainer">
+        <!-- YouTube iframe will be inserted here -->
       </div>
     </div>
   </div>
@@ -782,15 +712,24 @@
     const themeIcon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
     
+    // Check for saved theme preference or use system preference
     const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
     if (savedTheme) {
       htmlElement.setAttribute('data-theme', savedTheme);
       updateThemeIcon(savedTheme);
+    } else if (systemPrefersDark) {
+      htmlElement.setAttribute('data-theme', 'dark');
+      updateThemeIcon('dark');
     }
     
+    // Theme toggle functionality
     themeToggle.addEventListener('click', function() {
       const currentTheme = htmlElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
       htmlElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
@@ -800,68 +739,74 @@
       if (theme === 'dark') {
         themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
       } else {
-        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>';
       }
     }
-
-    // Carousel Navigation
-    function initCarousel(carouselId, navId) {
-      const carouselTrack = document.getElementById(carouselId);
-      const navContainer = document.getElementById(navId);
-      const cards = carouselTrack.querySelectorAll('.tutorial-card');
-      
-      // Calculate how many dots we need based on number of cards
-      const cardsPerView = Math.floor(carouselTrack.offsetWidth / (cards[0].offsetWidth + 24));
-      const totalDots = Math.ceil(cards.length / cardsPerView);
-      
-      // Create dots
-      for (let i = 0; i < totalDots; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('carousel-dot');
-        if (i === 0) dot.classList.add('active');
-        
-        dot.addEventListener('click', () => {
-          // Update active dot
-          navContainer.querySelectorAll('.carousel-dot').forEach(d => d.classList.remove('active'));
-          dot.classList.add('active');
-          
-          // Scroll to the appropriate position
-          const scrollPosition = i * cardsPerView * (cards[0].offsetWidth + 24);
-          carouselTrack.scrollTo({
-            left: scrollPosition,
-            behavior: 'smooth'
-          });
-        });
-        
-        navContainer.appendChild(dot);
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      // Only apply system theme if user hasn't set a preference
+      if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        htmlElement.setAttribute('data-theme', newTheme);
+        updateThemeIcon(newTheme);
       }
-    }
-
-    // Initialize carousels
-    document.addEventListener('DOMContentLoaded', () => {
-      initCarousel('strengthTrack', 'strengthNav');
-      initCarousel('cardioTrack', 'cardioNav');
-      initCarousel('flexibilityTrack', 'flexibilityNav');
     });
 
-    // YouTube Video Modal
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      
+      // Change icon based on menu state
+      const icon = menuBtn.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Prevent clicks inside nav from closing it
+    navLinks.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // Workout Tutorials Functionality
     const videoModal = document.getElementById('videoModal');
     const videoModalClose = document.getElementById('videoModalClose');
     const videoContainer = document.getElementById('videoContainer');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const tutorialCards = document.querySelectorAll('.tutorial-card');
 
-    document.querySelectorAll('.tutorial-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const videoId = card.dataset.videoId;
-        playYouTubeVideo(videoId);
+    // Video playback functionality
+    document.querySelectorAll('.video-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        const videoId = placeholder.dataset.videoId;
+        playVideo(videoId);
       });
     });
 
-    function playYouTubeVideo(videoId) {
-      const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    function playVideo(videoId) {
       videoContainer.innerHTML = `
         <iframe 
-          src="${embedUrl}" 
-          allow="autoplay; encrypted-media" 
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowfullscreen>
         </iframe>
       `;
@@ -869,12 +814,14 @@
       document.body.style.overflow = 'hidden';
     }
 
+    // Close video modal
     videoModalClose.addEventListener('click', () => {
       videoModal.classList.remove('active');
       videoContainer.innerHTML = '';
       document.body.style.overflow = 'auto';
     });
 
+    // Close modal when clicking outside
     videoModal.addEventListener('click', (e) => {
       if (e.target === videoModal) {
         videoModal.classList.remove('active');
@@ -883,6 +830,27 @@
       }
     });
 
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        const filter = btn.dataset.filter;
+        
+        tutorialCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Close video with Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && videoModal.classList.contains('active')) {
         videoModal.classList.remove('active');
@@ -891,109 +859,18 @@
       }
     });
 
-    // Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
-    const clearSearch = document.getElementById('clearSearch');
-    const searchResults = document.getElementById('searchResults');
-    const searchResultsGrid = document.getElementById('searchResultsGrid');
-    const tutorialSections = document.querySelectorAll('.tutorial-section');
-
-    // Store original state of tutorial sections
-    const originalTutorialSections = Array.from(tutorialSections).map(section => {
-      return {
-        element: section,
-        display: section.style.display
-      };
-    });
-
-    function performSearch() {
-      const searchTerm = searchInput.value.toLowerCase().trim();
-      
-      if (searchTerm === '') {
-        clearSearchResults();
-        return;
-      }
-      
-      // Show clear button
-      clearSearch.classList.add('active');
-      
-      // Hide all tutorial sections
-      tutorialSections.forEach(section => section.style.display = 'none');
-      
-      // Clear previous search results
-      searchResultsGrid.innerHTML = '';
-      
-      // Find matching videos
-      const allCards = document.querySelectorAll('.tutorial-card');
-      const matchingCards = Array.from(allCards).filter(card => {
-        const title = card.dataset.title.toLowerCase();
-        const category = card.dataset.category.toLowerCase();
-        const difficulty = card.dataset.difficulty.toLowerCase();
-        
-        return title.includes(searchTerm) || 
-               category.includes(searchTerm) || 
-               difficulty.includes(searchTerm);
-      });
-      
-      // Display search results
-      if (matchingCards.length > 0) {
-        searchResults.classList.add('active');
-        
-        matchingCards.forEach(card => {
-          const clone = card.cloneNode(true);
-          searchResultsGrid.appendChild(clone);
-          
-          // Reattach click event to cloned card
-          clone.addEventListener('click', () => {
-            const videoId = clone.dataset.videoId;
-            playYouTubeVideo(videoId);
-          });
+    // Add loading animation for images
+    document.addEventListener('DOMContentLoaded', () => {
+      const images = document.querySelectorAll('.video-thumbnail');
+      images.forEach(img => {
+        img.addEventListener('load', () => {
+          img.style.opacity = '1';
         });
-      } else {
-        searchResults.classList.add('active');
-        searchResultsGrid.innerHTML = `
-          <div class="no-results">
-            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-            <h3>No videos found</h3>
-            <p>Try searching with different keywords</p>
-          </div>
-        `;
-      }
-    }
-
-    function clearSearchResults() {
-      searchInput.value = '';
-      searchResults.classList.remove('active');
-      clearSearch.classList.remove('active');
-      
-      // Restore original tutorial sections
-      tutorialSections.forEach(section => {
-        section.style.display = 'block';
+        // Set initial opacity for fade-in effect
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.3s ease';
       });
-    }
-
-    searchButton.addEventListener('click', performSearch);
-    
-    searchInput.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') {
-        performSearch();
-      }
-      
-      // Auto-clear results when search input is empty
-      if (searchInput.value === '') {
-        clearSearchResults();
-      }
     });
-    
-    searchInput.addEventListener('input', () => {
-      // Auto-clear results when search input is empty
-      if (searchInput.value === '') {
-        clearSearchResults();
-      }
-    });
-    
-    clearSearch.addEventListener('click', clearSearchResults);
   </script>
 </body>
 </html>
