@@ -40,56 +40,105 @@
       flex-direction: column;
     }
 
-        /* Center entire login screen */
+    /* Enhanced Login Screen */
     .login-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: var(--gradient-bg);
     }
 
-    /* Login card styling */
     .login-container {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
+      background: rgba(23, 42, 69, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      padding: 30px 25px;
+      width: 100%;
+      height: 30%;
+      max-width: 380px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      position: relative;
     }
 
-    /* Center logo and text */
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     .login-logo img {
-    height: 80px;
-    margin-bottom: 10px;
+      height: 45px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 5px 15px rgba(253, 187, 45, 0.3));
     }
 
     .login-logo h1 {
-    margin: 0;
-    font-weight: 600;
+      color: var(--accent-color);
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+      font-weight: 700;
     }
 
     .login-logo p {
-    margin: 5px 0 20px;
-    color: #666;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
     }
 
-    /* Center Google button */
-    .google-btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
+    .login-message {
+      padding: 10px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.9rem;
+      background: rgba(253, 187, 45, 0.1);
+      border: 1px solid rgba(253, 187, 45, 0.2);
+      color: var(--accent-color);
     }
 
+    .login-message.error {
+      background: rgba(220, 53, 69, 0.1);
+      border-color: rgba(220, 53, 69, 0.3);
+      color: #f8d7da;
+    }
+
+    /* Google Sign-In Container */
+    .google-signin-container {
+      position: center;
+      width: 100%;
+      margin: 20px 0 10px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Force Google Button Styling */
     .g_id_signin {
-    transform: scale(1.05);
-    transform-origin: center;
+      width: 100% !important;
+      border-radius: 8px !important;
     }
 
+    .g_id_signin > div {
+      width: 100% !important;
+      border-radius: 8px !important;
+    }
 
     /* Layout structure */
     .app-container {
@@ -684,8 +733,9 @@
       }
 
       .login-container {
-        padding: 30px 20px;
+        padding: 25px 20px;
         margin: 20px;
+        max-width: 320px;
       }
     }
 
@@ -698,38 +748,38 @@
 <body>
 
   <!-- Login Screen -->
-    <div class="login-screen" id="loginScreen">
+  <div class="login-screen" id="loginScreen">
     <div class="login-container">
-        <div class="login-logo">
+      <div class="login-logo">
         <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Club Logo">
         <h1>WorkFit Club</h1>
         <p>Management Hub</p>
-        </div>
-
-        <div id="loginMessage"></div>
-
-        <!-- Google Sign-In -->
-        <div class="google-btn-container">
+      </div>
+      
+      <div id="loginMessage"></div>
+      
+      <!-- Google Sign-In Container -->
+      <div class="google-signin-container">
         <div id="g_id_onload"
-            data-client_id="300549925887-l79il8522prm2gv82tbt9241fcbsspos.apps.googleusercontent.com"
-            data-context="signin"
-            data-ux_mode="popup"
-            data-callback="handleGoogleSignIn"
-            data-auto_prompt="false">
+             data-client_id="300549925887-l79il8522prm2gv82tbt9241fcbsspos.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogleSignIn"
+             data-auto_prompt="false">
         </div>
 
         <div class="g_id_signin"
-            data-type="standard"
-            data-shape="rectangular"
-            data-theme="filled_blue"
-            data-text="signin_with"
-            data-size="large"
-            data-logo_alignment="left">
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="filled_blue"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left"
+             data-width="100">
         </div>
-        </div>
+      </div>
     </div>
-    </div>
-
+  </div>
 
   <!-- Main Application -->
   <div class="app-container hidden" id="appContainer">
@@ -946,7 +996,8 @@
   </div>
 
   <script>
-    // Configuration
+    // Configuration - Replace with your actual Google Client ID
+    // You can get this from: https://console.cloud.google.com/apis/credentials
     const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
 
     // Module data
@@ -964,7 +1015,28 @@
           }
         ]
       },
-      // ... other modules
+      "class-schedule": {
+        title: "Class Schedule",
+        tools: [
+          { 
+            name: "Schedule Management", 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
+          },
+          { 
+            name: "Instructor Assignments", 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1OfoZ3HHwTIhLvx5Mg9QVrJK6S3hKU4yzHh3JkP3u_Xw/edit" 
+          }
+        ]
+      },
+      "member-profiles": {
+        title: "Member Profiles",
+        tools: [
+          { 
+            name: "Member Database", 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
+          }
+        ]
+      }
     };
 
     // Sample notifications data
@@ -993,7 +1065,6 @@
     const loginScreen = document.getElementById("loginScreen");
     const appContainer = document.getElementById("appContainer");
     const loginMessage = document.getElementById("loginMessage");
-    const customGoogleBtn = document.getElementById("customGoogleBtn");
     const profileAvatar = document.getElementById("profileAvatar");
     const profileName = document.getElementById("profileName");
     const profileEmail = document.getElementById("profileEmail");
@@ -1021,6 +1092,47 @@
       setupEventListeners();
       checkLoginStatus();
       loadNotifications();
+      
+      // Update the Google Client ID in the script
+      updateGoogleClientId();
+    }
+
+    // Update Google Client ID in the script
+    function updateGoogleClientId() {
+      const gsiScript = document.createElement('script');
+      gsiScript.src = 'https://accounts.google.com/gsi/client';
+      gsiScript.async = true;
+      gsiScript.defer = true;
+      document.head.appendChild(gsiScript);
+      
+      // Wait for Google Identity Services to load
+      gsiScript.onload = function() {
+        // Initialize Google Sign-In with the correct client ID
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleSignIn,
+          context: 'signin',
+          ux_mode: 'popup',
+          auto_prompt: false
+        });
+        
+        // Render the button
+        window.google.accounts.id.renderButton(
+          document.querySelector('.google-signin-container'),
+          {
+            type: 'standard',
+            theme: 'filled_blue',
+            size: 'large',
+            text: 'signin_with',
+            shape: 'rectangular',
+            logo_alignment: 'left',
+            width: '100'
+          }
+        );
+        
+        // Optionally, display the One Tap prompt
+        // window.google.accounts.id.prompt();
+      };
     }
 
     // Check if user is already logged in
@@ -1036,13 +1148,6 @@
 
     // Set up all event listeners
     function setupEventListeners() {
-      // Custom Google Sign-In button
-      customGoogleBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        // Trigger the hidden Google Sign-In button
-        document.querySelector('.g_id_signin iframe').click();
-      });
-
       // Sign out button
       signOutBtn.addEventListener("click", function(e) {
         e.preventDefault();
@@ -1109,6 +1214,8 @@
 
     // Handle Google Sign-In
     function handleGoogleSignIn(response) {
+      console.log('Google Sign-In response:', response);
+      
       const userData = parseJwt(response.credential);
       
       if (userData) {
@@ -1173,15 +1280,22 @@
       localStorage.removeItem('workfitLoggedIn');
       localStorage.removeItem('workfitUserData');
       
-      if (google.accounts && google.accounts.id) {
-        google.accounts.id.revoke(currentUser.email);
+      // Revoke Google Sign-In
+      if (window.google && window.google.accounts && window.google.accounts.id) {
+        window.google.accounts.id.revoke(currentUser.email, () => {
+          console.log('Google Sign-In revoked');
+        });
       }
       
       appContainer.classList.add('hidden');
       loginScreen.classList.remove('hidden');
       
       currentUser = null;
-      setTimeout(() => window.location.reload(), 500);
+      
+      // Reload the page to reset Google Sign-In
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     }
 
     // Handle profile settings
