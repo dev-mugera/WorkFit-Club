@@ -1007,11 +1007,28 @@
         tools: [
           { 
             name: "Session Planning", 
+            link: "session-planning",
             sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
           },
           { 
             name: "Attendance Tracking", 
+            link: "attendance",
             sheetUrl: "https://docs.google.com/spreadsheets/d/1OfoZ3HHwTIhLvx5Mg9QVrJK6S3hKU4yzHh3JkP3u_Xw/edit" 
+          },
+          { 
+            name: "Coach Assignment", 
+            link: "coach-assignment",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WORKOUT_COACH_ASSIGNMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Equipment Check", 
+            link: "equipment-check",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WORKOUT_EQUIPMENT_CHECK_SHEET_ID/edit" 
+          },
+          { 
+            name: "Performance Metrics", 
+            link: "performance-metrics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WORKOUT_PERFORMANCE_METRICS_SHEET_ID/edit" 
           }
         ]
       },
@@ -1020,20 +1037,321 @@
         tools: [
           { 
             name: "Schedule Management", 
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
+            link: "schedule-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_SCHEDULE_MANAGEMENT_SHEET_ID/edit" 
           },
           { 
             name: "Instructor Assignments", 
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1OfoZ3HHwTIhLvx5Mg9QVrJK6S3hKU4yzHh3JkP3u_Xw/edit" 
+            link: "instructor-assignments",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_INSTRUCTOR_ASSIGNMENTS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Class Capacity", 
+            link: "class-capacity",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_CAPACITY_SHEET_ID/edit" 
+          },
+          { 
+            name: "Waitlist Management", 
+            link: "waitlist-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLASS_WAITLIST_MANAGEMENT_SHEET_ID/edit" 
           }
         ]
       },
+      "personal-training": {
+        title: "Personal Training",
+        tools: [
+          { 
+            name: "Trainer Schedule", 
+            link: "trainer-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_TRAINER_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Client Progress", 
+            link: "client-progress",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_CLIENT_PROGRESS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Session Notes", 
+            link: "session-notes",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_SESSION_NOTES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Goal Tracking", 
+            link: "goal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PERSONAL_GOAL_TRACKING_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "group-sessions": {
+        title: "Group Sessions",
+        tools: [
+          { 
+            name: "Session Planning", 
+            link: "session-planning",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_SESSION_PLANNING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participant Management", 
+            link: "participant-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Attendance Records", 
+            link: "attendance-records",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_ATTENDANCE_RECORDS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Feedback Collection", 
+            link: "feedback-collection",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1GROUP_FEEDBACK_COLLECTION_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Members Section
       "member-profiles": {
         title: "Member Profiles",
         tools: [
           { 
             name: "Member Database", 
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
+            link: "member-database",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/16LKZEcdupSVKEak5AHMAqHbUYU5B7IYAjogwihqIf1c/edit" 
+          },
+          { 
+            name: "Health Profiles", 
+            link: "health-profiles",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Membership Status", 
+            link: "membership-status",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "attendance": {
+        title: "Attendance Tracking",
+        tools: [
+          { 
+            name: "Daily Check-ins", 
+            link: "daily-checkins",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_DAILY_CHECKINS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Class Attendance", 
+            link: "class-attendance",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_CLASS_ATTENDANCE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Attendance Reports", 
+            link: "attendance-reports",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ATTENDANCE_REPORTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "membership": {
+        title: "Membership Management",
+        tools: [
+          { 
+            name: "Renewal Tracking", 
+            link: "renewal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Tier Management", 
+            link: "tier-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Member Communications", 
+            link: "member-communications",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Facilities Section
+      "facility-booking": {
+        title: "Facility Booking",
+        tools: [
+          { 
+            name: "Booking Calendar", 
+            link: "booking-calendar",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_BOOKING_CALENDAR_SHEET_ID/edit" 
+          },
+          { 
+            name: "Resource Allocation", 
+            link: "resource-allocation",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_RESOURCE_ALLOCATION_SHEET_ID/edit" 
+          },
+          { 
+            name: "Usage Analytics", 
+            link: "usage-analytics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_USAGE_ANALYTICS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "equipment": {
+        title: "Equipment Management",
+        tools: [
+          { 
+            name: "Inventory Tracking", 
+            link: "inventory-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_INVENTORY_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Maintenance Schedule", 
+            link: "maintenance-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_MAINTENANCE_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Checkout System", 
+            link: "checkout-system",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_CHECKOUT_SYSTEM_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "maintenance": {
+        title: "Maintenance",
+        tools: [
+          { 
+            name: "Request Tracking", 
+            link: "request-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_REQUEST_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Preventive Schedule", 
+            link: "preventive-schedule",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_PREVENTIVE_SCHEDULE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Vendor Management", 
+            link: "vendor-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_VENDOR_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Financials
+      "payments": {
+        title: "Membership Payments",
+        tools: [
+          { 
+            name: "Payment Tracking", 
+            link: "payment-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PAYMENT_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Invoice Management", 
+            link: "invoice-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_INVOICE_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Revenue Reports", 
+            link: "revenue-reports",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_REPORTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "revenue": {
+        title: "Program Revenue",
+        tools: [
+          { 
+            name: "Program Pricing", 
+            link: "program-pricing",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PROGRAM_PRICING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participation Revenue", 
+            link: "participation-revenue",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PARTICIPATION_REVENUE_SHEET_ID/edit" 
+          },
+          { 
+            name: "Revenue Analysis", 
+            link: "revenue-analysis",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_ANALYSIS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "expenses": {
+        title: "Expense Management",
+        tools: [
+          { 
+            name: "Expense Tracking", 
+            link: "expense-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_EXPENSE_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Budget Management", 
+            link: "budget-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_BUDGET_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Vendor Payments", 
+            link: "vendor-payments",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_VENDOR_PAYMENTS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      
+      // Communications
+      "announcements": {
+        title: "Announcements",
+        tools: [
+          { 
+            name: "News Feed", 
+            link: "news-feed",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_NEWS_FEED_SHEET_ID/edit" 
+          },
+          { 
+            name: "Priority Alerts", 
+            link: "priority-alerts",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_PRIORITY_ALERTS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Archive", 
+            link: "announcement-archive",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_ANNOUNCEMENT_ARCHIVE_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "events": {
+        title: "Event Management",
+        tools: [
+          { 
+            name: "Event Calendar", 
+            link: "event-calendar",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_CALENDAR_SHEET_ID/edit" 
+          },
+          { 
+            name: "Registration Tracking", 
+            link: "registration-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1_uNBzUQ_6tzGz1I2EI5OTfM0iCsMF1oPSFEFvN-e0EQ/edit" 
+          },
+          { 
+            name: "Participant Management", 
+            link: "participant-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "feedback": {
+        title: "Feedback System",
+        tools: [
+          { 
+            name: "Survey Management", 
+            link: "survey-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Response Tracking", 
+            link: "response-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_RESPONSE_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Improvement Plans", 
+            link: "improvement-plans",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" 
           }
         ]
       }
