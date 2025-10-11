@@ -34,10 +34,49 @@
     body, html {
       height: 100%;
       font-family: 'Roboto', sans-serif;
-      background: var(--gradient-bg);
       color: var(--text-primary);
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Background Pattern */
+    .background-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .background-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(26, 42, 108, 0.7) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(178, 31, 31, 0.5) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(253, 187, 45, 0.3) 0%, transparent 50%);
+      background-color: #0a192f;
+      background-blend-mode: overlay;
+      filter: blur(8px);
+    }
+
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.postimg.cc/HsnXk8mT/Whats-App-Image-2025-10-11-at-12-23-48-removebg-preview.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      filter: blur(12px) brightness(0.8);
     }
 
     /* Enhanced Login Screen */
@@ -51,21 +90,31 @@
       top: 0;
       left: 0;
       z-index: 1000;
-      background: var(--gradient-bg);
     }
 
     .login-container {
-      background: rgba(23, 42, 69, 0.95);
+      background: rgba(23, 42, 69, 0.85);
       backdrop-filter: blur(20px);
       border-radius: 15px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
       padding: 30px 25px;
       width: 100%;
-      height: 30%;
       max-width: 380px;
       border: 1px solid rgba(255,255,255,0.1);
       text-align: center;
       position: relative;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .login-container::before {
@@ -746,6 +795,12 @@
   </style>
 </head>
 <body>
+
+  <!-- Background Pattern -->
+  <div class="background-container">
+    <div class="background-image"></div>
+    <div class="background-pattern"></div>
+  </div>
 
   <!-- Login Screen -->
   <div class="login-screen" id="loginScreen">
