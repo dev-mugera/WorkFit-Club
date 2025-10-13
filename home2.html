@@ -340,18 +340,30 @@
       transform: translateY(-2px);
     }
 
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* Blog Carousel */
+    .blog-carousel-container {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .blog-carousel {
+      display: flex;
+      transition: transform 0.5s ease;
       gap: 1.5rem;
+      padding: 0.5rem 0;
     }
 
     .blog-card {
+      flex: 0 0 calc(33.333% - 1rem);
       background: var(--light-gray);
       border-radius: var(--radius);
       overflow: hidden;
       transition: all 0.3s ease;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
     }
 
     .blog-card:hover {
@@ -359,26 +371,17 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .blog-card.featured {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
     .blog-image {
-      height: 200px;
+      height: 150px;
       background-size: cover;
       background-position: center;
     }
 
-    .blog-card.featured .blog-image {
-      height: 100%;
-      min-height: 250px;
-    }
-
     .blog-content {
-      padding: 1.5rem;
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .blog-meta {
@@ -399,16 +402,18 @@
     }
 
     .blog-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 0.8rem;
       color: var(--text-primary);
+      line-height: 1.3;
     }
 
     .blog-excerpt {
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-bottom: 1.2rem;
       line-height: 1.5;
+      flex: 1;
     }
 
     .blog-link {
@@ -418,8 +423,9 @@
       color: var(--primary);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: all 0.3s ease;
+      margin-top: auto;
     }
 
     .blog-link:hover {
@@ -546,6 +552,12 @@
     }
 
     /* Responsive Design */
+    @media (max-width: 1024px) {
+      .blog-card {
+        flex: 0 0 calc(50% - 1rem);
+      }
+    }
+
     @media (max-width: 768px) {
       body {
         padding: 0.8rem;
@@ -599,8 +611,8 @@
         font-size: 0.9rem;
       }
       
-      .blog-card.featured {
-        grid-template-columns: 1fr;
+      .blog-card {
+        flex: 0 0 calc(100% - 1rem);
       }
       
       .article-title {
@@ -789,54 +801,110 @@
           <i class="fas fa-arrow-right"></i>
         </a>
       </div>
-      <div class="blog-grid">
-        <!-- Featured Blog Post -->
-        <div class="blog-card featured">
-          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')"></div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-category">Nutrition</span>
-              <span>October 15, 2023</span>
-            </div>
-            <h3 class="blog-title">Fuel Your Fitness: The Ultimate Nutrition Guide for Active Professionals</h3>
-            <p class="blog-excerpt">Discover how proper nutrition can enhance your workout performance, accelerate recovery, and help you achieve your fitness goals faster. Learn about the best pre and post-workout meals, hydration strategies, and supplements that actually work.</p>
-            <a href="#" class="blog-link read-nutrition-article">
-              Read Full Article
-              <i class="fas fa-arrow-right"></i>
-            </a>
+      
+      <!-- Featured Blog Post -->
+      <div class="blog-card featured" style="margin-bottom: 2rem; display: flex; flex-direction: row;">
+        <div class="blog-image" style="flex: 1; min-height: 250px; background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')"></div>
+        <div class="blog-content" style="flex: 1;">
+          <div class="blog-meta">
+            <span class="blog-category">Nutrition</span>
+            <span>October 15, 2023</span>
           </div>
+          <h3 class="blog-title">Fuel Your Fitness: The Ultimate Nutrition Guide for Active Professionals</h3>
+          <p class="blog-excerpt">Discover how proper nutrition can enhance your workout performance, accelerate recovery, and help you achieve your fitness goals faster. Learn about the best pre and post-workout meals, hydration strategies, and supplements that actually work.</p>
+          <a href="#" class="blog-link read-nutrition-article">
+            Read Full Article
+            <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        
-        <!-- Regular Blog Posts -->
-        <div class="blog-card">
-          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-category">Workouts</span>
-              <span>October 10, 2023</span>
+      </div>
+      
+      <!-- Blog Carousel -->
+      <div class="blog-carousel-container">
+        <div class="blog-carousel" id="blogCarousel">
+          <!-- Blog Post 1 -->
+          <div class="blog-card">
+            <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-category">Workouts</span>
+                <span>October 10, 2023</span>
+              </div>
+              <h3 class="blog-title">5 Team Building Exercises That Actually Work</h3>
+              <p class="blog-excerpt">Boost morale and productivity with these effective team workouts designed to strengthen bonds while improving fitness.</p>
+              <a href="#" class="blog-link">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <h3 class="blog-title">5 Team Building Exercises That Actually Work</h3>
-            <p class="blog-excerpt">Boost morale and productivity with these effective team workouts designed to strengthen bonds while improving fitness.</p>
-            <a href="#" class="blog-link">
-              Read More
-              <i class="fas fa-arrow-right"></i>
-            </a>
           </div>
-        </div>
-        
-        <div class="blog-card">
-          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80')"></div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-category">Wellness</span>
-              <span>October 5, 2023</span>
+          
+          <!-- Blog Post 2 -->
+          <div class="blog-card">
+            <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80')"></div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-category">Wellness</span>
+                <span>October 5, 2023</span>
+              </div>
+              <h3 class="blog-title">Mindful Movement: Yoga for Desk Workers</h3>
+              <p class="blog-excerpt">Combat the effects of prolonged sitting with these simple yoga poses you can do at your desk or during breaks.</p>
+              <a href="#" class="blog-link">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <h3 class="blog-title">Mindful Movement: Yoga for Desk Workers</h3>
-            <p class="blog-excerpt">Combat the effects of prolonged sitting with these simple yoga poses you can do at your desk or during breaks.</p>
-            <a href="#" class="blog-link">
-              Read More
-              <i class="fas fa-arrow-right"></i>
-            </a>
+          </div>
+          
+          <!-- Blog Post 3 -->
+          <div class="blog-card">
+            <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80')"></div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-category">Recovery</span>
+                <span>October 1, 2023</span>
+              </div>
+              <h3 class="blog-title">The Science of Sleep: How Rest Impacts Performance</h3>
+              <p class="blog-excerpt">Discover why quality sleep is just as important as your workouts and how to optimize your rest for better results.</p>
+              <a href="#" class="blog-link">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Blog Post 4 -->
+          <div class="blog-card">
+            <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80')"></div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-category">Motivation</span>
+                <span>September 25, 2023</span>
+              </div>
+              <h3 class="blog-title">Building Consistent Habits: The Key to Long-Term Fitness</h3>
+              <p class="blog-excerpt">Learn strategies to build and maintain fitness habits that stick, even when motivation wanes.</p>
+              <a href="#" class="blog-link">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Blog Post 5 -->
+          <div class="blog-card">
+            <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-category">Equipment</span>
+                <span>September 20, 2023</span>
+              </div>
+              <h3 class="blog-title">Home Gym Essentials on a Budget</h3>
+              <p class="blog-excerpt">Create an effective workout space at home without breaking the bank with these essential equipment recommendations.</p>
+              <a href="#" class="blog-link">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1046,6 +1114,89 @@
         blogSection.style.display = 'block';
         window.scrollTo({ top: blogSection.offsetTop - 20, behavior: 'smooth' });
       });
+      
+      // Blog Carousel Functionality
+      const carousel = document.getElementById('blogCarousel');
+      const cards = document.querySelectorAll('.blog-card:not(.featured)');
+      let currentCard = 0;
+      let cardWidth = cards[0].offsetWidth + 24; // card width + gap
+      let autoScrollInterval;
+      
+      function updateCardWidth() {
+        cardWidth = cards[0].offsetWidth + 24;
+      }
+      
+      function scrollToCard(index) {
+        updateCardWidth();
+        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+        currentCard = index;
+      }
+      
+      function nextCard() {
+        if (currentCard < cards.length - 1) {
+          scrollToCard(currentCard + 1);
+        } else {
+          scrollToCard(0);
+        }
+      }
+      
+      function prevCard() {
+        if (currentCard > 0) {
+          scrollToCard(currentCard - 1);
+        } else {
+          scrollToCard(cards.length - 1);
+        }
+      }
+      
+      // Start auto-scrolling for carousel
+      function startCarouselInterval() {
+        autoScrollInterval = setInterval(nextCard, 4000);
+      }
+      
+      startCarouselInterval();
+      
+      // Pause carousel on hover
+      carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoScrollInterval);
+      });
+      
+      carousel.addEventListener('mouseleave', () => {
+        startCarouselInterval();
+      });
+      
+      // Touch swipe for carousel
+      let carouselStartX = 0;
+      let carouselEndX = 0;
+      
+      carousel.addEventListener('touchstart', (e) => {
+        carouselStartX = e.touches[0].clientX;
+        clearInterval(autoScrollInterval);
+      });
+      
+      carousel.addEventListener('touchmove', (e) => {
+        carouselEndX = e.touches[0].clientX;
+      });
+      
+      carousel.addEventListener('touchend', () => {
+        handleCarouselSwipe();
+        startCarouselInterval();
+      });
+      
+      function handleCarouselSwipe() {
+        const threshold = 50;
+        const diff = carouselStartX - carouselEndX;
+        
+        if (Math.abs(diff) > threshold) {
+          if (diff > 0) {
+            nextCard();
+          } else {
+            prevCard();
+          }
+        }
+      }
+      
+      // Update card width on window resize
+      window.addEventListener('resize', updateCardWidth);
     });
   </script>
 </body>
