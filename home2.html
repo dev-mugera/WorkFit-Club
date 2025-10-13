@@ -35,7 +35,7 @@
       -webkit-text-size-adjust: 100%;
       overflow-x: hidden;
       min-height: 100vh;
-      padding: 2rem;
+      padding: 1rem;
     }
 
     .container {
@@ -43,131 +43,25 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-    }
-
-    /* Dashboard Section */
-    .dashboard {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .dashboard-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .dashboard-title {
-      color: var(--white);
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .dashboard-subtitle {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1rem;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
     }
 
-    .dashboard-card {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      border-radius: 16px;
-      padding: 2rem;
-      text-decoration: none;
-      color: var(--white);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .dashboard-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.05) 50%, 
-        transparent 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .dashboard-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-    }
-
-    .dashboard-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--gold);
-      display: block;
-    }
-
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-description {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--gold);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: gap 0.3s ease;
-    }
-
-    .dashboard-card:hover .card-link {
-      gap: 0.8rem;
-    }
-
-    /* Hero Section - Card Design */
+    /* Hero Section - Shorter */
     .hero {
       position: relative;
       width: 100%;
-      height: 80vh;
-      min-height: 600px;
+      height: 50vh;
+      min-height: 400px;
       overflow: hidden;
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 24px;
+      border-radius: 20px;
       box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.25),
-        0 8px 16px rgba(0, 0, 0, 0.15),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
+        0 15px 30px rgba(0, 0, 0, 0.25),
+        0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .hero-slides {
@@ -176,7 +70,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 24px;
+      border-radius: 20px;
       overflow: hidden;
     }
 
@@ -193,7 +87,7 @@
       justify-content: center;
       background-size: cover;
       background-position: center;
-      border-radius: 24px;
+      border-radius: 20px;
     }
 
     .hero-slide.active {
@@ -208,7 +102,7 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.4);
       z-index: 1;
-      border-radius: 24px;
+      border-radius: 20px;
     }
 
     .slide-content {
@@ -216,14 +110,14 @@
       z-index: 2;
       text-align: center;
       max-width: 800px;
-      padding: 0 3rem;
+      padding: 0 2rem;
       animation: fadeInUp 1s ease;
     }
 
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
       }
       to {
         opacity: 1;
@@ -232,19 +126,19 @@
     }
 
     .slide-title {
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
       font-weight: 700;
     }
 
     .slide-text {
-      font-size: 1.4rem;
-      margin-bottom: 3rem;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
       opacity: 0.9;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
       font-weight: 300;
-      max-width: 600px;
+      max-width: 500px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -252,55 +146,47 @@
     .slide-stats {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
 
     .stat {
       text-align: center;
       background: rgba(255, 255, 255, 0.15);
-      padding: 2rem 1.5rem;
-      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      border-radius: 12px;
       backdrop-filter: blur(10px);
-      min-width: 160px;
+      min-width: 120px;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .stat:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
     .stat-number {
-      font-size: 2.8rem;
+      font-size: 2rem;
       font-weight: bold;
       color: var(--gold);
       display: block;
       line-height: 1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
 
     .stat-label {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       opacity: 0.9;
       font-weight: 500;
     }
 
-    /* Progress Bar - Minimal */
+    /* Progress Bar */
     .slide-progress {
       position: absolute;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 200px;
-      height: 4px;
+      width: 150px;
+      height: 3px;
       background: rgba(255, 255, 255, 0.2);
       z-index: 3;
       border-radius: 2px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .progress-bar {
@@ -311,87 +197,62 @@
       border-radius: 2px;
     }
 
+    /* Navigation Section - Horizontal */
+    .nav-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-grid {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s ease;
+      padding: 1rem;
+      border-radius: 12px;
+      min-width: 80px;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .nav-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .nav-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      opacity: 0.9;
+      text-align: center;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       body {
-        padding: 1rem;
+        padding: 0.8rem;
       }
       
       .hero {
-        height: 70vh;
-        min-height: 500px;
-        border-radius: 20px;
-      }
-      
-      .hero-slides {
-        border-radius: 20px;
-      }
-      
-      .hero-slide {
-        border-radius: 20px;
-      }
-      
-      .slide-overlay {
-        border-radius: 20px;
-      }
-      
-      .slide-title {
-        font-size: 2.2rem;
-      }
-      
-      .slide-text {
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-      }
-      
-      .slide-stats {
-        gap: 1rem;
-      }
-      
-      .stat {
-        min-width: 120px;
-        padding: 1.5rem 1rem;
-      }
-      
-      .stat-number {
-        font-size: 2rem;
-      }
-      
-      .stat-label {
-        font-size: 0.9rem;
-      }
-      
-      .dashboard-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-      }
-      
-      .dashboard-card {
-        padding: 1.5rem;
-      }
-      
-      .card-icon {
-        font-size: 2rem;
-      }
-      
-      .card-title {
-        font-size: 1.1rem;
-      }
-      
-      .slide-progress {
-        width: 150px;
-        margin-bottom: 1.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 0.5rem;
-      }
-      
-      .hero {
-        height: 65vh;
-        min-height: 450px;
+        height: 45vh;
+        min-height: 350px;
         border-radius: 16px;
       }
       
@@ -413,26 +274,116 @@
       
       .slide-text {
         font-size: 1rem;
+        margin-bottom: 1.5rem;
       }
       
       .slide-stats {
-        flex-direction: column;
-        align-items: center;
         gap: 1rem;
       }
       
       .stat {
-        width: 100%;
-        max-width: 200px;
-        padding: 1.2rem;
+        min-width: 100px;
+        padding: 1.2rem 0.8rem;
       }
       
-      .dashboard-grid {
-        grid-template-columns: 1fr;
+      .stat-number {
+        font-size: 1.6rem;
+      }
+      
+      .stat-label {
+        font-size: 0.8rem;
+      }
+      
+      .nav-grid {
+        gap: 0.5rem;
+      }
+      
+      .nav-item {
+        padding: 0.8rem;
+        min-width: 70px;
+      }
+      
+      .nav-icon {
+        font-size: 1.5rem;
+      }
+      
+      .nav-label {
+        font-size: 0.75rem;
       }
       
       .slide-progress {
         width: 120px;
+        margin-bottom: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 40vh;
+        min-height: 300px;
+        border-radius: 14px;
+      }
+      
+      .hero-slides {
+        border-radius: 14px;
+      }
+      
+      .hero-slide {
+        border-radius: 14px;
+      }
+      
+      .slide-overlay {
+        border-radius: 14px;
+      }
+      
+      .slide-title {
+        font-size: 1.5rem;
+      }
+      
+      .slide-text {
+        font-size: 0.9rem;
+      }
+      
+      .slide-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      
+      .stat {
+        flex: 1;
+        min-width: 80px;
+        padding: 1rem 0.5rem;
+      }
+      
+      .stat-number {
+        font-size: 1.4rem;
+      }
+      
+      .nav-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .nav-item {
+        flex-shrink: 0;
+        min-width: 65px;
+        padding: 0.7rem;
+      }
+      
+      .nav-icon {
+        font-size: 1.4rem;
+      }
+      
+      .nav-label {
+        font-size: 0.7rem;
+      }
+      
+      .slide-progress {
+        width: 100px;
         margin-bottom: 1rem;
       }
     }
@@ -445,7 +396,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      border-radius: 24px;
+      border-radius: 20px;
       padding: 2px;
       background: linear-gradient(135deg, 
         rgba(255, 255, 255, 0.2) 0%, 
@@ -462,22 +413,21 @@
 
     @media (max-width: 768px) {
       .hero::before {
-        border-radius: 20px;
+        border-radius: 16px;
       }
     }
 
     @media (max-width: 480px) {
       .hero::before {
-        border-radius: 16px;
+        border-radius: 14px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Hero Section with Slides -->
+    <!-- Hero Section -->
     <section class="hero">
-      <!-- Progress Bar -->
       <div class="slide-progress">
         <div class="progress-bar" id="progressBar"></div>
       </div>
@@ -528,105 +478,30 @@
             </div>
           </div>
         </div>
-        
-        <!-- Slide 3: Upcoming Events -->
-        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80')">
-          <div class="slide-overlay"></div>
-          <div class="slide-content">
-            <h1 class="slide-title">Upcoming Events</h1>
-            <p class="slide-text">Join our community events and connect with fellow members</p>
-            <div class="slide-stats">
-              <div class="stat">
-                <span class="stat-number">Nov 1</span>
-                <span class="stat-label">Fun Run</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">Nov 15</span>
-                <span class="stat-label">Yoga Workshop</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">Nov 22</span>
-                <span class="stat-label">Strength Comp</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Slide 4: Member Spotlight -->
-        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
-          <div class="slide-overlay"></div>
-          <div class="slide-content">
-            <h1 class="slide-title">Member Spotlight</h1>
-            <p class="slide-text">Celebrating our amazing community members and their achievements</p>
-            <div class="slide-stats">
-              <div class="stat">
-                <span class="stat-number">Annita</span>
-                <span class="stat-label">Member of Month</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">8</span>
-                <span class="stat-label">Months Active</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">12</span>
-                <span class="stat-label">Challenges Done</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- Dashboard Section -->
-    <section class="dashboard">
-      <div class="dashboard-header">
-        <h2 class="dashboard-title">WorkFit Dashboard</h2>
-        <p class="dashboard-subtitle">Access all your fitness tools and resources</p>
-      </div>
-      
-      <div class="dashboard-grid">
-        <!-- Challenges Card -->
-        <a href="https://your-challenges-link.com" class="dashboard-card" target="_blank">
-          <i class="fas fa-trophy card-icon"></i>
-          <h3 class="card-title">Challenges</h3>
-          <p class="card-description">Join monthly fitness challenges, track your progress, and compete with the community</p>
-          <span class="card-link">
-            View Challenges
-            <i class="fas fa-arrow-right"></i>
-          </span>
+    <!-- Navigation Section -->
+    <section class="nav-section">
+      <div class="nav-grid">
+        <a href="https://your-challenges-link.com" class="nav-item" target="_blank">
+          <i class="fas fa-trophy nav-icon"></i>
+          <span class="nav-label">Challenges</span>
         </a>
         
-        <!-- Events Card -->
-        <a href="https://your-events-link.com" class="dashboard-card" target="_blank">
-          <i class="fas fa-calendar-alt card-icon"></i>
-          <h3 class="card-title">Events</h3>
-          <p class="card-description">Discover upcoming fitness events, workshops, and community gatherings</p>
-          <span class="card-link">
-            Explore Events
-            <i class="fas fa-arrow-right"></i>
-          </span>
+        <a href="https://your-events-link.com" class="nav-item" target="_blank">
+          <i class="fas fa-calendar-alt nav-icon"></i>
+          <span class="nav-label">Events</span>
         </a>
         
-        <!-- Furnaces Card -->
-        <a href="https://your-furnaces-link.com" class="dashboard-card" target="_blank">
-          <i class="fas fa-users card-icon"></i>
-          <h3 class="card-title">Furnaces</h3>
-          <p class="card-description">Connect with your Furnace team, share progress, and support each other</p>
-          <span class="card-link">
-            Visit Furnaces
-            <i class="fas fa-arrow-right"></i>
-          </span>
+        <a href="https://your-furnaces-link.com" class="nav-item" target="_blank">
+          <i class="fas fa-users nav-icon"></i>
+          <span class="nav-label">Furnaces</span>
         </a>
         
-        <!-- Fitness Tracker Card -->
-        <a href="https://your-tracker-link.com" class="dashboard-card" target="_blank">
-          <i class="fas fa-chart-line card-icon"></i>
-          <h3 class="card-title">Fitness Tracker</h3>
-          <p class="card-description">Monitor your workouts, set goals, and track your fitness journey</p>
-          <span class="card-link">
-            Track Progress
-            <i class="fas fa-arrow-right"></i>
-          </span>
+        <a href="https://your-tracker-link.com" class="nav-item" target="_blank">
+          <i class="fas fa-chart-line nav-icon"></i>
+          <span class="nav-label">Tracker</span>
         </a>
       </div>
     </section>
@@ -640,7 +515,7 @@
       
       let currentSlide = 0;
       let slideInterval;
-      const slideDuration = 6000; // 6 seconds per slide
+      const slideDuration = 5000; // 5 seconds per slide
       
       // Function to show a specific slide
       function showSlide(index) {
@@ -692,12 +567,12 @@
       // Initialize
       startInterval();
       
-      // Pause on hover (optional)
+      // Pause on hover
       const hero = document.querySelector('.hero');
       hero.addEventListener('mouseenter', () => {
         clearInterval(slideInterval);
         progressBar.style.transition = 'none';
-        progressBar.style.width = progressBar.style.width; // Freeze current progress
+        progressBar.style.width = progressBar.style.width;
       });
       
       hero.addEventListener('mouseleave', () => {
@@ -723,15 +598,13 @@
       });
       
       function handleSwipe() {
-        const threshold = 50; // Minimum swipe distance
+        const threshold = 50;
         const diff = startX - endX;
         
         if (Math.abs(diff) > threshold) {
           if (diff > 0) {
-            // Swipe left - next slide
             nextSlide();
           } else {
-            // Swipe right - previous slide
             let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
             showSlide(prevIndex);
           }
