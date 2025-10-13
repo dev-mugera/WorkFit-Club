@@ -7,16 +7,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --navy: #001f3f;
-      --navy-light: #003366;
-      --navy-dark: #001a33;
-      --gold: #FFD700;
-      --accent: #C73E1D;
+      --primary: #2E8B57;
+      --primary-light: #3CB371;
+      --primary-dark: #1F6B42;
+      --accent: #FF6B35;
+      --accent-light: #FF8C5A;
       --white: #FFFFFF;
+      --light-gray: #F5F5F5;
       --text-primary: #222222;
-      --bg-primary: #ffffff;
-      --bg-secondary: #181616ba;
-      --shadow-color: rgba(0, 0, 0, 0.15);
+      --text-secondary: #555555;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
     }
 
     * {
@@ -28,7 +29,7 @@
     }
 
     body {
-      background-color: var(--bg-secondary);
+      background-color: var(--light-gray);
       color: var(--text-primary);
       line-height: 1.6;
       font-size: 16px;
@@ -46,22 +47,20 @@
       gap: 1.5rem;
     }
 
-    /* Hero Section - Shorter */
+    /* Hero Section */
     .hero {
       position: relative;
       width: 100%;
       height: 50vh;
       min-height: 400px;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 20px;
-      box-shadow: 
-        0 15px 30px rgba(0, 0, 0, 0.25),
-        0 6px 12px rgba(0, 0, 0, 0.15);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
     .hero-slides {
@@ -70,7 +69,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 20px;
+      border-radius: var(--radius);
       overflow: hidden;
     }
 
@@ -87,7 +86,7 @@
       justify-content: center;
       background-size: cover;
       background-position: center;
-      border-radius: 20px;
+      border-radius: var(--radius);
     }
 
     .hero-slide.active {
@@ -102,7 +101,7 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.4);
       z-index: 1;
-      border-radius: 20px;
+      border-radius: var(--radius);
     }
 
     .slide-content {
@@ -151,67 +150,66 @@
     }
 
     .stat {
-      text-align: lef;
+      text-align: center;
       background: rgba(255, 255, 255, 0.15);
       padding: 1.5rem 1rem;
       border-radius: 12px;
       backdrop-filter: blur(10px);
       min-width: 120px;
-      height: 70px;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .stat-number {
       font-size: 2rem;
       font-weight: bold;
-      color: var(--gold);
+      color: var(--accent);
       display: block;
       line-height: 1;
       margin-bottom: 0.3rem;
     }
 
     .stat-label {
-      font-size: 0.1rem;
+      font-size: 0.9rem;
       opacity: 0.9;
       font-weight: 500;
     }
 
-    /* Progress Bar */
-    .slide-progress {
+    /* Slide Controls */
+    .slide-controls {
       position: absolute;
-      bottom: 0;
+      bottom: 1.5rem;
       left: 50%;
       transform: translateX(-50%);
-      width: 150px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      gap: 0.5rem;
       z-index: 3;
-      border-radius: 2px;
-      margin-bottom: 1.5rem;
     }
 
-    .progress-bar {
-      height: 100%;
-      background: var(--gold);
-      width: 0%;
-      transition: width 0.1s linear;
-      border-radius: 2px;
+    .slide-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    /* Navigation Section - Horizontal */
+    .slide-dot.active {
+      background: var(--white);
+      transform: scale(1.2);
+    }
+
+    /* Navigation Section */
     .nav-section {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      height: 100px;
-      padding: 1.0rem;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
     }
 
     .nav-grid {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       gap: 1rem;
     }
@@ -221,7 +219,7 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      color: var(--white);
+      color: var(--text-primary);
       transition: all 0.3s ease;
       padding: 1rem;
       border-radius: 12px;
@@ -229,21 +227,322 @@
     }
 
     .nav-item:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(46, 139, 87, 0.1);
       transform: translateY(-3px);
     }
 
     .nav-icon {
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
-      color: var(--white);
+      color: var(--primary);
     }
 
     .nav-label {
       font-size: 0.8rem;
       font-weight: 500;
-      opacity: 0.9;
       text-align: center;
+    }
+
+    /* Announcement Section */
+    .announcement-section {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      box-shadow: var(--shadow);
+      color: var(--white);
+    }
+
+    .announcement-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .announcement-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .announcement-text {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .announcement-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .announcement-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(5px);
+    }
+
+    /* Blog Section */
+    .blog-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .blog-card {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .blog-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .blog-card.featured .blog-image {
+      height: 100%;
+      min-height: 250px;
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .blog-category {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .blog-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .blog-excerpt {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .blog-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .blog-link:hover {
+      color: var(--primary-dark);
+      gap: 0.7rem;
+    }
+
+    /* Nutrition Article */
+    .nutrition-article {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .article-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .article-title {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-content h2 {
+      color: var(--primary);
+      margin: 2rem 0 1rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 1rem 0 1rem 2rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .article-image {
+      width: 100%;
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius);
+      margin: 2rem 0;
+    }
+
+    .back-to-blog {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .back-to-blog:hover {
+      color: var(--primary-dark);
+      gap: 0.7rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-top: 1rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-link {
+      color: var(--white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    .footer-copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     /* Responsive Design */
@@ -255,19 +554,6 @@
       .hero {
         height: 45vh;
         min-height: 350px;
-        border-radius: 16px;
-      }
-      
-      .hero-slides {
-        border-radius: 16px;
-      }
-      
-      .hero-slide {
-        border-radius: 16px;
-      }
-      
-      .slide-overlay {
-        border-radius: 16px;
       }
       
       .slide-title {
@@ -292,10 +578,6 @@
         font-size: 1.6rem;
       }
       
-      .stat-label {
-        font-size: 0.6rem;
-      }
-      
       .nav-grid {
         gap: 0.5rem;
       }
@@ -309,13 +591,25 @@
         font-size: 1.5rem;
       }
       
-      .nav-label {
-        font-size: 0.75rem;
+      .announcement-content {
+        gap: 1rem;
       }
       
-      .slide-progress {
-        width: 120px;
-        margin-bottom: 1.2rem;
+      .announcement-text {
+        font-size: 0.9rem;
+      }
+      
+      .blog-card.featured {
+        grid-template-columns: 1fr;
+      }
+      
+      .article-title {
+        font-size: 1.7rem;
+      }
+      
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
 
@@ -323,19 +617,6 @@
       .hero {
         height: 40vh;
         min-height: 300px;
-        border-radius: 14px;
-      }
-      
-      .hero-slides {
-        border-radius: 14px;
-      }
-      
-      .hero-slide {
-        border-radius: 14px;
-      }
-      
-      .slide-overlay {
-        border-radius: 14px;
       }
       
       .slide-title {
@@ -358,10 +639,6 @@
         padding: 1rem 0.5rem;
       }
       
-      .stat-number {
-        font-size: 1.4rem;
-      }
-      
       .nav-grid {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -376,52 +653,30 @@
         padding: 0.7rem;
       }
       
-      .nav-icon {
-        font-size: 1.4rem;
+      .announcement-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
       }
       
-      .nav-label {
-        font-size: 0.7rem;
+      .announcement-text {
+        font-size: 0.85rem;
       }
       
-      .slide-progress {
-        width: 100px;
-        margin-bottom: 1rem;
+      .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
       }
-    }
-
-    /* Card Border Effect */
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 20px;
-      padding: 2px;
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(255, 255, 255, 0.05) 100%);
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    @media (max-width: 768px) {
-      .hero::before {
-        border-radius: 16px;
+      
+      .article-title {
+        font-size: 1.5rem;
       }
-    }
-
-    @media (max-width: 480px) {
-      .hero::before {
-        border-radius: 14px;
+      
+      .article-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
       }
     }
   </style>
@@ -430,10 +685,6 @@
   <div class="container">
     <!-- Hero Section -->
     <section class="hero">
-      <div class="slide-progress">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      
       <div class="hero-slides">
         <!-- Slide 1: Community Overview -->
         <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
@@ -481,6 +732,11 @@
           </div>
         </div>
       </div>
+      
+      <div class="slide-controls">
+        <div class="slide-dot active" data-slide="0"></div>
+        <div class="slide-dot" data-slide="1"></div>
+      </div>
     </section>
 
     <!-- Navigation Section -->
@@ -507,13 +763,179 @@
         </a>
       </div>
     </section>
+
+    <!-- Announcement Section -->
+    <section class="announcement-section">
+      <div class="announcement-content">
+        <div class="announcement-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <p class="announcement-text">
+          🎉 Registration for the November Fun Run is now open! Join us on November 1st for an exciting 10K community run.
+        </p>
+        <a href="https://your-registration-link.com" class="announcement-link" target="_blank">
+          Register Now
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog-section">
+      <div class="section-header">
+        <h2 class="section-title">Latest from Our Blog</h2>
+        <a href="https://your-blog-link.com" class="btn btn-primary" target="_blank">
+          View All Blogs
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="blog-grid">
+        <!-- Featured Blog Post -->
+        <div class="blog-card featured">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')"></div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category">Nutrition</span>
+              <span>October 15, 2023</span>
+            </div>
+            <h3 class="blog-title">Fuel Your Fitness: The Ultimate Nutrition Guide for Active Professionals</h3>
+            <p class="blog-excerpt">Discover how proper nutrition can enhance your workout performance, accelerate recovery, and help you achieve your fitness goals faster. Learn about the best pre and post-workout meals, hydration strategies, and supplements that actually work.</p>
+            <a href="#" class="blog-link read-nutrition-article">
+              Read Full Article
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Regular Blog Posts -->
+        <div class="blog-card">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category">Workouts</span>
+              <span>October 10, 2023</span>
+            </div>
+            <h3 class="blog-title">5 Team Building Exercises That Actually Work</h3>
+            <p class="blog-excerpt">Boost morale and productivity with these effective team workouts designed to strengthen bonds while improving fitness.</p>
+            <a href="#" class="blog-link">
+              Read More
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="blog-card">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80')"></div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category">Wellness</span>
+              <span>October 5, 2023</span>
+            </div>
+            <h3 class="blog-title">Mindful Movement: Yoga for Desk Workers</h3>
+            <p class="blog-excerpt">Combat the effects of prolonged sitting with these simple yoga poses you can do at your desk or during breaks.</p>
+            <a href="#" class="blog-link">
+              Read More
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nutrition Article (Hidden by default) -->
+    <section class="nutrition-article" id="nutrition-article">
+      <div class="article-header">
+        <h1 class="article-title">Fuel Your Fitness: The Ultimate Nutrition Guide for Active Professionals</h1>
+        <div class="article-meta">
+          <span>By WorkFit Nutrition Team</span>
+          <span>October 15, 2023</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+      
+      <div class="article-content">
+        <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')"></div>
+        
+        <p>Proper nutrition is the foundation of any successful fitness journey. Whether you're training for a marathon, trying to build muscle, or simply aiming to maintain a healthy lifestyle, what you eat plays a crucial role in your performance and results.</p>
+        
+        <h2>Pre-Workout Nutrition</h2>
+        <p>Fueling your body before exercise is essential for optimal performance. The goal is to provide your muscles with adequate energy without causing digestive discomfort during your workout.</p>
+        
+        <p><strong>Key principles for pre-workout nutrition:</strong></p>
+        <ul>
+          <li>Consume a balanced meal 2-3 hours before exercise</li>
+          <li>Focus on complex carbohydrates for sustained energy</li>
+          <li>Include a moderate amount of protein</li>
+          <li>Limit fats and fiber to avoid digestive issues</li>
+          <li>Stay hydrated with water or electrolyte drinks</li>
+        </ul>
+        
+        <h2>Post-Workout Recovery</h2>
+        <p>The 30-60 minutes after your workout is often called the "anabolic window" - a critical period for muscle recovery and growth.</p>
+        
+        <p><strong>Effective post-workout nutrition should include:</strong></p>
+        <ol>
+          <li><strong>Protein:</strong> 20-30 grams to repair and build muscle tissue</li>
+          <li><strong>Carbohydrates:</strong> To replenish glycogen stores</li>
+          <li><strong>Fluids:</strong> To rehydrate and support metabolic processes</li>
+          <li><strong>Electrolytes:</strong> Especially sodium and potassium lost through sweat</li>
+        </ol>
+        
+        <h2>Hydration Strategies</h2>
+        <p>Proper hydration is often overlooked but is critical for performance and recovery. Even mild dehydration can significantly impair physical and mental performance.</p>
+        
+        <p><strong>Hydration guidelines for active individuals:</strong></p>
+        <ul>
+          <li>Drink 16-20 oz of water 2-3 hours before exercise</li>
+          <li>Consume 7-10 oz every 10-20 minutes during exercise</li>
+          <li>Weigh yourself before and after workouts to determine fluid loss</li>
+          <li>For every pound lost, drink 16-24 oz of fluid</li>
+          <li>Consider electrolyte replacement for sessions longer than 60 minutes</li>
+        </ul>
+        
+        <h2>Supplements That Actually Work</h2>
+        <p>While whole foods should form the foundation of your nutrition plan, certain supplements can provide additional benefits for active individuals.</p>
+        
+        <p><strong>Evidence-based supplements to consider:</strong></p>
+        <ul>
+          <li><strong>Protein powder:</strong> Convenient source of high-quality protein</li>
+          <li><strong>Creatine monohydrate:</strong> Improves strength and power output</li>
+          <li><strong>Beta-alanine:</strong> Reduces fatigue during high-intensity exercise</li>
+          <li><strong>Caffeine:</strong> Enhances focus and endurance</li>
+          <li><strong>Omega-3 fatty acids:</strong> Reduce inflammation and support joint health</li>
+        </ul>
+        
+        <p>Remember, supplements should complement - not replace - a balanced diet. Always consult with a healthcare professional before starting any new supplement regimen.</p>
+        
+        <a href="#" class="back-to-blog" id="back-to-blog">
+          <i class="fas fa-arrow-left"></i>
+          Back to Blog
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">WorkFit</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">About Us</a>
+          <a href="#" class="footer-link">Contact</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2023 WorkFit. All rights reserved.
+        </div>
+      </div>
+    </footer>
   </div>
 
   <script>
     // Hero Slides Functionality
     document.addEventListener('DOMContentLoaded', function() {
       const slides = document.querySelectorAll('.hero-slide');
-      const progressBar = document.getElementById('progressBar');
+      const dots = document.querySelectorAll('.slide-dot');
       
       let currentSlide = 0;
       let slideInterval;
@@ -526,13 +948,18 @@
           slide.classList.remove('active');
         });
         
+        // Remove active class from all dots
+        dots.forEach(dot => {
+          dot.classList.remove('active');
+        });
+        
         // Show the selected slide
         slides[index].classList.add('active');
         
-        currentSlide = index;
+        // Activate the corresponding dot
+        dots[index].classList.add('active');
         
-        // Reset progress bar
-        resetProgressBar();
+        currentSlide = index;
       }
       
       // Function to show next slide
@@ -541,29 +968,9 @@
         showSlide(nextIndex);
       }
       
-      // Progress bar functionality
-      function startProgressBar() {
-        progressBar.style.width = '0%';
-        progressBar.style.transition = 'width ' + slideDuration + 'ms linear';
-        
-        setTimeout(() => {
-          progressBar.style.width = '100%';
-        }, 10);
-      }
-      
-      function resetProgressBar() {
-        progressBar.style.width = '0%';
-        progressBar.style.transition = 'none';
-        
-        setTimeout(() => {
-          startProgressBar();
-        }, 10);
-      }
-      
       // Start auto-sliding
       function startInterval() {
         slideInterval = setInterval(nextSlide, slideDuration);
-        startProgressBar();
       }
       
       // Initialize
@@ -573,12 +980,19 @@
       const hero = document.querySelector('.hero');
       hero.addEventListener('mouseenter', () => {
         clearInterval(slideInterval);
-        progressBar.style.transition = 'none';
-        progressBar.style.width = progressBar.style.width;
       });
       
       hero.addEventListener('mouseleave', () => {
         startInterval();
+      });
+      
+      // Dot click functionality
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          clearInterval(slideInterval);
+          showSlide(index);
+          startInterval();
+        });
       });
       
       // Touch swipe functionality for mobile
@@ -612,6 +1026,26 @@
           }
         }
       }
+      
+      // Blog article functionality
+      const readArticleBtn = document.querySelector('.read-nutrition-article');
+      const backToBlogBtn = document.getElementById('back-to-blog');
+      const blogSection = document.getElementById('blog-section');
+      const nutritionArticle = document.getElementById('nutrition-article');
+      
+      readArticleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        blogSection.style.display = 'none';
+        nutritionArticle.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      backToBlogBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        nutritionArticle.style.display = 'none';
+        blogSection.style.display = 'block';
+        window.scrollTo({ top: blogSection.offsetTop - 20, behavior: 'smooth' });
+      });
     });
   </script>
 </body>
