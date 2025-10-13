@@ -509,7 +509,7 @@
       gap: 0.7rem;
     }
 
-    /* Latest Videos Section */
+    /* Videos Section */
     .videos-section {
       background: var(--white);
       border-radius: var(--radius);
@@ -517,98 +517,65 @@
       box-shadow: var(--shadow);
     }
 
+    /* Videos Carousel */
     .videos-carousel-container {
       position: relative;
       overflow: hidden;
+      margin-bottom: 1rem;
     }
 
     .videos-carousel {
       display: flex;
-      gap: 1.5rem;
+      transition: transform 0.5s ease;
+      gap: 1rem;
       padding: 0.5rem 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .videos-carousel::-webkit-scrollbar {
-      display: none;
     }
 
     .video-card {
-      flex: 0 0 320px;
-      background: var(--white);
+      flex: 0 0 calc(33.333% - 0.7rem);
+      background: var(--light-gray);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: all 0.4s ease;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      min-height: 280px;
       display: flex;
       flex-direction: column;
-      position: relative;
-      border: 1px solid rgba(0, 0, 0, 0.05);
       cursor: pointer;
     }
 
     .video-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .video-thumbnail-container {
-      position: relative;
-      height: 180px;
-      overflow: hidden;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .video-thumbnail {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
 
-    .video-card:hover .video-thumbnail {
-      transform: scale(1.05);
-    }
-
-    .video-play-button {
+    .video-play-icon {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      background: rgba(46, 139, 87, 0.8);
       width: 60px;
       height: 60px;
-      background: rgba(255, 255, 255, 0.9);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .video-play-button:hover {
-      background: var(--white);
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-
-    .video-play-icon {
-      color: var(--primary);
+      color: white;
       font-size: 1.5rem;
-      margin-left: 4px;
+      transition: all 0.3s ease;
     }
 
-    .video-duration {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      color: var(--white);
-      padding: 0.3rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
+    .video-card:hover .video-play-icon {
+      background: rgba(46, 139, 87, 1);
+      transform: translate(-50%, -50%) scale(1.1);
     }
 
     .video-content {
@@ -620,34 +587,53 @@
 
     .video-meta {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.8rem;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
     }
 
     .video-category {
       background: var(--primary);
       color: var(--white);
-      padding: 0.3rem 0.8rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 50px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .video-date {
-      color: var(--text-secondary);
-      font-size: 0.75rem;
     }
 
     .video-title {
       font-size: 1.1rem;
+      margin-bottom: 0.6rem;
       color: var(--text-primary);
       line-height: 1.3;
-      font-weight: 700;
     }
 
-    /* Video Modal */
+    .video-description {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .video-link:hover {
+      color: var(--primary-dark);
+      gap: 0.7rem;
+    }
+
+    /* Full Screen Video Modal */
     .video-modal {
       display: none;
       position: fixed;
@@ -657,8 +643,9 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.9);
       z-index: 1002;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      padding: 1rem;
     }
 
     .video-modal.active {
@@ -668,29 +655,31 @@
     .video-modal-content {
       position: relative;
       width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      max-width: 900px;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .video-modal-close {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 1rem;
+      right: 1rem;
       background: rgba(255, 255, 255, 0.2);
       color: var(--white);
       border: none;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       font-size: 1.5rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1003;
-      transition: all 0.3s ease;
+      font-weight: bold;
+      transition: all 0.3s;
+      z-index: 10;
     }
 
     .video-modal-close:hover {
@@ -700,9 +689,34 @@
 
     .video-player {
       width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      position: relative;
+    }
+
+    .video-player iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      max-width: 100%;
-      max-height: 100%;
+      border: none;
+    }
+
+    .video-info {
+      padding: 1.5rem;
+      color: var(--white);
+    }
+
+    .video-info-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-info-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      opacity: 0.8;
     }
 
     /* Blog Section */
@@ -804,6 +818,126 @@
       gap: 0.7rem;
     }
 
+    /* Newsletter Detail Pages */
+    .newsletter-detail {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      z-index: 1001;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+    }
+
+    .newsletter-detail.active {
+      display: block;
+    }
+
+    .newsletter-detail-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .newsletter-detail-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .newsletter-detail-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .newsletter-detail-close:hover {
+      background: var(--accent-light);
+      transform: scale(1.1);
+    }
+
+    .newsletter-detail-category {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .newsletter-detail-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter-detail-date {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .newsletter-detail-body {
+      padding: 2rem;
+    }
+
+    .newsletter-detail-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter-detail-text {
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    .newsletter-detail-text h4 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem 0;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    .newsletter-detail-text h3 {
+      color: var(--primary);
+      margin: 1.2rem 0 0.8rem 0;
+    }
+
+    .newsletter-detail-text ul, .newsletter-detail-text ol {
+      margin: 1rem 0 1rem 1.5rem;
+    }
+
+    .newsletter-detail-text li {
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter-detail-text strong {
+      color: var(--primary);
+    }
+
     /* Footer */
     .footer {
       background: var(--primary-dark);
@@ -853,6 +987,10 @@
       }
       
       .blog-card {
+        flex: 0 0 calc(50% - 0.7rem);
+      }
+      
+      .video-card {
         flex: 0 0 calc(50% - 0.7rem);
       }
     }
@@ -920,12 +1058,32 @@
       }
       
       .video-card {
-        flex: 0 0 280px;
+        flex: 0 0 calc(100% - 0.7rem);
+      }
+      
+      .newsletter-detail-title {
+        font-size: 1.5rem;
+      }
+      
+      .newsletter-detail-body {
+        padding: 1.5rem;
       }
       
       .footer-links {
         flex-wrap: wrap;
         justify-content: center;
+      }
+      
+      .video-modal-content {
+        width: 95%;
+      }
+      
+      .video-info {
+        padding: 1rem;
+      }
+      
+      .video-info-title {
+        font-size: 1.3rem;
       }
     }
 
@@ -1001,26 +1159,15 @@
         font-size: 1.3rem;
         padding: 0.4rem;
       }
-    }
-
-    /* Landscape orientation for video modal */
-    @media (orientation: landscape) {
-      .video-modal.active {
-        transform: rotate(0deg);
+      
+      .video-thumbnail {
+        height: 140px;
       }
-    }
-
-    /* Force landscape for video modal on mobile */
-    @media (max-width: 768px) and (orientation: portrait) {
-      .video-modal.active {
-        transform: rotate(90deg);
-        transform-origin: center center;
-        width: 100vh;
-        height: 100vw;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(90deg);
+      
+      .video-play-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
       }
     }
   </style>
@@ -1251,90 +1398,72 @@
         </a>
       </div>
       
+      <!-- Videos Carousel -->
       <div class="videos-carousel-container">
-        <div class="videos-carousel">
-          <!-- Video 1 -->
-          <div class="video-card" data-video-id="dQw4w9WgXcQ">
-            <div class="video-thumbnail-container">
-              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Perfect Mountain Climbers Technique" class="video-thumbnail">
-              <div class="video-play-button">
-                <i class="fas fa-play video-play-icon"></i>
+        <div class="videos-carousel" id="videosCarousel">
+          <!-- Video 1: Fitness Activity -->
+          <div class="video-card" data-video-id="dQw4w9WgXcQ" data-video-title="Full Body HIIT Workout" data-video-description="A 20-minute high-intensity interval training session that targets all major muscle groups. Perfect for busy professionals looking for an efficient workout.">
+            <div class="video-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+              <div class="video-play-icon">
+                <i class="fas fa-play"></i>
               </div>
-              <div class="video-duration">5:24</div>
             </div>
             <div class="video-content">
               <div class="video-meta">
-                <span class="video-category">Tutorial</span>
-                <span class="video-date">Oct 15, 2023</span>
+                <span class="video-category">Fitness</span>
+                <span>October 20, 2023</span>
               </div>
-              <h3 class="video-title">Perfect Mountain Climbers Technique</h3>
+              <h3 class="video-title">Full Body HIIT Workout</h3>
+              <p class="video-description">A 20-minute high-intensity interval training session that targets all major muscle groups.</p>
+              <a href="#" class="video-link watch-video">
+                Watch Video
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
           
-          <!-- Video 2 -->
-          <div class="video-card" data-video-id="dQw4w9WgXcQ">
-            <div class="video-thumbnail-container">
-              <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Plank Variations for Core Strength" class="video-thumbnail">
-              <div class="video-play-button">
-                <i class="fas fa-play video-play-icon"></i>
+          <!-- Video 2: Nutrition -->
+          <div class="video-card" data-video-id="9bZkp7q19f0" data-video-title="Nutrition for Muscle Recovery" data-video-description="Learn about the best foods and nutrients to support muscle recovery after intense workouts. Our nutrition expert shares practical tips for optimizing your post-workout meals.">
+            <div class="video-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')">
+              <div class="video-play-icon">
+                <i class="fas fa-play"></i>
               </div>
-              <div class="video-duration">7:42</div>
             </div>
             <div class="video-content">
               <div class="video-meta">
-                <span class="video-category">Workout</span>
-                <span class="video-date">Oct 10, 2023</span>
+                <span class="video-category">Nutrition</span>
+                <span>October 15, 2023</span>
               </div>
-              <h3 class="video-title">Plank Variations for Core Strength</h3>
+              <h3 class="video-title">Nutrition for Muscle Recovery</h3>
+              <p class="video-description">Learn about the best foods and nutrients to support muscle recovery after intense workouts.</p>
+              <a href="#" class="video-link watch-video">
+                Watch Video
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
           
-          <!-- Video 3 -->
-          <div class="video-card" data-video-id="dQw4w9WgXcQ">
-            <div class="video-thumbnail-container">
-              <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Step Challenge Workout" class="video-thumbnail">
-              <div class="video-play-button">
-                <i class="fas fa-play video-play-icon"></i>
+          <!-- Video 3: Fitness Club -->
+          <div class="video-card" data-video-id="jNQXAC9IVRw" data-video-title="WorkFit Club Tour" data-video-description="Take a virtual tour of our state-of-the-art fitness facilities. See our equipment, training areas, and learn about the amenities available to WorkFit members.">
+            <div class="video-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+              <div class="video-play-icon">
+                <i class="fas fa-play"></i>
               </div>
-              <div class="video-duration">12:18</div>
             </div>
             <div class="video-content">
               <div class="video-meta">
-                <span class="video-category">Cardio</span>
-                <span class="video-date">Oct 5, 2023</span>
+                <span class="video-category">Club</span>
+                <span>October 10, 2023</span>
               </div>
-              <h3 class="video-title">Step Challenge Workout</h3>
-            </div>
-          </div>
-          
-          <!-- Video 4 -->
-          <div class="video-card" data-video-id="dQw4w9WgXcQ">
-            <div class="video-thumbnail-container">
-              <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Full Body Warm Up" class="video-thumbnail">
-              <div class="video-play-button">
-                <i class="fas fa-play video-play-icon"></i>
-              </div>
-              <div class="video-duration">8:15</div>
-            </div>
-            <div class="video-content">
-              <div class="video-meta">
-                <span class="video-category">Warm Up</span>
-                <span class="video-date">Oct 1, 2023</span>
-              </div>
-              <h3 class="video-title">Full Body Warm Up Routine</h3>
+              <h3 class="video-title">WorkFit Club Tour</h3>
+              <p class="video-description">Take a virtual tour of our state-of-the-art fitness facilities and amenities.</p>
+              <a href="#" class="video-link watch-video">
+                Watch Video
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-      <div class="video-modal-content">
-        <button class="video-modal-close" id="videoModalClose">
-          <i class="fas fa-times"></i>
-        </button>
-        <iframe class="video-player" id="videoPlayer" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </section>
 
@@ -1401,9 +1530,188 @@
               </a>
             </div>
           </div>
+          
+          <!-- Blog Post 4 -->
+          <div class="blog-card" data-newsletter-id="sleep-recovery">
+            <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80')"></div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-category">Recovery</span>
+                <span>October 1, 2023</span>
+              </div>
+              <h3 class="blog-title">The Science of Sleep: How Rest Impacts Performance</h3>
+              <p class="blog-excerpt">Discover why quality sleep is just as important as your workouts and how to optimize your rest for better results.</p>
+              <a href="#" class="blog-link read-article" data-article="sleep-recovery">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- Full Screen Video Modal -->
+    <div class="video-modal" id="videoModal">
+      <div class="video-modal-content">
+        <button class="video-modal-close">&times;</button>
+        <div class="video-player" id="videoPlayer">
+          <!-- Video iframe will be inserted here -->
+        </div>
+        <div class="video-info">
+          <h3 class="video-info-title" id="videoModalTitle">Video Title</h3>
+          <p class="video-info-description" id="videoModalDescription">Video description will appear here.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter Detail Pages -->
+    <div id="nutrition-article" class="newsletter-detail">
+      <div class="newsletter-detail-content">
+        <div class="newsletter-detail-header">
+          <button class="newsletter-detail-close">&times;</button>
+          <span class="newsletter-detail-category">Nutrition</span>
+          <h1 class="newsletter-detail-title">Fuel Your Fitness: The Ultimate Nutrition Guide for Active Professionals</h1>
+          <p class="newsletter-detail-date">October 15, 2023</p>
+        </div>
+        <div class="newsletter-detail-body">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80" alt="Nutrition Guide" class="newsletter-detail-image">
+          <div class="newsletter-detail-text">
+            <p>Proper nutrition is the foundation of any successful fitness journey. Whether you're training for a marathon, trying to build muscle, or simply aiming to maintain a healthy lifestyle, what you eat plays a crucial role in your performance and results.</p>
+            
+            <h4>Pre-Workout Nutrition</h4>
+            <p>Fueling your body before exercise is essential for optimal performance. The goal is to provide your muscles with adequate energy without causing digestive discomfort during your workout.</p>
+            
+            <p><strong>Key principles for pre-workout nutrition:</strong></p>
+            <ul>
+              <li>Consume a balanced meal 2-3 hours before exercise</li>
+              <li>Focus on complex carbohydrates for sustained energy</li>
+              <li>Include a moderate amount of protein</li>
+              <li>Limit fats and fiber to avoid digestive issues</li>
+              <li>Stay hydrated with water or electrolyte drinks</li>
+            </ul>
+            
+            <h4>Post-Workout Recovery</h4>
+            <p>The 30-60 minutes after your workout is often called the "anabolic window" - a critical period for muscle recovery and growth.</p>
+            
+            <p><strong>Effective post-workout nutrition should include:</strong></p>
+            <ol>
+              <li><strong>Protein:</strong> 20-30 grams to repair and build muscle tissue</li>
+              <li><strong>Carbohydrates:</strong> To replenish glycogen stores</li>
+              <li><strong>Fluids:</strong> To rehydrate and support metabolic processes</li>
+              <li><strong>Electrolytes:</strong> Especially sodium and potassium lost through sweat</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="team-building" class="newsletter-detail">
+      <div class="newsletter-detail-content">
+        <div class="newsletter-detail-header">
+          <button class="newsletter-detail-close">&times;</button>
+          <span class="newsletter-detail-category">Workouts</span>
+          <h1 class="newsletter-detail-title">5 Team Building Exercises That Actually Work</h1>
+          <p class="newsletter-detail-date">October 10, 2023</p>
+        </div>
+        <div class="newsletter-detail-body">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Team Building" class="newsletter-detail-image">
+          <div class="newsletter-detail-text">
+            <p>Team building exercises are essential for fostering collaboration, communication, and trust among team members. Here are five effective exercises that actually work:</p>
+            
+            <h4>1. The Human Knot</h4>
+            <p>Team members stand in a circle, reach across to grab hands with two different people, and then work together to untangle the "human knot" without letting go.</p>
+            
+            <h4>2. Escape Room Challenge</h4>
+            <p>Teams work together to solve puzzles and "escape" from a locked room within a set time limit, promoting problem-solving and collaboration.</p>
+            
+            <h4>3. Trust Falls</h4>
+            <p>A classic exercise where team members take turns falling backward, trusting their colleagues to catch them, building trust and support.</p>
+            
+            <h4>4. Two Truths and a Lie</h4>
+            <p>Team members share two true statements and one false statement about themselves, and others guess which is the lie, fostering personal connections.</p>
+            
+            <h4>5. Scavenger Hunt</h4>
+            <p>Teams compete to find items or complete tasks from a list, encouraging teamwork, strategy, and time management.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="yoga-desk" class="newsletter-detail">
+      <div class="newsletter-detail-content">
+        <div class="newsletter-detail-header">
+          <button class="newsletter-detail-close">&times;</button>
+          <span class="newsletter-detail-category">Wellness</span>
+          <h1 class="newsletter-detail-title">Mindful Movement: Yoga for Desk Workers</h1>
+          <p class="newsletter-detail-date">October 5, 2023</p>
+        </div>
+        <div class="newsletter-detail-body">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80" alt="Yoga for Desk Workers" class="newsletter-detail-image">
+          <div class="newsletter-detail-text">
+            <p>Prolonged sitting can lead to muscle stiffness, poor posture, and decreased energy. These simple yoga poses can be done right at your desk to combat these effects:</p>
+            
+            <h4>1. Seated Cat-Cow Stretch</h4>
+            <p>Sit tall in your chair, place hands on knees. Inhale, arch your back and look up (Cow). Exhale, round your spine and tuck chin (Cat). Repeat 5-10 times.</p>
+            
+            <h4>2. Seated Spinal Twist</h4>
+            <p>Sit tall, cross right leg over left. Place left hand on right knee and right hand behind you. Gently twist to the right. Hold for 30 seconds, then switch sides.</p>
+            
+            <h4>3. Forward Fold</h4>
+            <p>Stand up and fold forward from the hips, letting your head and arms hang. Bend knees if needed. Hold for 30 seconds to release tension in the back and hamstrings.</p>
+            
+            <h4>4. Wrist and Finger Stretches</h4>
+            <p>Extend arms forward, pull fingers back with opposite hand. Then make fists and circle wrists in both directions. Great for preventing carpal tunnel.</p>
+            
+            <h4>5. Desk Downward Dog</h4>
+            <p>Stand facing your desk, place hands on it and walk back until your body forms an L-shape. Hold for 30 seconds to stretch shoulders, back, and hamstrings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sleep-recovery" class="newsletter-detail">
+      <div class="newsletter-detail-content">
+        <div class="newsletter-detail-header">
+          <button class="newsletter-detail-close">&times;</button>
+          <span class="newsletter-detail-category">Recovery</span>
+          <h1 class="newsletter-detail-title">The Science of Sleep: How Rest Impacts Performance</h1>
+          <p class="newsletter-detail-date">October 1, 2023</p>
+        </div>
+        <div class="newsletter-detail-body">
+          <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80" alt="Sleep Science" class="newsletter-detail-image">
+          <div class="newsletter-detail-text">
+            <p>Sleep is not just a period of rest; it's an active state where critical processes occur that directly impact your physical and mental performance.</p>
+            
+            <h4>The Sleep-Performance Connection</h4>
+            <p>Quality sleep enhances athletic performance in several key ways:</p>
+            <ul>
+              <li><strong>Muscle Repair:</strong> During deep sleep, the body releases growth hormone, which repairs muscle tissue damaged during workouts.</li>
+              <li><strong>Memory Consolidation:</strong> Sleep helps solidify motor skills and technique improvements learned during training.</li>
+              <li><strong>Energy Restoration:</strong> Glycogen stores in muscles and liver are replenished during sleep.</li>
+              <li><strong>Hormone Regulation:</strong> Sleep balances cortisol (stress hormone) and supports testosterone production.</li>
+            </ul>
+            
+            <h4>Sleep Stages and Their Functions</h4>
+            <p>Understanding the sleep cycle helps optimize recovery:</p>
+            <ol>
+              <li><strong>NREM Stage 1 & 2:</strong> Light sleep where body temperature drops and heart rate slows</li>
+              <li><strong>NREM Stage 3:</strong> Deep sleep crucial for physical recovery and growth hormone release</li>
+              <li><strong>REM Sleep:</strong> Important for cognitive function, memory, and learning</li>
+            </ol>
+            
+            <h4>Tips for Better Sleep</h4>
+            <ul>
+              <li>Maintain a consistent sleep schedule, even on weekends</li>
+              <li>Create a cool, dark, and quiet sleep environment</li>
+              <li>Avoid screens at least one hour before bedtime</li>
+              <li>Limit caffeine intake, especially in the afternoon and evening</li>
+              <li>Establish a relaxing pre-sleep routine</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1714,54 +2022,211 @@
       // Update blog width on window resize
       window.addEventListener('resize', updateBlogWidth);
       
+      // Videos Carousel Functionality
+      const videosCarousel = document.getElementById('videosCarousel');
+      const videoCards = document.querySelectorAll('.video-card');
+      let currentVideo = 0;
+      let videoWidth = videoCards[0].offsetWidth + 16; // card width + gap
+      let videoInterval;
+      
+      function updateVideoWidth() {
+        videoWidth = videoCards[0].offsetWidth + 16;
+      }
+      
+      function scrollToVideo(index) {
+        updateVideoWidth();
+        videosCarousel.style.transform = `translateX(-${index * videoWidth}px)`;
+        currentVideo = index;
+      }
+      
+      function nextVideo() {
+        if (currentVideo < videoCards.length - 1) {
+          scrollToVideo(currentVideo + 1);
+        } else {
+          scrollToVideo(0);
+        }
+      }
+      
+      function prevVideo() {
+        if (currentVideo > 0) {
+          scrollToVideo(currentVideo - 1);
+        } else {
+          scrollToVideo(videoCards.length - 1);
+        }
+      }
+      
+      // Start auto-scrolling for videos carousel
+      function startVideoInterval() {
+        videoInterval = setInterval(nextVideo, 4000);
+      }
+      
+      startVideoInterval();
+      
+      // Pause videos carousel on hover
+      videosCarousel.addEventListener('mouseenter', () => {
+        clearInterval(videoInterval);
+      });
+      
+      videosCarousel.addEventListener('mouseleave', () => {
+        startVideoInterval();
+      });
+      
+      // Touch swipe for videos carousel
+      let videoStartX = 0;
+      let videoEndX = 0;
+      
+      videosCarousel.addEventListener('touchstart', (e) => {
+        videoStartX = e.touches[0].clientX;
+        clearInterval(videoInterval);
+      });
+      
+      videosCarousel.addEventListener('touchmove', (e) => {
+        videoEndX = e.touches[0].clientX;
+      });
+      
+      videosCarousel.addEventListener('touchend', () => {
+        handleVideoSwipe();
+        startVideoInterval();
+      });
+      
+      function handleVideoSwipe() {
+        const threshold = 50;
+        const diff = videoStartX - videoEndX;
+        
+        if (Math.abs(diff) > threshold) {
+          if (diff > 0) {
+            nextVideo();
+          } else {
+            prevVideo();
+          }
+        }
+      }
+      
+      // Update video width on window resize
+      window.addEventListener('resize', updateVideoWidth);
+      
       // Video Modal Functionality
       const videoModal = document.getElementById('videoModal');
-      const videoModalClose = document.getElementById('videoModalClose');
       const videoPlayer = document.getElementById('videoPlayer');
-      const videoCards = document.querySelectorAll('.video-card');
+      const videoModalTitle = document.getElementById('videoModalTitle');
+      const videoModalDescription = document.getElementById('videoModalDescription');
+      const videoModalClose = document.querySelector('.video-modal-close');
+      const watchVideoLinks = document.querySelectorAll('.watch-video');
       
-      // Open video modal when clicking on video card
+      // Function to open video in full screen
+      function openVideoModal(videoId, title, description) {
+        // Set video title and description
+        videoModalTitle.textContent = title;
+        videoModalDescription.textContent = description;
+        
+        // Create iframe for YouTube video
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.allow = 'autoplay; encrypted-media';
+        iframe.allowFullscreen = true;
+        
+        // Clear previous video and add new one
+        videoPlayer.innerHTML = '';
+        videoPlayer.appendChild(iframe);
+        
+        // Show modal
+        videoModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      // Add click event to video cards and watch links
       videoCards.forEach(card => {
-        card.addEventListener('click', () => {
-          const videoId = card.dataset.videoId;
-          // Use a placeholder video ID - in a real app, you would use actual video IDs
-          videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-          videoModal.classList.add('active');
-          document.body.style.overflow = 'hidden';
-          
-          // Force landscape orientation on mobile
-          if (window.innerWidth < 768) {
-            screen.orientation.lock('landscape').catch(err => {
-              console.log('Orientation lock not supported:', err);
-            });
+        card.addEventListener('click', (e) => {
+          // Don't trigger if clicking on the watch link (to avoid double trigger)
+          if (!e.target.closest('.video-link')) {
+            const videoId = card.dataset.videoId;
+            const title = card.dataset.videoTitle;
+            const description = card.dataset.videoDescription;
+            openVideoModal(videoId, title, description);
           }
         });
       });
       
-      // Close video modal
+      watchVideoLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const card = link.closest('.video-card');
+          const videoId = card.dataset.videoId;
+          const title = card.dataset.videoTitle;
+          const description = card.dataset.videoDescription;
+          openVideoModal(videoId, title, description);
+        });
+      });
+      
+      // Close modal functionality
       videoModalClose.addEventListener('click', () => {
-        videoModal.classList.remove('active');
-        videoPlayer.src = '';
-        document.body.style.overflow = 'auto';
-        
-        // Unlock orientation
-        if (window.innerWidth < 768) {
-          screen.orientation.unlock();
+        closeVideoModal();
+      });
+      
+      videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+          closeVideoModal();
         }
       });
       
-      // Close modal when clicking outside
-      videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-          videoModal.classList.remove('active');
-          videoPlayer.src = '';
-          document.body.style.overflow = 'auto';
-          
-          // Unlock orientation
-          if (window.innerWidth < 768) {
-            screen.orientation.unlock();
-          }
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+          closeVideoModal();
         }
+      });
+      
+      function closeVideoModal() {
+        videoModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Stop video playback
+        const iframe = videoPlayer.querySelector('iframe');
+        if (iframe) {
+          iframe.src = '';
+        }
+      }
+      
+      // Newsletter Detail Pages functionality
+      const blogLinks = document.querySelectorAll('.read-article');
+      const newsletterDetails = document.querySelectorAll('.newsletter-detail');
+      const closeDetailButtons = document.querySelectorAll('.newsletter-detail-close');
+      
+      blogLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const articleId = link.dataset.article;
+          const newsletterDetail = document.getElementById(articleId);
+          
+          if (newsletterDetail) {
+            // Hide all newsletter details first
+            newsletterDetails.forEach(detail => {
+              detail.classList.remove('active');
+            });
+            
+            // Show the selected newsletter detail
+            newsletterDetail.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
+      
+      closeDetailButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const newsletterDetail = btn.closest('.newsletter-detail');
+          newsletterDetail.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+      });
+      
+      // Close newsletter detail when clicking outside
+      newsletterDetails.forEach(detail => {
+        detail.addEventListener('click', (e) => {
+          if (e.target === detail) {
+            detail.classList.remove('active');
+            document.body.style.overflow = 'auto';
+          }
+        });
       });
     });
   </script>
