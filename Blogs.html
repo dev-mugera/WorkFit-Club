@@ -1,737 +1,1263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitLife Blog | Fitness Tips & Advice</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #ffffff;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            background: linear-gradient(to right, #fffffff5, #ffffff);
-            color: rgb(255, 255, 255);
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(202, 195, 195, 0);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: right;
-            gap: 10px;
-            margin-right: 15px;
-        }
-        
-        .logo-img {
-            height: 40px;
-            width: auto;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(6, 32, 92, 0.8), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-            margin-bottom: 40px;
-        }
-        
-        .hero h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        
-        .search-bar {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-        }
-        
-        .search-bar input {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            font-size: 16px;
-        }
-        
-        .search-bar button {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        /* Blog Content */
-        .blog-content {
-            display: flex;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        .articles {
-            flex: 2;
-        }
-        
-        .sidebar {
-            flex: 1;
-        }
-        
-        .section-title {
-            font-size: 24px;
-            color: #0a2463;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff6b6b;
-        }
-        
-        /* Article Cards */
-        .article-card {
-            background: #0a2463;
-            color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .article-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-image {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .article-card:hover .card-image img {
-            transform: scale(1.05);
-        }
-        
-        .card-content {
-            padding: 20px;
-        }
-        
-        .card-content h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .card-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: #cbd5e1;
-        }
-        
-        .read-more {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 20px;
-            background: #ff6b6b;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .read-more:hover {
-            background: #ff5252;
-        }
-        
-        /* Sidebar */
-        .sidebar-widget {
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-        }
-        
-        .sidebar-widget h3 {
-            color: #0a2463;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .categories-list {
-            list-style: none;
-        }
-        
-        .categories-list li {
-            margin-bottom: 10px;
-        }
-        
-        .categories-list a {
-            color: #334155;
-            text-decoration: none;
-            display: flex;
-            justify-content: space-between;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        
-        .categories-list a:hover, .categories-list a.active {
-            color: #ff6b6b;
-        }
-        
-        .popular-posts {
-            list-style: none;
-        }
-        
-        .popular-post {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .popular-post:hover {
-            transform: translateX(5px);
-        }
-        
-        .popular-post img {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-        
-        .post-content h4 {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-        
-        .post-content span {
-            font-size: 12px;
-            color: #64748b;
-        }
-        
-        /* Newsletter */
-        .newsletter input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-        }
-        
-        .newsletter button {
-            width: 100%;
-            padding: 12px;
-            background: #0a2463;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        
-        .newsletter button:hover {
-            background: #1e40af;
-        }
-        
-        /* Article Detail View */
-        .article-detail {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        
-        .article-detail.active {
-            display: block;
-        }
-        
-        .detail-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .close-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        
-        .close-btn:hover {
-            background: #ff5252;
-        }
-        
-        .detail-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .detail-content h2 {
-            color: #0a2463;
-            margin-bottom: 15px;
-        }
-        
-        .detail-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            color: #64748b;
-        }
-        
-        .detail-image {
-            width: 100%;
-            height: 350px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .detail-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .detail-body {
-            line-height: 1.8;
-        }
-        
-        .detail-body p {
-            margin-bottom: 20px;
-        }
-        
-        .detail-body h3 {
-            color: #0a2463;
-            margin: 30px 0 15px;
-        }
-        
-        /* No results message */
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #64748b;
-            display: none;
-        }
-        
-        .no-results i {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #cbd5e1;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .blog-content {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            
-            .detail-image {
-                height: 250px;
-            }
-            
-            .header-content {
-                justify-content: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs - WorkFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-light: #3CB371;
+      --primary-dark: #1F6B42;
+      --accent: #FF6B35;
+      --accent-light: #FF8C5A;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --text-primary: #222222;
+      --text-secondary: #555555;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--light-gray);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 14px;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding: 0.8rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* Hero Section - Matching Previous Page Style */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      min-height: 320px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius);
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      border-radius: var(--radius);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 1.5rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+
+    .slide-text {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      font-weight: 300;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .slide-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.2rem 0.8rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      min-width: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    /* Section Styling */
+    .page-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      border: none;
+      font-size: 0.85rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Search Section */
+    .search-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid var(--light-gray);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+    }
+
+    .search-btn {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Categories Navigation */
+    .categories-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .category-btn {
+      background: var(--light-gray);
+      color: var(--text-primary);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    /* Latest Blogs Carousel */
+    .latest-blogs-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+    }
+
+    .latest-blogs-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 1rem;
+      padding: 0.5rem 0;
+    }
+
+    .latest-blog-card {
+      flex: 0 0 calc(33.333% - 0.7rem);
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      min-height: 280px;
+    }
+
+    .latest-blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .latest-blog-image {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .latest-blog-content {
+      padding: 1.2rem;
+    }
+
+    .latest-blog-meta {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .latest-blog-category {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .latest-blog-title {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .latest-blog-excerpt {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .carousel-btn {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    /* Vertical Blog List */
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .blog-card {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      display: flex;
+      min-height: 140px;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .blog-image {
+      width: 120px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    .blog-content {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .blog-category {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .blog-title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .blog-excerpt {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .blog-date {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .blog-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .blog-link:hover {
+      color: var(--primary-dark);
+      gap: 0.5rem;
+    }
+
+    /* Blog Detail Modal */
+    .blog-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1002;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .blog-modal.active {
+      display: flex;
+    }
+
+    .blog-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .blog-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .blog-modal-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .blog-detail-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .blog-details {
+      padding: 2rem;
+      overflow-y: auto;
+      max-height: calc(90vh - 300px);
+    }
+
+    .blog-details-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-details-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .blog-details-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    .blog-details-content {
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .blog-details-content h3 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem 0;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    .blog-details-content p {
+      margin-bottom: 1rem;
+    }
+
+    .blog-details-content ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .blog-details-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero {
+        height: 35vh;
+        min-height: 280px;
+      }
+      
+      .slide-title {
+        font-size: 1.5rem;
+      }
+      
+      .slide-text {
+        font-size: 0.85rem;
+      }
+      
+      .slide-stats {
+        gap: 0.8rem;
+      }
+      
+      .stat {
+        min-width: 85px;
+        padding: 1rem 0.6rem;
+      }
+      
+      .stat-number {
+        font-size: 1.4rem;
+      }
+      
+      .search-container {
+        flex-direction: column;
+      }
+      
+      .latest-blog-card {
+        flex: 0 0 calc(50% - 0.7rem);
+      }
+      
+      .blog-card {
+        flex-direction: column;
+        min-height: auto;
+      }
+      
+      .blog-image {
+        width: 100%;
+        height: 120px;
+      }
+      
+      .blog-modal-content {
+        width: 95%;
+      }
+      
+      .blog-details {
+        padding: 1.5rem;
+      }
+      
+      .blog-details-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 30vh;
+        min-height: 240px;
+      }
+      
+      .slide-title {
+        font-size: 1.3rem;
+      }
+      
+      .slide-text {
+        font-size: 0.8rem;
+      }
+      
+      .slide-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      
+      .stat {
+        flex: 1;
+        min-width: 70px;
+        padding: 0.8rem 0.4rem;
+      }
+      
+      .latest-blog-card {
+        flex: 0 0 100%;
+      }
+      
+      .categories-nav {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="https://i.postimg.cc/C1ggFwhK/Untitled-1.png" alt="FitLife Logo" class="logo-img">
-                </div>
-            </div>
-        </div>
-    </header>
-
+  <div class="container">
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <h2>Fitness Tips & Advice</h2>
-            <p>Get the latest workout routines, nutrition advice, and success stories to help you on your fitness journey</p>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search articles...">
-                <button id="search-button">Search</button>
+      <div class="hero-slides">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80')">
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1 class="slide-title">WorkFit Blog</h1>
+            <p class="slide-text">Discover fitness tips, nutrition advice, and inspiring stories from our community</p>
+            <div class="slide-stats">
+              <div class="stat">
+                <span class="stat-number">45+</span>
+                <span class="stat-label">Articles</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Categories</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">5K+</span>
+                <span class="stat-label">Readers</span>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Blog Content -->
-    <div class="container blog-content">
-        <!-- Articles Section -->
-        <div class="articles">
-            <h2 class="section-title">Latest Articles</h2>
-            
-            <div class="articles-container">
-                <!-- Article Card 1 -->
-                <div class="article-card" data-categories="workout home-exercise strength">
-                    <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Woman exercising">
-                    </div>
-                    <div class="card-content">
-                        <h3>10 Best Exercises for Building Strength at Home</h3>
-                        <div class="card-meta">
-                            <span><i class="far fa-calendar"></i> April 15, 2023</span>
-                            <span><i class="far fa-user"></i> Sarah Johnson</span>
-                        </div>
-                        <p>You don't need a gym membership to build strength. These effective exercises can be done in the comfort of your home with minimal equipment.</p>
-                        <button class="read-more" data-article="article1">Read More</button>
-                    </div>
-                </div>
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search for articles, nutrition tips, workouts...">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
+          Search
+        </button>
+      </div>
+      
+      <div class="categories-nav">
+        <button class="category-btn active">All Articles</button>
+        <button class="category-btn">Nutrition</button>
+        <button class="category-btn">Workouts</button>
+        <button class="category-btn">Wellness</button>
+        <button class="category-btn">Recovery</button>
+        <button class="category-btn">Community</button>
+        <button class="category-btn">Success Stories</button>
+      </div>
+    </section>
 
-            <div class="articles-container">
-                <!-- Article Card 2 -->
-                <div class="article-card" data-categories="nutrition">
-                    <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Woman exercising">
-                    </div>
-                    <div class="card-content">
-                        <h3>Best Nutrition Plan After A Workout Session</h3>
-                        <div class="card-meta">
-                            <span><i class="far fa-calendar"></i> April 15, 2023</span>
-                            <span><i class="far fa-user"></i> Sarah Johnson</span>
-                        </div>
-                        <p>You don't need a gym membership to build strength. These effective exercises can be done in the comfort of your home with minimal equipment.</p>
-                        <button class="read-more" data-article="article1">Read More</button>
-                    </div>
-                </div>    
-            
-            <!-- No results message -->
-            <div class="no-results" id="no-results">
-                <i class="fas fa-search"></i>
-                <h3>No articles found</h3>
-                <p>Try different search terms or browse our categories</p>
+    <!-- Latest Blogs Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Latest Articles</h2>
+        <a href="#" class="btn btn-primary">
+          View All
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="latest-blogs-carousel">
+        <div class="latest-blogs-track" id="latestBlogsTrack">
+          <!-- Latest Blog 1 -->
+          <div class="latest-blog-card" data-blog-id="nutrition-guide">
+            <div class="latest-blog-image" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')"></div>
+            <div class="latest-blog-content">
+              <div class="latest-blog-meta">
+                <span class="latest-blog-category">Nutrition</span>
+                <span>Oct 15, 2023</span>
+              </div>
+              <h3 class="latest-blog-title">Fuel Your Fitness: The Ultimate Nutrition Guide</h3>
+              <p class="latest-blog-excerpt">Discover how proper nutrition can enhance your workout performance, accelerate recovery, and help you achieve your fitness goals faster.</p>
             </div>
+          </div>
+          
+          <!-- Latest Blog 2 -->
+          <div class="latest-blog-card" data-blog-id="team-building">
+            <div class="latest-blog-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+            <div class="latest-blog-content">
+              <div class="latest-blog-meta">
+                <span class="latest-blog-category">Workouts</span>
+                <span>Oct 10, 2023</span>
+              </div>
+              <h3 class="latest-blog-title">5 Team Building Exercises That Actually Work</h3>
+              <p class="latest-blog-excerpt">Boost morale and productivity with these effective team workouts designed to strengthen bonds while improving fitness.</p>
+            </div>
+          </div>
+          
+          <!-- Latest Blog 3 -->
+          <div class="latest-blog-card" data-blog-id="yoga-desk">
+            <div class="latest-blog-image" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80')"></div>
+            <div class="latest-blog-content">
+              <div class="latest-blog-meta">
+                <span class="latest-blog-category">Wellness</span>
+                <span>Oct 5, 2023</span>
+              </div>
+              <h3 class="latest-blog-title">Mindful Movement: Yoga for Desk Workers</h3>
+              <p class="latest-blog-excerpt">Combat the effects of prolonged sitting with these simple yoga poses you can do at your desk or during breaks.</p>
+            </div>
+          </div>
         </div>
         
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Categories Widget -->
-            <div class="sidebar-widget">
-                <h3>Categories</h3>
-                <ul class="categories-list">
-                    <li><a class="category-link active" data-category="all">All Topics <span>(5)</span></a></li>
-                    <li><a class="category-link" data-category="workout">Workout Routines <span>(1)</span></a></li>
-                    <li><a class="category-link" data-category="nutrition">Nutrition <span>(1)</span></a></li>
-                    <li><a class="category-link" data-category="strength">Strength Training <span>(1)</span></a></li>
-                    <li><a class="category-link" data-category="cardio">Cardio <span>(1)</span></a></li>
-                    <li><a class="category-link" data-category="mental-health">Mental Health <span>(1)</span></a></li>
-                </ul>
-            </div>
-            
-            <!-- Popular Posts Widget -->
-            <div class="sidebar-widget">
-                <h3>Popular Posts</h3>
-                <ul class="popular-posts">
-                    <li class="popular-post" data-article="article1">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Post thumbnail">
-                        <div class="post-content">
-                            <h4>5 Common Workout Mistakes Beginners Make</h4>
-                            <span>March 28, 2023</span>
-                        </div>
-                    </li>
-                    <li class="popular-post" data-article="article2">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Post thumbnail">
-                        <div class="post-content">
-                            <h4>Superfoods That Actually Live Up to the Hype</h4>
-                            <span>March 20, 2023</span>
-                        </div>
-                    </li>
-                    <li class="popular-post" data-article="article3">
-                        <img src="https://images.unsplash.com/photo-1596357395217-80de13130e92?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Post thumbnail">
-                        <div class="post-content">
-                            <h4>How to Create a Sustainable Fitness Habit</h4>
-                            <span>March 15, 2023</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBlog">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn" id="nextBlog">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- Article Detail Views -->
-    <!-- Article 1 Detail -->
-    <div class="article-detail" id="article1">
-        <div class="container">
-            <div class="detail-header">
-                <h2>10 Best Exercises for Building Strength at Home</h2>
-                <button class="close-btn">Close</button>
+    <!-- All Blogs Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">All Articles</h2>
+      </div>
+      
+      <div class="blog-list">
+        <!-- Blog 1 -->
+        <div class="blog-card" data-blog-id="sleep-recovery">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80')"></div>
+          <div class="blog-content">
+            <div>
+              <div class="blog-meta">
+                <span class="blog-category">Recovery</span>
+                <span>Oct 1, 2023</span>
+              </div>
+              <h3 class="blog-title">The Science of Sleep: How Rest Impacts Performance</h3>
+              <p class="blog-excerpt">Discover why quality sleep is just as important as your workouts and how to optimize your rest for better results.</p>
             </div>
-            <div class="detail-content">
-                <div class="detail-meta">
-                    <span><i class="far fa-calendar"></i> April 15, 2023</span>
-                    <span><i class="far fa-user"></i> Sarah Johnson</span>
-                    <span><i class="far fa-clock"></i> 10 min read</span>
-                </div>
-                <div class="detail-image">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Woman exercising">
-                </div>
-                <div class="detail-body">
-                    <p>Building strength doesn't require an expensive gym membership or fancy equipment. With the right exercises and consistency, you can achieve significant strength gains right in your living room. Here are the 10 best exercises for building strength at home:</p>
-                    
-                    <h3>1. Push-Ups</h3>
-                    <p>The classic push-up remains one of the most effective upper body exercises. It targets your chest, shoulders, triceps, and core. Start with 3 sets of as many reps as you can with good form, and gradually increase your numbers.</p>
-                    
-                    <h3>2. Bodyweight Squats</h3>
-                    <p>Squats are fundamental for lower body strength. They work your quads, hamstrings, glutes, and core. Focus on proper form: keep your chest up, back straight, and lower until your thighs are parallel to the floor.</p>
-                    
-                    <h3>3. Planks</h3>
-                    <p>This isometric exercise builds incredible core strength. Hold the plank position for 30-60 seconds, focusing on keeping your body in a straight line from head to heels.</p>
-                    
-                    <h3>4. Lunges</h3>
-                    <p>Lunges target your legs and glutes while improving balance. You can perform them stationary, walking, or reverse lunges. Aim for 3 sets of 10-12 reps per leg.</p>
-                    
-                    <h3>5. Glute Bridges</h3>
-                    <p>Excellent for posterior chain development, glute bridges target your glutes, hamstrings, and lower back. Squeeze your glutes at the top of each rep for maximum activation.</p>
-                    
-                    <p>Continue with the remaining exercises and remember that consistency is key. Perform these exercises 3-4 times per week, and you'll see noticeable strength improvements in just a few weeks.</p>
-                </div>
+            <div class="blog-footer">
+              <div class="blog-date">
+                <i class="far fa-clock"></i>
+                <span>8 min read</span>
+              </div>
+              <a href="#" class="blog-link read-blog">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
+          </div>
         </div>
-    </div>
-
-    <!-- Additional article details would go here -->
-    <!-- Article 2 Detail -->
-    <div class="article-detail" id="article2">
-        <div class="container">
-            <div class="detail-header">
-                <h2>Meal Prepping for Fitness Success: A Complete Guide</h2>
-                <button class="close-btn">Close</button>
-            </div>
-            <div class="detail-body">
-                    <p>Building strength doesn't require an expensive gym membership or fancy equipment. With the right exercises and consistency, you can achieve significant strength gains right in your living room. Here are the 10 best exercises for building strength at home:</p>
-                    
-                    <h3>1. Push-Ups</h3>
-                    <p>The classic push-up remains one of the most effective upper body exercises. It targets your chest, shoulders, triceps, and core. Start with 3 sets of as many reps as you can with good form, and gradually increase your numbers.</p>
-                    
-                    <h3>2. Bodyweight Squats</h3>
-                    <p>Squats are fundamental for lower body strength. They work your quads, hamstrings, glutes, and core. Focus on proper form: keep your chest up, back straight, and lower until your thighs are parallel to the floor.</p>
-                    
-                    <h3>3. Planks</h3>
-                    <p>This isometric exercise builds incredible core strength. Hold the plank position for 30-60 seconds, focusing on keeping your body in a straight line from head to heels.</p>
-                    
-                    <h3>4. Lunges</h3>
-                    <p>Lunges target your legs and glutes while improving balance. You can perform them stationary, walking, or reverse lunges. Aim for 3 sets of 10-12 reps per leg.</p>
-                    
-                    <h3>5. Glute Bridges</h3>
-                    <p>Excellent for posterior chain development, glute bridges target your glutes, hamstrings, and lower back. Squeeze your glutes at the top of each rep for maximum activation.</p>
-                    
-                    <p>Continue with the remaining exercises and remember that consistency is key. Perform these exercises 3-4 times per week, and you'll see noticeable strength improvements in just a few weeks.</p>
-                </div>
-        </div>
-    </div>
-    <div class="article-detail" id="article3">
-        <div class="container">
-            <div class="detail-header">
-                <h2>Meal Prepping for Fitness Success: A Complete Guide</h2>
-                <button class="close-btn">Close</button>
-            </div>
-            <div class="detail-body">
-                    <p>Building strength doesn't require an expensive gym membership or fancy equipment. With the right exercises and consistency, you can achieve significant strength gains right in your living room. Here are the 10 best exercises for building strength at home:</p>
-                    
-                    <h3>1. Push-Ups</h3>
-                    <p>The classic push-up remains one of the most effective upper body exercises. It targets your chest, shoulders, triceps, and core. Start with 3 sets of as many reps as you can with good form, and gradually increase your numbers.</p>
-                    
-                    <h3>2. Bodyweight Squats</h3>
-                    <p>Squats are fundamental for lower body strength. They work your quads, hamstrings, glutes, and core. Focus on proper form: keep your chest up, back straight, and lower until your thighs are parallel to the floor.</p>
-                    
-                    <h3>3. Planks</h3>
-                    <p>This isometric exercise builds incredible core strength. Hold the plank position for 30-60 seconds, focusing on keeping your body in a straight line from head to heels.</p>
-                    
-                    <h3>4. Lunges</h3>
-                    <p>Lunges target your legs and glutes while improving balance. You can perform them stationary, walking, or reverse lunges. Aim for 3 sets of 10-12 reps per leg.</p>
-                    
-                    <h3>5. Glute Bridges</h3>
-                    <p>Excellent for posterior chain development, glute bridges target your glutes, hamstrings, and lower back. Squeeze your glutes at the top of each rep for maximum activation.</p>
-                    
-                    <p>Continue with the remaining exercises and remember that consistency is key. Perform these exercises 3-4 times per week, and you'll see noticeable strength improvements in just a few weeks.</p>
-                </div>
-        </div>
-    </div>
-
-    <script>
-        // Search functionality
-        document.getElementById('search-button').addEventListener('click', performSearch);
-        document.getElementById('search-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
         
-        function performSearch() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const articles = document.querySelectorAll('.article-card');
-            let resultsFound = false;
+        <!-- Blog 2 -->
+        <div class="blog-card" data-blog-id="hiit-workouts">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+          <div class="blog-content">
+            <div>
+              <div class="blog-meta">
+                <span class="blog-category">Workouts</span>
+                <span>Sep 28, 2023</span>
+              </div>
+              <h3 class="blog-title">HIIT Workouts: Maximize Results in Minimum Time</h3>
+              <p class="blog-excerpt">Learn how High-Intensity Interval Training can help you achieve better fitness results in shorter workout sessions.</p>
+            </div>
+            <div class="blog-footer">
+              <div class="blog-date">
+                <i class="far fa-clock"></i>
+                <span>6 min read</span>
+              </div>
+              <a href="#" class="blog-link read-blog">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog 3 -->
+        <div class="blog-card" data-blog-id="hydration-guide">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1523362628745-0c100150b504?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+          <div class="blog-content">
+            <div>
+              <div class="blog-meta">
+                <span class="blog-category">Nutrition</span>
+                <span>Sep 25, 2023</span>
+              </div>
+              <h3 class="blog-title">The Complete Guide to Hydration for Athletes</h3>
+              <p class="blog-excerpt">Understand the importance of proper hydration and learn strategies to maintain optimal fluid balance during workouts.</p>
+            </div>
+            <div class="blog-footer">
+              <div class="blog-date">
+                <i class="far fa-clock"></i>
+                <span>7 min read</span>
+              </div>
+              <a href="#" class="blog-link read-blog">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog 4 -->
+        <div class="blog-card" data-blog-id="stress-management">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+          <div class="blog-content">
+            <div>
+              <div class="blog-meta">
+                <span class="blog-category">Wellness</span>
+                <span>Sep 20, 2023</span>
+              </div>
+              <h3 class="blog-title">Stress Management Techniques for Busy Professionals</h3>
+              <p class="blog-excerpt">Discover practical strategies to manage stress and maintain mental wellness while balancing work and fitness goals.</p>
+            </div>
+            <div class="blog-footer">
+              <div class="blog-date">
+                <i class="far fa-clock"></i>
+                <span>10 min read</span>
+              </div>
+              <a href="#" class="blog-link read-blog">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog 5 -->
+        <div class="blog-card" data-blog-id="furnace-success">
+          <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+          <div class="blog-content">
+            <div>
+              <div class="blog-meta">
+                <span class="blog-category">Community</span>
+                <span>Sep 15, 2023</span>
+              </div>
+              <h3 class="blog-title">How Our Furnace Teams Are Achieving Remarkable Results</h3>
+              <p class="blog-excerpt">Learn how the WorkFit furnace system is helping members achieve their fitness goals through community support and teamwork.</p>
+            </div>
+            <div class="blog-footer">
+              <div class="blog-date">
+                <i class="far fa-clock"></i>
+                <span>9 min read</span>
+              </div>
+              <a href="#" class="blog-link read-blog">
+                Read More
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Detail Modals -->
+    <!-- Nutrition Guide Modal -->
+    <div class="blog-modal" id="nutrition-guide-modal">
+      <div class="blog-modal-content">
+        <button class="blog-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80" alt="Nutrition Guide" class="blog-detail-image">
+        <div class="blog-details">
+          <div class="blog-details-header">
+            <div class="blog-details-meta">
+              <span class="blog-category">Nutrition</span>
+              <span>October 15, 2023</span>
+              <span>8 min read</span>
+            </div>
+            <h2 class="blog-details-title">Fuel Your Fitness: The Ultimate Nutrition Guide</h2>
+          </div>
+          <div class="blog-details-content">
+            <p>Proper nutrition is the foundation of any successful fitness journey. Whether you're training for a marathon, trying to build muscle, or simply aiming to maintain a healthy lifestyle, what you eat plays a crucial role in your performance and results.</p>
             
-            articles.forEach(article => {
-                const title = article.querySelector('h3').textContent.toLowerCase();
-                const content = article.querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                    article.style.display = 'block';
-                    resultsFound = true;
-                } else {
-                    article.style.display = 'none';
-                }
-            });
+            <h3>Pre-Workout Nutrition</h3>
+            <p>Fueling your body before exercise is essential for optimal performance. The goal is to provide your muscles with adequate energy without causing digestive discomfort during your workout.</p>
             
-            // Show no results message if needed
-            document.getElementById('no-results').style.display = resultsFound ? 'none' : 'block';
+            <p><strong>Key principles for pre-workout nutrition:</strong></p>
+            <ul>
+              <li>Consume a balanced meal 2-3 hours before exercise</li>
+              <li>Focus on complex carbohydrates for sustained energy</li>
+              <li>Include a moderate amount of protein</li>
+              <li>Limit fats and fiber to avoid digestive issues</li>
+              <li>Stay hydrated with water or electrolyte drinks</li>
+            </ul>
+            
+            <h3>Post-Workout Recovery</h3>
+            <p>The 30-60 minutes after your workout is often called the "anabolic window" - a critical period for muscle recovery and growth.</p>
+            
+            <p><strong>Effective post-workout nutrition should include:</strong></p>
+            <ul>
+              <li><strong>Protein:</strong> 20-30 grams to repair and build muscle tissue</li>
+              <li><strong>Carbohydrates:</strong> To replenish glycogen stores</li>
+              <li><strong>Fluids:</strong> To rehydrate and support metabolic processes</li>
+              <li><strong>Electrolytes:</strong> Especially sodium and potassium lost through sweat</li>
+            </ul>
+            
+                        <h3>Daily Nutrition Strategies</h3>
+            <p>Beyond workout-specific nutrition, your overall daily eating pattern significantly impacts your fitness results. Here are key strategies for optimal daily nutrition:</p>
+            
+            <ul>
+              <li><strong>Balanced Macronutrients:</strong> Aim for a balance of proteins, carbohydrates, and healthy fats at each meal</li>
+              <li><strong>Meal Timing:</strong> Spread your food intake across 3-5 meals to maintain energy levels</li>
+              <li><strong>Hydration:</strong> Drink at least 2-3 liters of water daily, more if you're active</li>
+              <li><strong>Whole Foods Focus:</strong> Prioritize minimally processed foods for better nutrient absorption</li>
+              <li><strong>Mindful Eating:</strong> Pay attention to hunger cues and eat slowly to improve digestion</li>
+            </ul>
+            
+            <p>Remember, nutrition is highly individual. What works for one person may not work for another. Experiment with these guidelines and adjust based on how your body responds to different foods and timing strategies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Building Modal -->
+    <div class="blog-modal" id="team-building-modal">
+      <div class="blog-modal-content">
+        <button class="blog-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Team Building" class="blog-detail-image">
+        <div class="blog-details">
+          <div class="blog-details-header">
+            <div class="blog-details-meta">
+              <span class="blog-category">Workouts</span>
+              <span>October 10, 2023</span>
+              <span>6 min read</span>
+            </div>
+            <h2 class="blog-details-title">5 Team Building Exercises That Actually Work</h2>
+          </div>
+          <div class="blog-details-content">
+            <p>Team building exercises aren't just for corporate retreats - they're powerful tools for fitness groups too. When done right, these activities can strengthen bonds, improve communication, and boost motivation among workout partners and furnace teams.</p>
+            
+            <h3>1. Partner Resistance Training</h3>
+            <p>This exercise pairs team members for resistance exercises where one person provides resistance while the other performs the movement. It builds trust and improves form awareness.</p>
+            
+            <p><strong>Benefits:</strong></p>
+            <ul>
+              <li>Develops trust between partners</li>
+              <li>Improves exercise form through feedback</li>
+              <li>Enhances communication skills</li>
+              <li>Provides varied resistance for muscle adaptation</li>
+            </ul>
+            
+            <h3>2. Group Circuit Challenge</h3>
+            <p>Create a circuit where each team member must complete their station before the next person can begin. This encourages support and motivation as teammates cheer each other on.</p>
+            
+            <h3>3. Blindfolded Guidance</h3>
+            <p>One team member wears a blindfold while their partner guides them through simple exercises using only verbal cues. This dramatically improves communication and trust.</p>
+            
+            <h3>4. Synchronized Movement Drills</h3>
+            <p>Teams practice moving in sync through various exercises. This requires attention to others' movements and develops group coordination.</p>
+            
+            <h3>5. Problem-Solving Fitness Challenges</h3>
+            <p>Incorporate physical challenges that require team problem-solving, such as navigating an obstacle course while connected or moving equipment with limited resources.</p>
+            
+            <p>These team-building exercises not only make workouts more engaging but also create stronger social connections that keep members motivated and committed to their fitness journey.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Yoga for Desk Workers Modal -->
+    <div class="blog-modal" id="yoga-desk-modal">
+      <div class="blog-modal-content">
+        <button class="blog-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80" alt="Yoga for Desk Workers" class="blog-detail-image">
+        <div class="blog-details">
+          <div class="blog-details-header">
+            <div class="blog-details-meta">
+              <span class="blog-category">Wellness</span>
+              <span>October 5, 2023</span>
+              <span>7 min read</span>
+            </div>
+            <h2 class="blog-details-title">Mindful Movement: Yoga for Desk Workers</h2>
+          </div>
+          <div class="blog-details-content">
+            <p>For those spending long hours at a desk, maintaining physical wellness can be challenging. Poor posture, repetitive strain, and sedentary behavior can lead to various health issues. Fortunately, incorporating simple yoga practices into your workday can counteract these effects.</p>
+            
+            <h3>Desk-Friendly Yoga Poses</h3>
+            <p>These poses can be done right at your workstation without any special equipment:</p>
+            
+            <h4>Seated Cat-Cow Stretch</h4>
+            <p>Sit tall in your chair with feet flat on the floor. As you inhale, arch your back and look slightly upward (Cow pose). As you exhale, round your spine and tuck your chin (Cat pose). Repeat 5-10 times to mobilize the spine.</p>
+            
+            <h4>Seated Spinal Twist</h4>
+            <p>Sit sideways in your chair. Inhale to lengthen your spine, then exhale to twist toward the back of the chair. Hold for 5 breaths, then repeat on the other side. This relieves tension in the back and improves spinal rotation.</p>
+            
+            <h4>Desk Downward Dog</h4>
+            <p>Stand facing your desk and place your hands on it. Walk backward until your body forms an L-shape. Keep your spine long and press your chest gently toward the floor. Hold for 5-8 breaths to stretch shoulders, hamstrings, and back.</p>
+            
+            <h4>Wrist and Finger Stretches</h4>
+            <p>Extend one arm forward with palm facing up. Use the other hand to gently pull fingers toward the floor. Then flip the palm facing down and gently press fingers toward the floor. Hold each for 15-30 seconds to combat repetitive strain.</p>
+            
+            <h3>Breathing Exercises for Focus</h3>
+            <p>Combine movement with breath awareness for maximum benefit:</p>
+            
+            <ul>
+              <li><strong>Box Breathing:</strong> Inhale for 4 counts, hold for 4, exhale for 4, hold for 4. Repeat 5 times to reset focus</li>
+              <li><strong>Alternate Nostril Breathing:</strong> Use your thumb and ring finger to alternate closing nostrils while breathing slowly. This balances the nervous system</li>
+              <li><strong>Belly Breathing:</strong> Place one hand on your belly and breathe deeply, feeling your abdomen expand. This counters shallow chest breathing common when stressed</li>
+            </ul>
+            
+            <p>Incorporating these simple practices throughout your workday can significantly improve posture, reduce discomfort, and enhance mental clarity - making you more productive and comfortable throughout the day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional modals for other blogs would continue here -->
+  </div>
+
+  <script>
+    // Blog Carousel Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const latestBlogsTrack = document.getElementById('latestBlogsTrack');
+      const prevBlogBtn = document.getElementById('prevBlog');
+      const nextBlogBtn = document.getElementById('nextBlog');
+      const blogCards = document.querySelectorAll('.blog-card, .latest-blog-card');
+      const blogModals = document.querySelectorAll('.blog-modal');
+      const closeModalButtons = document.querySelectorAll('.blog-modal-close');
+      const readBlogLinks = document.querySelectorAll('.read-blog');
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      const searchInput = document.querySelector('.search-input');
+      const searchBtn = document.querySelector('.search-btn');
+      
+      let currentSlide = 0;
+      const slidesToShow = window.innerWidth < 768 ? (window.innerWidth < 480 ? 1 : 2) : 3;
+      
+      // Function to update carousel position
+      function updateCarousel() {
+        const cardWidth = document.querySelector('.latest-blog-card').offsetWidth + 16; // including gap
+        latestBlogsTrack.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+      }
+      
+      // Next slide
+      nextBlogBtn.addEventListener('click', function() {
+        const totalSlides = document.querySelectorAll('.latest-blog-card').length;
+        if (currentSlide < totalSlides - slidesToShow) {
+          currentSlide++;
+          updateCarousel();
         }
+      });
+      
+      // Previous slide
+      prevBlogBtn.addEventListener('click', function() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateCarousel();
+        }
+      });
+      
+      // Update carousel on window resize
+      window.addEventListener('resize', function() {
+        const newSlidesToShow = window.innerWidth < 768 ? (window.innerWidth < 480 ? 1 : 2) : 3;
+        if (newSlidesToShow !== slidesToShow) {
+          currentSlide = 0;
+          updateCarousel();
+        }
+      });
+      
+      // Blog Modal Functionality
+      function openBlogModal(blogId) {
+        const modal = document.getElementById(`${blogId}-modal`);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      function closeAllModals() {
+        blogModals.forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Add click event to blog cards
+      blogCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (!e.target.closest('.blog-link')) {
+            const blogId = card.dataset.blogId;
+            openBlogModal(blogId);
+          }
+        });
+      });
+      
+      // Add click event to read more links
+      readBlogLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const card = link.closest('.blog-card');
+          const blogId = card.dataset.blogId;
+          openBlogModal(blogId);
+        });
+      });
+      
+      // Close modal functionality
+      closeModalButtons.forEach(btn => {
+        btn.addEventListener('click', closeAllModals);
+      });
+      
+      // Close modal when clicking outside
+      blogModals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeAllModals();
+          }
+        });
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAllModals();
+        }
+      });
+      
+      // Category filtering
+      categoryButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          categoryButtons.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const category = this.textContent;
+          filterBlogs(category);
+        });
+      });
+      
+      // Search functionality
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          performSearch();
+        }
+      });
+      
+      function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase();
+        filterBlogs('All Articles', searchTerm);
+      }
+      
+      function filterBlogs(category, searchTerm = '') {
+        const blogCards = document.querySelectorAll('.blog-card, .latest-blog-card');
         
-        // Category filtering
-        document.querySelectorAll('.category-link').forEach(link => {
-            link.addEventListener('click', function() {
-                // Update active state
-                document.querySelectorAll('.category-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                const category = this.getAttribute('data-category');
-                const articles = document.querySelectorAll('.article-card');
-                
-                if (category === 'all') {
-                    articles.forEach(article => {
-                        article.style.display = 'block';
-                    });
-                    document.getElementById('no-results').style.display = 'none';
-                    return;
-                }
-                
-                let resultsFound = false;
-                
-                articles.forEach(article => {
-                    const categories = article.getAttribute('data-categories').split(' ');
-                    
-                    if (categories.includes(category)) {
-                        article.style.display = 'block';
-                        resultsFound = true;
-                    } else {
-                        article.style.display = 'none';
-                    }
-                });
-                
-                // Show no results message if needed
-                document.getElementById('no-results').style.display = resultsFound ? 'none' : 'block';
-            });
+        blogCards.forEach(card => {
+          const cardCategory = card.querySelector('.blog-category, .latest-blog-category').textContent;
+          const title = card.querySelector('.blog-title, .latest-blog-title').textContent.toLowerCase();
+          const excerpt = card.querySelector('.blog-excerpt, .latest-blog-excerpt').textContent.toLowerCase();
+          
+          const categoryMatch = category === 'All Articles' || cardCategory === category;
+          const searchMatch = !searchTerm || title.includes(searchTerm) || excerpt.includes(searchTerm);
+          
+          if (categoryMatch && searchMatch) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
         });
-        
-        // Popular posts functionality
-        document.querySelectorAll('.popular-post').forEach(post => {
-            post.addEventListener('click', function() {
-                const articleId = this.getAttribute('data-article');
-                document.getElementById(articleId).classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        // Article detail functionality
-        document.querySelectorAll('.read-more').forEach(button => {
-            button.addEventListener('click', function() {
-                const articleId = this.getAttribute('data-article');
-                document.getElementById(articleId).classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        // Close button functionality
-        document.querySelectorAll('.close-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                this.closest('.article-detail').classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-
-        // Close when clicking outside content
-        document.querySelectorAll('.article-detail').forEach(detail => {
-            detail.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        });
-        
-        // Newsletter form
-        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email-input').value;
-            alert(`Thank you for subscribing with ${email}! You'll receive our fitness tips soon.`);
-            document.getElementById('email-input').value = '';
-        });
-    </script>
+      }
+      
+      // Initialize carousel
+      updateCarousel();
+    });
+  </script>
 </body>
 </html>
