@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenges - WorkFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-light: #3CB371;
+      --primary-dark: #1F6B42;
+      --accent: #FF6B35;
+      --accent-light: #FF8C5A;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --text-primary: #222222;
+      --text-secondary: #555555;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--light-gray);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 14px;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding: 0.8rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* Hero Section - Matching Previous Page Style */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      min-height: 320px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius);
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      border-radius: var(--radius);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 1.5rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+
+    .slide-text {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      font-weight: 300;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .slide-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.2rem 0.8rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      min-width: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    /* Section Styling */
+    .page-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    /* Current Challenges */
+    .current-challenges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .challenge-card {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+    }
+
+    .challenge-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .challenge-image {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .challenge-content {
+      padding: 1.2rem;
+    }
+
+    .challenge-meta {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .challenge-category {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .challenge-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .challenge-description {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .challenge-progress {
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.3rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .challenge-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .challenge-link:hover {
+      color: var(--primary-dark);
+      gap: 0.7rem;
+    }
+
+    /* Previous Challenges */
+    .previous-challenges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .previous-challenge-card {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .previous-challenge-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .challenge-month {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .challenge-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    /* Furnace Performance */
+    .furnace-performance {
+      overflow-x: auto;
+    }
+
+    .performance-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .performance-table th,
+    .performance-table td {
+      padding: 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      font-size: 0.8rem;
+    }
+
+    .performance-table th {
+      background: var(--primary);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .performance-table tr:hover {
+      background: rgba(46, 139, 87, 0.05);
+    }
+
+    .furnace-rank {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      background: var(--accent);
+      color: var(--white);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 22px;
+      font-weight: 600;
+      font-size: 0.7rem;
+    }
+
+    /* Challenge Detail Modal */
+    .challenge-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1002;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .challenge-modal.active {
+      display: flex;
+    }
+
+    .challenge-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .challenge-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .challenge-modal-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .challenge-detail-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .challenge-details {
+      padding: 1.5rem;
+      overflow-y: auto;
+      max-height: calc(90vh - 250px);
+    }
+
+    .challenge-details-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .challenge-details-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .challenge-details-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .challenge-details-date, .challenge-details-target {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .challenge-details-description {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .challenge-details-info {
+      margin-bottom: 1.5rem;
+    }
+
+    .challenge-details-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    .challenge-details-info ul {
+      margin-left: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .challenge-details-info li {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .activity-tutorial {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tutorial-content h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .tutorial-steps {
+      margin: 1rem 0;
+    }
+
+    .tutorial-step {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+
+    .step-number {
+      background: var(--primary);
+      color: var(--white);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero {
+        height: 35vh;
+        min-height: 280px;
+      }
+      
+      .slide-title {
+        font-size: 1.5rem;
+      }
+      
+      .slide-text {
+        font-size: 0.85rem;
+      }
+      
+      .slide-stats {
+        gap: 0.8rem;
+      }
+      
+      .stat {
+        min-width: 85px;
+        padding: 1rem 0.6rem;
+      }
+      
+      .stat-number {
+        font-size: 1.4rem;
+      }
+      
+      .current-challenges {
+        grid-template-columns: 1fr;
+      }
+      
+      .previous-challenges {
+        grid-template-columns: 1fr;
+      }
+      
+      .activity-tutorial {
+        grid-template-columns: 1fr;
+      }
+      
+      .challenge-modal-content {
+        width: 95%;
+      }
+      
+      .challenge-details {
+        padding: 1rem;
+      }
+      
+      .challenge-details-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 30vh;
+        min-height: 240px;
+      }
+      
+      .slide-title {
+        font-size: 1.3rem;
+      }
+      
+      .slide-text {
+        font-size: 0.8rem;
+      }
+      
+      .slide-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      
+      .stat {
+        flex: 1;
+        min-width: 70px;
+        padding: 0.8rem 0.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-slides">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1 class="slide-title">October Challenges</h1>
+            <p class="slide-text">Join our community challenges and push your limits together</p>
+            <div class="slide-stats">
+              <div class="stat">
+                <span class="stat-number">3,000</span>
+                <span class="stat-label">Mountain Climbers</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">60</span>
+                <span class="stat-label">Minutes Plank</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">3,000</span>
+                <span class="stat-label">Daily Steps</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Challenges Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Current Challenges</h2>
+      </div>
+      
+      <div class="current-challenges">
+        <!-- Challenge 1 -->
+        <div class="challenge-card" data-challenge-id="mountain-climbers">
+          <div class="challenge-image" style="background-image: url('https://i.postimg.cc/3JLrjQZG/20250929-1639-Outdoor-Mountain-Climbers-simple-compose-01k6atyjrgfccs8nnj0tmtpbaf-1.png')"></div>
+          <div class="challenge-content">
+            <div class="challenge-meta">
+              <span class="challenge-category">Strength</span>
+              <span>Oct 2025</span>
+            </div>
+            <h3 class="challenge-title">Mountain Climbers Challenge</h3>
+            <p class="challenge-description">Join our team challenge to complete 3,000 mountain climbers this month! Track your progress and cheer on your teammates.</p>
+            <div class="challenge-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+              </div>
+              <div class="progress-text">
+                <span>1,350 reps</span>
+                <span>45% Complete</span>
+              </div>
+            </div>
+            <a href="#" class="challenge-link view-challenge-details">
+              View Details
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Challenge 2 -->
+        <div class="challenge-card" data-challenge-id="plank-hold">
+          <div class="challenge-image" style="background-image: url('https://i.postimg.cc/pLp0rKTw/20250929-1709-Outdoor-Plank-Workout-simple-compose-01k6awvva7f2zb7zxyrvdeh2mj.png')"></div>
+          <div class="challenge-content">
+            <div class="challenge-meta">
+              <span class="challenge-category">Core</span>
+              <span>Oct 2025</span>
+            </div>
+            <h3 class="challenge-title">Plank Hold Challenge</h3>
+            <p class="challenge-description">Hold a plank for a total of 60 minutes this month. Log your time daily and see your core strength soar!</p>
+            <div class="challenge-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 30%"></div>
+              </div>
+              <div class="progress-text">
+                <span>18 min</span>
+                <span>30% Complete</span>
+              </div>
+            </div>
+            <a href="#" class="challenge-link view-challenge-details">
+              View Details
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Challenge 3 -->
+        <div class="challenge-card" data-challenge-id="step-challenge">
+          <div class="challenge-image" style="background-image: url('https://i.postimg.cc/HWN8HMqJ/20250915-1528-Outdoor-Fitness-Gathering-simple-compose-01k56ngycze5psvn1p8wp7sbg9.png')"></div>
+          <div class="challenge-content">
+            <div class="challenge-meta">
+              <span class="challenge-category">Cardio</span>
+              <span>Oct 2025</span>
+            </div>
+            <h3 class="challenge-title">Step Up Challenge</h3>
+            <p class="challenge-description">This challenge requires you to do a total of 3,000 steps. You can achieve this by incorporating other workout activities.</p>
+            <div class="challenge-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+              </div>
+              <div class="progress-text">
+                <span>1,800 steps</span>
+                <span>60% Complete</span>
+              </div>
+            </div>
+            <a href="#" class="challenge-link view-challenge-details">
+              View Details
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Previous Challenges Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Previous Challenges & Achievements</h2>
+      </div>
+      <div class="previous-challenges">
+        <div class="previous-challenge-card">
+          <h3 class="challenge-month">September 2023</h3>
+          <p><strong>Challenge:</strong> 30-Day Push-up Challenge</p>
+          <p><strong>Goal:</strong> 2,000 push-ups across the month</p>
+          <div class="challenge-stats">
+            <div class="stat">
+              <div class="stat-value">2,450</div>
+              <div class="stat-label">Total Push-ups</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">122%</div>
+              <div class="stat-label">Goal Achieved</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="previous-challenge-card">
+          <h3 class="challenge-month">August 2023</h3>
+          <p><strong>Challenge:</strong> Squat Challenge</p>
+          <p><strong>Goal:</strong> 5,000 squats across the month</p>
+          <div class="challenge-stats">
+            <div class="stat">
+              <div class="stat-value">5,800</div>
+              <div class="stat-label">Total Squats</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">116%</div>
+              <div class="stat-label">Goal Achieved</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="previous-challenge-card">
+          <h3 class="challenge-month">July 2023</h3>
+          <p><strong>Challenge:</strong> Burpee Challenge</p>
+          <p><strong>Goal:</strong> 1,500 burpees across the month</p>
+          <div class="challenge-stats">
+            <div class="stat">
+              <div class="stat-value">1,350</div>
+              <div class="stat-label">Total Burpees</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">90%</div>
+              <div class="stat-label">Goal Achieved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Furnace Performance Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Furnace Team Performance</h2>
+      </div>
+      <div class="furnace-performance">
+        <table class="performance-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Furnace Team</th>
+              <th>Mountain Climbers</th>
+              <th>Plank Time</th>
+              <th>Steps</th>
+              <th>Overall Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="furnace-rank">1</span></td>
+              <td>Uthiru Warriors</td>
+              <td>1,250/1,500</td>
+              <td>45/60 min</td>
+              <td>2,800/3,000</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 85%"></div>
+                </div>
+                <span>85%</span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="furnace-rank">2</span></td>
+              <td>Wangige Titans</td>
+              <td>1,100/1,500</td>
+              <td>42/60 min</td>
+              <td>2,600/3,000</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 78%"></div>
+                </div>
+                <span>78%</span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="furnace-rank">3</span></td>
+              <td>Kikuyu Sparks</td>
+              <td>950/1,500</td>
+              <td>38/60 min</td>
+              <td>2,400/3,000</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 70%"></div>
+                </div>
+                <span>70%</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Challenge Detail Modals -->
+    <!-- Mountain Climbers Modal -->
+    <div class="challenge-modal" id="mountain-climbers-modal">
+      <div class="challenge-modal-content">
+        <button class="challenge-modal-close">&times;</button>
+        <img src="https://i.postimg.cc/3JLrjQZG/20250929-1639-Outdoor-Mountain-Climbers-simple-compose-01k6atyjrgfccs8nnj0tmtpbaf-1.png" alt="Mountain Climbers Challenge" class="challenge-detail-image">
+        <div class="challenge-details">
+          <div class="challenge-details-header">
+            <h2 class="challenge-details-title">Mountain Climbers Challenge</h2>
+            <div class="challenge-details-meta">
+              <div class="challenge-details-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>October 1-31, 2025</span>
+              </div>
+              <div class="challenge-details-target">
+                <i class="fas fa-bullseye"></i>
+                <span>3,000 reps per team</span>
+              </div>
+            </div>
+          </div>
+          <p class="challenge-details-description">
+            Mountain climbers are a dynamic full-body exercise that targets your core, shoulders, and legs while providing cardiovascular benefits. This challenge will help improve your endurance, core strength, and overall fitness level.
+          </p>
+          
+          <div class="challenge-details-info">
+            <h3>Challenge Details</h3>
+            <ul>
+              <li><strong>Target:</strong> 3,000 mountain climbers per furnace team</li>
+              <li><strong>Duration:</strong> Entire month of October</li>
+              <li><strong>Tracking:</strong> Log your daily reps in the WorkFit app</li>
+              <li><strong>Team Goal:</strong> Complete 100 reps per team member daily</li>
+              <li><strong>Rewards:</strong> Top performing furnace gets featured in newsletter</li>
+            </ul>
+          </div>
+          
+          <div class="activity-tutorial">
+            <div class="tutorial-content">
+              <h3>How to Do Mountain Climbers</h3>
+              <div class="tutorial-steps">
+                <div class="tutorial-step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h4>Starting Position</h4>
+                    <p>Begin in a high plank position with hands under shoulders and body straight.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h4>Engage Core</h4>
+                    <p>Keep your core tight throughout to maintain proper form.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h4>Alternate Legs</h4>
+                    <p>Drive one knee toward chest, then quickly switch in a running motion.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <h4>Maintain Pace</h4>
+                    <p>Breathe steadily and maintain a controlled, consistent pace.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <h3>Common Mistakes to Avoid</h3>
+              <ul>
+                <li>Allowing hips to sag or rise too high</li>
+                <li>Placing hands too far forward</li>
+                <li>Holding your breath during the exercise</li>
+                <li>Moving too quickly before mastering form</li>
+              </ul>
+            </div>
+            
+            <div class="tutorial-video">
+              <h3>Recommended Tutorial</h3>
+              <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/cnyTQDSE884" title="Mountain Climbers Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plank Hold Modal -->
+    <div class="challenge-modal" id="plank-hold-modal">
+      <div class="challenge-modal-content">
+        <button class="challenge-modal-close">&times;</button>
+        <img src="https://i.postimg.cc/pLp0rKTw/20250929-1709-Outdoor-Plank-Workout-simple-compose-01k6awvva7f2zb7zxyrvdeh2mj.png" alt="Plank Hold Challenge" class="challenge-detail-image">
+        <div class="challenge-details">
+          <div class="challenge-details-header">
+            <h2 class="challenge-details-title">Plank Hold Challenge</h2>
+            <div class="challenge-details-meta">
+              <div class="challenge-details-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>October 1-31, 2025</span>
+              </div>
+              <div class="challenge-details-target">
+                <i class="fas fa-bullseye"></i>
+                <span>60 minutes total per team</span>
+              </div>
+            </div>
+          </div>
+          <p class="challenge-details-description">
+            The plank is one of the most effective core exercises that also engages your shoulders, back, and glutes. This challenge will help build incredible core strength and stability.
+          </p>
+          
+          <div class="challenge-details-info">
+            <h3>Challenge Details</h3>
+            <ul>
+              <li><strong>Target:</strong> 60 minutes of total plank time per furnace team</li>
+              <li><strong>Duration:</strong> Entire month of October</li>
+              <li><strong>Tracking:</strong> Log your daily plank time in the WorkFit app</li>
+              <li><strong>Team Goal:</strong> Complete 2 minutes per team member daily</li>
+              <li><strong>Rewards:</strong> Special core strength badge for all participants</li>
+            </ul>
+          </div>
+          
+          <div class="activity-tutorial">
+            <div class="tutorial-content">
+              <h3>How to Do Planks Correctly</h3>
+              <div class="tutorial-steps">
+                <div class="tutorial-step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h4>Forearm Position</h4>
+                    <p>Place forearms on ground with elbows aligned below shoulders.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h4>Body Alignment</h4>
+                    <p>Keep your body in a straight line from head to heels.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h4>Engage Muscles</h4>
+                    <p>Tighten your core and glutes to prevent hips from sagging.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <h4>Breathing</h4>
+                    <p>Breathe deeply and steadily throughout the hold.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <h3>Common Mistakes to Avoid</h3>
+              <ul>
+                <li>Letting hips sag toward the floor</li>
+                <li>Raising hips too high</li>
+                <li>Looking up instead of down at hands</li>
+                <li>Holding your breath during the exercise</li>
+              </ul>
+            </div>
+            
+            <div class="tutorial-video">
+              <h3>Recommended Tutorial</h3>
+              <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/BQu26ABuVS0" title="Plank Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step Challenge Modal -->
+    <div class="challenge-modal" id="step-challenge-modal">
+      <div class="challenge-modal-content">
+        <button class="challenge-modal-close">&times;</button>
+        <img src="https://i.postimg.cc/HWN8HMqJ/20250915-1528-Outdoor-Fitness-Gathering-simple-compose-01k56ngycze5psvn1p8wp7sbg9.png" alt="Step Challenge" class="challenge-detail-image">
+        <div class="challenge-details">
+          <div class="challenge-details-header">
+            <h2 class="challenge-details-title">Step Up Challenge</h2>
+            <div class="challenge-details-meta">
+              <div class="challenge-details-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>October 1-31, 2025</span>
+              </div>
+              <div class="challenge-details-target">
+                <i class="fas fa-bullseye"></i>
+                <span>3,000 steps daily per team</span>
+              </div>
+            </div>
+          </div>
+          <p class="challenge-details-description">
+            This step challenge encourages consistent daily movement and can be achieved through various activities like walking, running, or other cardio exercises. It's perfect for building sustainable fitness habits.
+          </p>
+          
+          <div class="challenge-details-info">
+            <h3>Challenge Details</h3>
+            <ul>
+              <li><strong>Target:</strong> 3,000 steps daily per furnace team</li>
+              <li><strong>Duration:</strong> Entire month of October</li>
+              <li><strong>Tracking:</strong> Use fitness tracker or smartphone step counter</li>
+              <li><strong>Team Goal:</strong> Complete 100 steps per team member daily</li>
+              <li><strong>Rewards:</strong> Most consistent team wins a group fitness session</li>
+            </ul>
+          </div>
+          
+          <div class="activity-tutorial">
+            <div class="tutorial-content">
+              <h3>How to Maximize Your Steps</h3>
+              <div class="tutorial-steps">
+                <div class="tutorial-step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h4>Daily Walking</h4>
+                    <p>Take brisk walks during breaks or after meals.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h4>Use Stairs</h4>
+                    <p>Opt for stairs instead of elevators when possible.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h4>Park Further</h4>
+                    <p>Park farther from destinations to add extra steps.</p>
+                  </div>
+                </div>
+                <div class="tutorial-step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <h4>Walking Meetings</h4>
+                    <p>Take walking meetings when possible.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <h3>Tips for Success</h3>
+              <ul>
+                <li>Break steps into smaller chunks throughout the day</li>
+                <li>Set reminders to get up and move every hour</li>
+                <li>Combine steps with other daily activities</li>
+                <li>Track progress using fitness apps or devices</li>
+              </ul>
+            </div>
+            
+            <div class="tutorial-video">
+              <h3>Step Counting Tips</h3>
+              <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/UPS9rLIj4cA" title="Step Counting Tips" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Challenge Modal Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const challengeCards = document.querySelectorAll('.challenge-card');
+      const viewChallengeLinks = document.querySelectorAll('.view-challenge-details');
+      const challengeModals = document.querySelectorAll('.challenge-modal');
+      const closeModalButtons = document.querySelectorAll('.challenge-modal-close');
+      
+      // Function to open challenge modal
+      function openChallengeModal(challengeId) {
+        const modal = document.getElementById(`${challengeId}-modal`);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      // Function to close all modals
+      function closeAllModals() {
+        challengeModals.forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Add click event to challenge cards
+      challengeCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          // Don't trigger if clicking on the view link (to avoid double trigger)
+          if (!e.target.closest('.challenge-link')) {
+            const challengeId = card.dataset.challengeId;
+            openChallengeModal(challengeId);
+          }
+        });
+      });
+      
+      // Add click event to view details links
+      viewChallengeLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const card = link.closest('.challenge-card');
+          const challengeId = card.dataset.challengeId;
+          openChallengeModal(challengeId);
+        });
+      });
+      
+      // Close modal functionality
+      closeModalButtons.forEach(btn => {
+        btn.addEventListener('click', closeAllModals);
+      });
+      
+      // Close modal when clicking outside
+      challengeModals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeAllModals();
+          }
+        });
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAllModals();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
