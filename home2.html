@@ -843,7 +843,7 @@
       gap: 0.7rem;
     }
 
-    /* Full Screen Event Modal */
+    /* Full Screen Event Modal - Updated */
     .event-modal {
       display: none;
       position: fixed;
@@ -867,10 +867,13 @@
       position: relative;
       width: 100%;
       max-width: 900px;
+      max-height: 85vh; /* Limit height to 85% of viewport */
       background: var(--white);
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
     }
 
     .event-modal-close {
@@ -891,6 +894,7 @@
       font-weight: bold;
       transition: all 0.3s;
       z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .event-modal-close:hover {
@@ -898,24 +902,35 @@
       transform: scale(1.1);
     }
 
+    .event-poster-container {
+      position: relative;
+      max-height: 40%; /* Limit poster height */
+      overflow: hidden;
+    }
+
     .event-poster {
       width: 100%;
-      max-height: 400px;
+      height: auto;
+      max-height: 300px; /* Fixed max height for poster */
       object-fit: cover;
     }
 
     .event-details {
       padding: 1.5rem;
+      overflow-y: auto; /* Make details scrollable */
+      flex: 1;
     }
 
     .event-details-header {
       margin-bottom: 1.5rem;
+      position: relative;
     }
 
     .event-details-title {
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
       color: var(--primary);
+      line-height: 1.2;
     }
 
     .event-details-meta {
@@ -936,6 +951,7 @@
     .event-details-description {
       line-height: 1.6;
       margin-bottom: 1.5rem;
+      font-size: 1rem;
     }
 
     .event-details-info {
@@ -946,15 +962,18 @@
       font-size: 1.2rem;
       margin-bottom: 0.8rem;
       color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.3rem;
     }
 
     .event-details-info ul {
-      margin-left: 1.5rem;
+      margin-left: 1.2rem;
       margin-bottom: 1rem;
     }
 
     .event-details-info li {
       margin-bottom: 0.5rem;
+      line-height: 1.4;
     }
 
     .event-register-btn {
@@ -971,11 +990,58 @@
       border: none;
       cursor: pointer;
       font-size: 1rem;
+      margin-top: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .event-register-btn:hover {
       background: var(--accent-light);
       transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive adjustments for event modal */
+    @media (max-width: 768px) {
+      .event-modal-content {
+        max-height: 90vh; /* Slightly taller on mobile */
+        width: 95%;
+      }
+      
+      .event-details {
+        padding: 1rem;
+      }
+      
+      .event-details-title {
+        font-size: 1.5rem;
+      }
+      
+      .event-poster {
+        max-height: 200px; /* Smaller poster on mobile */
+      }
+      
+      .event-details-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .event-modal-content {
+        max-height: 95vh; /* Even taller on very small screens */
+      }
+      
+      .event-details-title {
+        font-size: 1.3rem;
+      }
+      
+      .event-details-description {
+        font-size: 0.9rem;
+      }
+      
+      .event-register-btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* Blog Section */
@@ -1452,6 +1518,344 @@
       .event-image {
         height: 140px;
       }
+      /* Testimonials Section */
+  .testimonials-section {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2.5rem 1.5rem;
+    box-shadow: var(--shadow);
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonials-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    font-weight: 400;
+  }
+
+  /* Testimonials Carousel */
+  .testimonials-carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 2rem auto 3rem;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .testimonials-carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    min-height: 320px;
+  }
+
+  .testimonial-slide {
+    flex: 0 0 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .testimonial-card {
+    background: var(--light-gray);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(46, 139, 87, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  .testimonial-quote {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .testimonial-text {
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-size: 1.1rem;
+    position: relative;
+  }
+
+  .testimonial-text::before,
+  .testimonial-text::after {
+    content: '"';
+    font-size: 3rem;
+    color: var(--primary);
+    opacity: 0.2;
+    position: absolute;
+    font-family: Georgia, serif;
+  }
+
+  .testimonial-text::before {
+    top: -1rem;
+    left: -1rem;
+  }
+
+  .testimonial-text::after {
+    bottom: -2rem;
+    right: -1rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .testimonial-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .testimonial-author-info {
+    text-align: left;
+  }
+
+  .author-name {
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .author-role {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+
+  .member-duration {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
+  /* Carousel Controls */
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+    z-index: 10;
+  }
+
+  .carousel-control:hover {
+    background: var(--primary-dark);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+  }
+
+  .carousel-control.prev {
+    left: 1rem;
+  }
+
+  .carousel-control.next {
+    right: 1rem;
+  }
+
+  /* Carousel Indicators */
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--light-gray);
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .indicator.active {
+    background-color: var(--primary);
+    transform: scale(1.2);
+  }
+
+  .indicator:hover {
+    background-color: var(--primary-light);
+  }
+
+  /* Share Story Button */
+  .share-story-container {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(46, 139, 87, 0.1);
+  }
+
+  .share-story-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: var(--white);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .share-story-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .share-story-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(46, 139, 87, 0.4);
+  }
+
+  .share-story-btn:hover::before {
+    left: 100%;
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .btn-text {
+    letter-spacing: 0.5px;
+  }
+
+  .btn-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .share-story-btn:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+
+  .share-encouragement {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .testimonials-section {
+      padding: 2rem 1rem;
+    }
+
+    .testimonial-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .testimonial-text {
+      font-size: 1rem;
+    }
+
+    .testimonial-author {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .testimonial-author-info {
+      text-align: center;
+    }
+
+    .carousel-control {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+
+    .carousel-control.prev {
+      left: 0.5rem;
+    }
+
+    .carousel-control.next {
+      right: 0.5rem;
+    }
+
+    .share-story-btn {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .testimonial-card {
+      padding: 1.5rem 1rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+    }
+
+    .share-story-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
     }
   </style>
 </head>
@@ -1918,6 +2322,128 @@
         </div>
       </div>
     </section>
+    <!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="section-header">
+    <h2 class="section-title">What Our Members Say</h2>
+    <p class="section-subtitle">Real stories from our WorkFit community</p>
+  </div>
+  
+  <!-- Testimonials Carousel -->
+  <div class="testimonials-carousel-container">
+    <div class="testimonials-carousel" id="testimonialsCarousel">
+      <!-- Testimonial 1 -->
+      <div class="testimonial-slide active">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">
+            "WorkFit has completely transformed my approach to fitness. The community support and monthly challenges keep me motivated, and I've never felt stronger or more confident. The team workouts are incredible!"
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Sarah Johnson" class="testimonial-avatar">
+            <div class="testimonial-author-info">
+              <h4 class="author-name">Sarah Johnson</h4>
+              <p class="author-role">Uthiru Furnace Member</p>
+              <p class="member-duration">Member for 1.5 years</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 2 -->
+      <div class="testimonial-slide">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">
+            "As someone who never enjoyed working out alone, WorkFit has been a game-changer. The furnace teams create such a supportive environment. I've lost 15kg and gained so much energy!"
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Michael Chen" class="testimonial-avatar">
+            <div class="testimonial-author-info">
+              <h4 class="author-name">Michael Chen</h4>
+              <p class="author-role">Wangige Furnace Captain</p>
+              <p class="member-duration">Member for 2 years</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 3 -->
+      <div class="testimonial-slide">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">
+            "The nutrition workshops and community events have helped me build sustainable habits. I'm not just fitter physically, but mentally stronger too. WorkFit feels like family!"
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Aisha Mohammed" class="testimonial-avatar">
+            <div class="testimonial-author-info">
+              <h4 class="author-name">Aisha Mohammed</h4>
+              <p class="author-role">Nutrition Challenge Winner</p>
+              <p class="member-duration">Member for 8 months</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 4 -->
+      <div class="testimonial-slide">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">
+            "From the Fun Run events to the daily workouts, WorkFit has brought so much joy to my fitness journey. The trainers are amazing and the community keeps me accountable. Best decision I ever made!"
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="David Omondi" class="testimonial-avatar">
+            <div class="testimonial-author-info">
+              <h4 class="author-name">David Omondi</h4>
+              <p class="author-role">Fun Run Participant</p>
+              <p class="member-duration">Member for 1 year</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carousel Controls -->
+    <button class="carousel-control prev" id="testimonialPrev">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="carousel-control next" id="testimonialNext">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    
+    <!-- Carousel Indicators -->
+    <div class="carousel-indicators" id="testimonialIndicators">
+      <span class="indicator active" data-slide="0"></span>
+      <span class="indicator" data-slide="1"></span>
+      <span class="indicator" data-slide="2"></span>
+      <span class="indicator" data-slide="3"></span>
+    </div>
+  </div>
+  
+  <!-- Share Your Story Button -->
+  <div class="share-story-container">
+    <button class="share-story-btn" id="shareStoryBtn">
+      <span class="btn-icon">
+        <i class="fas fa-share-alt"></i>
+      </span>
+      <span class="btn-text">Share Your WorkFit Story</span>
+      <span class="btn-arrow">
+        <i class="fas fa-arrow-right"></i>
+      </span>
+    </button>
+    <p class="share-encouragement">Inspire others with your fitness journey!</p>
+  </div>
+</section>
 
     <!-- Full Screen Video Modal -->
     <div class="video-modal" id="videoModal">
@@ -2876,6 +3402,128 @@
         });
       });
     });
+    // Testimonials Carousel Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('testimonialsCarousel');
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.getElementById('testimonialPrev');
+    const nextBtn = document.getElementById('testimonialNext');
+    const shareBtn = document.getElementById('shareStoryBtn');
+    
+    let currentSlide = 0;
+    let slideInterval;
+    const slideDuration = 5000; // 5 seconds per slide
+    
+    // Function to show a specific slide
+    function showSlide(index) {
+      // Hide all slides
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+      
+      // Remove active class from all indicators
+      indicators.forEach(indicator => {
+        indicator.classList.remove('active');
+      });
+      
+      // Show the selected slide
+      slides[index].classList.add('active');
+      
+      // Activate the corresponding indicator
+      indicators[index].classList.add('active');
+      
+      // Move carousel
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+      
+      currentSlide = index;
+    }
+    
+    // Function to show next slide
+    function nextSlide() {
+      let nextIndex = (currentSlide + 1) % slides.length;
+      showSlide(nextIndex);
+    }
+    
+    // Function to show previous slide
+    function prevSlide() {
+      let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(prevIndex);
+    }
+    
+    // Start auto-sliding
+    function startInterval() {
+      slideInterval = setInterval(nextSlide, slideDuration);
+    }
+    
+    // Initialize
+    startInterval();
+    
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+      clearInterval(slideInterval);
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+      startInterval();
+    });
+    
+    // Button click functionality
+    prevBtn.addEventListener('click', () => {
+      clearInterval(slideInterval);
+      prevSlide();
+      startInterval();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      clearInterval(slideInterval);
+      nextSlide();
+      startInterval();
+    });
+    
+    // Indicator click functionality
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        clearInterval(slideInterval);
+        showSlide(index);
+        startInterval();
+      });
+    });
+    
+    // Share story button functionality
+    shareBtn.addEventListener('click', () => {
+      // Open Google Form for sharing stories
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfWXK0nSlM6RziNALvcnHJoLXrfG4eQTj3npnBDjKaN8wuQvg/viewform?embedded=true', '_blank');
+    });
+    
+    // Touch swipe functionality for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      clearInterval(slideInterval);
+    });
+    
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startInterval();
+    });
+    
+    function handleSwipe() {
+      const threshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+  });
   </script>
 </body>
 </html>
