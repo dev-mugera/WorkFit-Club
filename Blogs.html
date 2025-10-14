@@ -393,76 +393,84 @@
       transform: scale(1.1);
     }
 
-    /* Vertical Blog List */
+    /* Vertical Blog List - Updated to match reference layout */
     .blog-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .blog-card {
-      background: var(--light-gray);
+      background: var(--white);
       border-radius: var(--radius);
       overflow: hidden;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       cursor: pointer;
       display: flex;
-      min-height: 140px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      gap: 1.2rem;
+      align-items: flex-start;
     }
 
     .blog-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
     }
 
     .blog-image {
-      width: 120px;
+      width: 100px;
+      height: 100px;
       background-size: cover;
       background-position: center;
       flex-shrink: 0;
+      border-radius: 8px;
     }
 
     .blog-content {
-      padding: 1rem;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 0.5rem;
     }
 
     .blog-meta {
       display: flex;
+      align-items: center;
       gap: 0.8rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.75rem;
-      color: var(--text-secondary);
+      margin-bottom: 0;
     }
 
     .blog-category {
       background: var(--primary);
       color: var(--white);
-      padding: 0.2rem 0.5rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 50px;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .blog-date {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 500;
     }
 
     .blog-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      margin-bottom: 0;
       color: var(--text-primary);
-      line-height: 1.3;
+      line-height: 1.4;
+      font-weight: 600;
     }
 
     .blog-excerpt {
       color: var(--text-secondary);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
       margin-bottom: 0.5rem;
     }
 
@@ -470,20 +478,34 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.75rem;
+      margin-top: auto;
+    }
+
+    .blog-author {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
     }
 
-    .blog-date {
+    .author-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      justify-content: center;
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: bold;
     }
 
     .blog-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.5rem;
       color: var(--primary);
       text-decoration: none;
       font-weight: 600;
@@ -493,7 +515,7 @@
 
     .blog-link:hover {
       color: var(--primary-dark);
-      gap: 0.5rem;
+      gap: 0.7rem;
     }
 
     /* Blog Detail Modal */
@@ -644,14 +666,25 @@
         flex: 0 0 calc(50% - 0.7rem);
       }
       
+      /* Updated for small screens - keep horizontal layout */
       .blog-card {
-        flex-direction: column;
-        min-height: auto;
+        flex-direction: row;
+        padding: 1rem;
+        gap: 1rem;
       }
       
       .blog-image {
-        width: 100%;
-        height: 120px;
+        width: 80px;
+        height: 80px;
+      }
+      
+      .blog-title {
+        font-size: 1rem;
+      }
+      
+      .blog-meta {
+        flex-wrap: wrap;
+        gap: 0.5rem;
       }
       
       .blog-modal-content {
@@ -699,6 +732,43 @@
       
       .categories-nav {
         justify-content: center;
+      }
+      
+      /* Ensure horizontal layout even on very small screens */
+      .blog-card {
+        flex-direction: row;
+        padding: 0.8rem;
+        gap: 0.8rem;
+        min-height: 120px;
+      }
+      
+      .blog-image {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .blog-content {
+        padding: 0;
+      }
+      
+      .blog-title {
+        font-size: 0.95rem;
+        line-height: 1.3;
+      }
+      
+      .blog-date {
+        font-size: 0.75rem;
+      }
+      
+      .blog-category {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.6rem;
+      }
+      
+      .blog-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
       }
     }
   </style>
@@ -827,18 +897,16 @@
         <div class="blog-card" data-blog-id="sleep-recovery">
           <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80')"></div>
           <div class="blog-content">
-            <div>
-              <div class="blog-meta">
-                <span class="blog-category">Recovery</span>
-                <span>Oct 1, 2023</span>
-              </div>
-              <h3 class="blog-title">The Science of Sleep: How Rest Impacts Performance</h3>
-              <p class="blog-excerpt">Discover why quality sleep is just as important as your workouts and how to optimize your rest for better results.</p>
+            <div class="blog-meta">
+              <span class="blog-category">Recovery</span>
+              <span class="blog-date">Oct 1, 2023</span>
             </div>
+            <h3 class="blog-title">The Science of Sleep: How Rest Impacts Performance</h3>
+            <p class="blog-excerpt">Discover why quality sleep is just as important as your workouts and how to optimize your rest for better results.</p>
             <div class="blog-footer">
-              <div class="blog-date">
-                <i class="far fa-clock"></i>
-                <span>8 min read</span>
+              <div class="blog-author">
+                <div class="author-avatar">WF</div>
+                <span>WorkFit Team</span>
               </div>
               <a href="#" class="blog-link read-blog">
                 Read More
@@ -852,18 +920,16 @@
         <div class="blog-card" data-blog-id="hiit-workouts">
           <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
           <div class="blog-content">
-            <div>
-              <div class="blog-meta">
-                <span class="blog-category">Workouts</span>
-                <span>Sep 28, 2023</span>
-              </div>
-              <h3 class="blog-title">HIIT Workouts: Maximize Results in Minimum Time</h3>
-              <p class="blog-excerpt">Learn how High-Intensity Interval Training can help you achieve better fitness results in shorter workout sessions.</p>
+            <div class="blog-meta">
+              <span class="blog-category">Workouts</span>
+              <span class="blog-date">Sep 28, 2023</span>
             </div>
+            <h3 class="blog-title">HIIT Workouts: Maximize Results in Minimum Time</h3>
+            <p class="blog-excerpt">Learn how High-Intensity Interval Training can help you achieve better fitness results in shorter workout sessions.</p>
             <div class="blog-footer">
-              <div class="blog-date">
-                <i class="far fa-clock"></i>
-                <span>6 min read</span>
+              <div class="blog-author">
+                <div class="author-avatar">WF</div>
+                <span>WorkFit Team</span>
               </div>
               <a href="#" class="blog-link read-blog">
                 Read More
@@ -877,18 +943,16 @@
         <div class="blog-card" data-blog-id="hydration-guide">
           <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1523362628745-0c100150b504?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
           <div class="blog-content">
-            <div>
-              <div class="blog-meta">
-                <span class="blog-category">Nutrition</span>
-                <span>Sep 25, 2023</span>
-              </div>
-              <h3 class="blog-title">The Complete Guide to Hydration for Athletes</h3>
-              <p class="blog-excerpt">Understand the importance of proper hydration and learn strategies to maintain optimal fluid balance during workouts.</p>
+            <div class="blog-meta">
+              <span class="blog-category">Nutrition</span>
+              <span class="blog-date">Sep 25, 2023</span>
             </div>
+            <h3 class="blog-title">The Complete Guide to Hydration for Athletes</h3>
+            <p class="blog-excerpt">Understand the importance of proper hydration and learn strategies to maintain optimal fluid balance during workouts.</p>
             <div class="blog-footer">
-              <div class="blog-date">
-                <i class="far fa-clock"></i>
-                <span>7 min read</span>
+              <div class="blog-author">
+                <div class="author-avatar">WF</div>
+                <span>WorkFit Team</span>
               </div>
               <a href="#" class="blog-link read-blog">
                 Read More
@@ -902,18 +966,16 @@
         <div class="blog-card" data-blog-id="stress-management">
           <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
           <div class="blog-content">
-            <div>
-              <div class="blog-meta">
-                <span class="blog-category">Wellness</span>
-                <span>Sep 20, 2023</span>
-              </div>
-              <h3 class="blog-title">Stress Management Techniques for Busy Professionals</h3>
-              <p class="blog-excerpt">Discover practical strategies to manage stress and maintain mental wellness while balancing work and fitness goals.</p>
+            <div class="blog-meta">
+              <span class="blog-category">Wellness</span>
+              <span class="blog-date">Sep 20, 2023</span>
             </div>
+            <h3 class="blog-title">Stress Management Techniques for Busy Professionals</h3>
+            <p class="blog-excerpt">Discover practical strategies to manage stress and maintain mental wellness while balancing work and fitness goals.</p>
             <div class="blog-footer">
-              <div class="blog-date">
-                <i class="far fa-clock"></i>
-                <span>10 min read</span>
+              <div class="blog-author">
+                <div class="author-avatar">WF</div>
+                <span>WorkFit Team</span>
               </div>
               <a href="#" class="blog-link read-blog">
                 Read More
@@ -927,18 +989,16 @@
         <div class="blog-card" data-blog-id="furnace-success">
           <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
           <div class="blog-content">
-            <div>
-              <div class="blog-meta">
-                <span class="blog-category">Community</span>
-                <span>Sep 15, 2023</span>
-              </div>
-              <h3 class="blog-title">How Our Furnace Teams Are Achieving Remarkable Results</h3>
-              <p class="blog-excerpt">Learn how the WorkFit furnace system is helping members achieve their fitness goals through community support and teamwork.</p>
+            <div class="blog-meta">
+              <span class="blog-category">Community</span>
+              <span class="blog-date">Sep 15, 2023</span>
             </div>
+            <h3 class="blog-title">How Our Furnace Teams Are Achieving Remarkable Results</h3>
+            <p class="blog-excerpt">Learn how the WorkFit furnace system is helping members achieve their fitness goals through community support and teamwork.</p>
             <div class="blog-footer">
-              <div class="blog-date">
-                <i class="far fa-clock"></i>
-                <span>9 min read</span>
+              <div class="blog-author">
+                <div class="author-avatar">WF</div>
+                <span>WorkFit Team</span>
               </div>
               <a href="#" class="blog-link read-blog">
                 Read More
@@ -950,158 +1010,7 @@
       </div>
     </section>
 
-    <!-- Blog Detail Modals -->
-    <!-- Nutrition Guide Modal -->
-    <div class="blog-modal" id="nutrition-guide-modal">
-      <div class="blog-modal-content">
-        <button class="blog-modal-close">&times;</button>
-        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80" alt="Nutrition Guide" class="blog-detail-image">
-        <div class="blog-details">
-          <div class="blog-details-header">
-            <div class="blog-details-meta">
-              <span class="blog-category">Nutrition</span>
-              <span>October 15, 2023</span>
-              <span>8 min read</span>
-            </div>
-            <h2 class="blog-details-title">Fuel Your Fitness: The Ultimate Nutrition Guide</h2>
-          </div>
-          <div class="blog-details-content">
-            <p>Proper nutrition is the foundation of any successful fitness journey. Whether you're training for a marathon, trying to build muscle, or simply aiming to maintain a healthy lifestyle, what you eat plays a crucial role in your performance and results.</p>
-            
-            <h3>Pre-Workout Nutrition</h3>
-            <p>Fueling your body before exercise is essential for optimal performance. The goal is to provide your muscles with adequate energy without causing digestive discomfort during your workout.</p>
-            
-            <p><strong>Key principles for pre-workout nutrition:</strong></p>
-            <ul>
-              <li>Consume a balanced meal 2-3 hours before exercise</li>
-              <li>Focus on complex carbohydrates for sustained energy</li>
-              <li>Include a moderate amount of protein</li>
-              <li>Limit fats and fiber to avoid digestive issues</li>
-              <li>Stay hydrated with water or electrolyte drinks</li>
-            </ul>
-            
-            <h3>Post-Workout Recovery</h3>
-            <p>The 30-60 minutes after your workout is often called the "anabolic window" - a critical period for muscle recovery and growth.</p>
-            
-            <p><strong>Effective post-workout nutrition should include:</strong></p>
-            <ul>
-              <li><strong>Protein:</strong> 20-30 grams to repair and build muscle tissue</li>
-              <li><strong>Carbohydrates:</strong> To replenish glycogen stores</li>
-              <li><strong>Fluids:</strong> To rehydrate and support metabolic processes</li>
-              <li><strong>Electrolytes:</strong> Especially sodium and potassium lost through sweat</li>
-            </ul>
-            
-                        <h3>Daily Nutrition Strategies</h3>
-            <p>Beyond workout-specific nutrition, your overall daily eating pattern significantly impacts your fitness results. Here are key strategies for optimal daily nutrition:</p>
-            
-            <ul>
-              <li><strong>Balanced Macronutrients:</strong> Aim for a balance of proteins, carbohydrates, and healthy fats at each meal</li>
-              <li><strong>Meal Timing:</strong> Spread your food intake across 3-5 meals to maintain energy levels</li>
-              <li><strong>Hydration:</strong> Drink at least 2-3 liters of water daily, more if you're active</li>
-              <li><strong>Whole Foods Focus:</strong> Prioritize minimally processed foods for better nutrient absorption</li>
-              <li><strong>Mindful Eating:</strong> Pay attention to hunger cues and eat slowly to improve digestion</li>
-            </ul>
-            
-            <p>Remember, nutrition is highly individual. What works for one person may not work for another. Experiment with these guidelines and adjust based on how your body responds to different foods and timing strategies.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Team Building Modal -->
-    <div class="blog-modal" id="team-building-modal">
-      <div class="blog-modal-content">
-        <button class="blog-modal-close">&times;</button>
-        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Team Building" class="blog-detail-image">
-        <div class="blog-details">
-          <div class="blog-details-header">
-            <div class="blog-details-meta">
-              <span class="blog-category">Workouts</span>
-              <span>October 10, 2023</span>
-              <span>6 min read</span>
-            </div>
-            <h2 class="blog-details-title">5 Team Building Exercises That Actually Work</h2>
-          </div>
-          <div class="blog-details-content">
-            <p>Team building exercises aren't just for corporate retreats - they're powerful tools for fitness groups too. When done right, these activities can strengthen bonds, improve communication, and boost motivation among workout partners and furnace teams.</p>
-            
-            <h3>1. Partner Resistance Training</h3>
-            <p>This exercise pairs team members for resistance exercises where one person provides resistance while the other performs the movement. It builds trust and improves form awareness.</p>
-            
-            <p><strong>Benefits:</strong></p>
-            <ul>
-              <li>Develops trust between partners</li>
-              <li>Improves exercise form through feedback</li>
-              <li>Enhances communication skills</li>
-              <li>Provides varied resistance for muscle adaptation</li>
-            </ul>
-            
-            <h3>2. Group Circuit Challenge</h3>
-            <p>Create a circuit where each team member must complete their station before the next person can begin. This encourages support and motivation as teammates cheer each other on.</p>
-            
-            <h3>3. Blindfolded Guidance</h3>
-            <p>One team member wears a blindfold while their partner guides them through simple exercises using only verbal cues. This dramatically improves communication and trust.</p>
-            
-            <h3>4. Synchronized Movement Drills</h3>
-            <p>Teams practice moving in sync through various exercises. This requires attention to others' movements and develops group coordination.</p>
-            
-            <h3>5. Problem-Solving Fitness Challenges</h3>
-            <p>Incorporate physical challenges that require team problem-solving, such as navigating an obstacle course while connected or moving equipment with limited resources.</p>
-            
-            <p>These team-building exercises not only make workouts more engaging but also create stronger social connections that keep members motivated and committed to their fitness journey.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Yoga for Desk Workers Modal -->
-    <div class="blog-modal" id="yoga-desk-modal">
-      <div class="blog-modal-content">
-        <button class="blog-modal-close">&times;</button>
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80" alt="Yoga for Desk Workers" class="blog-detail-image">
-        <div class="blog-details">
-          <div class="blog-details-header">
-            <div class="blog-details-meta">
-              <span class="blog-category">Wellness</span>
-              <span>October 5, 2023</span>
-              <span>7 min read</span>
-            </div>
-            <h2 class="blog-details-title">Mindful Movement: Yoga for Desk Workers</h2>
-          </div>
-          <div class="blog-details-content">
-            <p>For those spending long hours at a desk, maintaining physical wellness can be challenging. Poor posture, repetitive strain, and sedentary behavior can lead to various health issues. Fortunately, incorporating simple yoga practices into your workday can counteract these effects.</p>
-            
-            <h3>Desk-Friendly Yoga Poses</h3>
-            <p>These poses can be done right at your workstation without any special equipment:</p>
-            
-            <h4>Seated Cat-Cow Stretch</h4>
-            <p>Sit tall in your chair with feet flat on the floor. As you inhale, arch your back and look slightly upward (Cow pose). As you exhale, round your spine and tuck your chin (Cat pose). Repeat 5-10 times to mobilize the spine.</p>
-            
-            <h4>Seated Spinal Twist</h4>
-            <p>Sit sideways in your chair. Inhale to lengthen your spine, then exhale to twist toward the back of the chair. Hold for 5 breaths, then repeat on the other side. This relieves tension in the back and improves spinal rotation.</p>
-            
-            <h4>Desk Downward Dog</h4>
-            <p>Stand facing your desk and place your hands on it. Walk backward until your body forms an L-shape. Keep your spine long and press your chest gently toward the floor. Hold for 5-8 breaths to stretch shoulders, hamstrings, and back.</p>
-            
-            <h4>Wrist and Finger Stretches</h4>
-            <p>Extend one arm forward with palm facing up. Use the other hand to gently pull fingers toward the floor. Then flip the palm facing down and gently press fingers toward the floor. Hold each for 15-30 seconds to combat repetitive strain.</p>
-            
-            <h3>Breathing Exercises for Focus</h3>
-            <p>Combine movement with breath awareness for maximum benefit:</p>
-            
-            <ul>
-              <li><strong>Box Breathing:</strong> Inhale for 4 counts, hold for 4, exhale for 4, hold for 4. Repeat 5 times to reset focus</li>
-              <li><strong>Alternate Nostril Breathing:</strong> Use your thumb and ring finger to alternate closing nostrils while breathing slowly. This balances the nervous system</li>
-              <li><strong>Belly Breathing:</strong> Place one hand on your belly and breathe deeply, feeling your abdomen expand. This counters shallow chest breathing common when stressed</li>
-            </ul>
-            
-            <p>Incorporating these simple practices throughout your workday can significantly improve posture, reduce discomfort, and enhance mental clarity - making you more productive and comfortable throughout the day.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional modals for other blogs would continue here -->
+    <!-- Blog Detail Modals would continue here -->
   </div>
 
   <script>
