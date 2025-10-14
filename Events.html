@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - WorkFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-light: #3CB371;
+      --primary-dark: #1F6B42;
+      --accent: #FF6B35;
+      --accent-light: #FF8C5A;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --text-primary: #222222;
+      --text-secondary: #555555;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--light-gray);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 14px;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding: 0.8rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* Hero Section - Matching Previous Page Style */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      min-height: 320px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius);
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      border-radius: var(--radius);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 1.5rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+
+    .slide-text {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      font-weight: 300;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .slide-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.2rem 0.8rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      min-width: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    /* Section Styling */
+    .page-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      border: none;
+      font-size: 0.85rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Upcoming Events */
+    .upcoming-events {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .event-card {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-image {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .event-date-badge {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.8rem;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .event-content {
+      padding: 1.2rem;
+    }
+
+    .event-meta {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .event-category {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .event-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .event-location {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.8rem;
+    }
+
+    .event-description {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .event-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .event-link:hover {
+      color: var(--primary-dark);
+      gap: 0.7rem;
+    }
+
+    /* Past Events */
+    .past-events {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .past-event-card {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .past-event-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .event-month {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .event-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    /* Event Detail Modal */
+    .event-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1002;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .event-modal.active {
+      display: flex;
+    }
+
+    .event-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .event-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .event-modal-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .event-detail-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .event-details {
+      padding: 1.5rem;
+      overflow-y: auto;
+      max-height: calc(90vh - 250px);
+    }
+
+    .event-details-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .event-details-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .event-details-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .event-details-date, .event-details-location, .event-details-time {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .event-details-description {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .event-details-info {
+      margin-bottom: 1.5rem;
+    }
+
+    .event-details-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    .event-details-info ul {
+      margin-left: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .event-details-info li {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .event-schedule {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .schedule-item {
+      display: flex;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .schedule-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .schedule-time {
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 80px;
+      margin-right: 1rem;
+    }
+
+    .schedule-activity {
+      flex: 1;
+    }
+
+    .event-register-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    .event-register-btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero {
+        height: 35vh;
+        min-height: 280px;
+      }
+      
+      .slide-title {
+        font-size: 1.5rem;
+      }
+      
+      .slide-text {
+        font-size: 0.85rem;
+      }
+      
+      .slide-stats {
+        gap: 0.8rem;
+      }
+      
+      .stat {
+        min-width: 85px;
+        padding: 1rem 0.6rem;
+      }
+      
+      .stat-number {
+        font-size: 1.4rem;
+      }
+      
+      .upcoming-events {
+        grid-template-columns: 1fr;
+      }
+      
+      .past-events {
+        grid-template-columns: 1fr;
+      }
+      
+      .event-modal-content {
+        width: 95%;
+      }
+      
+      .event-details {
+        padding: 1rem;
+      }
+      
+      .event-details-title {
+        font-size: 1.5rem;
+      }
+      
+      .event-details-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 30vh;
+        min-height: 240px;
+      }
+      
+      .slide-title {
+        font-size: 1.3rem;
+      }
+      
+      .slide-text {
+        font-size: 0.8rem;
+      }
+      
+      .slide-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      
+      .stat {
+        flex: 1;
+        min-width: 70px;
+        padding: 0.8rem 0.4rem;
+      }
+      
+      .event-register-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-slides">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1 class="slide-title">WorkFit Community Events</h1>
+            <p class="slide-text">Join our exciting fitness events and connect with the WorkFit community</p>
+            <div class="slide-stats">
+              <div class="stat">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Upcoming Events</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">450+</span>
+                <span class="stat-label">Participants</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Furnace Teams</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Upcoming Events</h2>
+        <a href="#" class="btn btn-primary">
+          View All Events
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="upcoming-events">
+        <!-- Event 1 -->
+        <div class="event-card" data-event-id="fun-run">
+          <div class="event-image" style="background-image: url('https://i.postimg.cc/prGQXpbX/FUN-3.png')">
+            <div class="event-date-badge">Nov 1</div>
+          </div>
+          <div class="event-content">
+            <div class="event-meta">
+              <span class="event-category">Community</span>
+              <span>Nov 2025</span>
+            </div>
+            <h3 class="event-title">WorkFit Fun Run</h3>
+            <div class="event-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Nairobi Jaffery's Sports Club</span>
+            </div>
+            <p class="event-description">Join us for a scenic 10km run with fitness activities scheduled for the day. Perfect for all fitness levels with multiple route options.</p>
+            <a href="#" class="event-link view-event-details">
+              View Details
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 2 -->
+        <div class="event-card" data-event-id="nutrition-workshop">
+          <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80')">
+            <div class="event-date-badge">Nov 15</div>
+          </div>
+          <div class="event-content">
+            <div class="event-meta">
+              <span class="event-category">Workshop</span>
+              <span>Nov 2025</span>
+            </div>
+            <h3 class="event-title">Nutrition Workshop</h3>
+            <div class="event-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>WorkFit Main Club</span>
+            </div>
+            <p class="event-description">Learn about proper nutrition for fitness and recovery from our certified nutrition experts. Includes cooking demonstrations and meal planning tips.</p>
+            <a href="#" class="event-link view-event-details">
+              View Details
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 3 -->
+        <div class="event-card" data-event-id="team-building">
+          <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+            <div class="event-date-badge">Nov 22</div>
+          </div>
+          <div class="event-content">
+            <div class="event-meta">
+              <span class="event-category">Team Building</span>
+              <span>Nov 2025</span>
+            </div>
+            <h3 class="event-title">Team Building Day</h3>
+            <div class="event-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Karura Forest</span>
+            </div>
+            <p class="event-description">Join your furnace team for a day of outdoor activities, challenges, and team-building exercises in beautiful Karura Forest.</p>
+            <a href="#" class="event-link view-event-details">
+              View Details
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Past Events Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Past Events & Highlights</h2>
+      </div>
+      <div class="past-events">
+        <div class="past-event-card">
+          <h3 class="event-month">September 2023</h3>
+          <p><strong>Event:</strong> WorkFit Anniversary Celebration</p>
+          <p><strong>Location:</strong> Uthiru Sports Ground</p>
+          <div class="event-stats">
+            <div class="stat">
+              <div class="stat-value">280</div>
+              <div class="stat-label">Participants</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">5</div>
+              <div class="stat-label">Furnace Teams</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="past-event-card">
+          <h3 class="event-month">August 2023</h3>
+          <p><strong>Event:</strong> Fitness Festival</p>
+          <p><strong>Location:</strong> Wangige Community Center</p>
+          <div class="event-stats">
+            <div class="stat">
+              <div class="stat-value">320</div>
+              <div class="stat-label">Participants</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">6</div>
+              <div class="stat-label">Furnace Teams</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="past-event-card">
+          <h3 class="event-month">July 2023</h3>
+          <p><strong>Event:</strong> Summer Bootcamp</p>
+          <p><strong>Location:</strong> Karura Forest</p>
+          <div class="event-stats">
+            <div class="stat">
+              <div class="stat-value">195</div>
+              <div class="stat-label">Participants</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">4</div>
+              <div class="stat-label">Furnace Teams</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Detail Modals -->
+    <!-- Fun Run Modal -->
+    <div class="event-modal" id="fun-run-modal">
+      <div class="event-modal-content">
+        <button class="event-modal-close">&times;</button>
+        <img src="https://i.postimg.cc/prGQXpbX/FUN-3.png" alt="WorkFit Fun Run" class="event-detail-image">
+        <div class="event-details">
+          <div class="event-details-header">
+            <h2 class="event-details-title">WorkFit Fun Run</h2>
+            <div class="event-details-meta">
+              <div class="event-details-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>November 1, 2025</span>
+              </div>
+              <div class="event-details-time">
+                <i class="fas fa-clock"></i>
+                <span>7:30 AM - 11:00 AM</span>
+              </div>
+              <div class="event-details-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Nairobi Jaffery's Sports Club</span>
+              </div>
+            </div>
+          </div>
+          <p class="event-details-description">
+            The WorkFit Fun Run is an exciting community event bringing together runners of all levels for a morning of fitness and fun. Our goal is to create a lively and encouraging environment where everyone can participate, challenge themselves, and enjoy the spirit of a shared athletic experience.
+          </p>
+          
+          <div class="event-details-info">
+            <h3>Event Details</h3>
+            <ul>
+              <li><strong>Distance:</strong> 10km main route with 5km option available</li>
+              <li><strong>Registration:</strong> Free for all WorkFit members</li>
+              <li><strong>Age Groups:</strong> Open to participants aged 16 and above</li>
+              <li><strong>What to Bring:</strong> Comfortable running shoes, water bottle, and positive attitude!</li>
+              <li><strong>Amenities:</strong> Water stations, first aid, and post-run refreshments provided</li>
+            </ul>
+          </div>
+
+          <div class="event-schedule">
+            <h3>Event Schedule</h3>
+            <div class="schedule-item">
+              <div class="schedule-time">7:30 AM</div>
+              <div class="schedule-activity">
+                <strong>Registration & Warm-up</strong>
+                <p>Check-in and group warm-up session</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">8:00 AM</div>
+              <div class="schedule-activity">
+                <strong>10km Run Start</strong>
+                <p>Main event begins with group start</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">8:15 AM</div>
+              <div class="schedule-activity">
+                <strong>5km Run Start</strong>
+                <p>Shorter route option begins</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">9:30 AM</div>
+              <div class="schedule-activity">
+                <strong>Cool-down & Stretching</strong>
+                <p>Guided recovery session</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">10:00 AM</div>
+              <div class="schedule-activity">
+                <strong>Awards & Refreshments</strong>
+                <p>Recognition ceremony and healthy snacks</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="event-register-btn" id="funRunRegister">
+            Register for Fun Run
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nutrition Workshop Modal -->
+    <div class="event-modal" id="nutrition-workshop-modal">
+      <div class="event-modal-content">
+        <button class="event-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80" alt="Nutrition Workshop" class="event-detail-image">
+        <div class="event-details">
+          <div class="event-details-header">
+            <h2 class="event-details-title">Nutrition Workshop</h2>
+            <div class="event-details-meta">
+              <div class="event-details-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>November 15, 2025</span>
+              </div>
+              <div class="event-details-time">
+                <i class="fas fa-clock"></i>
+                <span>10:00 AM - 1:00 PM</span>
+              </div>
+              <div class="event-details-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>WorkFit Main Club</span>
+              </div>
+            </div>
+          </div>
+          <p class="event-details-description">
+            Our Nutrition Workshop is designed to help you understand the fundamentals of proper nutrition for fitness and recovery. Led by certified nutrition experts, this interactive session includes cooking demonstrations, meal planning tips, and personalized advice to help you fuel your body effectively for your fitness goals.
+          </p>
+          
+          <div class="event-details-info">
+            <h3>Workshop Topics</h3>
+            <ul>
+              <li><strong>Macronutrients 101:</strong> Understanding proteins, carbs, and fats for fitness</li>
+              <li><strong>Pre and Post-Workout Nutrition:</strong> What to eat and when for optimal performance</li>
+              <li><strong>Meal Planning Strategies:</strong> Creating balanced meals for busy schedules</li>
+              <li><strong>Hydration Essentials:</strong> The importance of proper hydration for performance</li>
+              <li><strong>Supplements Guide:</strong> What works and what doesn't - evidence-based approach</li>
+            </ul>
+          </div>
+
+          <div class="event-schedule">
+            <h3>Workshop Schedule</h3>
+            <div class="schedule-item">
+              <div class="schedule-time">10:00 AM</div>
+              <div class="schedule-activity">
+                <strong>Nutrition Fundamentals</strong>
+                <p>Understanding macronutrients and their role in fitness</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">11:00 AM</div>
+              <div class="schedule-activity">
+                <strong>Cooking Demonstration</strong>
+                <p>Live preparation of healthy pre and post-workout meals</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">12:00 PM</div>
+              <div class="schedule-activity">
+                <strong>Meal Planning Session</strong>
+                <p>Hands-on meal planning and recipe sharing</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">12:45 PM</div>
+              <div class="schedule-activity">
+                <strong>Q&A with Experts</strong>
+                <p>Personalized advice and answers to your nutrition questions</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="event-details-info">
+            <h3>What to Expect</h3>
+            <ul>
+              <li>Interactive cooking demonstrations with tasting samples</li>
+              <li>Personalized nutrition assessments</li>
+              <li>Sample meal plans and recipes to take home</li>
+              <li>Q&A session with certified nutrition experts</li>
+              <li>Comprehensive take-home materials and resources</li>
+            </ul>
+          </div>
+          
+          <button class="event-register-btn" id="nutritionWorkshopRegister">
+            Register for Workshop
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Building Modal -->
+    <div class="event-modal" id="team-building-modal">
+      <div class="event-modal-content">
+        <button class="event-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Team Building Day" class="event-detail-image">
+        <div class="event-details">
+          <div class="event-details-header">
+            <h2 class="event-details-title">Team Building Day</h2>
+            <div class="event-details-meta">
+              <div class="event-details-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>November 22, 2025</span>
+              </div>
+              <div class="event-details-time">
+                <i class="fas fa-clock"></i>
+                <span>8:00 AM - 3:00 PM</span>
+              </div>
+              <div class="event-details-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Karura Forest</span>
+              </div>
+            </div>
+          </div>
+          <p class="event-details-description">
+            Our Team Building Day is designed to strengthen bonds between furnace members through a series of fun outdoor activities and challenges. Set in the beautiful Karura Forest, this event will include team challenges, problem-solving activities, and opportunities to connect with your furnace teammates in a relaxed, natural setting.
+          </p>
+          
+          <div class="event-details-info">
+            <h3>Activities Include</h3>
+            <ul>
+              <li><strong>Team Challenges:</strong> Collaborative problem-solving activities designed to build trust and communication</li>
+              <li><strong>Nature Walk:</strong> Guided walk through the scenic trails of Karura Forest</li>
+              <li><strong>Fitness Games:</strong> Fun, active games that promote teamwork and healthy competition</li>
+              <li><strong>Communication Exercises:</strong> Activities specifically designed to improve team communication</li>
+              <li><strong>Group Picnic:</strong> Relaxed lunch and social time to connect with teammates</li>
+            </ul>
+          </div>
+
+          <div class="event-schedule">
+            <h3>Event Schedule</h3>
+            <div class="schedule-item">
+              <div class="schedule-time">8:00 AM</div>
+              <div class="schedule-activity">
+                <strong>Meet at Karura Forest</strong>
+                <p>Gather at the main gate for introductions</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">8:30 AM</div>
+              <div class="schedule-activity">
+                <strong>Team Introductions</strong>
+                <p>Icebreakers and team formation activities</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">9:00 AM</div>
+              <div class="schedule-activity">
+                <strong>Team Challenges Begin</strong>
+                <p>Series of collaborative problem-solving activities</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">12:00 PM</div>
+              <div class="schedule-activity">
+                <strong>Group Picnic Lunch</strong>
+                <p>Healthy lunch provided with team bonding time</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">1:30 PM</div>
+              <div class="schedule-activity">
+                <strong>Nature Walk & Reflection</strong>
+                <p>Guided walk and team reflection session</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">3:00 PM</div>
+              <div class="schedule-activity">
+                <strong>Event Concludes</strong>
+                <p>Closing remarks and team photos</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="event-details-info">
+            <h3>What to Bring</h3>
+            <ul>
+              <li>Comfortable outdoor clothing and sturdy shoes</li>
+              <li>Water bottle and any personal snacks</li>
+              <li>Sun protection (hat, sunscreen)</li>
+              <li>Small backpack for personal items</li>
+              <li>Positive attitude and team spirit!</li>
+            </ul>
+          </div>
+          
+          <button class="event-register-btn" id="teamBuildingRegister">
+            Register for Team Building
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Event Modal Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const eventCards = document.querySelectorAll('.event-card');
+      const viewEventLinks = document.querySelectorAll('.view-event-details');
+      const eventModals = document.querySelectorAll('.event-modal');
+      const closeModalButtons = document.querySelectorAll('.event-modal-close');
+      const registerButtons = document.querySelectorAll('.event-register-btn');
+      
+      // Function to open event modal
+      function openEventModal(eventId) {
+        const modal = document.getElementById(`${eventId}-modal`);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      // Function to close all modals
+      function closeAllModals() {
+        eventModals.forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Add click event to event cards
+      eventCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          // Don't trigger if clicking on the view link (to avoid double trigger)
+          if (!e.target.closest('.event-link')) {
+            const eventId = card.dataset.eventId;
+            openEventModal(eventId);
+          }
+        });
+      });
+      
+      // Add click event to view details links
+      viewEventLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const card = link.closest('.event-card');
+          const eventId = card.dataset.eventId;
+          openEventModal(eventId);
+        });
+      });
+      
+      // Close modal functionality
+      closeModalButtons.forEach(btn => {
+        btn.addEventListener('click', closeAllModals);
+      });
+      
+      // Close modal when clicking outside
+      eventModals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeAllModals();
+          }
+        });
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAllModals();
+        }
+      });
+      
+      // Register button functionality
+      registerButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Open registration form in new tab
+          window.open('https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true', '_blank');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
