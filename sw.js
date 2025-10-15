@@ -1,6 +1,5 @@
 const CACHE_NAME = 'workfit-v1.0';
 const urlsToCache = [
-  '/',
   '/workfit-wpa.html',
   '/css/main.css',
   '/js/app.js'
