@@ -62,7 +62,7 @@
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
       transition: background-color 0.3s ease, color 0.3s ease;
-      padding-bottom: 4rem;
+      padding-bottom: 2rem;
     }
 
     /* Navigation */
@@ -1064,10 +1064,6 @@
     .bottom-nav-label {
       font-weight: 500;
     }
-    @media (max-width: 768px) {
-      section {
-        padding: 1.5rem 0.8rem;
-      }
     }
   </style>
 </head>
@@ -1097,24 +1093,34 @@
   </header>
 
   <nav class="bottom-nav">
-  <a href="#" class="bottom-nav-item active">
-    <i class="fas fa-home bottom-nav-icon"></i>
-    <span class="bottom-nav-label">Home</span>
-  </a>
-  <a href="Announcements.html" class="bottom-nav-item">
-    <i class="fas fa-bullhorn bottom-nav-icon"></i>
-    <span class="bottom-nav-label">Updates</span>
-  </a>
-  <a href="Tracker.html" class="bottom-nav-item">
-    <i class="fas fa-chart-line bottom-nav-icon"></i>
-    <span class="bottom-nav-label">Tracker</span>
-  </a>
-  <a href="#" class="bottom-nav-item">
-    <i class="fas fa-user bottom-nav-icon"></i>
-    <span class="bottom-nav-label">Account</span>
-  </a>
-</nav>
+    <a href="#" class="bottom-nav-item active">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="Announcements-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-bullhorn bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Updates</span>
+    </a>
+    <a href="Tracker.html" class="bottom-nav-item">
+      <i class="fas fa-chart-line bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Tracker</span>
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fas fa-user bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Account</span>
+    </a>
+  </nav>
 
+  <!-- Announcement Badge -->
+  <div class="announcement-badge" id="announcementBadge">
+    <div class="announcement-content">
+      <span class="announcement-icon">📢</span>
+      <span class="announcement-text">New: Hello, Please register for our upcoming Fun Run at the events section, scheduled for the 1st of September</span>
+    </div>
+    <button class="announcement-close" id="announcementClose">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
 
   <section class="digest" id="digest">
     <h2 class="section-title">Weekly Digest</h2>
@@ -2094,27 +2100,6 @@ an enclosed structure in which material can be heated to very high temperatures,
           announcementBadge.classList.add('hidden');
         }
       }, 10000);
-    });
-    // Bottom Navigation Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-      
-      bottomNavItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-          // Remove active class from all items
-          bottomNavItems.forEach(navItem => {
-            navItem.classList.remove('active');
-          });
-          
-          // Add active class to clicked item
-          this.classList.add('active');
-          
-          // For demo purposes, prevent navigation for Home and Account
-          if (this.getAttribute('href') === '#') {
-            e.preventDefault();
-          }
-        });
-      });
     });
   </script>
 </body>
