@@ -2,7 +2,7 @@
 function loadBottomNavigation() {
   const bottomNav = `
     <nav class="bottom-nav">
-      <a href="home-wpa.html" class="bottom-nav-item">
+      <a href="workfit-pwa.html" class="bottom-nav-item">
         <i class="fas fa-home bottom-nav-icon"></i>
         <span class="bottom-nav-label">Home</span>
       </a>
