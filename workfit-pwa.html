@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>WorkFit - Team Fitness</title>
   <link rel="icon" type="image/x-icon" href="/WorkFit-Club/favicon.ico">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WorkFit">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#001f3f">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- iOS Icons -->
+  <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -60,10 +74,43 @@
       background-color: var(--bg-secondary);
       color: var(--text-primary);
       line-height: 1.6;
-      font-size: 16px;
+      font-size: 15px; /* Slightly smaller base font */
       -webkit-text-size-adjust: 100%;
       transition: background-color 0.3s ease, color 0.3s ease;
-      padding-bottom: 2rem;
+      padding-bottom: 4rem; /* Space for bottom nav */
+    }
+
+    /* PWA Install Button */
+    .pwa-install-btn {
+      position: fixed;
+      top: 10px;
+      right: 60px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1001;
+      font-size: 0.8rem;
+      box-shadow: 0 2px 5px var(--shadow-color);
+      display: none;
+    }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1001;
+      font-size: 0.8rem;
     }
 
     /* Navigation */
@@ -86,7 +133,7 @@
     }
 
     .logo {
-      height: 40px;
+      height: 35px; /* Slightly smaller logo */
       width: auto;
     }
 
@@ -101,7 +148,7 @@
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Smaller font */
       padding: 0.5rem;
     }
 
@@ -113,7 +160,7 @@
       display: none;
       background: none;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.3rem; /* Smaller icon */
       color: var(--navy-dark);
       padding: 0.5rem;
       cursor: pointer;
@@ -129,8 +176,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 35px; /* Smaller toggle */
+      height: 35px;
       transition: background-color 0.3s;
     }
 
@@ -139,26 +186,26 @@
     }
 
     .theme-toggle svg {
-      width: 24px;
-      height: 24px;
+      width: 20px; /* Smaller icon */
+      height: 20px;
       fill: var(--text-primary);
     }
 
     /* Sections */
     section {
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem; /* Reduced padding */
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .section-title {
       text-align: left;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem; /* Reduced margin */
       color: var(--navy);
       position: relative;
-      font-size: 1.5rem;
-      padding-left: 10px;
-      border-left: 4px solid var(--gold);
+      font-size: 1.3rem; /* Smaller title */
+      padding-left: 8px; /* Reduced padding */
+      border-left: 3px solid var(--gold); /* Thinner border */
     }
 
     /* Weekly Digest Section */
@@ -176,7 +223,7 @@
 
     .digest-track {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem; /* Reduced gap */
       transition: transform 0.5s ease;
       padding: 0.5rem;
     }
@@ -185,21 +232,21 @@
       background: var(--card-bg);
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 5px 7px var(--shadow-color);
+      box-shadow: 0 4px 6px var(--shadow-color); /* Lighter shadow */
       transition: transform 0.3s;
       display: flex;
       flex-direction: column;
       flex: 0 0 calc(33.333% - 1rem);
-      min-width: 280px;
+      min-width: 250px; /* Smaller cards */
       cursor: pointer;
     }
 
     .digest-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px); /* Smaller hover effect */
     }
 
     .digest-img-container {
-      height: 140px;
+      height: 120px; /* Smaller images */
       overflow: hidden;
     }
 
@@ -215,7 +262,7 @@
     }
 
     .digest-content {
-      padding: 1.2rem;
+      padding: 1rem; /* Reduced padding */
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -225,29 +272,29 @@
       display: inline-block;
       background: var(--gold);
       color: var(--navy);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      margin-bottom: 0.5rem;
+      padding: 0.2rem 0.6rem; /* Smaller padding */
+      border-radius: 15px; /* Smaller radius */
+      font-size: 0.7rem; /* Smaller font */
+      margin-bottom: 0.4rem; /* Reduced margin */
       font-weight: 600;
     }
 
     .digest-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-size: 1rem; /* Smaller title */
+      margin-bottom: 0.4rem; /* Reduced margin */
       color: var(--navy);
     }
 
     .digest-date {
       color: var(--gray);
-      font-size: 0.85rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.8rem; /* Smaller font */
+      margin-bottom: 0.6rem; /* Reduced margin */
     }
 
     .digest-excerpt {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem; /* Reduced margin */
       flex: 1;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Smaller font */
       color: var(--text-secondary);
     }
 
@@ -270,7 +317,7 @@
 
     .newsletter-grid {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem; /* Reduced gap */
       padding: 0.5rem;
     }
 
@@ -278,21 +325,21 @@
       background: var(--card-bg);
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 5px 7px var(--shadow-color);
+      box-shadow: 0 4px 6px var(--shadow-color); /* Lighter shadow */
       transition: transform 0.3s;
       display: flex;
       flex-direction: column;
       flex: 0 0 calc(33.333% - 1rem);
-      min-width: 280px;
+      min-width: 250px; /* Smaller cards */
       cursor: pointer;
     }
 
     .newsletter-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px); /* Smaller hover effect */
     }
 
     .newsletter-img-container {
-      height: 140px;
+      height: 120px; /* Smaller images */
       overflow: hidden;
     }
 
@@ -308,7 +355,7 @@
     }
 
     .newsletter-content {
-      padding: 1.2rem;
+      padding: 1rem; /* Reduced padding */
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -318,75 +365,75 @@
       display: inline-block;
       background: var(--gold);
       color: var(--navy);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      margin-bottom: 0.5rem;
+      padding: 0.2rem 0.6rem; /* Smaller padding */
+      border-radius: 15px; /* Smaller radius */
+      font-size: 0.7rem; /* Smaller font */
+      margin-bottom: 0.4rem; /* Reduced margin */
       font-weight: 600;
     }
 
     .newsletter-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-size: 1rem; /* Smaller title */
+      margin-bottom: 0.4rem; /* Reduced margin */
       color: var(--navy);
     }
 
     .newsletter-date {
       color: var(--gray);
-      font-size: 0.85rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.8rem; /* Smaller font */
+      margin-bottom: 0.6rem; /* Reduced margin */
     }
 
     .newsletter-excerpt {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem; /* Reduced margin */
       flex: 1;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Smaller font */
       color: var(--text-secondary);
     }
 
     /* Challenges Section */
     .challenges {
       background-color: var(--bg-secondary);
-      min-height: 500px;
+      min-height: 400px; /* Reduced height */
     }
 
     .challenge-container {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.2rem; /* Reduced gap */
     }
 
     .monthly-challenge {
       background: var(--card-bg);
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1.2rem; /* Reduced padding */
       box-shadow: 0 4px 6px var(--shadow-color);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem; /* Reduced margin */
     }
 
     .challenge-progress {
-      margin: 1.2rem 0;
+      margin: 1rem 0; /* Reduced margin */
     }
 
     .progress-bar {
-      height: 16px;
+      height: 14px; /* Smaller bar */
       background: var(--border-color);
-      border-radius: 8px;
+      border-radius: 7px; /* Smaller radius */
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
       background: var(--accent);
-      border-radius: 8px;
+      border-radius: 7px; /* Smaller radius */
       transition: width 1s ease;
     }
 
     .progress-text {
       display: flex;
       justify-content: space-between;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
+      margin-top: 0.4rem; /* Reduced margin */
+      font-size: 0.8rem; /* Smaller font */
     }
 
     /* Events Section */
@@ -404,7 +451,7 @@
 
     .upcoming-events {
       display: flex;
-      gap: 1.2rem;
+      gap: 1rem; /* Reduced gap */
       padding: 0.5rem;
     }
 
@@ -416,11 +463,11 @@
       display: flex;
       flex-direction: column;
       flex: 0 0 calc(33.333% - 1rem);
-      min-width: 250px;
+      min-width: 220px; /* Smaller cards */
     }
 
     .event-img-container {
-      height: 120px;
+      height: 100px; /* Smaller images */
       overflow: hidden;
     }
 
@@ -431,7 +478,7 @@
     }
 
     .event-details {
-      padding: 1.2rem;
+      padding: 1rem; /* Reduced padding */
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -440,26 +487,26 @@
     .event-date {
       color: var(--gold);
       font-weight: bold;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+      margin-bottom: 0.4rem; /* Reduced margin */
+      font-size: 0.85rem; /* Smaller font */
     }
 
     .event-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
+      font-size: 0.95rem; /* Smaller font */
+      margin-bottom: 0.4rem; /* Reduced margin */
       color: var(--navy);
     }
 
     .event-location {
       color: var(--gray);
-      font-size: 0.85rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.8rem; /* Smaller font */
+      margin-bottom: 0.6rem; /* Reduced margin */
     }
 
     .event-description {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem; /* Reduced margin */
       flex: 1;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Smaller font */
       color: var(--text-secondary);
     }
 
@@ -467,7 +514,7 @@
       display: inline-block;
       background: var(--navy);
       color: var(--white);
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1rem; /* Smaller padding */
       border-radius: 4px;
       text-decoration: none;
       font-weight: 600;
@@ -475,7 +522,7 @@
       align-self: flex-start;
       border: none;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Smaller font */
     }
 
     .register-btn:hover {
@@ -502,7 +549,7 @@
       border-radius: 8px;
       width: 100%;
       max-width: 500px;
-      padding: 1.5rem;
+      padding: 1.2rem; /* Reduced padding */
       position: relative;
       max-height: 90vh;
       overflow-y: auto;
@@ -511,11 +558,11 @@
 
     .challenge-info-close {
       position: absolute;
-      top: 0.8rem;
-      right: 0.8rem;
+      top: 0.6rem; /* Adjusted position */
+      right: 0.6rem;
       background: none;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.3rem; /* Smaller icon */
       cursor: pointer;
       color: var(--navy);
       padding: 0.2rem;
@@ -524,28 +571,28 @@
 
     .challenge-info-title {
       color: var(--navy);
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      padding-bottom: 0.5rem;
+      margin-bottom: 0.8rem; /* Reduced margin */
+      font-size: 1.3rem; /* Smaller title */
+      padding-bottom: 0.4rem; /* Reduced padding */
       border-bottom: 2px solid var(--gold);
     }
 
     .challenge-info-body {
-      line-height: 1.6;
+      line-height: 1.5; /* Tighter line height */
     }
 
     .challenge-info-body h4 {
       color: var(--navy);
-      margin: 1rem 0 0.5rem 0;
+      margin: 0.8rem 0 0.4rem 0; /* Reduced margins */
     }
 
     .challenge-info-body ul {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
+      margin-left: 1.2rem; /* Reduced margin */
+      margin-bottom: 0.8rem; /* Reduced margin */
     }
 
     .challenge-info-body li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem; /* Reduced margin */
     }
 
     /* Google Forms Container */
@@ -568,7 +615,7 @@
       border-radius: 8px;
       width: 100%;
       max-width: 800px;
-      padding: 1.5rem;
+      padding: 1.2rem; /* Reduced padding */
       position: relative;
       max-height: 90vh;
       overflow-y: auto;
@@ -577,11 +624,11 @@
 
     .close-form {
       position: absolute;
-      top: 0.8rem;
-      right: 0.8rem;
+      top: 0.6rem; /* Adjusted position */
+      right: 0.6rem;
       background: none;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.3rem; /* Smaller icon */
       cursor: pointer;
       color: var(--navy);
       padding: 0.2rem;
@@ -590,15 +637,15 @@
 
     .form-title {
       color: var(--navy);
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem; /* Reduced margin */
+      font-size: 1.3rem; /* Smaller title */
+      padding-bottom: 0.4rem; /* Reduced padding */
       border-bottom: 2px solid var(--gold);
     }
 
     .google-form-frame {
       width: 100%;
-      height: 500px;
+      height: 450px; /* Slightly smaller */
       border: none;
       border-radius: 4px;
     }
@@ -614,7 +661,7 @@
       background: var(--bg-primary);
       z-index: 1001;
       overflow-y: auto;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem; /* Reduced padding */
     }
 
     .newsletter-detail.active {
@@ -633,21 +680,21 @@
     .newsletter-detail-header {
       background: var(--navy);
       color: var(--white);
-      padding: 2rem;
+      padding: 1.5rem; /* Reduced padding */
       position: relative;
     }
 
     .newsletter-detail-close {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 0.8rem; /* Adjusted position */
+      right: 0.8rem;
       background: var(--gold);
       color: var(--navy);
       border: none;
-      width: 40px;
-      height: 40px;
+      width: 35px; /* Smaller button */
+      height: 35px;
       border-radius: 50%;
-      font-size: 1.5rem;
+      font-size: 1.3rem; /* Smaller icon */
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -665,58 +712,58 @@
       display: inline-block;
       background: var(--gold);
       color: var(--navy);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
+      padding: 0.4rem 0.8rem; /* Smaller padding */
+      border-radius: 15px; /* Smaller radius */
+      font-size: 0.8rem; /* Smaller font */
+      margin-bottom: 0.8rem; /* Reduced margin */
       font-weight: 600;
     }
 
     .newsletter-detail-title {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.5rem; /* Smaller title */
+      margin-bottom: 0.4rem; /* Reduced margin */
     }
 
     .newsletter-detail-date {
-      font-size: 1rem;
+      font-size: 0.9rem; /* Smaller font */
       opacity: 0.8;
     }
 
     .newsletter-detail-body {
-      padding: 2rem;
+      padding: 1.5rem; /* Reduced padding */
     }
 
     .newsletter-detail-image {
       width: 100%;
-      height: 300px;
+      height: 250px; /* Smaller image */
       object-fit: cover;
       border-radius: 4px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem; /* Reduced margin */
     }
 
     .newsletter-detail-text {
-      line-height: 1.8;
-      font-size: 1.1rem;
+      line-height: 1.6; /* Tighter line height */
+      font-size: 1rem; /* Smaller font */
     }
 
     .newsletter-detail-text h4 {
       color: var(--navy);
-      margin: 1.5rem 0 1rem 0;
+      margin: 1.2rem 0 0.8rem 0; /* Reduced margins */
       border-bottom: 2px solid var(--gold);
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.4rem; /* Reduced padding */
     }
 
     .newsletter-detail-text h3 {
       color: var(--navy);
-      margin: 1.2rem 0 0.8rem 0;
+      margin: 1rem 0 0.6rem 0; /* Reduced margins */
     }
 
     .newsletter-detail-text ul, .newsletter-detail-text ol {
-      margin: 1rem 0 1rem 1.5rem;
+      margin: 0.8rem 0 0.8rem 1.2rem; /* Reduced margins */
     }
 
     .newsletter-detail-text li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem; /* Reduced margin */
     }
 
     .newsletter-detail-text strong {
@@ -728,7 +775,7 @@
       display: inline-block;
       background: var(--gold);
       color: var(--navy);
-      padding: 0.4rem 0.8rem;
+      padding: 0.3rem 0.6rem; /* Smaller padding */
       border-radius: 4px;
       text-decoration: none;
       font-weight: 600;
@@ -736,14 +783,14 @@
       align-self: flex-start;
       border: none;
       cursor: pointer;
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
+      font-size: 0.75rem; /* Smaller font */
+      margin-top: 0.4rem; /* Reduced margin */
     }
 
     /* Testimonials Section Styles */
     .testimonials {
       background-color: var(--bg-primary);
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem; /* Reduced padding */
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -751,7 +798,7 @@
     .testimonials-container {
       position: relative;
       overflow: hidden;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem; /* Reduced margin */
     }
 
     .testimonials-track {
@@ -761,14 +808,14 @@
 
     .testimonial-slide {
       flex: 0 0 100%;
-      padding: 1rem;
+      padding: 0.8rem; /* Reduced padding */
       box-sizing: border-box;
     }
 
     .testimonial-card {
       background: var(--card-bg);
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1.2rem; /* Reduced padding */
       box-shadow: 0 4px 6px var(--shadow-color);
       text-align: center;
       position: relative;
@@ -777,52 +824,52 @@
     }
 
     .testimonial-quote {
-      font-size: 1.5rem;
+      font-size: 1.3rem; /* Smaller icon */
       color: var(--gold);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem; /* Reduced margin */
     }
 
     .testimonial-text {
       font-style: italic;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem; /* Reduced margin */
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.5; /* Tighter line height */
     }
 
     .testimonial-author {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.8rem; /* Reduced gap */
     }
 
     .testimonial-avatar {
-      width: 60px;
-      height: 60px;
+      width: 50px; /* Smaller avatar */
+      height: 50px;
       border-radius: 50%;
       object-fit: cover;
     }
 
     .testimonial-author-info h4 {
       color: var(--navy);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem; /* Reduced margin */
     }
 
     .testimonial-author-info p {
       color: var(--gray);
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Smaller font */
     }
 
     .testimonial-indicators {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
+      gap: 0.4rem; /* Reduced gap */
+      margin-top: 0.8rem; /* Reduced margin */
     }
 
     .testimonial-indicator {
-      width: 12px;
-      height: 12px;
+      width: 10px; /* Smaller indicators */
+      height: 10px;
       border-radius: 50%;
       background-color: var(--border-color);
       cursor: pointer;
@@ -839,18 +886,62 @@
       background: var(--navy);
       color: var(--white);
       border: none;
-      padding: 0.8rem 1.5rem;
+      padding: 0.6rem 1.2rem; /* Smaller padding */
       border-radius: 4px;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s;
-      font-size: 1rem;
+      font-size: 0.9rem; /* Smaller font */
       text-decoration: none;
       width: fit-content;
     }
 
     .testimonial-share-btn:hover {
       background: var(--navy-light);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-primary);
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.4rem 0; /* Reduced padding */
+      z-index: 1000;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.65rem; /* Smaller font */
+      padding: 0.2rem; /* Reduced padding */
+      transition: color 0.3s;
+      flex: 1;
+      max-width: 25%;
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--navy);
+    }
+    
+    .bottom-nav-icon {
+      font-size: 1.1rem; /* Smaller icons */
+      margin-bottom: 0.1rem; /* Reduced margin */
+    }
+    
+    .bottom-nav-label {
+      font-weight: 500;
+    }
+
+    .challenge-info-btn:hover {
+      background: #e6c200;
     }
 
     /* Responsive adjustments */
@@ -860,101 +951,25 @@
       }
       
       .testimonial-text {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+      }
+
+      /* Mobile-specific scaling */
+      body {
+        font-size: 14px;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+      }
+
+      .digest-card,
+      .newsletter-card,
+      .event-card {
+        min-width: 85vw;
       }
     }
 
-    .challenge-info-btn:hover {
-      background: #e6c200;
-    }
-    /* Announcement Badge */
-    .announcement-badge {
-      background: linear-gradient(135deg, var(--navy), var(--navy-light));
-      color: var(--white);
-      padding: 0.8rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 101;
-      box-shadow: 0 2px 10px var(--shadow-color);
-      animation: slideDown 0.5s ease-out;
-    }
-
-    .announcement-content {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      flex: 1;
-      justify-content: center;
-    }
-
-    .announcement-icon {
-      font-size: 1.2rem;
-      animation: bounce 2s infinite;
-    }
-
-    .announcement-text {
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    .announcement-close {
-      background: none;
-      border: none;
-      color: var(--white);
-      cursor: pointer;
-      padding: 0.3rem;
-      border-radius: 50%;
-      transition: background-color 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-    }
-
-    .announcement-close:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Animations */
-    @keyframes slideDown {
-      from {
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-3px);
-      }
-      60% {
-        transform: translateY(-2px);
-      }
-    }
-
-    /* Hide announcement when closed */
-    .announcement-badge.hidden {
-      display: none;
-    }
-
-    /* Adjust header position when announcement is visible */
-    .announcement-badge:not(.hidden) + header {
-      top: 48px; /* Adjust based on announcement height */
-    }
-
-    /* Responsive */
     @media (max-width: 1024px) {
       .newsletter-card,
       .event-card,
@@ -998,7 +1013,7 @@
       }
 
       section {
-        padding: 1.5rem 0.8rem;
+        padding: 1.2rem 0.8rem;
       }
       
       .newsletter-card,
@@ -1008,11 +1023,11 @@
       }
 
       .newsletter-detail-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
       }
 
       .newsletter-detail-body {
-        padding: 1.5rem;
+        padding: 1.2rem;
       }
 
       .form-container {
@@ -1026,49 +1041,42 @@
       .google-form-frame {
         height: 400px;
       }
-      /* Bottom Navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: var(--bg-primary);
-      box-shadow: 0 -2px 10px var(--shadow-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 0.5rem 0;
-      z-index: 1000;
+
+      /* Hide PWA install button on very small screens */
+      .pwa-install-btn {
+        display: none !important;
+      }
     }
-    
-    .bottom-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.7rem;
-      padding: 0.3rem;
-      transition: color 0.3s;
-      flex: 1;
-      max-width: 25%;
-    }
-    
-    .bottom-nav-item.active {
-      color: var(--navy);
-    }
-    
-    .bottom-nav-icon {
-      font-size: 1.2rem;
-      margin-bottom: 0.2rem;
-    }
-    
-    .bottom-nav-label {
-      font-weight: 500;
-    }
+
+    /* PWA standalone mode adjustments */
+    @media all and (display-mode: standalone) {
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: calc(env(safe-area-inset-bottom) + 4rem);
+      }
+
+      header {
+        padding-top: env(safe-area-inset-top);
+      }
+
+      .pwa-install-btn,
+      .fullscreen-btn {
+        display: none !important;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- PWA Install Button -->
+  <button class="pwa-install-btn" id="pwaInstallBtn">
+    <i class="fas fa-download"></i> Install App
+  </button>
+
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" id="fullscreenBtn">
+    <i class="fas fa-expand"></i> Fullscreen
+  </button>
+
   <header>
     <nav>
       <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
@@ -1090,25 +1098,6 @@
       </div>
     </nav>
   </header>
-
-  <nav class="bottom-nav">
-    <a href="#" class="bottom-nav-item active">
-      <i class="fas fa-home bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Home</span>
-    </a>
-    <a href="Announcements-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-bullhorn bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Updates</span>
-    </a>
-    <a href="tracker-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-chart-line bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Tracker</span>
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <i class="fas fa-user bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Account</span>
-    </a>
-  </nav>
   <section class="digest" id="digest">
     <h2 class="section-title">Weekly Digest</h2>
     <div class="digest-carousel">
@@ -1584,8 +1573,90 @@ an enclosed structure in which material can be heated to very high temperatures,
     </div>
   </div>
 
+  <!-- Rest of your HTML content remains the same -->
+  <!-- [Previous HTML content for sections, modals, etc. would go here] -->
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="workfit-pwa.html" class="bottom-nav-item active">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="Announcements-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-bullhorn bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Updates</span>
+    </a>
+    <a href="tracker-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-chart-line bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Tracker</span>
+    </a>
+    <a href="account.html" class="bottom-nav-item">
+      <i class="fas fa-user bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Account</span>
+    </a>
+  </nav>
+
   <script>
-    // Theme Management
+    // PWA Installation
+    let deferredPrompt;
+    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      pwaInstallBtn.style.display = 'block';
+    });
+
+    pwaInstallBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          pwaInstallBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    // Fullscreen functionality
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        enterFullscreen();
+      } else {
+        exitFullscreen();
+      }
+    }
+    
+    function enterFullscreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) elem.requestFullscreen();
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    }
+    
+    function exitFullscreen() {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+     // Theme Management
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
@@ -2088,6 +2159,9 @@ an enclosed structure in which material can be heated to very high temperatures,
         }
       }, 10000);
     });
+
+    // [Rest of your existing JavaScript remains the same]
+    // Theme Management, Mobile Menu, etc.
   </script>
 </body>
 </html>

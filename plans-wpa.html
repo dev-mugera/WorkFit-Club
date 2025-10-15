@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WorkFit - Membership Plans</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #001f3f;
+            --navy-light: #003366;
+            --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #F7F7F7;
+            --gray: #777777;
+            --white: #FFFFFF;
+            --text-primary: #222222;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 2rem;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--bg-primary);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--navy-dark);
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        /* Sections */
+        section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: left;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            position: relative;
+            font-size: 1.5rem;
+            padding-left: 10px;
+            border-left: 4px solid var(--gold);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            color: var(--navy);
+        }
+        
+        .packages-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .package-card {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .features {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .features li i {
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: auto;
+        }
+        
+        .btn:hover {
+            background: var(--navy-light);
+        }
+        
+        .contact-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            border: 2px solid var(--gold);
+            transform: scale(1.03);
+        }
+        
+        .highlight .card-header {
+            background: var(--navy-light);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 5% auto;
+            padding: 1.5rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalFade 0.3s;
+            color: var(--text-primary);
+        }
+        
+        .close {
+            color: var(--gray);
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+            right: 1rem;
+            top: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: var(--navy);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--navy);
+        }
+        
+        .required {
+            color: var(--accent);
+        }
+        
+        #successMessage {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        #errorMessage {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .loading i {
+            color: var(--navy);
+            font-size: 1.5rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .package-card {
+                max-width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.8rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--navy);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px var(--shadow-color);
+                z-index: 99;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .package-card {
+                max-width: 100%;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            box-shadow: 0 -2px 10px var(--shadow-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.5rem 0;
+            z-index: 1000;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            padding: 0.3rem;
+            transition: color 0.3s;
+            flex: 1;
+            max-width: 25%;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--navy);
+        }
+        
+        .bottom-nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .bottom-nav-label {
+            font-weight: 500;
+        }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="Home.html">Home</a>
+                <a href="#packages">Membership</a>
+                <a href="#contact">Contact</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <nav class="bottom-nav">
+    <a href="home-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="Announcements-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-bullhorn bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Updates</span>
+    </a>
+    <a href="tracker-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-chart-line bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Tracker</span>
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fas fa-user bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Account</span>
+    </a>
+  </nav>
+
+    <section id="packages">
+        <h2 class="section-title">Membership Plans</h2>
+        
+        <div class="intro">
+            <p>Choose the perfect plan for your fitness journey. All plans include guided training sessions</p>
+        </div>
+        
+        <div class="packages-container">
+            <!-- Freemium Package -->
+            <div class="package-card">
+                <div class="card-header">
+                    <h2>FIT-FREE</h2>
+                    <div class="price">Free /month</div>
+                </div>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Guided group training sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Access to community events</li>     
+                        <li><i class="fas fa-check-circle"></i> Basic workout plans</li>
+                        <li><i class="fas fa-check-circle"></i> Access to online resources</li>
+                        <li><i class="fas fa-check-circle"></i> Email support</li>
+                        <li><i class="fas fa-check-circle"></i> Option to upgrade to paid plans</li>
+                        <li><i class="fas fa-check-circle"></i> Suitable for beginners</li>
+                    </ul>
+                    <button class="btn" onclick="openForm('FIT-FREE', 0)">Select Plan</button>
+                </div>
+            </div>
+                
+            <!-- <div class="package-card highlight">
+                <div class="popular-badge">Family</div>
+                <div class="card-header">
+                    <h2>FIT-FAM</h2>
+                    <div class="price">2000 KES/month</div>
+                </div>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> All FIT-FREE features</li>
+                        <li><i class="fas fa-check-circle"></i> 4 Family fitness Sessions (Once per week)</li>
+                        <li><i class="fas fa-check-circle"></i> 2 Family zhumba Sessions (Weekends)</li>
+                        <li><i class="fas fa-check-circle"></i> Customised family meal plans</li>
+                    </ul>
+                    <button class="btn" onclick="openForm('Basic', 1500)">Select Plan</button>
+                </div>
+            </div>
+            
+           <!--  <div class="package-card">
+                <div class="card-header">
+                    <h2>FIT-SOLO</h2>
+                    <div class="price">1000 KES/month</div>
+                </div>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> All FIT-FREE features</li>
+                        <li><i class="fas fa-check-circle"></i> 4 Personal training sessions (Once per week) </li>
+                        <li><i class="fas fa-check-circle"></i> Customised meal plan</li>
+                        <li><i class="fas fa-check-circle"></i> Personalized fitness assessment</li>
+                    </ul>
+                    <button class="btn" onclick="openForm('Standard', 2500)">Select Plan</button>
+                </div>
+            </div>
+            <!--
+            <div class="package-card">
+                <div class="card-header">
+                    <h2>PREMIUM</h2>
+                    <div class="price">3500 KES/month</div>
+                </div>
+                <div class="card-content">
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> All Standard features</li>
+                        <li><i class="fas fa-check-circle"></i> Discounts on products and events</li>
+                        <li><i class="fas fa-check-circle"></i> Priority booking for sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Nutrition consultation</li>
+                    </ul>
+                    <button class="btn" onclick="openForm('Premium', 3500)">Select Plan</button>
+                </div>
+            </div>
+        </div>
+        -->
+        <!-- Registration Modal -->
+        <div id="registrationModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Register for <span id="selectedPackage"></span></h2>
+                <p id="packagePrice"></p>
+                
+                <form id="registrationForm">
+                    <input type="hidden" id="packageName" name="packageName">
+                    <input type="hidden" id="packagePriceValue" name="packagePrice">
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Select Location <span class="required">*</span></label>
+                        <select id="location" name="location" required>
+                            <option value="">Select a location</option>
+                            <option value="NBO">Nairobi</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn">Complete Registration</button>
+                </form>
+                
+                <div id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Registration Successful!</h3>
+                    <p>Thank you for registering. We've sent a confirmation email.</p>
+                </div>
+                
+                <div id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Registration Failed</h3>
+                    <p id="errorText">Please try again later.</p>
+                </div>
+                
+                <div class="loading" id="loadingIndicator">
+                    <i class="fas fa-spinner"></i>
+                    <p>Processing your registration...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact-info">
+        <h3>Have Questions?</h3>
+        <p>Phone: +254 784599322</p>
+        <p>Email: sales.workfit@gmail.com</p>
+    </section>
+
+    <script>
+        // Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateThemeIcon('dark');
+        }
+        
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20极-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+            } else {
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s极.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+            }
+        }
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            // Only apply system theme if user hasn't set a preference
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            
+            // Change icon based on menu state
+            const icon = menuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = menuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Prevent clicks inside nav from closing it
+        navLinks.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                }
+                
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
+                const icon = menuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                
+                // Scroll to section
+                if (this.getAttribute('href') !== '#') {
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Replace this with your Google Apps Script Web App URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwvSoWfARGlnGqpT0cne811U01WyuDIMO-lnYFCWvQAYjwIwM5UOnU0Y8B3pmW2conbiA/exec';
+        
+        let selectedPackage = '';
+        let selectedPrice = 0;
+        
+        function openForm(packageName, price) {
+            selectedPackage = packageName;
+            selectedPrice = price;
+            
+            document.getElementById('selectedPackage').textContent = packageName;
+            document.getElementById('packageName').value = packageName;
+            document.getElementById('packagePriceValue').value = price;
+            
+            if (price === 0) {
+                document.getElementById('packagePrice').textContent = 'Free Plan';
+            } else {
+                document.getElementById('packagePrice').textContent = price + ' KES per month';
+            }
+            
+            // Reset form and messages
+            document.getElementById('registrationForm').reset();
+            document.getElementById('registrationForm').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('loadingIndicator').style.display = 'none';
+            
+            // Show modal  
+            document.getElementById('registrationModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('registrationModal').style.display = 'none';
+        }
+        
+        function contactSales() {
+            alert("Please contact our sales team at sales.workfit@gmail.com or +254 784599322 for VIP membership details.");
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('registrationModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('registrationForm').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            try {
+                const formData = new FormData(e.target);
+                formData.append('timestamp', new Date().toISOString());
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.result === 'success') {
+                    // Show success message
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                // Show error message
+                document.getElementById('errorText').textContent = error.message || 'An error occurred. Please try again.';
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('registrationForm').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

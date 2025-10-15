@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Workout Tutorials - WorkFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #F7F7F7;
+      --gray: #777777;
+      --white: #FFFFFF;
+      --text-primary: #222222;
+      --text-secondary: #5a5a5a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+
+    /* Dark mode variables */
+    [data-theme="dark"] {
+      --navy: #0a2e57;
+      --navy-light: #1a3e67;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #1a1a1a;
+      --gray: #aaaaaa;
+      --white: #222222;
+      --text-primary: #f0f0f0;
+      --text-secondary: #cccccc;
+      --bg-primary: #121212;
+      --bg-secondary: #1a1a1a;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding-bottom: 2rem;
+    }
+
+    /* Navigation */
+    header {
+      background-color: var(--bg-primary);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .back-btn {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .back-btn:hover {
+      background: var(--navy-light);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--navy-dark);
+      padding: 0.5rem;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .theme-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--text-primary);
+    }
+
+    /* Sections */
+    section {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: left;
+      margin-bottom: 1.5rem;
+      color: var(--navy);
+      position: relative;
+      font-size: 1.5rem;
+      padding-left: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    /* Workout Tutorials Section */
+    .workout-tutorials {
+      background-color: var(--bg-primary);
+      padding: 2rem 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Tutorials Filter */
+    .tutorials-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    /* Tutorials Grid */
+    .tutorials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tutorial-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .tutorial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px var(--shadow-color);
+    }
+
+    /* Video Container */
+    .tutorial-video-container {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .video-placeholder {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .video-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .video-placeholder:hover .video-thumbnail {
+      transform: scale(1.05);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .play-button i {
+      color: var(--navy);
+      font-size: 1.5rem;
+      margin-left: 4px;
+    }
+
+    .video-placeholder:hover .play-button {
+      background: var(--gold);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Tutorial Content */
+    .tutorial-content {
+      padding: 1.5rem;
+    }
+
+    .tutorial-category {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .tutorial-title {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .tutorial-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .tutorial-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .difficulty {
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .difficulty.beginner {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4CAF50;
+    }
+
+    .difficulty.intermediate {
+      background: rgba(255, 152, 0, 0.2);
+      color: #FF9800;
+    }
+
+    .difficulty.advanced {
+      background: rgba(244, 67, 54, 0.2);
+      color: #F44336;
+    }
+
+    .duration {
+      color: var(--gray);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Video Modal */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1002;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .video-modal.active {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .video-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.3s ease;
+    }
+
+    .video-modal-close:hover {
+      background: var(--accent);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .tutorials-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .tutorials-filter {
+        gap: 0.5rem;
+      }
+      
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+      
+      .tutorial-video-container {
+        height: 180px;
+      }
+      
+      .video-modal-content {
+        margin: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--navy);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        z-index: 99;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        color: var(--white);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      section {
+        padding: 1.5rem 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tutorial-content {
+        padding: 1rem;
+      }
+      
+      .tutorial-title {
+        font-size: 1.1rem;
+      }
+       .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-primary);
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 0;
+      z-index: 1000;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      padding: 0.3rem;
+      transition: color 0.3s;
+      flex: 1;
+      max-width: 25%;
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--navy);
+    }
+    
+    .bottom-nav-icon {
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    
+    .bottom-nav-label {
+      font-weight: 500;
+    }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <nav class="bottom-nav">
+    <a href="home-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="Announcements-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-bullhorn bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Updates</span>
+    </a>
+    <a href="tracker-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-chart-line bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Tracker</span>
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fas fa-user bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Account</span>
+    </a>
+  </nav>
+
+  <section class="workout-tutorials" id="tutorials">
+    <h2 class="section-title">Workout Tutorials</h2>
+    <p class="section-subtitle">Learn proper form and technique for all exercises. Click any video to play.</p>
+    
+    <div class="tutorials-filter">
+      <button class="filter-btn active" data-filter="all">All Tutorials</button>
+      <button class="filter-btn" data-filter="strength">Strength</button>
+      <button class="filter-btn" data-filter="cardio">Cardio</button>
+      <button class="filter-btn" data-filter="flexibility">Flexibility</button>
+      <button class="filter-btn" data-filter="warmup">Warm-up</button>
+    </div>
+
+    <div class="tutorials-grid">
+      <!-- Mountain Climbers Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="cnyTQDSE884">
+            <img src="https://img.youtube.com/vi/cnyTQDSE884/maxresdefault.jpg" alt="Mountain Climbers Tutorial" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Mountain Climbers - Proper Form</h3>
+          <p class="tutorial-description">Learn the correct technique for mountain climbers to maximize core engagement and avoid injury.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">1 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plank Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="u6ZelKyUM6g">
+            <img src="https://img.youtube.com/vi/u6ZelKyUM6g/maxresdefault.jpg" alt="Plank Tutorial" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Perfect Plank Form</h3>
+          <p class="tutorial-description">Master the plank with proper alignment and breathing techniques for maximum core strength.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">1 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warm-up Routine -->
+      <div class="tutorial-card" data-category="warmup">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="Mle8sVQ0NOI">
+            <img src="https://img.youtube.com/vi/Mle8sVQ0NOI/maxresdefault.jpg" alt="Warm-up Routine" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Warm-up</span>
+          <h3 class="tutorial-title">5-Minute Dynamic Warm-up</h3>
+          <p class="tutorial-description">Essential warm-up routine to prepare your body for any workout and prevent injuries.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">6 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Squat Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="9OfycnUL0h8">
+            <img src="https://img.youtube.com/vi/9OfycnUL0h8/maxresdefault.jpg" alt="Squat Tutorial" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Perfect Squat Form</h3>
+          <p class="tutorial-description">Learn proper squat technique to build leg strength and protect your knees and back.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty intermediate">Intermediate</span>
+            <span class="duration">1 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stretching Routine -->
+      <div class="tutorial-card" data-category="flexibility">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="4pKly2JojMw">
+            <img src="https://img.youtube.com/vi/4pKly2JojMw/maxresdefault.jpg" alt="Stretching Routine" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Flexibility</span>
+          <h3 class="tutorial-title">Full Body Stretching</h3>
+          <p class="tutorial-description">Complete stretching routine to improve flexibility and aid muscle recovery.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">10 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Running Form -->
+      <div class="tutorial-card" data-category="cardio">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="3VPKhhF3uoA">
+            <img src="https://img.youtube.com/vi/3VPKhhF3uoA/maxresdefault.jpg" alt="Running Form" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Cardio</span>
+          <h3 class="tutorial-title">Proper Running Form</h3>
+          <p class="tutorial-description">Improve your running efficiency and reduce injury risk with proper running technique.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty intermediate">Intermediate</span>
+            <span class="duration">8 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Push-up Tutorial -->
+      <div class="tutorial-card" data-category="strength">
+        <div class="tutorial-video-container">
+          <div class="video-placeholder" data-video-id="IODxDxX7oi4">
+            <img src="https://img.youtube.com/vi/IODxDxX7oi4/maxresdefault.jpg" alt="Push-up Tutorial" class="video-thumbnail">
+            <div class="play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-content">
+          <span class="tutorial-category">Strength</span>
+          <h3 class="tutorial-title">Perfect Push-up Form</h3>
+          <p class="tutorial-description">Master the push-up with proper chest, shoulder, and core engagement techniques.</p>
+          <div class="tutorial-meta">
+            <span class="difficulty beginner">Beginner</span>
+            <span class="duration">3 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-content">
+      <button class="video-modal-close" id="videoModalClose">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="video-container" id="videoContainer">
+        <!-- YouTube iframe will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme Management
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+    } else if (systemPrefersDark) {
+      htmlElement.setAttribute('data-theme', 'dark');
+      updateThemeIcon('dark');
+    }
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+      } else {
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>';
+      }
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      // Only apply system theme if user hasn't set a preference
+      if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        htmlElement.setAttribute('data-theme', newTheme);
+        updateThemeIcon(newTheme);
+      }
+    });
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      
+      // Change icon based on menu state
+      const icon = menuBtn.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Prevent clicks inside nav from closing it
+    navLinks.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // Workout Tutorials Functionality
+    const videoModal = document.getElementById('videoModal');
+    const videoModalClose = document.getElementById('videoModalClose');
+    const videoContainer = document.getElementById('videoContainer');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const tutorialCards = document.querySelectorAll('.tutorial-card');
+
+    // Video playback functionality
+    document.querySelectorAll('.video-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        const videoId = placeholder.dataset.videoId;
+        playVideo(videoId);
+      });
+    });
+
+    function playVideo(videoId) {
+      videoContainer.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      `;
+      videoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close video modal
+    videoModalClose.addEventListener('click', () => {
+      videoModal.classList.remove('active');
+      videoContainer.innerHTML = '';
+      document.body.style.overflow = 'auto';
+    });
+
+    // Close modal when clicking outside
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        videoModal.classList.remove('active');
+        videoContainer.innerHTML = '';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        const filter = btn.dataset.filter;
+        
+        tutorialCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Close video with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        videoModal.classList.remove('active');
+        videoContainer.innerHTML = '';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Add loading animation for images
+    document.addEventListener('DOMContentLoaded', () => {
+      const images = document.querySelectorAll('.video-thumbnail');
+      images.forEach(img => {
+        img.addEventListener('load', () => {
+          img.style.opacity = '1';
+        });
+        // Set initial opacity for fade-in effect
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.3s ease';
+      });
+    });
+  </script>
+</body>
+</html>
