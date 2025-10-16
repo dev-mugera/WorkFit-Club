@@ -42,7 +42,6 @@
             --error: #f44336;
         }
 
-        /* Dark mode variables */
         [data-theme="dark"] {
             --navy: #0a2e57;
             --navy-light: #1a3e67;
@@ -299,6 +298,59 @@
             background: white;
         }
 
+        .tracker-alternative {
+            background: var(--bg-primary);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .alternative-content i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .alternative-content h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .alternative-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .primary-btn {
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .primary-btn:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+        }
+
+        .small-text {
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+
         .loading {
             text-align: center;
             padding: 3rem;
@@ -448,6 +500,10 @@
             .info-grid {
                 grid-template-columns: 1fr;
             }
+
+            .tracker-alternative {
+                padding: 2rem 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -575,24 +631,25 @@
             </div>
         </div>
 
-        <!-- Google Sheets Tracker -->
-        <div class="iframe-section">
+        <!-- Google Sheets Tracker - Mobile Optimized -->
+        <div class="iframe-section" id="trackerSection">
             <div class="iframe-header">
                 <h3><i class="fas fa-table"></i> Live Fitness Tracker</h3>
-                <button class="refresh-btn" onclick="refreshTracker()">
-                    <i class="fas fa-redo"></i> Refresh
+                <button class="refresh-btn" onclick="openTrackerInNewTab()">
+                    <i class="fas fa-external-link-alt"></i> Open Tracker
                 </button>
             </div>
-            <iframe 
-                src="https://script.google.com/macros/s/AKfycbx1tx71aH-64McnwMPj8tUy36LQkvaPGrjJ5sCZKhTE2Po08kar3twSYDh9528y4fqz/exec" 
-                class="iframe-container"
-                frameborder="0"
-                onload="document.getElementById('loading').style.display='none';"
-                id="trackerFrame"
-            ></iframe>
-            <div id="loading" class="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <div>Loading WorkFit Fitness Tracker...</div>
+            
+            <div class="tracker-alternative">
+                <div class="alternative-content">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile-Friendly Tracker</h3>
+                    <p>For the best experience on your mobile device, open the tracker in a new tab. This ensures full compatibility with Google Sheets.</p>
+                    <button class="primary-btn" onclick="openTrackerInNewTab()">
+                        <i class="fas fa-external-link-alt"></i> Open Tracker
+                    </button>
+                    <p class="small-text">You'll be redirected to the full-featured tracker</p>
+                </div>
             </div>
         </div>
     </div>
@@ -618,6 +675,16 @@
     </nav>
 
     <script>
+        // Enhanced tracker functionality
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        function openTrackerInNewTab() {
+            const trackerUrl = 'https://script.google.com/macros/s/AKfycbx1tx71aH-64McnwMPj8tUy36LQkvaPGrjJ5sCZKhTE2Po08kar3twSYDh9528y4fqz/exec';
+            window.open(trackerUrl, '_blank');
+        }
+
         // Theme Management
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
@@ -698,15 +765,6 @@
             });
         }
 
-        // Refresh Tracker Function
-        function refreshTracker() {
-            const iframe = document.getElementById('trackerFrame');
-            const loading = document.getElementById('loading');
-            
-            loading.style.display = 'block';
-            iframe.src = iframe.src;
-        }
-
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -734,13 +792,42 @@
             });
         });
 
-        // Auto-hide loading after 10 seconds (fallback)
-        setTimeout(() => {
-            const loading = document.getElementById('loading');
-            if (loading && loading.style.display !== 'none') {
-                loading.style.display = 'none';
+        // Auto-detect mobile and show appropriate interface
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!isMobileDevice()) {
+                // On desktop, show iframe version
+                const trackerSection = document.getElementById('trackerSection');
+                trackerSection.innerHTML = `
+                    <div class="iframe-header">
+                        <h3><i class="fas fa-table"></i> Live Fitness Tracker</h3>
+                        <button class="refresh-btn" onclick="refreshTracker()">
+                            <i class="fas fa-redo"></i> Refresh
+                        </button>
+                    </div>
+                    <iframe 
+                        src="https://script.google.com/macros/s/AKfycbx1tx71aH-64McnwMPj8tUy36LQkvaPGrjJ5sCZKhTE2Po08kar3twSYDh9528y4fqz/exec" 
+                        class="iframe-container"
+                        frameborder="0"
+                        onload="document.getElementById('loading').style.display='none';"
+                        id="trackerFrame"
+                    ></iframe>
+                    <div id="loading" class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <div>Loading WorkFit Fitness Tracker...</div>
+                    </div>
+                `;
             }
-        }, 10000);
+        });
+
+        function refreshTracker() {
+            const iframe = document.getElementById('trackerFrame');
+            const loading = document.getElementById('loading');
+            
+            if (iframe && loading) {
+                loading.style.display = 'block';
+                iframe.src = iframe.src;
+            }
+        }
     </script>
 </body>
 </html>
