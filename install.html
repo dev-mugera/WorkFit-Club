@@ -3,221 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Install WorkFit App</title>
+  <title>How to Install WorkFit App</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 2rem;
-      background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+      background: #001f3f;
       color: white;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
     }
+    
     .container {
-      max-width: 500px;
+      max-width: 600px;
+      margin: 0 auto;
       background: white;
       color: #333;
       padding: 2rem;
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
+    
     .logo {
       width: 80px;
       height: 80px;
       margin-bottom: 1rem;
     }
-    .install-btn {
+    
+    h1 {
+      color: #001f3f;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .instructions {
+      text-align: left;
+      margin: 2rem 0;
+    }
+    
+    .step {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #FFD700;
+    }
+    
+    .step-number {
+      background: #001f3f;
+      color: #FFD700;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    
+    .step h3 {
+      color: #001f3f;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .step p {
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .browser-specific {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    
+    .browser-specific h4 {
+      color: #001f3f;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .continue-btn {
       background: #FFD700;
       color: #001f3f;
       border: none;
       padding: 1rem 2rem;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       border-radius: 25px;
       cursor: pointer;
       font-weight: bold;
-      margin: 1rem 0;
+      display: block;
+      margin: 2rem auto 0;
       transition: transform 0.2s;
     }
-    .install-btn:hover {
+    
+    .continue-btn:hover {
       transform: scale(1.05);
-    }
-    .install-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .steps {
-      text-align: left;
-      margin: 2rem 0;
-    }
-    .step {
-      margin: 1rem 0;
-      padding: 1rem;
-      background: #f5f5f5;
-      border-radius: 8px;
-    }
-    .status-message {
-      margin: 1rem 0;
-      padding: 0.5rem;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    .success {
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-    .info {
-      background: #d1ecf1;
-      color: #0c5460;
-      border: 1px solid #bee5eb;
-    }
-    .manual-instructions {
-      background: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffeaa7;
-      padding: 1rem;
-      border-radius: 8px;
-      margin: 1rem 0;
-      text-align: left;
-    }
-    .browser-specific {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
-    }
-    .browser-icon {
-      font-size: 1.5rem;
-      margin-right: 0.5rem;
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
-    <h1>Install WorkFit App</h1>
-    <p>Get the full fitness experience on your device</p>
+    <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo" style="display: block; margin: 0 auto;">
+    <h1>How to Install WorkFit App</h1>
     
-    <div id="statusMessage" class="status-message info">
-      Click "Install WorkFit" to add the app to your device
+    <div class="instructions">
+      <div class="step">
+        <h3><span class="step-number">1</span> Open WorkFit in Your Browser</h3>
+        <p>Go to the WorkFit website using your preferred browser</p>
+      </div>
+      
+      <div class="step">
+        <h3><span class="step-number">2</span> Look for the Install Button</h3>
+        <p>Depending on your device and browser, look for one of these options:</p>
+        
+        <div class="browser-specific">
+          <h4><i class="fab fa-chrome"></i> Chrome Desktop</h4>
+          <p>Look for the install icon <i class="fas fa-download" style="color: #001f3f;"></i> in the address bar on the right side</p>
+        </div>
+        
+        <div class="browser-specific">
+          <h4><i class="fab fa-android"></i> Android Chrome</h4>
+          <p>Tap the menu button (⋮) in the top right and select "Add to Home screen"</p>
+        </div>
+        
+        <div class="browser-specific">
+          <h4><i class="fab fa-apple"></i> iPhone Safari</h4>
+          <p>Tap the share button <i class="fas fa-share-square" style="color: #001f3f;"></i> at the bottom and select "Add to Home Screen"</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <h3><span class="step-number">3</span> Confirm Installation</h3>
+        <p>Follow the prompts to add WorkFit to your home screen. The app will be installed and ready to use!</p>
+      </div>
+      
+      <div class="step">
+        <h3><span class="step-number">4</span> Launch the App</h3>
+        <p>Find the WorkFit icon on your home screen and tap to open the app anytime</p>
+      </div>
     </div>
     
-    <button class="install-btn" id="installButton">
-      <i class="fas fa-download"></i> Install WorkFit
+    <button class="continue-btn" onclick="redirectToApp()">
+      <i class="fas fa-external-link-alt"></i> Continue to WorkFit
     </button>
-
-    <div class="manual-instructions">
-      <h4 style="margin-top: 0; color: #856404;"><i class="fas fa-mobile-alt"></i> Manual Installation</h4>
-      
-      <div class="browser-specific">
-        <p><strong><i class="fab fa-chrome browser-icon"></i> Chrome Desktop:</strong></p>
-        <p>Look for the install icon <i class="fas fa-download"></i> in the address bar</p>
-      </div>
-      
-      <div class="browser-specific">
-        <p><strong><i class="fab fa-android browser-icon"></i> Android Chrome:</strong></p>
-        <p>Tap the menu (⋮) → "Add to Home screen"</p>
-      </div>
-      
-      <div class="browser-specific">
-        <p><strong><i class="fab fa-apple browser-icon"></i> iPhone Safari:</strong></p>
-        <p>Tap the share icon <i class="fas fa-share-square"></i> → "Add to Home Screen"</p>
-      </div>
-    </div>
-    
-    <div class="steps">
-      <div class="step">
-        <strong><i class="fas fa-download"></i> Install</strong> - Add WorkFit to your home screen
-      </div>
-      <div class="step">
-        <strong><i class="fas fa-rocket"></i> Open</strong> - Launch like any other app
-      </div>
-      <div class="step">
-        <strong><i class="fas fa-dumbbell"></i> Train</strong> - Access workouts offline
-      </div>
-    </div>
-    
-    <p style="margin-top: 2rem;">
-      <a href="index.html" style="color: #001f3f; text-decoration: none; font-weight: bold; padding: 0.8rem 1.5rem; border: 2px solid #001f3f; border-radius: 25px; display: inline-block;">
-        <i class="fas fa-arrow-left"></i> Back to Website
-      </a>
-    </p>
   </div>
 
   <script>
-    // SIMPLE VERSION - NO AUTOMATIC REDIRECTS EVER
-    const installButton = document.getElementById('installButton');
-    const statusMessage = document.getElementById('statusMessage');
-
-    let installPrompt = null;
-
-    // Listen for install prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('Install prompt available');
-      e.preventDefault();
-      installPrompt = e;
-      
-      // Update status message
-      statusMessage.textContent = 'Ready! Click "Install WorkFit" to add the app.';
-      statusMessage.className = 'status-message success';
-    });
-
-    // Handle install button click
-    installButton.addEventListener('click', async () => {
-      if (installPrompt) {
-        try {
-          console.log('Showing install prompt');
-          statusMessage.textContent = 'Showing installation dialog...';
-          
-          // Show the install prompt
-          installPrompt.prompt();
-          
-          // Wait for user choice
-          const { outcome } = await installPrompt.userChoice;
-          console.log('User choice:', outcome);
-          
-          if (outcome === 'accepted') {
-            statusMessage.textContent = '✓ WorkFit installed successfully! You can now open it from your home screen.';
-            statusMessage.className = 'status-message success';
-            installButton.innerHTML = '<i class="fas fa-check"></i> Installed!';
-            installButton.disabled = true;
-            installButton.style.background = '#28a745';
-          } else {
-            statusMessage.textContent = 'Installation cancelled. You can use the manual instructions above.';
-            statusMessage.className = 'status-message info';
-          }
-          
-          installPrompt = null;
-        } catch (error) {
-          console.error('Installation failed:', error);
-          statusMessage.textContent = 'Installation failed. Please use the manual instructions above.';
-          statusMessage.className = 'status-message info';
-        }
-      } else {
-        // No install prompt available
-        statusMessage.textContent = 'Automatic installation not available. Please use the manual instructions above.';
-        statusMessage.className = 'status-message info';
-      }
-    });
-
-    // Listen for successful installation
-    window.addEventListener('appinstalled', (evt) => {
-      console.log('WorkFit was installed');
-      statusMessage.textContent = '✓ WorkFit installed successfully! You can now open it from your home screen.';
-      statusMessage.className = 'status-message success';
-      installButton.innerHTML = '<i class="fas fa-check"></i> Installed!';
-      installButton.disabled = true;
-      installButton.style.background = '#28a745';
-    });
-
-    // THAT'S IT! No automatic redirects, no timeouts, no automatic checks
-    // The page will stay forever until user clicks "Back to Website"
+    function redirectToApp() {
+      window.location.href = 'index.html';
+    }
   </script>
 </body>
 </html>
