@@ -1700,145 +1700,324 @@ an enclosed structure in which material can be heated to very high temperatures,
       <span class="bottom-nav-label">Account</span>
     </a>
   </nav>
+<script>
+// Enhanced PWA Installation with complete state management
+let deferredPrompt;
+const pwaInstallSection = document.querySelector('.pwa-install-section');
+const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+const pwaDirectInstallBtn = document.getElementById('pwaDirectInstall');
+const showInstallGuideBtn = document.getElementById('showInstallGuide');
+const installGuideModal = document.getElementById('installGuideModal');
+const closeGuideBtn = document.getElementById('closeGuideBtn');
+const closeGuide = document.getElementById('closeGuide');
 
-  <script>
-  // Enhanced PWA Installation
-  let deferredPrompt;
-  const pwaInstallBtn = document.getElementById('pwaInstallBtn');
-  const pwaDirectInstallBtn = document.getElementById('pwaDirectInstall');
-  const showInstallGuideBtn = document.getElementById('showInstallGuide');
-  const installGuideModal = document.getElementById('installGuideModal');
-  const closeGuideBtn = document.getElementById('closeGuideBtn');
-  const closeGuide = document.getElementById('closeGuide');
+// Enhanced PWA installation detection
+function isPWAInstalled() {
+  // Method 1: Check display mode (most reliable)
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    console.log('PWA detected: display-mode standalone');
+    return true;
+  }
+  
+  // Method 2: Check for iOS standalone mode
+  if (window.navigator.standalone === true) {
+    console.log('PWA detected: iOS standalone mode');
+    return true;
+  }
+  
+  // Method 3: Check referrer for Android
+  if (document.referrer.includes('android-app://')) {
+    console.log('PWA detected: Android app referrer');
+    return true;
+  }
+  
+  // Method 4: Check if launched from home screen (height difference)
+  const isStandalone = window.innerHeight === screen.height && 
+                       window.innerWidth === screen.width;
+  if (isStandalone) {
+    console.log('PWA detected: fullscreen dimensions');
+    return true;
+  }
+  
+  // Method 5: Check URL parameters for PWA launch
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('source') === 'pwa') {
+    console.log('PWA detected: URL parameter');
+    return true;
+  }
+  
+  // Method 6: Check localStorage flag
+  if (localStorage.getItem('pwaInstalled') === 'true') {
+    console.log('PWA detected: localStorage flag');
+    return true;
+  }
+  
+  // Method 7: Check for minimal UI (mobile browsers)
+  if (window.visualViewport && (window.visualViewport.height === window.screen.height || 
+      window.visualViewport.width === window.screen.width)) {
+    console.log('PWA detected: visual viewport match');
+    return true;
+  }
+  
+  return false;
+}
 
-  // Listen for install prompt
-  window.addEventListener('beforeinstallprompt', (e) => {
-    console.log('beforeinstallprompt event fired');
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // Show the install buttons
+// Hide install section completely
+function hideInstallSection() {
+  console.log('Hiding PWA install section');
+  if (pwaInstallSection) {
+    pwaInstallSection.style.display = 'none';
+  }
+  if (pwaInstallBtn) {
+    pwaInstallBtn.style.display = 'none';
+  }
+  if (pwaDirectInstallBtn) {
+    pwaDirectInstallBtn.style.display = 'none';
+  }
+}
+
+// Show install section
+function showInstallSection() {
+  console.log('Showing PWA install section');
+  if (pwaInstallSection) {
+    pwaInstallSection.style.display = 'block';
+  }
+  if (pwaInstallBtn) {
     pwaInstallBtn.style.display = 'block';
+  }
+  if (pwaDirectInstallBtn) {
     pwaDirectInstallBtn.style.display = 'flex';
-    
-    console.log('PWA install prompt available');
-  });
+  }
+}
 
-  // Handle direct install button click
+// Initialize PWA installation logic
+function initializePWA() {
+  console.log('Initializing PWA installation logic');
+  
+  // Check if already installed on load
+  if (isPWAInstalled()) {
+    hideInstallSection();
+    return;
+  }
+  
+  // Show install section by default for non-PWA users
+  showInstallSection();
+}
+
+// Enhanced beforeinstallprompt event listener
+window.addEventListener('beforeinstallprompt', (e) => {
+  console.log('beforeinstallprompt event fired');
+  
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  
+  // Stash the event so it can be triggered later
+  deferredPrompt = e;
+  
+  // Only show install UI if not already installed
+  if (!isPWAInstalled()) {
+    showInstallSection();
+    console.log('PWA install prompt available - showing install section');
+  }
+  
+  // Optional: Log analytics event
+  console.log('PWA installation available');
+});
+
+// Handle direct install button click
+if (pwaDirectInstallBtn) {
   pwaDirectInstallBtn.addEventListener('click', async () => {
+    console.log('Direct install button clicked');
+    
     if (!deferredPrompt) {
-      // If no prompt available, show the guide
-      installGuideModal.style.display = 'flex';
+      console.log('No deferred prompt, showing install guide');
+      if (installGuideModal) {
+        installGuideModal.style.display = 'flex';
+      }
       return;
     }
 
-    console.log('Showing install prompt');
+    console.log('Showing install prompt to user');
+    
+    // Show the install prompt
     deferredPrompt.prompt();
     
+    // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
+    console.log(`User response to install prompt: ${outcome}`);
     
+    // Handle user choice
     if (outcome === 'accepted') {
-      pwaInstallBtn.style.display = 'none';
-      pwaDirectInstallBtn.style.display = 'none';
-      console.log('PWA installed successfully');
+      console.log('User accepted PWA installation');
+      hideInstallSection();
+      
+      // Store installation status
+      localStorage.setItem('pwaInstalled', 'true');
+      
+      // Optional: Track installation in analytics
+      trackPWAInstallation();
     } else {
-      console.log('User dismissed the install prompt');
+      console.log('User dismissed PWA installation');
+      // You could show a message or keep the install option available
     }
     
+    // Clear the deferredPrompt variable
     deferredPrompt = null;
   });
+}
 
-  // Handle install guide button click
+// Handle install guide button click
+if (showInstallGuideBtn) {
   showInstallGuideBtn.addEventListener('click', () => {
-    installGuideModal.style.display = 'flex';
+    console.log('Showing install guide');
+    if (installGuideModal) {
+      installGuideModal.style.display = 'flex';
+    }
   });
+}
 
-  // Close install guide
+// Close install guide handlers
+if (closeGuideBtn) {
   closeGuideBtn.addEventListener('click', () => {
-    installGuideModal.style.display = 'none';
+    if (installGuideModal) {
+      installGuideModal.style.display = 'none';
+    }
   });
+}
 
+if (closeGuide) {
   closeGuide.addEventListener('click', () => {
-    installGuideModal.style.display = 'none';
+    if (installGuideModal) {
+      installGuideModal.style.display = 'none';
+    }
   });
+}
 
-  // Close guide when clicking outside
+// Close guide when clicking outside
+if (installGuideModal) {
   installGuideModal.addEventListener('click', (e) => {
     if (e.target === installGuideModal) {
       installGuideModal.style.display = 'none';
     }
   });
+}
 
-  // App installed event
-  window.addEventListener('appinstalled', (evt) => {
-    console.log('PWA was successfully installed');
-    pwaInstallBtn.style.display = 'none';
-    pwaDirectInstallBtn.style.display = 'none';
-    deferredPrompt = null;
-  });
+// App installed event - most reliable indicator
+window.addEventListener('appinstalled', (evt) => {
+  console.log('PWA was successfully installed via appinstalled event');
+  
+  hideInstallSection();
+  deferredPrompt = null;
+  
+  // Store installation status
+  localStorage.setItem('pwaInstalled', 'true');
+  
+  // Optional: Track successful installation
+  trackPWAInstallationSuccess();
+  
+  // Optional: Show welcome message or redirect
+  showInstallationSuccessMessage();
+});
 
-  // Fullscreen functionality
-  const fullscreenBtn = document.getElementById('fullscreenBtn');
+// Track PWA installation (optional analytics)
+function trackPWAInstallation() {
+  // Implement your analytics tracking here
+  console.log('Tracking PWA installation attempt');
   
-  if (fullscreenBtn) {
-    fullscreenBtn.addEventListener('click', toggleFullscreen);
-  }
-  
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      enterFullscreen();
-    } else {
-      exitFullscreen();
-    }
-  }
-  
-  function enterFullscreen() {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) elem.requestFullscreen();
-    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-  }
-  
-  function exitFullscreen() {
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-    else if (document.msExitFullscreen) document.msExitFullscreen();
-  }
-
-  // Enhanced Service Worker Registration
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      console.log('Registering Service Worker...');
-      
-      // For GitHub Pages with repository name
-      const swUrl = 'sw.js';
-      
-      navigator.serviceWorker.register(swUrl)
-        .then(function(registration) {
-          console.log('SW registered: ', registration);
-          console.log('Scope: ', registration.scope);
-        })
-        .catch(function(registrationError) {
-          console.log('SW registration failed: ', registrationError);
-          
-          // Fallback: Try without scope
-          navigator.serviceWorker.register(swUrl, { scope: './' })
-            .then(function(registration) {
-              console.log('SW registered with fallback scope: ', registration);
-            })
-            .catch(function(fallbackError) {
-              console.log('Fallback SW registration failed: ', fallbackError);
-            });
-        });
+  // Example: Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'pwa_install_attempt', {
+      'event_category': 'PWA',
+      'event_label': 'Installation'
     });
   }
+}
 
-  // Theme Management
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const htmlElement = document.documentElement;
+function trackPWAInstallationSuccess() {
+  console.log('Tracking PWA installation success');
   
+  // Example: Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'pwa_install_success', {
+      'event_category': 'PWA',
+      'event_label': 'Installation'
+    });
+  }
+}
+
+// Show installation success message (optional)
+function showInstallationSuccessMessage() {
+  // You could show a toast or message confirming installation
+  console.log('PWA installed successfully!');
+  
+  // Example: Show a temporary success message
+  const successMsg = document.createElement('div');
+  successMsg.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--success, #4CAF50);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    z-index: 10000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  `;
+  successMsg.textContent = '🎉 WorkFit app installed successfully!';
+  document.body.appendChild(successMsg);
+  
+  // Remove message after 3 seconds
+  setTimeout(() => {
+    if (document.body.contains(successMsg)) {
+      document.body.removeChild(successMsg);
+    }
+  }, 3000);
+}
+
+// Enhanced Service Worker Registration
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    console.log('Registering Service Worker...');
+    
+    const swUrl = 'sw.js';
+    
+    navigator.serviceWorker.register(swUrl)
+      .then(function(registration) {
+        console.log('SW registered successfully: ', registration);
+        console.log('Scope: ', registration.scope);
+        
+        // Check for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          console.log('New service worker found:', newWorker);
+          
+          newWorker.addEventListener('statechange', () => {
+            console.log('New service worker state:', newWorker.state);
+          });
+        });
+      })
+      .catch(function(registrationError) {
+        console.log('SW registration failed: ', registrationError);
+        
+        // Fallback: Try with different scope
+        navigator.serviceWorker.register(swUrl, { scope: './' })
+          .then(function(registration) {
+            console.log('SW registered with fallback scope: ', registration);
+          })
+          .catch(function(fallbackError) {
+            console.log('Fallback SW registration failed: ', fallbackError);
+          });
+      });
+  }
+}
+
+// Theme Management
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const htmlElement = document.documentElement;
+
+function initializeTheme() {
   // Check for saved theme preference or use system preference
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1861,29 +2040,24 @@ an enclosed structure in which material can be heated to very high temperatures,
       htmlElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
+      
+      console.log('Theme changed to:', newTheme);
     });
   }
-  
-  function updateThemeIcon(theme) {
-    if (!themeIcon) return;
-    
-    if (theme === 'dark') {
-      themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
-    } else {
-      themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
-    }
-  }
-  
-  // Listen for system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!localStorage.getItem('theme')) {
-      const newTheme = e.matches ? 'dark' : 'light';
-      htmlElement.setAttribute('data-theme', newTheme);
-      updateThemeIcon(newTheme);
-    }
-  });
+}
 
-  // Mobile Menu Toggle
+function updateThemeIcon(theme) {
+  if (!themeIcon) return;
+  
+  if (theme === 'dark') {
+    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+  } else {
+    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+  }
+}
+
+// Mobile Menu Toggle
+function initializeMobileMenu() {
   const menuBtn = document.getElementById('menuBtn');
   const navLinks = document.getElementById('navLinks');
   
@@ -1917,8 +2091,10 @@ an enclosed structure in which material can be heated to very high temperatures,
       e.stopPropagation();
     });
   }
+}
 
-  // Smooth scrolling for navigation
+// Smooth scrolling for navigation
+function initializeSmoothScrolling() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       if (this.getAttribute('href') !== '#') {
@@ -1926,6 +2102,9 @@ an enclosed structure in which material can be heated to very high temperatures,
       }
       
       // Close mobile menu if open
+      const navLinks = document.getElementById('navLinks');
+      const menuBtn = document.getElementById('menuBtn');
+      
       if (navLinks && navLinks.classList.contains('active')) {
         navLinks.classList.remove('active');
         const icon = menuBtn.querySelector('i');
@@ -1944,8 +2123,10 @@ an enclosed structure in which material can be heated to very high temperatures,
       }
     });
   });
+}
 
-  // Google Forms Management
+// Google Forms Management
+function initializeGoogleForms() {
   const googleFormContainer = document.getElementById('googleFormContainer');
   const closeGoogleForm = document.getElementById('closeGoogleForm');
   const googleFormTitle = document.getElementById('googleFormTitle');
@@ -1994,66 +2175,65 @@ an enclosed structure in which material can be heated to very high temperatures,
       }
     });
   }
+}
 
-  // Challenge Progress Tracking
-  function updateChallengeProgress() {
-    // Set start date to October 1, 2025
-    const startDate = new Date('2025-10-01');
-    const today = new Date();
-    
-    // Calculate days passed in October (max 30 days)
-    const daysPassed = Math.min(Math.max(0, Math.floor((today - startDate) / (1000 * 60 * 60 * 24))), 30);
-    
-    // Mountain Climbers Challenge (100 reps per day)
-    const mountainClimbersTotal = 3000;
-    const mountainClimbersCurrent = Math.min(daysPassed * 100, mountainClimbersTotal);
-    const mountainClimbersPercentage = Math.round((mountainClimbersCurrent / mountainClimbersTotal) * 100);
-    
-    const mountainClimbersProgress = document.getElementById('mountain-climbers-progress');
-    const mountainClimbersCurrentEl = document.getElementById('mountain-climbers-current');
-    const mountainClimbersPercentageEl = document.getElementById('mountain-climbers-percentage');
-    const mountainClimbersRemaining = document.getElementById('mountain-climbers-remaining');
-    
-    if (mountainClimbersProgress) mountainClimbersProgress.style.width = `${mountainClimbersPercentage}%`;
-    if (mountainClimbersCurrentEl) mountainClimbersCurrentEl.textContent = `${mountainClimbersCurrent} reps`;
-    if (mountainClimbersPercentageEl) mountainClimbersPercentageEl.textContent = `${mountainClimbersPercentage}% Complete`;
-    if (mountainClimbersRemaining) mountainClimbersRemaining.textContent = `${30 - daysPassed} days remaining - Keep pushing!`;
-    
-    // Plank Challenge (2 minutes per day)
-    const plankTotal = 60; // minutes
-    const plankCurrent = Math.min(daysPassed * 2, plankTotal);
-    const plankPercentage = Math.round((plankCurrent / plankTotal) * 100);
-    
-    const plankProgress = document.getElementById('plank-progress');
-    const plankCurrentEl = document.getElementById('plank-current');
-    const plankPercentageEl = document.getElementById('plank-percentage');
-    const plankRemaining = document.getElementById('plank-remaining');
-    
-    if (plankProgress) plankProgress.style.width = `${plankPercentage}%`;
-    if (plankCurrentEl) plankCurrentEl.textContent = `${plankCurrent} min`;
-    if (plankPercentageEl) plankPercentageEl.textContent = `${plankPercentage}% Complete`;
-    if (plankRemaining) plankRemaining.textContent = `${30 - daysPassed} days remaining - Stay strong! Top performers get a feature in our newsletter.`;
-    
-    // Steps Challenge (100 steps per day)
-    const stepsTotal = 3000;
-    const stepsCurrent = Math.min(daysPassed * 100, stepsTotal);
-    const stepsPercentage = Math.round((stepsCurrent / stepsTotal) * 100);
-    
-    const stepsProgress = document.getElementById('steps-progress');
-    const stepsCurrentEl = document.getElementById('steps-current');
-    const stepsPercentageEl = document.getElementById('steps-percentage');
-    const stepsRemaining = document.getElementById('steps-remaining');
-    
-    if (stepsProgress) stepsProgress.style.width = `${stepsPercentage}%`;
-    if (stepsCurrentEl) stepsCurrentEl.textContent = `${stepsCurrent} steps`;
-    if (stepsPercentageEl) stepsPercentageEl.textContent = `${stepsPercentage}% Complete`;
-    if (stepsRemaining) stepsRemaining.textContent = `${30 - daysPassed} days remaining - Every step counts! Prizes for the most consistent team.`;
-  }
+// Challenge Progress Tracking
+function updateChallengeProgress() {
+  // Set start date to October 1, 2025
+  const startDate = new Date('2025-10-01');
+  const today = new Date();
   
-  // Initialize challenge progress
-  updateChallengeProgress();
+  // Calculate days passed in October (max 30 days)
+  const daysPassed = Math.min(Math.max(0, Math.floor((today - startDate) / (1000 * 60 * 60 * 24))), 30);
   
-  // Challenge Info Modal
+  // Mountain Climbers Challenge (100 reps per day)
+  const mountainClimbersTotal = 3000;
+  const mountainClimbersCurrent = Math.min(daysPassed * 100, mountainClimbersTotal);
+  const mountainClimbersPercentage = Math.round((mountainClimbersCurrent / mountainClimbersTotal) * 100);
+  
+  const mountainClimbersProgress = document.getElementById('mountain-climbers-progress');
+  const mountainClimbersCurrentEl = document.getElementById('mountain-climbers-current');
+  const mountainClimbersPercentageEl = document.getElementById('mountain-climbers-percentage');
+  const mountainClimbersRemaining = document.getElementById('mountain-climbers-remaining');
+  
+  if (mountainClimbersProgress) mountainClimbersProgress.style.width = `${mountainClimbersPercentage}%`;
+  if (mountainClimbersCurrentEl) mountainClimbersCurrentEl.textContent = `${mountainClimbersCurrent} reps`;
+  if (mountainClimbersPercentageEl) mountainClimbersPercentageEl.textContent = `${mountainClimbersPercentage}% Complete`;
+  if (mountainClimbersRemaining) mountainClimbersRemaining.textContent = `${30 - daysPassed} days remaining - Keep pushing!`;
+  
+  // Plank Challenge (2 minutes per day)
+  const plankTotal = 60; // minutes
+  const plankCurrent = Math.min(daysPassed * 2, plankTotal);
+  const plankPercentage = Math.round((plankCurrent / plankTotal) * 100);
+  
+  const plankProgress = document.getElementById('plank-progress');
+  const plankCurrentEl = document.getElementById('plank-current');
+  const plankPercentageEl = document.getElementById('plank-percentage');
+  const plankRemaining = document.getElementById('plank-remaining');
+  
+  if (plankProgress) plankProgress.style.width = `${plankPercentage}%`;
+  if (plankCurrentEl) plankCurrentEl.textContent = `${plankCurrent} min`;
+  if (plankPercentageEl) plankPercentageEl.textContent = `${plankPercentage}% Complete`;
+  if (plankRemaining) plankRemaining.textContent = `${30 - daysPassed} days remaining - Stay strong! Top performers get a feature in our newsletter.`;
+  
+  // Steps Challenge (100 steps per day)
+  const stepsTotal = 3000;
+  const stepsCurrent = Math.min(daysPassed * 100, stepsTotal);
+  const stepsPercentage = Math.round((stepsCurrent / stepsTotal) * 100);
+  
+  const stepsProgress = document.getElementById('steps-progress');
+  const stepsCurrentEl = document.getElementById('steps-current');
+  const stepsPercentageEl = document.getElementById('steps-percentage');
+  const stepsRemaining = document.getElementById('steps-remaining');
+  
+  if (stepsProgress) stepsProgress.style.width = `${stepsPercentage}%`;
+  if (stepsCurrentEl) stepsCurrentEl.textContent = `${stepsCurrent} steps`;
+  if (stepsPercentageEl) stepsPercentageEl.textContent = `${stepsPercentage}% Complete`;
+  if (stepsRemaining) stepsRemaining.textContent = `${30 - daysPassed} days remaining - Every step counts! Prizes for the most consistent team.`;
+}
+
+// Challenge Info Modal
+function initializeChallengeInfo() {
   const challengeInfoModal = document.getElementById('challengeInfoModal');
   const closeChallengeInfo = document.getElementById('closeChallengeInfo');
   const challengeInfoTitle = document.getElementById('challengeInfoTitle');
@@ -2163,53 +2343,55 @@ an enclosed structure in which material can be heated to very high temperatures,
       }
     });
   }
+}
+
+// Weekly Digest Auto-sliding functionality
+function initializeDigestCarousel() {
+  const digestTrack = document.getElementById('digestTrack');
+  const digestCards = document.querySelectorAll('.digest-card');
   
-  // Weekly Digest Auto-sliding functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const digestTrack = document.getElementById('digestTrack');
-    const digestCards = document.querySelectorAll('.digest-card');
+  if (digestCards.length > 0 && digestTrack) {
+    let currentSlide = 0;
+    const totalSlides = digestCards.length;
+    const slideWidth = digestCards[0].offsetWidth + 24; // 24px gap
     
-    if (digestCards.length > 0 && digestTrack) {
-      let currentSlide = 0;
-      const totalSlides = digestCards.length;
-      const slideWidth = digestCards[0].offsetWidth + 24; // 24px gap
+    // Clone the first slide and append to end for seamless looping
+    const firstClone = digestCards[0].cloneNode(true);
+    digestTrack.appendChild(firstClone);
+    
+    function slideToNext() {
+      currentSlide++;
+      digestTrack.style.transition = 'transform 0.5s ease';
+      digestTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
       
-      // Clone the first slide and append to end for seamless looping
-      const firstClone = digestCards[0].cloneNode(true);
-      digestTrack.appendChild(firstClone);
-      
-      function slideToNext() {
-        currentSlide++;
-        digestTrack.style.transition = 'transform 0.5s ease';
-        digestTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-        
-        // If we're at the last slide (which is the clone), reset without animation
-        if (currentSlide === totalSlides) {
-          setTimeout(() => {
-            digestTrack.style.transition = 'none';
-            currentSlide = 0;
-            digestTrack.style.transform = `translateX(0)`;
-          }, 500);
-        }
+      // If we're at the last slide (which is the clone), reset without animation
+      if (currentSlide === totalSlides) {
+        setTimeout(() => {
+          digestTrack.style.transition = 'none';
+          currentSlide = 0;
+          digestTrack.style.transform = `translateX(0)`;
+        }, 500);
       }
-      
-      // Start auto sliding
-      let slideInterval = setInterval(slideToNext, 3000);
-      
-      // Pause on hover/touch
-      digestTrack.addEventListener('mouseenter', () => clearInterval(slideInterval));
-      digestTrack.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(slideToNext, 3000);
-      });
-      
-      digestTrack.addEventListener('touchstart', () => clearInterval(slideInterval));
-      digestTrack.addEventListener('touchend', () => {
-        slideInterval = setInterval(slideToNext, 3000);
-      });
     }
-  });
-  
-  // Newsletter/Digest Detail Pages functionality
+    
+    // Start auto sliding
+    let slideInterval = setInterval(slideToNext, 3000);
+    
+    // Pause on hover/touch
+    digestTrack.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    digestTrack.addEventListener('mouseleave', () => {
+      slideInterval = setInterval(slideToNext, 3000);
+    });
+    
+    digestTrack.addEventListener('touchstart', () => clearInterval(slideInterval));
+    digestTrack.addEventListener('touchend', () => {
+      slideInterval = setInterval(slideToNext, 3000);
+    });
+  }
+}
+
+// Newsletter/Digest Detail Pages functionality
+function initializeNewsletterDetails() {
   const newsletterCards = document.querySelectorAll('.newsletter-card, .digest-card');
   const newsletterDetails = document.querySelectorAll('.newsletter-detail');
   const closeDetailButtons = document.querySelectorAll('.newsletter-detail-close');
@@ -2251,110 +2433,160 @@ an enclosed structure in which material can be heated to very high temperatures,
       }
     });
   });
+}
+
+// Challenges carousel functionality
+function initializeChallengesCarousel() {
+  const carousel = document.getElementById('challenge-carousel');
+  const slides = document.getElementById('challenge-slides');
+  const cards = slides ? slides.querySelectorAll('.event-card') : [];
   
-  // Challenges carousel functionality
-  (function() {
-    const carousel = document.getElementById('challenge-carousel');
-    const slides = document.getElementById('challenge-slides');
-    const cards = slides ? slides.querySelectorAll('.event-card') : [];
-    
-    if (cards.length > 0 && carousel && slides) {
-      let current = 0;
-      let interval = null;
+  if (cards.length > 0 && carousel && slides) {
+    let current = 0;
+    let interval = null;
 
-      function showSlide(idx) {
-        const cardWidth = cards[0].offsetWidth + 20; // 20px gap
-        slides.scrollTo({
-          left: cardWidth * idx,
-          behavior: 'smooth'
-        });
-      }
-
-      function nextSlide() {
-        current = (current + 1) % cards.length;
-        showSlide(current);
-      }
-
-      // Start auto sliding
-      function startAutoSlide() {
-        interval = setInterval(nextSlide, 4000);
-      }
-
-      // Pause on hover/touch
-      carousel.addEventListener('mouseenter', () => clearInterval(interval));
-      carousel.addEventListener('mouseleave', startAutoSlide);
-      carousel.addEventListener('touchstart', () => clearInterval(interval));
-      carousel.addEventListener('touchend', startAutoSlide);
-
-      // Responsive: reset scroll on resize
-      window.addEventListener('resize', () => showSlide(current));
-
-      // Initialize
-      startAutoSlide();
-      showSlide(0);
+    function showSlide(idx) {
+      const cardWidth = cards[0].offsetWidth + 20; // 20px gap
+      slides.scrollTo({
+        left: cardWidth * idx,
+        behavior: 'smooth'
+      });
     }
-  })();
 
-  // Testimonials Carousel Functionality
-  (function() {
-    const testimonialsTrack = document.getElementById('testimonialsTrack');
-    const testimonialSlides = testimonialsTrack ? testimonialsTrack.querySelectorAll('.testimonial-slide') : [];
-    const testimonialIndicators = document.getElementById('testimonialIndicators');
+    function nextSlide() {
+      current = (current + 1) % cards.length;
+      showSlide(current);
+    }
+
+    // Start auto sliding
+    function startAutoSlide() {
+      interval = setInterval(nextSlide, 4000);
+    }
+
+    // Pause on hover/touch
+    carousel.addEventListener('mouseenter', () => clearInterval(interval));
+    carousel.addEventListener('mouseleave', startAutoSlide);
+    carousel.addEventListener('touchstart', () => clearInterval(interval));
+    carousel.addEventListener('touchend', startAutoSlide);
+
+    // Responsive: reset scroll on resize
+    window.addEventListener('resize', () => showSlide(current));
+
+    // Initialize
+    startAutoSlide();
+    showSlide(0);
+  }
+}
+
+// Testimonials Carousel Functionality
+function initializeTestimonialsCarousel() {
+  const testimonialsTrack = document.getElementById('testimonialsTrack');
+  const testimonialSlides = testimonialsTrack ? testimonialsTrack.querySelectorAll('.testimonial-slide') : [];
+  const testimonialIndicators = document.getElementById('testimonialIndicators');
+  
+  if (testimonialSlides.length > 0 && testimonialsTrack && testimonialIndicators) {
+    let currentTestimonial = 0;
+    let testimonialInterval = null;
     
-    if (testimonialSlides.length > 0 && testimonialsTrack && testimonialIndicators) {
-      let currentTestimonial = 0;
-      let testimonialInterval = null;
+    // Create indicators
+    testimonialSlides.forEach((_, index) => {
+      const indicator = document.createElement('div');
+      indicator.classList.add('testimonial-indicator');
+      if (index === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        goToTestimonial(index);
+      });
+      testimonialIndicators.appendChild(indicator);
+    });
+    
+    function goToTestimonial(index) {
+      currentTestimonial = index;
+      testimonialsTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
       
-      // Create indicators
-      testimonialSlides.forEach((_, index) => {
-        const indicator = document.createElement('div');
-        indicator.classList.add('testimonial-indicator');
-        if (index === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => {
-          goToTestimonial(index);
-        });
-        testimonialIndicators.appendChild(indicator);
+      // Update active indicator
+      document.querySelectorAll('.testimonial-indicator').forEach((indicator, i) => {
+        if (i === currentTestimonial) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
       });
       
-      function goToTestimonial(index) {
-        currentTestimonial = index;
-        testimonialsTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
-        
-        // Update active indicator
-        document.querySelectorAll('.testimonial-indicator').forEach((indicator, i) => {
-          if (i === currentTestimonial) {
-            indicator.classList.add('active');
-          } else {
-            indicator.classList.remove('active');
-          }
-        });
-        
-        // Reset auto-slide timer
-        resetTestimonialInterval();
-      }
-      
-      function nextTestimonial() {
-        currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
-        goToTestimonial(currentTestimonial);
-      }
-      
-      function startTestimonialInterval() {
-        testimonialInterval = setInterval(nextTestimonial, 5000);
-      }
-      
-      function resetTestimonialInterval() {
-        clearInterval(testimonialInterval);
-        startTestimonialInterval();
-      }
-      
-      // Pause on hover
-      testimonialsTrack.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
-      testimonialsTrack.addEventListener('mouseleave', startTestimonialInterval);
-      
-      // Initialize
+      // Reset auto-slide timer
+      resetTestimonialInterval();
+    }
+    
+    function nextTestimonial() {
+      currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+      goToTestimonial(currentTestimonial);
+    }
+    
+    function startTestimonialInterval() {
+      testimonialInterval = setInterval(nextTestimonial, 5000);
+    }
+    
+    function resetTestimonialInterval() {
+      clearInterval(testimonialInterval);
       startTestimonialInterval();
     }
-  })();
+    
+    // Pause on hover
+    testimonialsTrack.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
+    testimonialsTrack.addEventListener('mouseleave', startTestimonialInterval);
+    
+    // Initialize
+    startTestimonialInterval();
+  }
+}
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('theme')) {
+    const newTheme = e.matches ? 'dark' : 'light';
+    htmlElement.setAttribute('data-theme', newTheme);
+    updateThemeIcon(newTheme);
+  }
+});
+
+// Main initialization function
+function initializeApp() {
+  console.log('Initializing WorkFit App...');
+  
+  // Initialize PWA functionality first
+  initializePWA();
+  
+  // Register Service Worker
+  registerServiceWorker();
+  
+  // Initialize all other components
+  initializeTheme();
+  initializeMobileMenu();
+  initializeSmoothScrolling();
+  initializeGoogleForms();
+  initializeChallengeInfo();
+  initializeDigestCarousel();
+  initializeNewsletterDetails();
+  initializeChallengesCarousel();
+  initializeTestimonialsCarousel();
+  
+  // Initialize challenge progress
+  updateChallengeProgress();
+  
+  console.log('WorkFit App initialized successfully');
+}
+
+// Start the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+// Additional safety check for PWA state
+window.addEventListener('load', function() {
+  // Final check for PWA installation status
+  setTimeout(() => {
+    if (isPWAInstalled()) {
+      hideInstallSection();
+    }
+  }, 1000);
+});
 </script>
 </body>
 </html>
