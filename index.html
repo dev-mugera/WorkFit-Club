@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>WorkFit - Team Fitness</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
   
   <!-- PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,10 +14,10 @@
   <meta name="theme-color" content="#001f3f">
   
   <!-- Manifest -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="./manifest.json">
   
   <!-- iOS Icons -->
-  <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+  <link rel="apple-touch-icon" href="./icons/icon-152x152.png">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -1560,17 +1560,46 @@ an enclosed structure in which material can be heated to very high temperatures,
       else if (document.msExitFullscreen) document.msExitFullscreen();
     }
 
-    // Service Worker Registration
+    // Service Worker Registration with multiple fallbacks
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(registration => {
-            console.log('SW registered: ', registration);
-          })
-          .catch(registrationError => {
-            console.log('SW registration failed: ', registrationError);
-          });
+      window.addEventListener('load', function() {
+        // Try multiple paths for GitHub Pages compatibility
+        const swPaths = [
+          './sw.js',
+          '/WorkFit-Club/sw.js',
+          'sw.js'
+        ];
+        
+        const registerSW = async (path) => {
+          try {
+            const registration = await navigator.serviceWorker.register(path, {
+              scope: './'
+            });
+            console.log('Service Worker registered successfully:', registration);
+            return true;
+          } catch (error) {
+            console.log(`Service Worker registration failed for ${path}:`, error);
+            return false;
+          }
+        };
+
+        // Try each path until one works
+        const tryRegister = async (index = 0) => {
+          if (index >= swPaths.length) {
+            console.log('All Service Worker registration attempts failed');
+            return;
+          }
+          
+          const success = await registerSW(swPaths[index]);
+          if (!success) {
+            tryRegister(index + 1);
+          }
+        };
+
+        tryRegister();
       });
+    } else {
+      console.log('Service workers are not supported in this browser');
     }
 
     // Theme Management

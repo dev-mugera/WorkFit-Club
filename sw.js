@@ -1,51 +1,92 @@
-const CACHE_NAME = 'workfit-v1.2';
+// Service Worker for WorkFit PWA
+const CACHE_NAME = 'workfit-v1.4';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png'
+  './',
+  './index.html',
+  './manifest.json',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
-self.addEventListener('install', event => {
+// Install event - cache essential files
+self.addEventListener('install', function(event) {
+  console.log('Service Worker: Installing');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
+      .then(function(cache) {
+        console.log('Service Worker: Caching files');
         return cache.addAll(urlsToCache);
       })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return cached version or fetch from network
-        if (response) {
-          return response;
-        }
-        
-        return fetch(event.request).catch(() => {
-          // If both cache and network fail, serve the offline page
-          if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
-          }
-        });
+      .then(function() {
+        console.log('Service Worker: Installed');
+        return self.skipWaiting();
+      })
+      .catch(function(error) {
+        console.log('Service Worker: Installation failed', error);
       })
   );
 });
 
-self.addEventListener('activate', event => {
+// Activate event - clean up old caches
+self.addEventListener('activate', function(event) {
+  console.log('Service Worker: Activating');
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then(function(cacheNames) {
       return Promise.all(
-        cacheNames.map(cacheName => {
+        cacheNames.map(function(cacheName) {
           if (cacheName !== CACHE_NAME) {
+            console.log('Service Worker: Deleting old cache', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(function() {
+      console.log('Service Worker: Activated');
+      return self.clients.claim();
     })
+  );
+});
+
+// Fetch event - serve cached content when available
+self.addEventListener('fetch', function(event) {
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        // Return cached version
+        if (response) {
+          return response;
+        }
+
+        // Clone the request
+        const fetchRequest = event.request.clone();
+
+        // Make network request
+        return fetch(fetchRequest)
+          .then(function(response) {
+            // Check if valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // Clone the response
+            const responseToCache = response.clone();
+
+            // Cache the new response
+            caches.open(CACHE_NAME)
+              .then(function(cache) {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
+          })
+          .catch(function() {
+            // If network fails and we're navigating to a page, return the homepage
+            if (event.request.mode === 'navigate') {
+              return caches.match('./index.html');
+            }
+          });
+      })
   );
 });
