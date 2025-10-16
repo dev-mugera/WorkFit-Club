@@ -46,6 +46,11 @@
     .install-btn:hover {
       transform: scale(1.05);
     }
+    .install-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
     .steps {
       text-align: left;
       margin: 2rem 0;
@@ -56,6 +61,22 @@
       background: #f5f5f5;
       border-radius: 8px;
     }
+    .status-message {
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +84,10 @@
     <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
     <h1>Install WorkFit App</h1>
     <p>Get the full fitness experience on your device</p>
+    
+    <div id="statusMessage" class="status-message info" style="display: none;">
+      Ready to install WorkFit on your device
+    </div>
     
     <button class="install-btn" id="installButton">
       <i class="fas fa-download"></i> Install WorkFit
@@ -80,48 +105,98 @@
       </div>
     </div>
     
-    <p><a href="index.html" style="color: #001f3f;">← Back to Website</a></p>
+    <p><a href="index.html" style="color: #001f3f; text-decoration: none; font-weight: bold;">← Back to Website</a></p>
   </div>
 
   <script>
-    // Same installation logic as main page
     let deferredPrompt;
     const installButton = document.getElementById('installButton');
+    const statusMessage = document.getElementById('statusMessage');
+
+    // Show status message
+    statusMessage.style.display = 'block';
 
     window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('Install prompt available');
       e.preventDefault();
       deferredPrompt = e;
       installButton.style.display = 'block';
+      statusMessage.textContent = 'Ready to install WorkFit on your device';
+      statusMessage.className = 'status-message info';
     });
 
     installButton.addEventListener('click', async () => {
       if (!deferredPrompt) {
-        window.location.href = 'index.html';
+        statusMessage.textContent = 'Redirecting to main app...';
+        statusMessage.className = 'status-message info';
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
         return;
       }
 
+      console.log('Showing installation prompt');
+      statusMessage.textContent = 'Showing installation dialog...';
+      
       deferredPrompt.prompt();
+      
       const { outcome } = await deferredPrompt.userChoice;
+      console.log('User choice:', outcome);
       
       if (outcome === 'accepted') {
+        statusMessage.textContent = '✓ WorkFit installed successfully! Redirecting...';
+        statusMessage.className = 'status-message success';
         installButton.innerHTML = '<i class="fas fa-check"></i> Installed!';
         installButton.disabled = true;
+        
+        // Wait a moment to show success message, then redirect
         setTimeout(() => {
           window.location.href = 'index.html';
         }, 2000);
       } else {
-        window.location.href = 'index.html';
+        statusMessage.textContent = 'Installation cancelled. Redirecting...';
+        statusMessage.className = 'status-message info';
+        
+        // Redirect after short delay
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
       }
       
       deferredPrompt = null;
     });
 
-    // If no prompt available after 3 seconds, redirect to main site
-    setTimeout(() => {
-      if (!deferredPrompt) {
+    // Check if PWA is already installed
+    function isPWAInstalled() {
+      return window.matchMedia('(display-mode: standalone)').matches || 
+             window.navigator.standalone === true;
+    }
+
+    // If already installed, redirect immediately
+    if (isPWAInstalled()) {
+      statusMessage.textContent = 'WorkFit is already installed. Redirecting...';
+      statusMessage.className = 'status-message success';
+      setTimeout(() => {
         window.location.href = 'index.html';
-      }
-    }, 3000);
+      }, 1000);
+    }
+
+    // If no install prompt available after page load, just stay on this page
+    // The user can still click the install button or back link manually
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (!deferredPrompt) {
+          statusMessage.textContent = 'Click "Install WorkFit" to add to your device or use "Back to Website" to continue browsing';
+          statusMessage.className = 'status-message info';
+        }
+      }, 1000);
+    });
+
+    // Add Font Awesome for icons
+    const faLink = document.createElement('link');
+    faLink.rel = 'stylesheet';
+    faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(faLink);
   </script>
 </body>
 </html>
