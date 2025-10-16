@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Workout Tutorials - WorkFit</title>
+  <title>WorkFit Media - Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -27,7 +27,6 @@
       --error: #f44336;
     }
 
-    /* Dark mode variables */
     [data-theme="dark"] {
       --navy: #0a2e57;
       --navy-light: #1a3e67;
@@ -62,7 +61,7 @@
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
       transition: background-color 0.3s ease, color 0.3s ease;
-      padding-bottom: 2rem;
+      padding-bottom: 4rem;
     }
 
     /* Navigation */
@@ -108,23 +107,6 @@
       color: var(--gold);
     }
 
-    .back-btn {
-      background: var(--navy);
-      color: var(--white);
-      padding: 0.6rem 1.2rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.3s;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    .back-btn:hover {
-      background: var(--navy-light);
-    }
-
     .mobile-menu-btn {
       display: none;
       background: none;
@@ -160,13 +142,36 @@
       fill: var(--text-primary);
     }
 
-    /* Sections */
-    section {
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
       padding: 2rem 1rem;
-      max-width: 1200px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      opacity: 0.9;
+      max-width: 600px;
       margin: 0 auto;
     }
 
+    /* Media Container */
+    .media-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+
+    /* Section Styles */
     .section-title {
       text-align: left;
       margin-bottom: 1.5rem;
@@ -175,59 +180,35 @@
       font-size: 1.5rem;
       padding-left: 10px;
       border-left: 4px solid var(--gold);
-    }
-
-    /* Workout Tutorials Section */
-    .workout-tutorials {
-      background-color: var(--bg-primary);
-      padding: 2rem 1rem;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
-
-    /* Tutorials Filter */
-    .tutorials-filter {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 2rem;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .filter-btn {
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      color: var(--text-primary);
-      padding: 0.6rem 1.2rem;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
+    .view-all {
+      color: var(--navy);
+      text-decoration: none;
       font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--navy);
-      color: var(--white);
-      border-color: var(--navy);
+    .view-all:hover {
+      color: var(--gold);
     }
 
-    /* Tutorials Grid */
-    .tutorials-grid {
+    /* Cards Grid */
+    .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      margin-bottom: 3rem;
     }
 
-    .tutorial-card {
+    /* Video Cards */
+    .video-card {
       background: var(--card-bg);
       border-radius: 12px;
       overflow: hidden;
@@ -236,13 +217,12 @@
       cursor: pointer;
     }
 
-    .tutorial-card:hover {
+    .video-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px var(--shadow-color);
     }
 
-    /* Video Container */
-    .tutorial-video-container {
+    .video-container {
       position: relative;
       height: 200px;
       overflow: hidden;
@@ -292,12 +272,11 @@
       transform: translate(-50%, -50%) scale(1.1);
     }
 
-    /* Tutorial Content */
-    .tutorial-content {
+    .video-content {
       padding: 1.5rem;
     }
 
-    .tutorial-category {
+    .video-category {
       display: inline-block;
       background: var(--gold);
       color: var(--navy);
@@ -308,52 +287,140 @@
       margin-bottom: 0.8rem;
     }
 
-    .tutorial-title {
+    .video-title {
       font-size: 1.2rem;
       color: var(--navy);
       margin-bottom: 0.8rem;
       line-height: 1.4;
     }
 
-    .tutorial-description {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .tutorial-meta {
+    .video-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .difficulty {
-      padding: 0.3rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .difficulty.beginner {
-      background: rgba(76, 175, 80, 0.2);
-      color: #4CAF50;
-    }
-
-    .difficulty.intermediate {
-      background: rgba(255, 152, 0, 0.2);
-      color: #FF9800;
-    }
-
-    .difficulty.advanced {
-      background: rgba(244, 67, 54, 0.2);
-      color: #F44336;
     }
 
     .duration {
       color: var(--gray);
       font-size: 0.8rem;
       font-weight: 600;
+    }
+
+    /* Blog Cards */
+    .blog-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .blog-image {
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-card:hover .blog-image img {
+      transform: scale(1.05);
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-category {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .blog-title {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .blog-excerpt {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* Gallery Preview */
+    .gallery-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 31, 63, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay i {
+      color: white;
+      font-size: 1.5rem;
     }
 
     /* Video Modal */
@@ -406,14 +473,14 @@
       background: var(--accent);
     }
 
-    .video-container {
+    .modal-video-container {
       position: relative;
       width: 100%;
       height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%;
     }
 
-    .video-container iframe {
+    .modal-video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -422,73 +489,8 @@
       border: none;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .tutorials-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      
-      .tutorials-filter {
-        gap: 0.5rem;
-      }
-      
-      .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
-      }
-      
-      .tutorial-video-container {
-        height: 180px;
-      }
-      
-      .video-modal-content {
-        margin: 1rem;
-      }
-
-      .nav-links {
-        display: none;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: var(--navy);
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 4px 6px var(--shadow-color);
-        z-index: 99;
-        gap: 0;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .nav-links a {
-        padding: 1rem;
-        border-bottom: 1px solid var(--border-color);
-        width: 100%;
-        color: var(--white);
-      }
-
-      .mobile-menu-btn {
-        display: block;
-      }
-
-      section {
-        padding: 1.5rem 0.8rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .tutorial-content {
-        padding: 1rem;
-      }
-      
-      .tutorial-title {
-        font-size: 1.1rem;
-      }
-       .bottom-nav {
+    /* Bottom Navigation */
+    .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -526,6 +528,46 @@
     .bottom-nav-label {
       font-weight: 500;
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--navy);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        z-index: 99;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        color: var(--white);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .gallery-preview {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -537,8 +579,11 @@
         <i class="fas fa-bars"></i>
       </button>
       <div class="nav-links" id="navLinks">
-          <i class="fas fa-arrow-left"></i>
-        </a>
+        <a href="index.html" class="active">Home</a>
+        <a href="videos.html">Videos</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -548,186 +593,172 @@
       </div>
     </nav>
   </header>
-  <nav class="bottom-nav">
-    <a href="home-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-home bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Home</span>
-    </a>
-    <a href="Announcements-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-bullhorn bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Updates</span>
-    </a>
-    <a href="tracker-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-chart-line bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Tracker</span>
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <i class="fas fa-user bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Account</span>
-    </a>
-  </nav>
 
-  <section class="workout-tutorials" id="tutorials">
-    <h2 class="section-title">Workout Tutorials</h2>
-    <p class="section-subtitle">Learn proper form and technique for all exercises. Click any video to play.</p>
-    
-    <div class="tutorials-filter">
-      <button class="filter-btn active" data-filter="all">All Tutorials</button>
-      <button class="filter-btn" data-filter="strength">Strength</button>
-      <button class="filter-btn" data-filter="cardio">Cardio</button>
-      <button class="filter-btn" data-filter="flexibility">Flexibility</button>
-      <button class="filter-btn" data-filter="warmup">Warm-up</button>
-    </div>
-
-    <div class="tutorials-grid">
-      <!-- Mountain Climbers Tutorial -->
-      <div class="tutorial-card" data-category="strength">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="cnyTQDSE884">
-            <img src="https://img.youtube.com/vi/cnyTQDSE884/maxresdefault.jpg" alt="Mountain Climbers Tutorial" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Strength</span>
-          <h3 class="tutorial-title">Mountain Climbers - Proper Form</h3>
-          <p class="tutorial-description">Learn the correct technique for mountain climbers to maximize core engagement and avoid injury.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty beginner">Beginner</span>
-            <span class="duration">1 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Plank Tutorial -->
-      <div class="tutorial-card" data-category="strength">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="u6ZelKyUM6g">
-            <img src="https://img.youtube.com/vi/u6ZelKyUM6g/maxresdefault.jpg" alt="Plank Tutorial" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Strength</span>
-          <h3 class="tutorial-title">Perfect Plank Form</h3>
-          <p class="tutorial-description">Master the plank with proper alignment and breathing techniques for maximum core strength.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty beginner">Beginner</span>
-            <span class="duration">1 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Warm-up Routine -->
-      <div class="tutorial-card" data-category="warmup">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="Mle8sVQ0NOI">
-            <img src="https://img.youtube.com/vi/Mle8sVQ0NOI/maxresdefault.jpg" alt="Warm-up Routine" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Warm-up</span>
-          <h3 class="tutorial-title">5-Minute Dynamic Warm-up</h3>
-          <p class="tutorial-description">Essential warm-up routine to prepare your body for any workout and prevent injuries.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty beginner">Beginner</span>
-            <span class="duration">6 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Squat Tutorial -->
-      <div class="tutorial-card" data-category="strength">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="9OfycnUL0h8">
-            <img src="https://img.youtube.com/vi/9OfycnUL0h8/maxresdefault.jpg" alt="Squat Tutorial" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Strength</span>
-          <h3 class="tutorial-title">Perfect Squat Form</h3>
-          <p class="tutorial-description">Learn proper squat technique to build leg strength and protect your knees and back.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty intermediate">Intermediate</span>
-            <span class="duration">1 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stretching Routine -->
-      <div class="tutorial-card" data-category="flexibility">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="4pKly2JojMw">
-            <img src="https://img.youtube.com/vi/4pKly2JojMw/maxresdefault.jpg" alt="Stretching Routine" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Flexibility</span>
-          <h3 class="tutorial-title">Full Body Stretching</h3>
-          <p class="tutorial-description">Complete stretching routine to improve flexibility and aid muscle recovery.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty beginner">Beginner</span>
-            <span class="duration">10 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Running Form -->
-      <div class="tutorial-card" data-category="cardio">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="3VPKhhF3uoA">
-            <img src="https://img.youtube.com/vi/3VPKhhF3uoA/maxresdefault.jpg" alt="Running Form" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Cardio</span>
-          <h3 class="tutorial-title">Proper Running Form</h3>
-          <p class="tutorial-description">Improve your running efficiency and reduce injury risk with proper running technique.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty intermediate">Intermediate</span>
-            <span class="duration">8 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Push-up Tutorial -->
-      <div class="tutorial-card" data-category="strength">
-        <div class="tutorial-video-container">
-          <div class="video-placeholder" data-video-id="IODxDxX7oi4">
-            <img src="https://img.youtube.com/vi/IODxDxX7oi4/maxresdefault.jpg" alt="Push-up Tutorial" class="video-thumbnail">
-            <div class="play-button">
-              <i class="fas fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="tutorial-content">
-          <span class="tutorial-category">Strength</span>
-          <h3 class="tutorial-title">Perfect Push-up Form</h3>
-          <p class="tutorial-description">Master the push-up with proper chest, shoulder, and core engagement techniques.</p>
-          <div class="tutorial-meta">
-            <span class="difficulty beginner">Beginner</span>
-            <span class="duration">3 min</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Page Header -->
+  <section class="page-header">
+    <h1>WorkFit Media Hub</h1>
+    <p>Your central destination for fitness videos, educational blogs, and inspiring gallery content</p>
   </section>
+
+  <!-- Main Content -->
+  <div class="media-container">
+    <!-- Latest Videos Section -->
+    <section>
+      <h2 class="section-title">
+        Latest Videos
+        <a href="videos.html" class="view-all">
+          View All <i class="fas fa-arrow-right"></i>
+        </a>
+      </h2>
+      <div class="cards-grid">
+        <div class="video-card">
+          <div class="video-container">
+            <div class="video-placeholder" data-video-id="cnyTQDSE884">
+              <img src="https://img.youtube.com/vi/cnyTQDSE884/maxresdefault.jpg" alt="Mountain Climbers Tutorial" class="video-thumbnail">
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
+          </div>
+          <div class="video-content">
+            <span class="video-category">Strength</span>
+            <h3 class="video-title">Mountain Climbers - Proper Form</h3>
+            <div class="video-meta">
+              <span class="duration">1 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-container">
+            <div class="video-placeholder" data-video-id="u6ZelKyUM6g">
+              <img src="https://img.youtube.com/vi/u6ZelKyUM6g/maxresdefault.jpg" alt="Plank Tutorial" class="video-thumbnail">
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
+          </div>
+          <div class="video-content">
+            <span class="video-category">Strength</span>
+            <h3 class="video-title">Perfect Plank Form</h3>
+            <div class="video-meta">
+              <span class="duration">1 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-container">
+            <div class="video-placeholder" data-video-id="Mle8sVQ0NOI">
+              <img src="https://img.youtube.com/vi/Mle8sVQ0NOI/maxresdefault.jpg" alt="Warm-up Routine" class="video-thumbnail">
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
+          </div>
+          <div class="video-content">
+            <span class="video-category">Warm-up</span>
+            <h3 class="video-title">5-Minute Dynamic Warm-up</h3>
+            <div class="video-meta">
+              <span class="duration">6 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Blogs Section -->
+    <section>
+      <h2 class="section-title">
+        Latest Blogs
+        <a href="blogs.html" class="view-all">
+          View All <i class="fas fa-arrow-right"></i>
+        </a>
+      </h2>
+      <div class="cards-grid">
+        <div class="blog-card">
+          <div class="blog-image">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Nutrition Guide">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Nutrition</span>
+            <h3 class="blog-title">Fueling Your Fitness Journey</h3>
+            <p class="blog-excerpt">Discover the essential nutrients your body needs to maximize workout performance and recovery...</p>
+            <div class="blog-meta">
+              <span>Oct 15, 2025</span>
+              <a href="#" class="read-more">Read More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-image">
+            <img src="https://images.unsplash.com/photo-1593811167562-9cef47bf5e6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Mental Health">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Wellness</span>
+            <h3 class="blog-title">The Mind-Body Connection</h3>
+            <p class="blog-excerpt">How mental health impacts physical performance and strategies to maintain balance...</p>
+            <div class="blog-meta">
+              <span>Oct 12, 2025</span>
+              <a href="#" class="read-more">Read More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-image">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Workout Planning">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Training</span>
+            <h3 class="blog-title">Creating Your Perfect Workout Plan</h3>
+            <p class="blog-excerpt">Step-by-step guide to designing a workout routine that fits your goals and lifestyle...</p>
+            <div class="blog-meta">
+              <span>Oct 8, 2025</span>
+              <a href="#" class="read-more">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Preview Section -->
+    <section>
+      <h2 class="section-title">
+        Gallery
+        <a href="gallery.html" class="view-all">
+          View All <i class="fas fa-arrow-right"></i>
+        </a>
+      </h2>
+      <div class="gallery-preview">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team Workout">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Fitness Event">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Group Exercise">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Training Session">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- Video Modal -->
   <div class="video-modal" id="videoModal">
@@ -735,11 +766,31 @@
       <button class="video-modal-close" id="videoModalClose">
         <i class="fas fa-times"></i>
       </button>
-      <div class="video-container" id="videoContainer">
+      <div class="modal-video-container" id="modalVideoContainer">
         <!-- YouTube iframe will be inserted here -->
       </div>
     </div>
   </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item active">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="videos.html" class="bottom-nav-item">
+      <i class="fas fa-play-circle bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Videos</span>
+    </a>
+    <a href="blogs.html" class="bottom-nav-item">
+      <i class="fas fa-newspaper bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Blogs</span>
+    </a>
+    <a href="gallery.html" class="bottom-nav-item">
+      <i class="fas fa-images bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Gallery</span>
+    </a>
+  </nav>
 
   <script>
     // Theme Management
@@ -774,13 +825,12 @@
       if (theme === 'dark') {
         themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
       } else {
-        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>';
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
       }
     }
     
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      // Only apply system theme if user hasn't set a preference
       if (!localStorage.getItem('theme')) {
         const newTheme = e.matches ? 'dark' : 'light';
         htmlElement.setAttribute('data-theme', newTheme);
@@ -796,7 +846,6 @@
       e.stopPropagation();
       navLinks.classList.toggle('active');
       
-      // Change icon based on menu state
       const icon = menuBtn.querySelector('i');
       if (navLinks.classList.contains('active')) {
         icon.classList.remove('fa-bars');
@@ -822,12 +871,10 @@
       e.stopPropagation();
     });
 
-    // Workout Tutorials Functionality
+    // Video Playback Functionality
     const videoModal = document.getElementById('videoModal');
     const videoModalClose = document.getElementById('videoModalClose');
-    const videoContainer = document.getElementById('videoContainer');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const tutorialCards = document.querySelectorAll('.tutorial-card');
+    const modalVideoContainer = document.getElementById('modalVideoContainer');
 
     // Video playback functionality
     document.querySelectorAll('.video-placeholder').forEach(placeholder => {
@@ -838,7 +885,7 @@
     });
 
     function playVideo(videoId) {
-      videoContainer.innerHTML = `
+      modalVideoContainer.innerHTML = `
         <iframe 
           src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -852,7 +899,7 @@
     // Close video modal
     videoModalClose.addEventListener('click', () => {
       videoModal.classList.remove('active');
-      videoContainer.innerHTML = '';
+      modalVideoContainer.innerHTML = '';
       document.body.style.overflow = 'auto';
     });
 
@@ -860,43 +907,23 @@
     videoModal.addEventListener('click', (e) => {
       if (e.target === videoModal) {
         videoModal.classList.remove('active');
-        videoContainer.innerHTML = '';
+        modalVideoContainer.innerHTML = '';
         document.body.style.overflow = 'auto';
       }
-    });
-
-    // Filter functionality
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        const filter = btn.dataset.filter;
-        
-        tutorialCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
     });
 
     // Close video with Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && videoModal.classList.contains('active')) {
         videoModal.classList.remove('active');
-        videoContainer.innerHTML = '';
+        modalVideoContainer.innerHTML = '';
         document.body.style.overflow = 'auto';
       }
     });
 
     // Add loading animation for images
     document.addEventListener('DOMContentLoaded', () => {
-      const images = document.querySelectorAll('.video-thumbnail');
+      const images = document.querySelectorAll('.video-thumbnail, .blog-image img, .gallery-item img');
       images.forEach(img => {
         img.addEventListener('load', () => {
           img.style.opacity = '1';
