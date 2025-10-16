@@ -98,21 +98,157 @@
       display: none;
     }
 
-    /* Fullscreen Button */
-    .fullscreen-btn {
-      position: fixed;
-      top: 10px;
-      left: 10px;
+    /* Installation Section */
+    .pwa-install-section {
+      background: var(--navy);
+      color: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin: 0;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .pwa-install-section h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .pwa-install-section p {
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .install-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .pwa-direct-install {
       background: var(--gold);
       color: var(--navy);
       border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: bold;
       cursor: pointer;
-      z-index: 1001;
-      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
+    .pwa-direct-install:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    .show-install-guide {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .show-install-guide:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Installation Guide Modal */
+    .install-guide-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .install-guide-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .close-guide {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--navy);
+      padding: 0.2rem;
+    }
+
+    .install-guide-content h3 {
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.4rem;
+    }
+
+    .install-steps {
+      text-align: left;
+    }
+
+    .step {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .step h4 {
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .step p {
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .close-guide-btn {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .close-guide-btn:hover {
+      background: var(--navy-light);
+    }
+
+    /* Rest of your existing CSS remains the same */
     /* Navigation */
     header {
       background-color: var(--bg-primary);
@@ -967,6 +1103,18 @@
       .event-card {
         min-width: 85vw;
       }
+
+      .install-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .pwa-direct-install,
+      .show-install-guide {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+      }
     }
 
     @media (max-width: 1024px) {
@@ -1070,7 +1218,7 @@
     <i class="fas fa-download"></i> Install App
   </button>
 
-  <header>
+   <header>
     <nav>
       <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
       <button class="mobile-menu-btn" id="menuBtn">
@@ -1090,47 +1238,48 @@
         </button>
       </div>
     </nav>
+    
     <!-- Direct PWA Installation Section -->
-    <section class="pwa-install-section" style="background: var(--navy); color: white; padding: 1rem; text-align: center; margin: 1rem 0; border-radius: 8px;">
+    <section class="pwa-install-section">
       <h3>Install WorkFit App</h3>
       <p>Get the full app experience on your device</p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+      <div class="install-buttons">
         <!-- Direct install for supported browsers -->
-        <button class="pwa-direct-install" style="background: var(--gold); color: var(--navy); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+        <button class="pwa-direct-install" id="pwaDirectInstall">
           <i class="fas fa-download"></i> Install App Now
         </button>
         
         <!-- Manual install instructions -->
-        <button class="show-install-guide" style="background: transparent; color: white; border: 2px solid white; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+        <button class="show-install-guide" id="showInstallGuide">
           <i class="fas fa-info-circle"></i> How to Install
         </button>
       </div>
     </section>
 
     <!-- Installation Guide Modal -->
-    <div class="install-guide-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center;">
-      <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; margin: 1rem;">
-        <button class="close-guide" style="float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
-        <h3 style="color: var(--navy); margin-bottom: 1rem;">How to Install WorkFit</h3>
+    <div class="install-guide-modal" id="installGuideModal">
+      <div class="install-guide-content">
+        <button class="close-guide" id="closeGuide">&times;</button>
+        <h3>How to Install WorkFit</h3>
         
         <div class="install-steps">
-          <div class="step" style="margin-bottom: 1rem;">
-            <h4 style="color: var(--navy);">📱 Mobile (Chrome/Edge)</h4>
+          <div class="step">
+            <h4>📱 Mobile (Chrome/Edge)</h4>
             <p>1. Tap the menu (⋮) → "Add to Home screen"</p>
           </div>
           
-          <div class="step" style="margin-bottom: 1rem;">
-            <h4 style="color: var(--navy);">📱 Mobile (Safari)</h4>
+          <div class="step">
+            <h4>📱 Mobile (Safari)</h4>
             <p>1. Tap the share icon (□ with ↑) → "Add to Home Screen"</p>
           </div>
           
-          <div class="step" style="margin-bottom: 1rem;">
-            <h4 style="color: var(--navy);">💻 Desktop (Chrome/Edge)</h4>
+          <div class="step">
+            <h4>💻 Desktop (Chrome/Edge)</h4>
             <p>1. Click the install icon (⎙) in the address bar</p>
           </div>
         </div>
         
-        <button class="close-guide-btn" style="background: var(--navy); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 1rem;">
+        <button class="close-guide-btn" id="closeGuideBtn">
           Got it!
         </button>
       </div>
@@ -1561,121 +1710,158 @@ an enclosed structure in which material can be heated to very high temperatures,
   </nav>
 
   <script>
-      // Enhanced PWA Installation
-    let deferredPrompt;
-    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+  // Enhanced PWA Installation
+  let deferredPrompt;
+  const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+  const pwaDirectInstallBtn = document.getElementById('pwaDirectInstall');
+  const showInstallGuideBtn = document.getElementById('showInstallGuide');
+  const installGuideModal = document.getElementById('installGuideModal');
+  const closeGuideBtn = document.getElementById('closeGuideBtn');
+  const closeGuide = document.getElementById('closeGuide');
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('beforeinstallprompt event fired');
-      e.preventDefault();
-      deferredPrompt = e;
-      pwaInstallBtn.style.display = 'block';
-      
-      // Log for debugging
-      console.log('PWA install prompt available');
-    });
+  // Listen for install prompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('beforeinstallprompt event fired');
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // Show the install buttons
+    pwaInstallBtn.style.display = 'block';
+    pwaDirectInstallBtn.style.display = 'flex';
+    
+    console.log('PWA install prompt available');
+  });
 
-    pwaInstallBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) {
-        console.log('No deferred prompt available');
-        return;
-      }
+  // Handle direct install button click
+  pwaDirectInstallBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) {
+      // If no prompt available, show the guide
+      installGuideModal.style.display = 'flex';
+      return;
+    }
 
-      console.log('Showing install prompt');
-      deferredPrompt.prompt();
-      
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to the install prompt: ${outcome}`);
-      
-      if (outcome === 'accepted') {
-        pwaInstallBtn.style.display = 'none';
-        console.log('PWA installed successfully');
-      } else {
-        console.log('User dismissed the install prompt');
-      }
-      
-      deferredPrompt = null;
-    });
-
-    window.addEventListener('appinstalled', (evt) => {
-      console.log('PWA was successfully installed');
+    console.log('Showing install prompt');
+    deferredPrompt.prompt();
+    
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    
+    if (outcome === 'accepted') {
       pwaInstallBtn.style.display = 'none';
-      deferredPrompt = null;
-    });
-
-    // Fullscreen functionality
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
+      pwaDirectInstallBtn.style.display = 'none';
+      console.log('PWA installed successfully');
+    } else {
+      console.log('User dismissed the install prompt');
+    }
     
+    deferredPrompt = null;
+  });
+
+  // Handle install guide button click
+  showInstallGuideBtn.addEventListener('click', () => {
+    installGuideModal.style.display = 'flex';
+  });
+
+  // Close install guide
+  closeGuideBtn.addEventListener('click', () => {
+    installGuideModal.style.display = 'none';
+  });
+
+  closeGuide.addEventListener('click', () => {
+    installGuideModal.style.display = 'none';
+  });
+
+  // Close guide when clicking outside
+  installGuideModal.addEventListener('click', (e) => {
+    if (e.target === installGuideModal) {
+      installGuideModal.style.display = 'none';
+    }
+  });
+
+  // App installed event
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA was successfully installed');
+    pwaInstallBtn.style.display = 'none';
+    pwaDirectInstallBtn.style.display = 'none';
+    deferredPrompt = null;
+  });
+
+  // Fullscreen functionality
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  
+  if (fullscreenBtn) {
     fullscreenBtn.addEventListener('click', toggleFullscreen);
-    
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        enterFullscreen();
-      } else {
-        exitFullscreen();
-      }
+  }
+  
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      enterFullscreen();
+    } else {
+      exitFullscreen();
     }
-    
-    function enterFullscreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) elem.requestFullscreen();
-      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-    }
-    
-    function exitFullscreen() {
-      if (document.exitFullscreen) document.exitFullscreen();
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-      else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
+  }
+  
+  function enterFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) elem.requestFullscreen();
+    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+  }
+  
+  function exitFullscreen() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.msExitFullscreen) document.msExitFullscreen();
+  }
 
-    // Enhanced Service Worker Registration
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        console.log('Registering Service Worker...');
-        
-        // For GitHub Pages with repository name
-        const swUrl = 'sw.js';
-        
-        navigator.serviceWorker.register(swUrl)
-          .then(function(registration) {
-            console.log('SW registered: ', registration);
-            console.log('Scope: ', registration.scope);
-          })
-          .catch(function(registrationError) {
-            console.log('SW registration failed: ', registrationError);
-            
-            // Fallback: Try without scope
-            navigator.serviceWorker.register(swUrl, { scope: './' })
-              .then(function(registration) {
-                console.log('SW registered with fallback scope: ', registration);
-              })
-              .catch(function(fallbackError) {
-                console.log('Fallback SW registration failed: ', fallbackError);
-              });
-          });
-      });
-    }
+  // Enhanced Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      console.log('Registering Service Worker...');
+      
+      // For GitHub Pages with repository name
+      const swUrl = 'sw.js';
+      
+      navigator.serviceWorker.register(swUrl)
+        .then(function(registration) {
+          console.log('SW registered: ', registration);
+          console.log('Scope: ', registration.scope);
+        })
+        .catch(function(registrationError) {
+          console.log('SW registration failed: ', registrationError);
+          
+          // Fallback: Try without scope
+          navigator.serviceWorker.register(swUrl, { scope: './' })
+            .then(function(registration) {
+              console.log('SW registered with fallback scope: ', registration);
+            })
+            .catch(function(fallbackError) {
+              console.log('Fallback SW registration failed: ', fallbackError);
+            });
+        });
+    });
+  }
 
-    // Theme Management
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const htmlElement = document.documentElement;
-    
-    // Check for saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial theme
-    if (savedTheme) {
-      htmlElement.setAttribute('data-theme', savedTheme);
-      updateThemeIcon(savedTheme);
-    } else if (systemPrefersDark) {
-      htmlElement.setAttribute('data-theme', 'dark');
-      updateThemeIcon('dark');
-    }
-    
-    // Theme toggle functionality
+  // Theme Management
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const htmlElement = document.documentElement;
+  
+  // Check for saved theme preference or use system preference
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Set initial theme
+  if (savedTheme) {
+    htmlElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+  } else if (systemPrefersDark) {
+    htmlElement.setAttribute('data-theme', 'dark');
+    updateThemeIcon('dark');
+  }
+  
+  // Theme toggle functionality
+  if (themeToggle) {
     themeToggle.addEventListener('click', function() {
       const currentTheme = htmlElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -1684,28 +1870,32 @@ an enclosed structure in which material can be heated to very high temperatures,
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
     });
+  }
+  
+  function updateThemeIcon(theme) {
+    if (!themeIcon) return;
     
-    function updateThemeIcon(theme) {
-      if (theme === 'dark') {
-        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
-      } else {
-        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
-      }
+    if (theme === 'dark') {
+      themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+    } else {
+      themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
     }
-    
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (!localStorage.getItem('theme')) {
-        const newTheme = e.matches ? 'dark' : 'light';
-        htmlElement.setAttribute('data-theme', newTheme);
-        updateThemeIcon(newTheme);
-      }
-    });
+  }
+  
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      const newTheme = e.matches ? 'dark' : 'light';
+      htmlElement.setAttribute('data-theme', newTheme);
+      updateThemeIcon(newTheme);
+    }
+  });
 
-    // Mobile Menu Toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const navLinks = document.getElementById('navLinks');
-    
+  // Mobile Menu Toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  
+  if (menuBtn && navLinks) {
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       navLinks.classList.toggle('active');
@@ -1734,292 +1924,349 @@ an enclosed structure in which material can be heated to very high temperatures,
     navLinks.addEventListener('click', (e) => {
       e.stopPropagation();
     });
+  }
 
-    // Google Forms Management
-    const googleFormContainer = document.getElementById('googleFormContainer');
-    const closeGoogleForm = document.getElementById('closeGoogleForm');
-    const googleFormTitle = document.getElementById('googleFormTitle');
-    const googleFormFrame = document.getElementById('googleFormFrame');
-    const shareStoryBtn = document.getElementById('shareStoryBtn');
-    
-    // Show Google Form when clicking register buttons
-    document.querySelectorAll('.register-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+  // Smooth scrolling for navigation
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      if (this.getAttribute('href') !== '#') {
         e.preventDefault();
-        const eventName = btn.dataset.event;
-        googleFormTitle.textContent = `Register for ${eventName}`;
-        googleFormFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true';
-        googleFormContainer.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
+      }
+      
+      // Close mobile menu if open
+      if (navLinks && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+      
+      // Scroll to section
+      if (this.getAttribute('href') !== '#') {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      }
     });
-    
-    // Show Google Form for sharing stories
-    shareStoryBtn.addEventListener('click', (e) => {
+  });
+
+  // Google Forms Management
+  const googleFormContainer = document.getElementById('googleFormContainer');
+  const closeGoogleForm = document.getElementById('closeGoogleForm');
+  const googleFormTitle = document.getElementById('googleFormTitle');
+  const googleFormFrame = document.getElementById('googleFormFrame');
+  const shareStoryBtn = document.getElementById('shareStoryBtn');
+  
+  // Show Google Form when clicking register buttons
+  document.querySelectorAll('.register-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
-      googleFormTitle.textContent = 'Share Your Story';
-      googleFormFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSfWXK0nSlM6RziNALvcnHJoLXrfG4eQTj3npnBDjKaN8wuQvg/viewform?embedded=true';
-      googleFormContainer.style.display = 'flex';
+      const eventName = btn.dataset.event;
+      if (googleFormTitle) googleFormTitle.textContent = `Register for ${eventName}`;
+      if (googleFormFrame) googleFormFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true';
+      if (googleFormContainer) googleFormContainer.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     });
-    
-    // Close Google Form
-    closeGoogleForm.addEventListener('click', () => {
-      googleFormContainer.style.display = 'none';
-      document.body.style.overflow = 'auto';
-      googleFormFrame.src = '';
+  });
+  
+  // Show Google Form for sharing stories
+  if (shareStoryBtn) {
+    shareStoryBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (googleFormTitle) googleFormTitle.textContent = 'Share Your Story';
+      if (googleFormFrame) googleFormFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSfWXK0nSlM6RziNALvcnHJoLXrfG4eQTj3npnBDjKaN8wuQvg/viewform?embedded=true';
+      if (googleFormContainer) googleFormContainer.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     });
-    
-    // Close form when clicking outside
+  }
+  
+  // Close Google Form
+  if (closeGoogleForm) {
+    closeGoogleForm.addEventListener('click', () => {
+      if (googleFormContainer) googleFormContainer.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      if (googleFormFrame) googleFormFrame.src = '';
+    });
+  }
+  
+  // Close form when clicking outside
+  if (googleFormContainer) {
     googleFormContainer.addEventListener('click', (e) => {
       if (e.target === googleFormContainer) {
         googleFormContainer.style.display = 'none';
         document.body.style.overflow = 'auto';
-        googleFormFrame.src = '';
+        if (googleFormFrame) googleFormFrame.src = '';
       }
     });
+  }
 
-    // Challenge Progress Tracking
-    function updateChallengeProgress() {
-      // Set start date to October 1, 2025
-      const startDate = new Date('2025-10-01');
-      const today = new Date();
-      
-      // Calculate days passed in October (max 30 days)
-      const daysPassed = Math.min(Math.max(0, Math.floor((today - startDate) / (1000 * 60 * 60 * 24))), 30);
-      
-      // Mountain Climbers Challenge (100 reps per day)
-      const mountainClimbersTotal = 3000;
-      const mountainClimbersCurrent = Math.min(daysPassed * 100, mountainClimbersTotal);
-      const mountainClimbersPercentage = Math.round((mountainClimbersCurrent / mountainClimbersTotal) * 100);
-      
-      document.getElementById('mountain-climbers-progress').style.width = `${mountainClimbersPercentage}%`;
-      document.getElementById('mountain-climbers-current').textContent = `${mountainClimbersCurrent} reps`;
-      document.getElementById('mountain-climbers-percentage').textContent = `${mountainClimbersPercentage}% Complete`;
-      document.getElementById('mountain-climbers-remaining').textContent = `${30 - daysPassed} days remaining - Keep pushing!`;
-      
-      // Plank Challenge (2 minutes per day)
-      const plankTotal = 60; // minutes
-      const plankCurrent = Math.min(daysPassed * 2, plankTotal);
-      const plankPercentage = Math.round((plankCurrent / plankTotal) * 100);
-      
-      document.getElementById('plank-progress').style.width = `${plankPercentage}%`;
-      document.getElementById('plank-current').textContent = `${plankCurrent} min`;
-      document.getElementById('plank-percentage').textContent = `${plankPercentage}% Complete`;
-      document.getElementById('plank-remaining').textContent = `${30 - daysPassed} days remaining - Stay strong! Top performers get a feature in our newsletter.`;
-      
-      // Steps Challenge (100 steps per day)
-      const stepsTotal = 3000;
-      const stepsCurrent = Math.min(daysPassed * 100, stepsTotal);
-      const stepsPercentage = Math.round((stepsCurrent / stepsTotal) * 100);
-      
-      document.getElementById('steps-progress').style.width = `${stepsPercentage}%`;
-      document.getElementById('steps-current').textContent = `${stepsCurrent} steps`;
-      document.getElementById('steps-percentage').textContent = `${stepsPercentage}% Complete`;
-      document.getElementById('steps-remaining').textContent = `${30 - daysPassed} days remaining - Every step counts! Prizes for the most consistent team.`;
+  // Challenge Progress Tracking
+  function updateChallengeProgress() {
+    // Set start date to October 1, 2025
+    const startDate = new Date('2025-10-01');
+    const today = new Date();
+    
+    // Calculate days passed in October (max 30 days)
+    const daysPassed = Math.min(Math.max(0, Math.floor((today - startDate) / (1000 * 60 * 60 * 24))), 30);
+    
+    // Mountain Climbers Challenge (100 reps per day)
+    const mountainClimbersTotal = 3000;
+    const mountainClimbersCurrent = Math.min(daysPassed * 100, mountainClimbersTotal);
+    const mountainClimbersPercentage = Math.round((mountainClimbersCurrent / mountainClimbersTotal) * 100);
+    
+    const mountainClimbersProgress = document.getElementById('mountain-climbers-progress');
+    const mountainClimbersCurrentEl = document.getElementById('mountain-climbers-current');
+    const mountainClimbersPercentageEl = document.getElementById('mountain-climbers-percentage');
+    const mountainClimbersRemaining = document.getElementById('mountain-climbers-remaining');
+    
+    if (mountainClimbersProgress) mountainClimbersProgress.style.width = `${mountainClimbersPercentage}%`;
+    if (mountainClimbersCurrentEl) mountainClimbersCurrentEl.textContent = `${mountainClimbersCurrent} reps`;
+    if (mountainClimbersPercentageEl) mountainClimbersPercentageEl.textContent = `${mountainClimbersPercentage}% Complete`;
+    if (mountainClimbersRemaining) mountainClimbersRemaining.textContent = `${30 - daysPassed} days remaining - Keep pushing!`;
+    
+    // Plank Challenge (2 minutes per day)
+    const plankTotal = 60; // minutes
+    const plankCurrent = Math.min(daysPassed * 2, plankTotal);
+    const plankPercentage = Math.round((plankCurrent / plankTotal) * 100);
+    
+    const plankProgress = document.getElementById('plank-progress');
+    const plankCurrentEl = document.getElementById('plank-current');
+    const plankPercentageEl = document.getElementById('plank-percentage');
+    const plankRemaining = document.getElementById('plank-remaining');
+    
+    if (plankProgress) plankProgress.style.width = `${plankPercentage}%`;
+    if (plankCurrentEl) plankCurrentEl.textContent = `${plankCurrent} min`;
+    if (plankPercentageEl) plankPercentageEl.textContent = `${plankPercentage}% Complete`;
+    if (plankRemaining) plankRemaining.textContent = `${30 - daysPassed} days remaining - Stay strong! Top performers get a feature in our newsletter.`;
+    
+    // Steps Challenge (100 steps per day)
+    const stepsTotal = 3000;
+    const stepsCurrent = Math.min(daysPassed * 100, stepsTotal);
+    const stepsPercentage = Math.round((stepsCurrent / stepsTotal) * 100);
+    
+    const stepsProgress = document.getElementById('steps-progress');
+    const stepsCurrentEl = document.getElementById('steps-current');
+    const stepsPercentageEl = document.getElementById('steps-percentage');
+    const stepsRemaining = document.getElementById('steps-remaining');
+    
+    if (stepsProgress) stepsProgress.style.width = `${stepsPercentage}%`;
+    if (stepsCurrentEl) stepsCurrentEl.textContent = `${stepsCurrent} steps`;
+    if (stepsPercentageEl) stepsPercentageEl.textContent = `${stepsPercentage}% Complete`;
+    if (stepsRemaining) stepsRemaining.textContent = `${30 - daysPassed} days remaining - Every step counts! Prizes for the most consistent team.`;
+  }
+  
+  // Initialize challenge progress
+  updateChallengeProgress();
+  
+  // Challenge Info Modal
+  const challengeInfoModal = document.getElementById('challengeInfoModal');
+  const closeChallengeInfo = document.getElementById('closeChallengeInfo');
+  const challengeInfoTitle = document.getElementById('challengeInfoTitle');
+  const challengeInfoBody = document.getElementById('challengeInfoBody');
+  
+  // Challenge information content
+  const challengeInfo = {
+    'mountain-climbers': {
+      title: 'Mountain Climbers Challenge',
+      content: `
+        <h4>How to Do Mountain Climbers</h4>
+        <p>Mountain climbers are a great full-body exercise that targets your core, shoulders, and legs.</p>
+        <h4>Proper Form:</h4>
+        <ul>
+          <li>Start in a high plank position with your hands directly under your shoulders</li>
+          <li>Keep your core tight and your body in a straight line from head to heels</li>
+          <li>Bring one knee towards your chest, then quickly switch legs</li>
+          <li>Move in a controlled, running motion</li>
+          <li>Aim for 100 reps per day (can be broken into sets)</li>
+        </ul>
+        <h4>Tips:</h4>
+        <ul>
+          <li>Keep your hips level - don't let them sag or rise too high</li>
+          <li>Breathe steadily throughout the movement</li>
+          <li>Start slowly and focus on form before increasing speed</li>
+          <li>You can do 4 sets of 25 reps throughout the day</li>
+        </ul>
+      `
+    },
+    'plank': {
+      title: 'Plank Hold Challenge',
+      content: `
+        <h4>How to Do Planks</h4>
+        <p>Planks are excellent for building core strength and stability.</p>
+        <h4>Proper Form:</h4>
+        <ul>
+          <li>Place your forearms on the ground with elbows aligned below shoulders</li>
+          <li>Extend your legs back and balance on your toes</li>
+          <li>Keep your body in a straight line from head to heels</li>
+          <li>Engage your core and glutes to prevent your hips from sagging</li>
+          <li>Aim for 2 minutes total per day (can be broken into multiple holds)</li>
+        </ul>
+        <h4>Tips:</h4>
+        <ul>
+          <li>Don't hold your breath - breathe deeply and steadily</li>
+          <li>If 2 minutes is too much, start with 30-second holds and work your way up</li>
+          <li>You can do 4 sets of 30 seconds throughout the day</li>
+          <li>Focus on maintaining proper form rather than duration</li>
+        </ul>
+      `
+    },
+    'steps': {
+      title: 'Step Up Challenge',
+      content: `
+        <h4>How to Complete the Step Challenge</h4>
+        <p>This challenge helps improve cardiovascular health and overall activity levels.</p>
+        <h4>Ways to Accumulate Steps:</h4>
+        <ul>
+          <li>Take a brisk walk during breaks</li>
+          <li>Use stairs instead of elevators</li>
+          <li>Park farther from your destination</li>
+          <li>Take walking meetings when possible</li>
+          <li>Do step-based exercises like step-ups or jumping jacks</li>
+          <li>Aim for 100 steps per day as part of your regular activities</li>
+        </ul>
+        <h4>Tips:</h4>
+        <ul>
+          <li>Break your steps into smaller chunks throughout the day</li>
+          <li>Use a fitness tracker or smartphone to count steps</li>
+          <li>Set reminders to get up and move every hour</li>
+          <li>Combine steps with other daily activities</li>
+        </ul>
+      `
     }
-    
-    // Initialize challenge progress
-    updateChallengeProgress();
-    
-    // Challenge Info Modal
-    const challengeInfoModal = document.getElementById('challengeInfoModal');
-    const closeChallengeInfo = document.getElementById('closeChallengeInfo');
-    const challengeInfoTitle = document.getElementById('challengeInfoTitle');
-    const challengeInfoBody = document.getElementById('challengeInfoBody');
-    
-    // Challenge information content
-    const challengeInfo = {
-      'mountain-climbers': {
-        title: 'Mountain Climbers Challenge',
-        content: `
-          <h4>How to Do Mountain Climbers</h4>
-          <p>Mountain climbers are a great full-body exercise that targets your core, shoulders, and legs.</p>
-          <h4>Proper Form:</h4>
-          <ul>
-            <li>Start in a high plank position with your hands directly under your shoulders</li>
-            <li>Keep your core tight and your body in a straight line from head to heels</li>
-            <li>Bring one knee towards your chest, then quickly switch legs</li>
-            <li>Move in a controlled, running motion</li>
-            <li>Aim for 100 reps per day (can be broken into sets)</li>
-          </ul>
-          <h4>Tips:</h4>
-          <ul>
-            <li>Keep your hips level - don't let them sag or rise too high</li>
-            <li>Breathe steadily throughout the movement</li>
-            <li>Start slowly and focus on form before increasing speed</li>
-            <li>You can do 4 sets of 25 reps throughout the day</li>
-          </ul>
-        `
-      },
-      'plank': {
-        title: 'Plank Hold Challenge',
-        content: `
-          <h4>How to Do Planks</h4>
-          <p>Planks are excellent for building core strength and stability.</p>
-          <h4>Proper Form:</h4>
-          <ul>
-            <li>Place your forearms on the ground with elbows aligned below shoulders</li>
-            <li>Extend your legs back and balance on your toes</li>
-            <li>Keep your body in a straight line from head to heels</li>
-            <li>Engage your core and glutes to prevent your hips from sagging</li>
-            <li>Aim for 2 minutes total per day (can be broken into multiple holds)</li>
-          </ul>
-          <h4>Tips:</h4>
-          <ul>
-            <li>Don't hold your breath - breathe deeply and steadily</li>
-            <li>If 2 minutes is too much, start with 30-second holds and work your way up</li>
-            <li>You can do 4 sets of 30 seconds throughout the day</li>
-            <li>Focus on maintaining proper form rather than duration</li>
-          </ul>
-        `
-      },
-      'steps': {
-        title: 'Step Up Challenge',
-        content: `
-          <h4>How to Complete the Step Challenge</h4>
-          <p>This challenge helps improve cardiovascular health and overall activity levels.</p>
-          <h4>Ways to Accumulate Steps:</h4>
-          <ul>
-            <li>Take a brisk walk during breaks</li>
-            <li>Use stairs instead of elevators</li>
-            <li>Park farther from your destination</li>
-            <li>Take walking meetings when possible</li>
-            <li>Do step-based exercises like step-ups or jumping jacks</li>
-            <li>Aim for 100 steps per day as part of your regular activities</li>
-          </ul>
-          <h4>Tips:</h4>
-          <ul>
-            <li>Break your steps into smaller chunks throughout the day</li>
-            <li>Use a fitness tracker or smartphone to count steps</li>
-            <li>Set reminders to get up and move every hour</li>
-            <li>Combine steps with other daily activities</li>
-          </ul>
-        `
+  };
+  
+  // Show challenge info when clicking info buttons
+  document.querySelectorAll('.challenge-info-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const challengeId = btn.dataset.challenge;
+      const challenge = challengeInfo[challengeId];
+      
+      if (challenge && challengeInfoTitle && challengeInfoBody) {
+        challengeInfoTitle.textContent = challenge.title;
+        challengeInfoBody.innerHTML = challenge.content;
+        if (challengeInfoModal) challengeInfoModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
       }
-    };
-    
-    // Show challenge info when clicking info buttons
-    document.querySelectorAll('.challenge-info-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const challengeId = btn.dataset.challenge;
-        const challenge = challengeInfo[challengeId];
-        
-        if (challenge) {
-          challengeInfoTitle.textContent = challenge.title;
-          challengeInfoBody.innerHTML = challenge.content;
-          challengeInfoModal.style.display = 'flex';
-          document.body.style.overflow = 'hidden';
-        }
-      });
     });
-    
-    // Close challenge info modal
+  });
+  
+  // Close challenge info modal
+  if (closeChallengeInfo) {
     closeChallengeInfo.addEventListener('click', () => {
-      challengeInfoModal.style.display = 'none';
+      if (challengeInfoModal) challengeInfoModal.style.display = 'none';
       document.body.style.overflow = 'auto';
     });
-    
-    // Close modal when clicking outside
+  }
+  
+  // Close modal when clicking outside
+  if (challengeInfoModal) {
     challengeInfoModal.addEventListener('click', (e) => {
       if (e.target === challengeInfoModal) {
         challengeInfoModal.style.display = 'none';
         document.body.style.overflow = 'auto';
       }
     });
+  }
+  
+  // Weekly Digest Auto-sliding functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const digestTrack = document.getElementById('digestTrack');
+    const digestCards = document.querySelectorAll('.digest-card');
     
-    // Weekly Digest Auto-sliding functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const digestTrack = document.getElementById('digestTrack');
-      const digestCards = document.querySelectorAll('.digest-card');
+    if (digestCards.length > 0 && digestTrack) {
+      let currentSlide = 0;
+      const totalSlides = digestCards.length;
+      const slideWidth = digestCards[0].offsetWidth + 24; // 24px gap
       
-      if (digestCards.length > 0) {
-        let currentSlide = 0;
-        const totalSlides = digestCards.length;
-        const slideWidth = digestCards[0].offsetWidth + 24; // 24px gap
+      // Clone the first slide and append to end for seamless looping
+      const firstClone = digestCards[0].cloneNode(true);
+      digestTrack.appendChild(firstClone);
+      
+      function slideToNext() {
+        currentSlide++;
+        digestTrack.style.transition = 'transform 0.5s ease';
+        digestTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
         
-        // Clone the first slide and append to end for seamless looping
-        const firstClone = digestCards[0].cloneNode(true);
-        digestTrack.appendChild(firstClone);
-        
-        function slideToNext() {
-          currentSlide++;
-          digestTrack.style.transition = 'transform 0.5s ease';
-          digestTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-          
-          // If we're at the last slide (which is the clone), reset without animation
-          if (currentSlide === totalSlides) {
-            setTimeout(() => {
-              digestTrack.style.transition = 'none';
-              currentSlide = 0;
-              digestTrack.style.transform = `translateX(0)`;
-            }, 500);
-          }
+        // If we're at the last slide (which is the clone), reset without animation
+        if (currentSlide === totalSlides) {
+          setTimeout(() => {
+            digestTrack.style.transition = 'none';
+            currentSlide = 0;
+            digestTrack.style.transform = `translateX(0)`;
+          }, 500);
         }
-        
-        // Start auto sliding
-        let slideInterval = setInterval(slideToNext, 3000);
-        
-        // Pause on hover/touch
-        digestTrack.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        digestTrack.addEventListener('mouseleave', () => {
-          slideInterval = setInterval(slideToNext, 3000);
+      }
+      
+      // Start auto sliding
+      let slideInterval = setInterval(slideToNext, 3000);
+      
+      // Pause on hover/touch
+      digestTrack.addEventListener('mouseenter', () => clearInterval(slideInterval));
+      digestTrack.addEventListener('mouseleave', () => {
+        slideInterval = setInterval(slideToNext, 3000);
+      });
+      
+      digestTrack.addEventListener('touchstart', () => clearInterval(slideInterval));
+      digestTrack.addEventListener('touchend', () => {
+        slideInterval = setInterval(slideToNext, 3000);
+      });
+    }
+  });
+  
+  // Newsletter/Digest Detail Pages functionality
+  const newsletterCards = document.querySelectorAll('.newsletter-card, .digest-card');
+  const newsletterDetails = document.querySelectorAll('.newsletter-detail');
+  const closeDetailButtons = document.querySelectorAll('.newsletter-detail-close');
+  
+  newsletterCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const newsletterId = card.dataset.newsletterId;
+      const newsletterDetail = document.getElementById(newsletterId);
+      
+      if (newsletterDetail) {
+        // Hide all newsletter details first
+        newsletterDetails.forEach(detail => {
+          detail.classList.remove('active');
         });
         
-        digestTrack.addEventListener('touchstart', () => clearInterval(slideInterval));
-        digestTrack.addEventListener('touchend', () => {
-          slideInterval = setInterval(slideToNext, 3000);
-        });
+        // Show the selected newsletter detail
+        newsletterDetail.classList.add('active');
+        document.body.style.overflow = 'hidden';
       }
     });
-    
-    // Newsletter/Digest Detail Pages functionality
-    const newsletterCards = document.querySelectorAll('.newsletter-card, .digest-card');
-    const newsletterDetails = document.querySelectorAll('.newsletter-detail');
-    const closeDetailButtons = document.querySelectorAll('.newsletter-detail-close');
-    
-    newsletterCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const newsletterId = card.dataset.newsletterId;
-        const newsletterDetail = document.getElementById(newsletterId);
-        
-        if (newsletterDetail) {
-          // Hide all newsletter details first
-          newsletterDetails.forEach(detail => {
-            detail.classList.remove('active');
-          });
-          
-          // Show the selected newsletter detail
-          newsletterDetail.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
-      });
-    });
-    
-    closeDetailButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const newsletterDetail = btn.closest('.newsletter-detail');
+  });
+  
+  closeDetailButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const newsletterDetail = btn.closest('.newsletter-detail');
+      if (newsletterDetail) {
         newsletterDetail.classList.remove('active');
         document.body.style.overflow = 'auto';
-      });
+      }
     });
-    
-    // Close newsletter detail when clicking outside
-    newsletterDetails.forEach(detail => {
-      detail.addEventListener('click', (e) => {
-        if (e.target === detail) {
-          detail.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        }
-      });
+  });
+  
+  // Close newsletter detail when clicking outside
+  newsletterDetails.forEach(detail => {
+    detail.addEventListener('click', (e) => {
+      if (e.target === detail) {
+        detail.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
     });
+  });
+  
+  // Challenges carousel functionality
+  (function() {
+    const carousel = document.getElementById('challenge-carousel');
+    const slides = document.getElementById('challenge-slides');
+    const cards = slides ? slides.querySelectorAll('.event-card') : [];
     
-    // Challenges carousel functionality
-    (function() {
-      const carousel = document.getElementById('challenge-carousel');
-      const slides = document.getElementById('challenge-slides');
-      const cards = slides.querySelectorAll('.event-card');
+    if (cards.length > 0 && carousel && slides) {
       let current = 0;
       let interval = null;
 
@@ -2053,13 +2300,16 @@ an enclosed structure in which material can be heated to very high temperatures,
       // Initialize
       startAutoSlide();
       showSlide(0);
-    })();
+    }
+  })();
 
-    // Testimonials Carousel Functionality
-    (function() {
-      const testimonialsTrack = document.getElementById('testimonialsTrack');
-      const testimonialSlides = testimonialsTrack.querySelectorAll('.testimonial-slide');
-      const testimonialIndicators = document.getElementById('testimonialIndicators');
+  // Testimonials Carousel Functionality
+  (function() {
+    const testimonialsTrack = document.getElementById('testimonialsTrack');
+    const testimonialSlides = testimonialsTrack ? testimonialsTrack.querySelectorAll('.testimonial-slide') : [];
+    const testimonialIndicators = document.getElementById('testimonialIndicators');
+    
+    if (testimonialSlides.length > 0 && testimonialsTrack && testimonialIndicators) {
       let currentTestimonial = 0;
       let testimonialInterval = null;
       
@@ -2111,7 +2361,8 @@ an enclosed structure in which material can be heated to very high temperatures,
       
       // Initialize
       startTestimonialInterval();
-    })();
-  </script>
+    }
+  })();
+</script>
 </body>
 </html>
