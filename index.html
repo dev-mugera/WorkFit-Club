@@ -1090,6 +1090,51 @@
         </button>
       </div>
     </nav>
+    <!-- Direct PWA Installation Section -->
+    <section class="pwa-install-section" style="background: var(--navy); color: white; padding: 1rem; text-align: center; margin: 1rem 0; border-radius: 8px;">
+      <h3>Install WorkFit App</h3>
+      <p>Get the full app experience on your device</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+        <!-- Direct install for supported browsers -->
+        <button class="pwa-direct-install" style="background: var(--gold); color: var(--navy); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+          <i class="fas fa-download"></i> Install App Now
+        </button>
+        
+        <!-- Manual install instructions -->
+        <button class="show-install-guide" style="background: transparent; color: white; border: 2px solid white; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+          <i class="fas fa-info-circle"></i> How to Install
+        </button>
+      </div>
+    </section>
+
+    <!-- Installation Guide Modal -->
+    <div class="install-guide-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center;">
+      <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; margin: 1rem;">
+        <button class="close-guide" style="float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+        <h3 style="color: var(--navy); margin-bottom: 1rem;">How to Install WorkFit</h3>
+        
+        <div class="install-steps">
+          <div class="step" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--navy);">📱 Mobile (Chrome/Edge)</h4>
+            <p>1. Tap the menu (⋮) → "Add to Home screen"</p>
+          </div>
+          
+          <div class="step" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--navy);">📱 Mobile (Safari)</h4>
+            <p>1. Tap the share icon (□ with ↑) → "Add to Home Screen"</p>
+          </div>
+          
+          <div class="step" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--navy);">💻 Desktop (Chrome/Edge)</h4>
+            <p>1. Click the install icon (⎙) in the address bar</p>
+          </div>
+        </div>
+        
+        <button class="close-guide-btn" style="background: var(--navy); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 1rem;">
+          Got it!
+        </button>
+      </div>
+    </div>
   </header>
 
   <section class="digest" id="digest">
