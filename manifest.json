@@ -10,7 +10,7 @@
   "scope": "/WorkFit-Club/",
   "icons": [
     {
-      "src": "icons/icon-72x72.png",
+      "src": "icons/.png",
       "sizes": "72x72",
       "type": "image/png"
     },
