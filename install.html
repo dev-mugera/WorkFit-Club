@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Install WorkFit App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      background: white;
+      color: #333;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    .install-btn {
+      background: #FFD700;
+      color: #001f3f;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 1rem 0;
+      transition: transform 0.2s;
+    }
+    .install-btn:hover {
+      transform: scale(1.05);
+    }
+    .steps {
+      text-align: left;
+      margin: 2rem 0;
+    }
+    .step {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+    <h1>Install WorkFit App</h1>
+    <p>Get the full fitness experience on your device</p>
+    
+    <button class="install-btn" id="installButton">
+      <i class="fas fa-download"></i> Install WorkFit
+    </button>
+    
+    <div class="steps">
+      <div class="step">
+        <strong>1. Click Install</strong> - Add WorkFit to your home screen
+      </div>
+      <div class="step">
+        <strong>2. Open App</strong> - Launch like any other app
+      </div>
+      <div class="step">
+        <strong>3. Start Training</strong> - Access workouts offline
+      </div>
+    </div>
+    
+    <p><a href="index.html" style="color: #001f3f;">← Back to Website</a></p>
+  </div>
+
+  <script>
+    // Same installation logic as main page
+    let deferredPrompt;
+    const installButton = document.getElementById('installButton');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installButton.style.display = 'block';
+    });
+
+    installButton.addEventListener('click', async () => {
+      if (!deferredPrompt) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      if (outcome === 'accepted') {
+        installButton.innerHTML = '<i class="fas fa-check"></i> Installed!';
+        installButton.disabled = true;
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 2000);
+      } else {
+        window.location.href = 'index.html';
+      }
+      
+      deferredPrompt = null;
+    });
+
+    // If no prompt available after 3 seconds, redirect to main site
+    setTimeout(() => {
+      if (!deferredPrompt) {
+        window.location.href = 'index.html';
+      }
+    }, 3000);
+  </script>
+</body>
+</html>
