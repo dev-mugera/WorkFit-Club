@@ -1,8 +1,9 @@
 {
+{
   "name": "WorkFit Club",
-  "short_name": "WorkFit Club",
+  "short_name": "WorkFit",
   "description": "Team Fitness Tracking App",
-  "start_url": "/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#001f3f",
   "theme_color": "#001f3f",
