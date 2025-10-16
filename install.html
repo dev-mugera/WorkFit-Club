@@ -86,6 +86,15 @@
       margin: 1rem 0;
       text-align: left;
     }
+    .browser-specific {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    .browser-icon {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -96,124 +105,119 @@
     <p>Get the full fitness experience on your device</p>
     
     <div id="statusMessage" class="status-message info">
-      Ready to install WorkFit on your device
+      Click "Install WorkFit" to add the app to your device
     </div>
     
     <button class="install-btn" id="installButton">
       <i class="fas fa-download"></i> Install WorkFit
     </button>
 
-    <div id="manualInstructions" class="manual-instructions" style="display: none;">
-      <h4 style="margin-top: 0; color: #856404;">Manual Installation Required</h4>
-      <p style="margin: 0.5rem 0;"><strong>Chrome/Edge:</strong> Click the install icon (⎙) in address bar</p>
-      <p style="margin: 0.5rem 0;"><strong>Safari:</strong> Tap Share → Add to Home Screen</p>
-      <p style="margin: 0.5rem 0;"><strong>Android Chrome:</strong> Menu → Add to Home screen</p>
+    <div class="manual-instructions">
+      <h4 style="margin-top: 0; color: #856404;"><i class="fas fa-mobile-alt"></i> Manual Installation</h4>
+      
+      <div class="browser-specific">
+        <p><strong><i class="fab fa-chrome browser-icon"></i> Chrome Desktop:</strong></p>
+        <p>Look for the install icon <i class="fas fa-download"></i> in the address bar</p>
+      </div>
+      
+      <div class="browser-specific">
+        <p><strong><i class="fab fa-android browser-icon"></i> Android Chrome:</strong></p>
+        <p>Tap the menu (⋮) → "Add to Home screen"</p>
+      </div>
+      
+      <div class="browser-specific">
+        <p><strong><i class="fab fa-apple browser-icon"></i> iPhone Safari:</strong></p>
+        <p>Tap the share icon <i class="fas fa-share-square"></i> → "Add to Home Screen"</p>
+      </div>
     </div>
     
     <div class="steps">
       <div class="step">
-        <strong>1. Click Install</strong> - Add WorkFit to your home screen
+        <strong><i class="fas fa-download"></i> Install</strong> - Add WorkFit to your home screen
       </div>
       <div class="step">
-        <strong>2. Open App</strong> - Launch like any other app
+        <strong><i class="fas fa-rocket"></i> Open</strong> - Launch like any other app
       </div>
       <div class="step">
-        <strong>3. Start Training</strong> - Access workouts offline
+        <strong><i class="fas fa-dumbbell"></i> Train</strong> - Access workouts offline
       </div>
     </div>
     
-    <p><a href="index.html" style="color: #001f3f; text-decoration: none; font-weight: bold;">← Back to Website</a></p>
+    <p style="margin-top: 2rem;">
+      <a href="index.html" style="color: #001f3f; text-decoration: none; font-weight: bold; padding: 0.8rem 1.5rem; border: 2px solid #001f3f; border-radius: 25px; display: inline-block;">
+        <i class="fas fa-arrow-left"></i> Back to Website
+      </a>
+    </p>
   </div>
 
   <script>
-    let deferredPrompt = null;
+    // SIMPLE VERSION - NO AUTOMATIC REDIRECTS EVER
     const installButton = document.getElementById('installButton');
     const statusMessage = document.getElementById('statusMessage');
-    const manualInstructions = document.getElementById('manualInstructions');
 
-    // Function to check if PWA is already installed
-    function isPWAInstalled() {
-      return window.matchMedia('(display-mode: standalone)').matches || 
-             window.navigator.standalone === true;
-    }
+    let installPrompt = null;
 
-    // Function to redirect to main app
-    function redirectToMainApp() {
-      console.log('Redirecting to main app...');
-      window.location.href = 'index.html';
-    }
-
-    // Check if already installed first
-    if (isPWAInstalled()) {
-      statusMessage.textContent = '✓ WorkFit is already installed. Redirecting...';
+    // Listen for install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('Install prompt available');
+      e.preventDefault();
+      installPrompt = e;
+      
+      // Update status message
+      statusMessage.textContent = 'Ready! Click "Install WorkFit" to add the app.';
       statusMessage.className = 'status-message success';
-      setTimeout(redirectToMainApp, 1500);
-    } else {
-      // Set up the install prompt listener
-      window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('beforeinstallprompt event fired');
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        statusMessage.textContent = 'Ready to install WorkFit! Click the button above.';
-        statusMessage.className = 'status-message info';
-        installButton.style.display = 'block';
-        manualInstructions.style.display = 'none';
-      });
+    });
 
-      // Handle install button click
-      installButton.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          console.log('Showing installation prompt');
+    // Handle install button click
+    installButton.addEventListener('click', async () => {
+      if (installPrompt) {
+        try {
+          console.log('Showing install prompt');
           statusMessage.textContent = 'Showing installation dialog...';
           
-          deferredPrompt.prompt();
+          // Show the install prompt
+          installPrompt.prompt();
           
-          const { outcome } = await deferredPrompt.userChoice;
+          // Wait for user choice
+          const { outcome } = await installPrompt.userChoice;
           console.log('User choice:', outcome);
           
           if (outcome === 'accepted') {
-            statusMessage.textContent = '✓ WorkFit installed successfully!';
+            statusMessage.textContent = '✓ WorkFit installed successfully! You can now open it from your home screen.';
             statusMessage.className = 'status-message success';
             installButton.innerHTML = '<i class="fas fa-check"></i> Installed!';
             installButton.disabled = true;
-            
-            // Optional: Redirect after success (remove this line if you don't want auto-redirect)
-            setTimeout(redirectToMainApp, 2000);
+            installButton.style.background = '#28a745';
           } else {
-            statusMessage.textContent = 'Installation cancelled. You can try manual installation below.';
+            statusMessage.textContent = 'Installation cancelled. You can use the manual instructions above.';
             statusMessage.className = 'status-message info';
-            manualInstructions.style.display = 'block';
           }
           
-          deferredPrompt = null;
-        } else {
-          // No prompt available - show manual instructions
-          statusMessage.textContent = 'Automatic installation not available. See manual instructions below.';
+          installPrompt = null;
+        } catch (error) {
+          console.error('Installation failed:', error);
+          statusMessage.textContent = 'Installation failed. Please use the manual instructions above.';
           statusMessage.className = 'status-message info';
-          manualInstructions.style.display = 'block';
         }
-      });
+      } else {
+        // No install prompt available
+        statusMessage.textContent = 'Automatic installation not available. Please use the manual instructions above.';
+        statusMessage.className = 'status-message info';
+      }
+    });
 
-      // If no install prompt is available after page loads, show manual instructions
-      setTimeout(() => {
-        if (!deferredPrompt && !isPWAInstalled()) {
-          statusMessage.textContent = 'Choose an installation method below';
-          statusMessage.className = 'status-message info';
-          manualInstructions.style.display = 'block';
-        }
-      }, 1000);
-    }
-
-    // App installed event (in case user installs while on this page)
+    // Listen for successful installation
     window.addEventListener('appinstalled', (evt) => {
-      console.log('PWA was installed');
-      statusMessage.textContent = '✓ WorkFit installed successfully!';
+      console.log('WorkFit was installed');
+      statusMessage.textContent = '✓ WorkFit installed successfully! You can now open it from your home screen.';
       statusMessage.className = 'status-message success';
       installButton.innerHTML = '<i class="fas fa-check"></i> Installed!';
       installButton.disabled = true;
-      manualInstructions.style.display = 'none';
+      installButton.style.background = '#28a745';
     });
+
+    // THAT'S IT! No automatic redirects, no timeouts, no automatic checks
+    // The page will stay forever until user clicks "Back to Website"
   </script>
 </body>
 </html>
