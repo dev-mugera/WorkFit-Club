@@ -912,5 +912,47 @@
             }
         });
     </script>
+    <script>
+// Force cache refresh for PWA
+if ('serviceWorker' in navigator) {
+  // Unregister all service workers
+  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    for(let registration of registrations) {
+      registration.unregister();
+      console.log('ServiceWorker unregistered');
+    }
+  });
+  
+  // Clear all caches
+  caches.keys().then(function(names) {
+    for (let name of names) {
+      caches.delete(name);
+      console.log('Cache deleted:', name);
+    }
+  });
+}
+
+// Force page reload with cache bypass
+window.addEventListener('load', function() {
+  // Check if page is loaded from cache
+  if (window.performance) {
+    const navEntries = performance.getEntriesByType('navigation');
+    if (navEntries.length > 0 && navEntries[0].type === 'back_forward') {
+      location.reload(true);
+    }
+  }
+});
+
+// Add cache-busting parameter to CSS and JS
+document.addEventListener('DOMContentLoaded', function() {
+  const links = document.querySelectorAll('link[rel="stylesheet"]');
+  const scripts = document.querySelectorAll('script[src]');
+  const cacheBuster = '?v=' + Date.now();
+  
+  links.forEach(link => {
+    link.href = link.href.split('?')[0] + cacheBuster;
+  });
+});
+</script>
 </body>
 </html>
