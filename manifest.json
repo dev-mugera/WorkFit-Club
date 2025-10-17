@@ -4,7 +4,7 @@
   "description": "Team Fitness Tracking App",
   "start_url": "/WorkFit-Club/",
   "display": "standalone",
-  "background_color": "##FFFFFF",
+  "background_color": "#001f3f",
   "theme_color": "#001f3f",
   "orientation": "portrait",
   "scope": "/WorkFit-Club/",
