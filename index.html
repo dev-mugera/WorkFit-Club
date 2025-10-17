@@ -1859,6 +1859,13 @@ function isPWAInstalled() {
     return true;
   }
   
+  // Method 7: Check for minimal UI (mobile browsers)
+  if (window.visualViewport && (window.visualViewport.height === window.screen.height || 
+      window.visualViewport.width === window.screen.width)) {
+    console.log('PWA detected: visual viewport match');
+    return true;
+  }
+  
   return false;
 }
 
@@ -1914,9 +1921,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
   // Stash the event so it can be triggered later
   deferredPrompt = e;
   
-  // Update UI to notify the user they can install the PWA
-  showInstallSection();
-  console.log('PWA install prompt available - showing install section');
+  // Only show install UI if not already installed
+  if (!isPWAInstalled()) {
+    showInstallSection();
+    console.log('PWA install prompt available - showing install section');
+  }
   
   // Optional: Log analytics event
   console.log('PWA installation available');
@@ -1928,80 +1937,40 @@ if (pwaDirectInstallBtn) {
     console.log('Direct install button clicked');
     
     if (!deferredPrompt) {
-      console.log('No deferred prompt available, showing install guide');
+      console.log('No deferred prompt, showing install guide');
       if (installGuideModal) {
         installGuideModal.style.display = 'flex';
       }
-      
-      // Show user message about manual installation
-      showInstallMessage('Please use your browser\'s menu to install the app (⋮ → "Add to Home screen")');
       return;
     }
 
     console.log('Showing install prompt to user');
     
-    try {
-      // Show the install prompt
-      deferredPrompt.prompt();
+    // Show the install prompt
+    deferredPrompt.prompt();
+    
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to install prompt: ${outcome}`);
+    
+    // Handle user choice
+    if (outcome === 'accepted') {
+      console.log('User accepted PWA installation');
+      hideInstallSection();
       
-      // Wait for the user to respond to the prompt
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to install prompt: ${outcome}`);
+      // Store installation status
+      localStorage.setItem('pwaInstalled', 'true');
       
-      // Handle user choice
-      if (outcome === 'accepted') {
-        console.log('User accepted PWA installation');
-        showInstallMessage('🎉 WorkFit app is being installed...');
-        hideInstallSection();
-        
-        // Store installation status
-        localStorage.setItem('pwaInstalled', 'true');
-        
-        // Optional: Track installation in analytics
-        trackPWAInstallation();
-      } else {
-        console.log('User dismissed PWA installation');
-        showInstallMessage('Installation cancelled. You can install later from the browser menu.');
-        // Keep the install option available for later
-      }
-    } catch (error) {
-      console.error('Error during installation:', error);
-      showInstallMessage('Installation failed. Please try using your browser\'s menu.');
+      // Optional: Track installation in analytics
+      trackPWAInstallation();
+    } else {
+      console.log('User dismissed PWA installation');
+      // You could show a message or keep the install option available
     }
     
     // Clear the deferredPrompt variable
     deferredPrompt = null;
   });
-}
-
-// Show installation message to user
-function showInstallMessage(message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.style.cssText = `
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--navy);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 25px;
-    z-index: 10000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    font-weight: 600;
-    text-align: center;
-    max-width: 90%;
-    word-wrap: break-word;
-  `;
-  messageDiv.textContent = message;
-  document.body.appendChild(messageDiv);
-  
-  // Remove message after 5 seconds
-  setTimeout(() => {
-    if (document.body.contains(messageDiv)) {
-      document.body.removeChild(messageDiv);
-    }
-  }, 5000);
 }
 
 // Handle install guide button click
@@ -2050,11 +2019,11 @@ window.addEventListener('appinstalled', (evt) => {
   // Store installation status
   localStorage.setItem('pwaInstalled', 'true');
   
-  // Show success message
-  showInstallMessage('🎉 WorkFit app installed successfully!');
-  
   // Optional: Track successful installation
   trackPWAInstallationSuccess();
+  
+  // Optional: Show welcome message or redirect
+  showInstallationSuccessMessage();
 });
 
 // Track PWA installation (optional analytics)
@@ -2083,76 +2052,71 @@ function trackPWAInstallationSuccess() {
   }
 }
 
-// Enhanced Service Worker Registration with better error handling
+// Show installation success message (optional)
+function showInstallationSuccessMessage() {
+  // You could show a toast or message confirming installation
+  console.log('PWA installed successfully!');
+  
+  // Example: Show a temporary success message
+  const successMsg = document.createElement('div');
+  successMsg.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--success, #4CAF50);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    z-index: 10000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  `;
+  successMsg.textContent = '🎉 WorkFit app installed successfully!';
+  document.body.appendChild(successMsg);
+  
+  // Remove message after 3 seconds
+  setTimeout(() => {
+    if (document.body.contains(successMsg)) {
+      document.body.removeChild(successMsg);
+    }
+  }, 3000);
+}
+
+// Enhanced Service Worker Registration
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     console.log('Registering Service Worker...');
     
-    // Use a simple service worker URL
     const swUrl = 'sw.js';
     
-    // Clear any existing registrations first
-    navigator.serviceWorker.getRegistrations().then(registrations => {
-      for (let registration of registrations) {
-        registration.unregister();
-        console.log('Unregistered old Service Worker');
-      }
-      
-      // Now register the new service worker
-      return navigator.serviceWorker.register(swUrl)
-        .then(function(registration) {
-          console.log('SW registered successfully: ', registration);
-          console.log('Scope: ', registration.scope);
+    navigator.serviceWorker.register(swUrl)
+      .then(function(registration) {
+        console.log('SW registered successfully: ', registration);
+        console.log('Scope: ', registration.scope);
+        
+        // Check for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          console.log('New service worker found:', newWorker);
           
-          // Check for updates
-          registration.addEventListener('updatefound', () => {
-            const newWorker = registration.installing;
-            console.log('New service worker found:', newWorker);
-            
-            newWorker.addEventListener('statechange', () => {
-              console.log('New service worker state:', newWorker.state);
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('New content available, please refresh.');
-                showInstallMessage('New version available! Refresh the page for updates.');
-              }
-            });
+          newWorker.addEventListener('statechange', () => {
+            console.log('New service worker state:', newWorker.state);
           });
-        })
-        .catch(function(registrationError) {
-          console.log('SW registration failed: ', registrationError);
-          // Don't show error to user - PWA can still work without SW
         });
-    });
-  } else {
-    console.log('Service Worker not supported in this browser');
+      })
+      .catch(function(registrationError) {
+        console.log('SW registration failed: ', registrationError);
+        
+        // Fallback: Try with different scope
+        navigator.serviceWorker.register(swUrl, { scope: './' })
+          .then(function(registration) {
+            console.log('SW registered with fallback scope: ', registration);
+          })
+          .catch(function(fallbackError) {
+            console.log('Fallback SW registration failed: ', fallbackError);
+          });
+      });
   }
-}
-
-// Add a simple service worker for basic PWA functionality
-function createServiceWorker() {
-  // This creates a basic service worker script dynamically
-  const swCode = `
-self.addEventListener('install', function(event) {
-  console.log('Service Worker installing.');
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', function(event) {
-  console.log('Service Worker activating.');
-  return self.clients.claim();
-});
-
-self.addEventListener('fetch', function(event) {
-  // Basic fetch handler - you can enhance this later
-  event.respondWith(fetch(event.request));
-});
-  `;
-
-  // Create a Blob with the service worker code
-  const blob = new Blob([swCode], { type: 'application/javascript' });
-  const swUrl = URL.createObjectURL(blob);
-  
-  return swUrl;
 }
 
 // Theme Management
@@ -2502,12 +2466,8 @@ function initializeApp() {
   // Initialize PWA functionality first
   initializePWA();
   
-  // Register Service Worker with better error handling
-  try {
-    registerServiceWorker();
-  } catch (error) {
-    console.log('Service Worker registration failed, continuing without it:', error);
-  }
+  // Register Service Worker
+  registerServiceWorker();
   
   // Initialize all other components
   initializeTheme();
@@ -2533,12 +2493,6 @@ window.addEventListener('load', function() {
     }
   }, 1000);
 });
-
-// Add debug information for PWA
-console.log('PWA Support Check:');
-console.log('- Service Worker:', 'serviceWorker' in navigator);
-console.log('- BeforeInstallPrompt:', 'BeforeInstallPromptEvent' in window);
-console.log('- Standalone:', window.matchMedia('(display-mode: standalone)').matches);
 </script>
 </body>
 </html>
