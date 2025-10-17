@@ -326,29 +326,78 @@
       fill: var(--text-primary);
     }
 
-    /* Hero Section */
+    /* Hero Section with Carousel */
     .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      color: white;
-      padding: 3rem 1rem;
-      text-align: center;
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      overflow: hidden;
     }
 
-    .hero-content {
+    .hero-carousel {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      padding: 2rem;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide-content {
       max-width: 800px;
-      margin: 0 auto;
+      text-align: center;
+      color: white;
+      z-index: 2;
     }
 
-    .hero h1 {
+    .hero-slide h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
       font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
 
-    .hero p {
+    .hero-slide p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       opacity: 0.9;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .hero-slide-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+    }
+
+    .hero-slide-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,31,63,0.8) 0%, rgba(0,51,102,0.7) 100%);
     }
 
     .hero-buttons {
@@ -398,8 +447,33 @@
       transform: translateY(-2px);
     }
 
-    /* Services Section */
-    .services {
+    .hero-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 3;
+    }
+
+    .hero-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero-indicator.active {
+      background-color: var(--gold);
+      transform: scale(1.2);
+    }
+
+    /* Statistics Section */
+    .statistics {
       background-color: var(--bg-primary);
       padding: 3rem 1rem;
     }
@@ -412,41 +486,44 @@
       font-weight: 700;
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .service-card {
+    .stats-card {
       background: var(--card-bg);
       border-radius: 12px;
-      padding: 2rem;
+      padding: 2.5rem;
       text-align: center;
       box-shadow: 0 4px 6px var(--shadow-color);
-      transition: transform 0.3s ease;
+      max-width: 800px;
+      margin: 0 auto;
       border-top: 4px solid var(--gold);
     }
 
-    .service-card:hover {
-      transform: translateY(-5px);
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
 
-    .service-icon {
-      font-size: 3rem;
-      color: var(--gold);
-      margin-bottom: 1rem;
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .service-card h3 {
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
       color: var(--navy);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
     }
 
-    .service-card p {
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .stats-description {
+      margin-top: 1.5rem;
       color: var(--text-secondary);
       line-height: 1.6;
     }
@@ -466,96 +543,6 @@
       font-size: 1.3rem;
       padding-left: 8px;
       border-left: 3px solid var(--gold);
-    }
-
-    /* Weekly Digest Section */
-    .digest {
-      background-color: var(--bg-primary);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .digest-carousel {
-      position: relative;
-      overflow: hidden;
-      padding: 0.5rem 0;
-    }
-
-    .digest-track {
-      display: flex;
-      gap: 1.2rem;
-      transition: transform 0.5s ease;
-      padding: 0.5rem;
-    }
-
-    .digest-card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px var(--shadow-color);
-      transition: transform 0.3s;
-      display: flex;
-      flex-direction: column;
-      flex: 0 0 calc(33.333% - 1rem);
-      min-width: 250px;
-      cursor: pointer;
-    }
-
-    .digest-card:hover {
-      transform: translateY(-3px);
-    }
-
-    .digest-img-container {
-      height: 120px;
-      overflow: hidden;
-    }
-
-    .digest-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .digest-card:hover .digest-img {
-      transform: scale(1.05);
-    }
-
-    .digest-content {
-      padding: 1rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .digest-category {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.2rem 0.6rem;
-      border-radius: 15px;
-      font-size: 0.7rem;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-
-    .digest-title {
-      font-size: 1rem;
-      margin-bottom: 0.4rem;
-      color: var(--navy);
-    }
-
-    .digest-date {
-      color: var(--gray);
-      font-size: 0.8rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .digest-excerpt {
-      margin-bottom: 1rem;
-      flex: 1;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
     }
 
     /* Newsletter Section */
@@ -921,7 +908,7 @@
       font-weight: 500;
     }
 
-    /* Newsletter/Digest Detail Pages */
+    /* Newsletter Detail Pages */
     .newsletter-detail {
       display: none;
       position: fixed;
@@ -1074,16 +1061,17 @@
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .hero h1 {
+      .hero {
+        height: 60vh;
+        min-height: 400px;
+      }
+
+      .hero-slide h1 {
         font-size: 2rem;
       }
 
-      .hero p {
+      .hero-slide p {
         font-size: 1rem;
-      }
-
-      .services-grid {
-        grid-template-columns: 1fr;
       }
 
       .section-title {
@@ -1102,7 +1090,6 @@
         font-size: 14px;
       }
 
-      .digest-card,
       .newsletter-card,
       .event-card {
         min-width: 85vw;
@@ -1130,12 +1117,15 @@
         max-width: 250px;
         justify-content: center;
       }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 1024px) {
       .newsletter-card,
-      .event-card,
-      .digest-card {
+      .event-card {
         flex: 0 0 calc(50% - 1rem);
       }
     }
@@ -1179,8 +1169,7 @@
       }
       
       .newsletter-card,
-      .event-card,
-      .digest-card {
+      .event-card {
         flex: 0 0 100%;
       }
 
@@ -1202,6 +1191,10 @@
 
       .pwa-install-btn {
         display: none !important;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1297,147 +1290,125 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Carousel -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>Transform Your Team's Fitness Journey</h1>
-      <p>Professional corporate fitness programs designed to boost productivity, morale, and overall well-being</p>
-      <div class="hero-buttons">
-        <a href="plans-wpa.html" class="btn-primary">
-          <i class="fas fa-chart-line"></i> View Our Plans
-        </a>
-        <a href="Contacts.html" class="btn-secondary">
-          <i class="fas fa-phone"></i> Get Started
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section class="services">
-    <h2 class="section-title">Our Services</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-users"></i>
-        </div>
-        <h3>Team Fitness Programs</h3>
-        <p>Customized group workout sessions designed to build team cohesion while improving physical health and mental well-being.</p>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-dumbbell"></i>
-        </div>
-        <h3>Corporate Wellness</h3>
-        <p>Comprehensive wellness programs including fitness challenges, nutrition guidance, and mental health support for your organization.</p>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-trophy"></i>
-        </div>
-        <h3>Fitness Challenges</h3>
-        <p>Engaging monthly challenges that motivate teams to stay active, track progress, and achieve their fitness goals together.</p>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-heartbeat"></i>
-        </div>
-        <h3>Health Assessments</h3>
-        <p>Professional fitness assessments and progress tracking to help your team members understand and improve their health metrics.</p>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-calendar-alt"></i>
-        </div>
-        <h3>Event Management</h3>
-        <p>Organization of fitness events, team-building activities, and corporate wellness days tailored to your company's needs.</p>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-graduation-cap"></i>
-        </div>
-        <h3>Fitness Education</h3>
-        <p>Workshops and tutorials on proper exercise techniques, nutrition, and maintaining a healthy lifestyle in the workplace.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="digest" id="digest">
-    <h2 class="section-subtitle">Weekly Digest</h2>
-    <div class="digest-carousel">
-      <div class="digest-track" id="digestTrack">
-        <div class="digest-card" data-newsletter-id="furnace-paragraph">
-          <div class="digest-img-container">
-          <img src="https://images.unsplash.com/photo-1723731065038-580d5f55c7f5?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="A person wearing athletic clothing is holding a dumbbell in a gym setting. The individual is focused and determined, embodying a tone of motivation and strength." class="digest-img">
-          </div>
-          <div class="digest-content">
-            <span class="digest-category">WorkFit Terminology</span>
-            <h3 class="digest-title">What is a Furnace?</h3>
-            <p class="digest-date">October 1, 2025</p>
-            <p class="digest-excerpt">Discover what a "Furnace" means at WorkFit and how it shapes our team spirit and fitness journey.</p>
+    <div class="hero-carousel">
+      <!-- Personal Fitness Slide -->
+      <div class="hero-slide active">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Personal Fitness Excellence</h1>
+          <p>Customized workout plans and one-on-one coaching to help you achieve your personal fitness goals</p>
+          <div class="hero-buttons">
+            <a href="plans-wpa.html" class="btn-primary">
+              <i class="fas fa-chart-line"></i> View Our Plans
+            </a>
+            <a href="Contacts.html" class="btn-secondary">
+              <i class="fas fa-phone"></i> Get Started
+            </a>
           </div>
         </div>
-        
-        <div class="digest-card" data-newsletter-id="new-furnace-detail">
-          <div class="digest-img-container">
-            <img src="https://i.postimg.cc/prGQXpbX/FUN-3.png" alt="Strength Training" class="digest-img">
-          </div>
-          <div class="digest-content">
-            <span class="digest-category">Monthly Event</span>
-            <h3 class="digest-title">WorkFit Fun Run</h3>
-            <p class="digest-date">Oct 05, 2025</p>
-            <p class="digest-excerpt">Our end of the month event is here with us. Please register at the events section!</p>
+      </div>
+      
+      <!-- Health & Nutrition Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Health & Nutrition Guidance</h1>
+          <p>Expert nutritional advice and meal planning to complement your fitness journey and optimize results</p>
+          <div class="hero-buttons">
+            <a href="plans-wpa.html" class="btn-primary">
+              <i class="fas fa-chart-line"></i> View Our Plans
+            </a>
+            <a href="Contacts.html" class="btn-secondary">
+              <i class="fas fa-phone"></i> Get Started
+            </a>
           </div>
         </div>
-                
-        <div class="digest-card" data-newsletter-id="wangige-furnace-detail">
-          <div class="digest-img-container">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqD8saJCFclbTIxzuZO_Xb4gB3mSbPmKd8tQ&s" alt="Wangige Furnace Team Event" class="digest-img">
+      </div>
+      
+      <!-- Family Wellness Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Family Wellness Programs</h1>
+          <p>Activities and programs designed to promote health and wellness for the entire family</p>
+          <div class="hero-buttons">
+            <a href="plans-wpa.html" class="btn-primary">
+              <i class="fas fa-chart-line"></i> View Our Plans
+            </a>
+            <a href="Contacts.html" class="btn-secondary">
+              <i class="fas fa-phone"></i> Get Started
+            </a>
           </div>
-          <div class="digest-content">
-            <span class="digest-category">Upcoming Furnace</span>
-            <h3 class="digest-title">Wangige Furnace</h3>
-            <p class="digest-date">Oct 01, 2025</p>
-            <p class="digest-excerpt">The Wangige Furnace is an upcoming vibrant and energetic club within WorkFit, set to unite fitness enthusiasts from the Wangige area and beyond. Stay tuned for updates!</p>
+        </div>
+      </div>
+      
+      <!-- Social Strength Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Social Strength Building</h1>
+          <p>Group activities and team challenges that build connections while improving physical fitness</p>
+          <div class="hero-buttons">
+            <a href="plans-wpa.html" class="btn-primary">
+              <i class="fas fa-chart-line"></i> View Our Plans
+            </a>
+            <a href="Contacts.html" class="btn-secondary">
+              <i class="fas fa-phone"></i> Get Started
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mental Acuity Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Mental Acuity Enhancement</h1>
+          <p>Mindfulness practices and cognitive exercises to improve focus, memory, and mental clarity</p>
+          <div class="hero-buttons">
+            <a href="plans-wpa.html" class="btn-primary">
+              <i class="fas fa-chart-line"></i> View Our Plans
+            </a>
+            <a href="Contacts.html" class="btn-secondary">
+              <i class="fas fa-phone"></i> Get Started
+            </a>
           </div>
         </div>
       </div>
     </div>
+    
+    <div class="hero-indicators" id="heroIndicators">
+      <!-- Indicators will be added by JavaScript -->
+    </div>
   </section>
 
-  <section class="newsletters" id="newsletters">
-    <h2 class="section-subtitle">Latest Newsletters</h2>
-    <div class="newsletter-carousel">
-      <div class="newsletter-grid">
-        <div class="newsletter-card" data-newsletter-id="meal-plan-paragraph">
-          <div class="newsletter-img-container">
-            <img src="https://i.postimg.cc/8kY3SWTj/pngwing-com-3-removebg-preview.png" alt="Healthy Meal Plan" class="newsletter-img">
-          </div>
-          <div class="newsletter-content">
-            <span class="newsletter-category">Meal Plan</span>
-            <h3 class="newsletter-title">Sugar and Fitness</h3>
-            <p class="newsletter-date">October 5, 2025</p>
-            <p class="newsletter-excerpt">Sugar often gets a bad reputation in the fitness world, but the key to harnessing its power lies in understanding the importance of controlled quantities</p>
-          </div>
+  <!-- Statistics Section -->
+  <section class="statistics">
+    <h2 class="section-title">Our Impact</h2>
+    <div class="stats-card">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Active Members</div>
         </div>
-        
-        <div class="newsletter-card" data-newsletter-id="workout-paragraph">
-          <div class="newsletter-img-container">
-            <img src="https://i.postimg.cc/C5vJm3m0/pngwing-com-6-removebg-preview.png" alt="Strength Training" class="newsletter-img">
-          </div>
-          <div class="newsletter-content">
-            <span class="newsletter-category">Workout Types</span>
-            <h3 class="newsletter-title">Family Fitness Fun</h3>
-            <p class="newsletter-date">Oct 5, 2025</p>
-            <p class="newsletter-excerpt">A healthy, active lifestyle is something the whole family can enjoy together right at home. By turning fitness into fun, shared experiences, you can build lasting habits, strengthen bonds, and boost everyone's energy and well-being without needing a gym.</p>
-          </div>
+        <div class="stat-item">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Corporate Partners</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Years Experience</div>
         </div>
       </div>
+      <p class="stats-description">
+        With over a decade of experience in corporate wellness, WorkFit has transformed the health and productivity of thousands of employees across multiple industries. Our evidence-based approach delivers measurable results in employee engagement, reduced absenteeism, and improved team dynamics.
+      </p>
     </div>
   </section>
 
@@ -1482,6 +1453,50 @@
             <p class="event-location">WorkFit Central Gym</p>
             <p class="event-description">A full day of team-building activities combined with fitness challenges designed to strengthen bonds and promote health.</p>
             <button class="register-btn" data-event="Team Building Fitness Day">Register Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletters" id="newsletters">
+    <h2 class="section-subtitle">Latest Newsletters</h2>
+    <div class="newsletter-carousel">
+      <div class="newsletter-grid">
+        <div class="newsletter-card" data-newsletter-id="meal-plan-paragraph">
+          <div class="newsletter-img-container">
+            <img src="https://i.postimg.cc/8kY3SWTj/pngwing-com-3-removebg-preview.png" alt="Healthy Meal Plan" class="newsletter-img">
+          </div>
+          <div class="newsletter-content">
+            <span class="newsletter-category">Meal Plan</span>
+            <h3 class="newsletter-title">Sugar and Fitness</h3>
+            <p class="newsletter-date">October 5, 2025</p>
+            <p class="newsletter-excerpt">Sugar often gets a bad reputation in the fitness world, but the key to harnessing its power lies in understanding the importance of controlled quantities</p>
+          </div>
+        </div>
+        
+        <div class="newsletter-card" data-newsletter-id="workout-paragraph">
+          <div class="newsletter-img-container">
+            <img src="https://i.postimg.cc/C5vJm3m0/pngwing-com-6-removebg-preview.png" alt="Strength Training" class="newsletter-img">
+          </div>
+          <div class="newsletter-content">
+            <span class="newsletter-category">Workout Types</span>
+            <h3 class="newsletter-title">Family Fitness Fun</h3>
+            <p class="newsletter-date">Oct 5, 2025</p>
+            <p class="newsletter-excerpt">A healthy, active lifestyle is something the whole family can enjoy together right at home. By turning fitness into fun, shared experiences, you can build lasting habits, strengthen bonds, and boost everyone's energy and well-being without needing a gym.</p>
+          </div>
+        </div>
+        
+        <div class="newsletter-card" data-newsletter-id="furnace-paragraph">
+          <div class="newsletter-img-container">
+            <img src="https://images.unsplash.com/photo-1723731065038-580d5f55c7f5?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="A person wearing athletic clothing is holding a dumbbell in a gym setting. The individual is focused and determined, embodying a tone of motivation and strength." class="newsletter-img">
+          </div>
+          <div class="newsletter-content">
+            <span class="newsletter-category">WorkFit Terminology</span>
+            <h3 class="newsletter-title">What is a Furnace?</h3>
+            <p class="newsletter-date">October 1, 2025</p>
+            <p class="newsletter-excerpt">Discover what a "Furnace" means at WorkFit and how it shapes our team spirit and fitness journey.</p>
           </div>
         </div>
       </div>
@@ -2196,54 +2211,69 @@ function initializeGoogleForms() {
   }
 }
 
-// Weekly Digest Auto-sliding functionality
-function initializeDigestCarousel() {
-  const digestTrack = document.getElementById('digestTrack');
-  const digestCards = document.querySelectorAll('.digest-card');
+// Hero Carousel Functionality
+function initializeHeroCarousel() {
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroIndicators = document.getElementById('heroIndicators');
   
-  if (digestCards.length > 0 && digestTrack) {
+  if (heroSlides.length > 0 && heroIndicators) {
     let currentSlide = 0;
-    const totalSlides = digestCards.length;
-    const slideWidth = digestCards[0].offsetWidth + 24; // 24px gap
+    let heroInterval = null;
     
-    // Clone the first slide and append to end for seamless looping
-    const firstClone = digestCards[0].cloneNode(true);
-    digestTrack.appendChild(firstClone);
+    // Create indicators
+    heroSlides.forEach((_, index) => {
+      const indicator = document.createElement('div');
+      indicator.classList.add('hero-indicator');
+      if (index === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        goToSlide(index);
+      });
+      heroIndicators.appendChild(indicator);
+    });
     
-    function slideToNext() {
-      currentSlide++;
-      digestTrack.style.transition = 'transform 0.5s ease';
-      digestTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    function goToSlide(index) {
+      // Remove active class from all slides and indicators
+      heroSlides.forEach(slide => slide.classList.remove('active'));
+      document.querySelectorAll('.hero-indicator').forEach(indicator => {
+        indicator.classList.remove('active');
+      });
       
-      // If we're at the last slide (which is the clone), reset without animation
-      if (currentSlide === totalSlides) {
-        setTimeout(() => {
-          digestTrack.style.transition = 'none';
-          currentSlide = 0;
-          digestTrack.style.transform = `translateX(0)`;
-        }, 500);
-      }
+      // Add active class to current slide and indicator
+      heroSlides[index].classList.add('active');
+      document.querySelectorAll('.hero-indicator')[index].classList.add('active');
+      
+      currentSlide = index;
+      
+      // Reset auto-slide timer
+      resetHeroInterval();
     }
     
-    // Start auto sliding
-    let slideInterval = setInterval(slideToNext, 3000);
+    function nextSlide() {
+      const nextIndex = (currentSlide + 1) % heroSlides.length;
+      goToSlide(nextIndex);
+    }
     
-    // Pause on hover/touch
-    digestTrack.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    digestTrack.addEventListener('mouseleave', () => {
-      slideInterval = setInterval(slideToNext, 3000);
-    });
+    function startHeroInterval() {
+      heroInterval = setInterval(nextSlide, 5000);
+    }
     
-    digestTrack.addEventListener('touchstart', () => clearInterval(slideInterval));
-    digestTrack.addEventListener('touchend', () => {
-      slideInterval = setInterval(slideToNext, 3000);
-    });
+    function resetHeroInterval() {
+      clearInterval(heroInterval);
+      startHeroInterval();
+    }
+    
+    // Pause on hover
+    document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(heroInterval));
+    document.querySelector('.hero').addEventListener('mouseleave', startHeroInterval);
+    
+    // Initialize
+    startHeroInterval();
   }
 }
 
 // Newsletter/Digest Detail Pages functionality
 function initializeNewsletterDetails() {
-  const newsletterCards = document.querySelectorAll('.newsletter-card, .digest-card');
+  const newsletterCards = document.querySelectorAll('.newsletter-card');
   const newsletterDetails = document.querySelectorAll('.newsletter-detail');
   const closeDetailButtons = document.querySelectorAll('.newsletter-detail-close');
   
@@ -2371,7 +2401,7 @@ function initializeApp() {
   initializeMobileMenu();
   initializeSmoothScrolling();
   initializeGoogleForms();
-  initializeDigestCarousel();
+  initializeHeroCarousel();
   initializeNewsletterDetails();
   initializeTestimonialsCarousel();
   
