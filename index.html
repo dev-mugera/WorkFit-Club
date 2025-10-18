@@ -664,6 +664,80 @@
       gap: 1rem;
     }
 
+    /* Google Form Modal */
+    .google-form-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .google-form-modal.active {
+      display: flex;
+    }
+
+    .google-form-container {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .google-form-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .google-form-title {
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .google-form-close {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .google-form-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .google-form-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
     /* Testimonials Section */
     .testimonials {
       background-color: var(--bg-primary);
@@ -884,6 +958,14 @@
       .blogs-track::-webkit-scrollbar {
         display: none;
       }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .google-form-container {
+        height: 95vh;
+      }
     }
 
     @media (max-width: 768px) {
@@ -1038,7 +1120,7 @@
               <h3 class="event-title">WorkFit Fun Run</h3>
               <p class="event-location">Nairobi Arboretum</p>
               <p class="event-description">Join us for a scenic 5K fun run through the beautiful Nairobi Arboretum. Perfect for all fitness levels with multiple route options.</p>
-              <button class="view-details-btn">View Details</button>
+              <button class="view-details-btn" data-event-id="1">View Details</button>
             </div>
           </div>
         </div>
@@ -1054,7 +1136,7 @@
               <h3 class="event-title">3x3 Basketball Tournament</h3>
               <p class="event-location">WorkFit Sports Center</p>
               <p class="event-description">Compete in our friendly 3x3 basketball tournament. All skill levels welcome. Prizes for winners and best team spirit!</p>
-              <button class="view-details-btn">View Details</button>
+              <button class="view-details-btn" data-event-id="2">View Details</button>
             </div>
           </div>
         </div>
@@ -1070,7 +1152,7 @@
               <h3 class="event-title">Cycling Challenge</h3>
               <p class="event-location">Karura Forest</p>
               <p class="event-description">Explore the beautiful trails of Karura Forest in our cycling challenge. Routes available for beginners and experienced cyclists.</p>
-              <button class="view-details-btn">View Details</button>
+              <button class="view-details-btn" data-event-id="3">View Details</button>
             </div>
           </div>
         </div>
@@ -1102,7 +1184,7 @@
               <h3 class="blog-title">5 Nutrition Tips for Better Workouts</h3>
               <p class="blog-date">October 12, 2025</p>
               <p class="blog-excerpt">Discover how proper nutrition can enhance your workout performance and recovery. Learn about pre and post-workout meals that fuel your fitness journey.</p>
-              <button class="read-more-btn">Read More</button>
+              <button class="read-more-btn" data-blog-id="1">Read More</button>
             </div>
           </div>
         </div>
@@ -1118,7 +1200,7 @@
               <h3 class="blog-title">Essential Drills to Improve Your Basketball Skills</h3>
               <p class="blog-date">October 5, 2025</p>
               <p class="blog-excerpt">Master these fundamental basketball drills to enhance your shooting, dribbling, and defensive skills. Perfect for players of all levels.</p>
-              <button class="read-more-btn">Read More</button>
+              <button class="read-more-btn" data-blog-id="2">Read More</button>
             </div>
           </div>
         </div>
@@ -1134,7 +1216,7 @@
               <h3 class="blog-title">Essential Cycling Gear for Beginners</h3>
               <p class="blog-date">September 28, 2025</p>
               <p class="blog-excerpt">Get started with cycling confidently with our guide to essential gear. From helmets to proper attire, we've got you covered for your first ride.</p>
-              <button class="read-more-btn">Read More</button>
+              <button class="read-more-btn" data-blog-id="3">Read More</button>
             </div>
           </div>
         </div>
@@ -1193,6 +1275,17 @@
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Google Form Modal -->
+  <div class="google-form-modal" id="googleFormModal">
+    <div class="google-form-container">
+      <div class="google-form-header">
+        <h3 class="google-form-title">Register for Event</h3>
+        <button class="google-form-close" id="googleFormClose">&times;</button>
+      </div>
+      <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
   </div>
 
@@ -1537,6 +1630,7 @@ function initializeBlogsCarousel() {
 
 // Event Detail Modal Functionality
 function initializeEventModals() {
+  const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
   const eventCards = document.querySelectorAll('.event-card');
   const eventModal = document.getElementById('eventModal');
   const eventModalClose = document.getElementById('eventModalClose');
@@ -1545,6 +1639,7 @@ function initializeEventModals() {
   const eventModalMeta = document.getElementById('eventModalMeta');
   const eventModalDescription = document.getElementById('eventModalDescription');
   const eventRegisterBtn = document.getElementById('eventRegisterBtn');
+  const eventShareBtn = document.getElementById('eventShareBtn');
   
   // Event data
   const eventData = {
@@ -1581,24 +1676,37 @@ function initializeEventModals() {
       if (e.target.classList.contains('view-details-btn')) return;
       
       const eventId = card.dataset.eventId;
-      const event = eventData[eventId];
-      
-      if (event) {
-        eventModalImg.src = event.image;
-        eventModalImg.alt = event.title;
-        eventModalTitle.textContent = event.title;
-        eventModalMeta.innerHTML = `
-          <p><strong>Date:</strong> ${event.date}</p>
-          <p><strong>Time:</strong> ${event.time}</p>
-          <p><strong>Location:</strong> ${event.location}</p>
-        `;
-        eventModalDescription.innerHTML = event.description;
-        
-        eventModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
+      openEventModal(eventId);
     });
   });
+  
+  // Open event modal when view details button is clicked
+  viewDetailsBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const eventId = btn.dataset.eventId;
+      openEventModal(eventId);
+    });
+  });
+  
+  function openEventModal(eventId) {
+    const event = eventData[eventId];
+    
+    if (event) {
+      eventModalImg.src = event.image;
+      eventModalImg.alt = event.title;
+      eventModalTitle.textContent = event.title;
+      eventModalMeta.innerHTML = `
+        <p><strong>Date:</strong> ${event.date}</p>
+        <p><strong>Time:</strong> ${event.time}</p>
+        <p><strong>Location:</strong> ${event.location}</p>
+      `;
+      eventModalDescription.innerHTML = event.description;
+      
+      eventModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
   
   // Close event modal
   if (eventModalClose) {
@@ -1619,14 +1727,38 @@ function initializeEventModals() {
   // Register button functionality
   if (eventRegisterBtn) {
     eventRegisterBtn.addEventListener('click', () => {
-      alert('Registration form would open here!');
-      // In a real implementation, this would open a registration form
+      // Close event modal and open Google Form
+      eventModal.classList.remove('active');
+      openGoogleForm();
+    });
+  }
+  
+  // Share button functionality
+  if (eventShareBtn) {
+    eventShareBtn.addEventListener('click', () => {
+      const title = eventModalTitle.textContent;
+      const text = `Check out this event: ${title}`;
+      const url = window.location.href;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: text,
+          url: url
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Event link copied to clipboard!');
+        });
+      }
     });
   }
 }
 
 // Blog Detail Modal Functionality
 function initializeBlogModals() {
+  const readMoreBtns = document.querySelectorAll('.read-more-btn');
   const blogCards = document.querySelectorAll('.blog-card');
   const blogModal = document.getElementById('blogModal');
   const blogModalClose = document.getElementById('blogModalClose');
@@ -1635,6 +1767,7 @@ function initializeBlogModals() {
   const blogModalMeta = document.getElementById('blogModalMeta');
   const blogModalDescription = document.getElementById('blogModalDescription');
   const blogReadBtn = document.getElementById('blogReadBtn');
+  const blogShareBtn = document.getElementById('blogShareBtn');
   
   // Blog data
   const blogData = {
@@ -1671,24 +1804,37 @@ function initializeBlogModals() {
       if (e.target.classList.contains('read-more-btn')) return;
       
       const blogId = card.dataset.blogId;
-      const blog = blogData[blogId];
-      
-      if (blog) {
-        blogModalImg.src = blog.image;
-        blogModalImg.alt = blog.title;
-        blogModalTitle.textContent = blog.title;
-        blogModalMeta.innerHTML = `
-          <p><strong>Category:</strong> ${blog.category}</p>
-          <p><strong>Date:</strong> ${blog.date}</p>
-          <p><strong>Author:</strong> ${blog.author}</p>
-        `;
-        blogModalDescription.innerHTML = blog.description;
-        
-        blogModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
+      openBlogModal(blogId);
     });
   });
+  
+  // Open blog modal when read more button is clicked
+  readMoreBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const blogId = btn.dataset.blogId;
+      openBlogModal(blogId);
+    });
+  });
+  
+  function openBlogModal(blogId) {
+    const blog = blogData[blogId];
+    
+    if (blog) {
+      blogModalImg.src = blog.image;
+      blogModalImg.alt = blog.title;
+      blogModalTitle.textContent = blog.title;
+      blogModalMeta.innerHTML = `
+        <p><strong>Category:</strong> ${blog.category}</p>
+        <p><strong>Date:</strong> ${blog.date}</p>
+        <p><strong>Author:</strong> ${blog.author}</p>
+      `;
+      blogModalDescription.innerHTML = blog.description;
+      
+      blogModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
   
   // Close blog modal
   if (blogModalClose) {
@@ -1713,6 +1859,59 @@ function initializeBlogModals() {
       // In a real implementation, this would navigate to the full blog post
     });
   }
+  
+  // Share button functionality
+  if (blogShareBtn) {
+    blogShareBtn.addEventListener('click', () => {
+      const title = blogModalTitle.textContent;
+      const text = `Check out this blog post: ${title}`;
+      const url = window.location.href;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: text,
+          url: url
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Blog link copied to clipboard!');
+        });
+      }
+    });
+  }
+}
+
+// Google Form Modal Functionality
+function initializeGoogleFormModal() {
+  const googleFormModal = document.getElementById('googleFormModal');
+  const googleFormClose = document.getElementById('googleFormClose');
+  
+  function openGoogleForm() {
+    googleFormModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeGoogleForm() {
+    googleFormModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+  
+  // Close Google Form
+  if (googleFormClose) {
+    googleFormClose.addEventListener('click', closeGoogleForm);
+  }
+  
+  // Close modal when clicking outside
+  googleFormModal.addEventListener('click', (e) => {
+    if (e.target === googleFormModal) {
+      closeGoogleForm();
+    }
+  });
+  
+  // Make openGoogleForm function globally accessible
+  window.openGoogleForm = openGoogleForm;
 }
 
 // Testimonials Carousel Functionality
@@ -1803,6 +2002,7 @@ function initializeApp() {
   initializeBlogsCarousel();
   initializeEventModals();
   initializeBlogModals();
+  initializeGoogleFormModal();
   initializeTestimonialsCarousel();
   
   // Add resize listener
