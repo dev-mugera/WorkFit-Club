@@ -297,14 +297,14 @@
 
     /* Upcoming Events Section */
     .events {
-      padding: 3rem 1rem;
+      padding: 2rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       color: var(--navy);
       font-size: 2rem;
       font-weight: 700;
@@ -313,18 +313,19 @@
     .events-carousel {
       position: relative;
       overflow: hidden;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .events-track {
       display: flex;
       transition: transform 0.5s ease;
+      gap: 1rem;
+      padding: 0.5rem;
     }
 
     .event-slide {
-      flex: 0 0 33.333%;
-      padding: 0.8rem;
-      box-sizing: border-box;
+      flex: 0 0 calc(33.333% - 1rem);
+      min-width: 280px;
     }
 
     .event-card {
@@ -336,6 +337,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      cursor: pointer;
     }
 
     .event-card:hover {
@@ -343,7 +345,7 @@
     }
 
     .event-img-container {
-      height: 180px;
+      height: 140px;
       overflow: hidden;
     }
 
@@ -359,7 +361,7 @@
     }
 
     .event-content {
-      padding: 1.5rem;
+      padding: 1.2rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -369,33 +371,40 @@
       color: var(--gold);
       font-weight: bold;
       margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .event-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
       color: var(--navy);
+      line-height: 1.3;
     }
 
     .event-location {
       color: var(--gray);
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
     }
 
     .event-description {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: var(--text-secondary);
       flex: 1;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .register-btn {
+    .view-details-btn {
       display: inline-block;
       background: var(--navy);
       color: var(--white);
-      padding: 0.8rem 1.5rem;
-      border-radius: 25px;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
       text-decoration: none;
       font-weight: 600;
       transition: background 0.3s;
@@ -403,37 +412,49 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      width: 100%;
+      font-size: 0.85rem;
     }
 
-    .register-btn:hover {
+    .view-details-btn:hover {
       background: var(--navy-light);
     }
 
-    .events-indicators {
+    .carousel-controls {
       display: flex;
       justify-content: center;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
+      gap: 1rem;
+      margin-top: 1rem;
     }
 
-    .events-indicator {
-      width: 10px;
-      height: 10px;
+    .carousel-btn {
+      background: var(--navy);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background-color: var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s;
     }
 
-    .events-indicator.active {
-      background-color: var(--navy);
+    .carousel-btn:hover {
+      background: var(--navy-light);
+      transform: scale(1.1);
+    }
+
+    .carousel-btn:disabled {
+      background: var(--gray);
+      cursor: not-allowed;
+      transform: none;
     }
 
     /* Latest Blog Section */
     .blogs {
       background-color: var(--bg-primary);
-      padding: 3rem 1rem;
+      padding: 2rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -441,18 +462,19 @@
     .blogs-carousel {
       position: relative;
       overflow: hidden;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .blogs-track {
       display: flex;
       transition: transform 0.5s ease;
+      gap: 1rem;
+      padding: 0.5rem;
     }
 
     .blog-slide {
-      flex: 0 0 33.333%;
-      padding: 0.8rem;
-      box-sizing: border-box;
+      flex: 0 0 calc(33.333% - 1rem);
+      min-width: 280px;
     }
 
     .blog-card {
@@ -464,6 +486,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      cursor: pointer;
     }
 
     .blog-card:hover {
@@ -471,7 +494,7 @@
     }
 
     .blog-img-container {
-      height: 180px;
+      height: 140px;
       overflow: hidden;
     }
 
@@ -487,7 +510,7 @@
     }
 
     .blog-content {
-      padding: 1.5rem;
+      padding: 1.2rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -497,37 +520,44 @@
       display: inline-block;
       background: var(--gold);
       color: var(--navy);
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.75rem;
-      margin-bottom: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      margin-bottom: 0.6rem;
       font-weight: 600;
     }
 
     .blog-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
       color: var(--navy);
+      line-height: 1.3;
     }
 
     .blog-date {
       color: var(--gray);
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
     }
 
     .blog-excerpt {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: var(--text-secondary);
       flex: 1;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .read-more-btn {
       display: inline-block;
       background: var(--navy);
       color: var(--white);
-      padding: 0.8rem 1.5rem;
-      border-radius: 25px;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
       text-decoration: none;
       font-weight: 600;
       transition: background 0.3s;
@@ -535,31 +565,103 @@
       border: none;
       cursor: pointer;
       text-align: center;
-      width: 100%;
+      font-size: 0.85rem;
     }
 
     .read-more-btn:hover {
       background: var(--navy-light);
     }
 
-    .blogs-indicators {
-      display: flex;
+    /* Detail Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
       justify-content: center;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
+      align-items: center;
+      padding: 1rem;
     }
 
-    .blogs-indicator {
-      width: 10px;
-      height: 10px;
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
-      background-color: var(--border-color);
+      font-size: 1.2rem;
       cursor: pointer;
-      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      z-index: 10;
+      transition: all 0.3s;
     }
 
-    .blogs-indicator.active {
-      background-color: var(--navy);
+    .modal-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .modal-img-container {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
+    }
+
+    .modal-meta {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .modal-description {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
     }
 
     /* Testimonials Section */
@@ -764,7 +866,23 @@
 
       .event-slide,
       .blog-slide {
-        flex: 0 0 100%;
+        flex: 0 0 calc(100% - 1rem);
+      }
+
+      .carousel-controls {
+        display: none;
+      }
+
+      .events-track,
+      .blogs-track {
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .events-track::-webkit-scrollbar,
+      .blogs-track::-webkit-scrollbar {
+        display: none;
       }
     }
 
@@ -911,7 +1029,7 @@
       <div class="events-track" id="eventsTrack">
         <!-- Event 1 -->
         <div class="event-slide">
-          <div class="event-card">
+          <div class="event-card" data-event-id="1">
             <div class="event-img-container">
               <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="WorkFit Fun Run" class="event-img">
             </div>
@@ -920,14 +1038,14 @@
               <h3 class="event-title">WorkFit Fun Run</h3>
               <p class="event-location">Nairobi Arboretum</p>
               <p class="event-description">Join us for a scenic 5K fun run through the beautiful Nairobi Arboretum. Perfect for all fitness levels with multiple route options.</p>
-              <button class="register-btn">Register Now</button>
+              <button class="view-details-btn">View Details</button>
             </div>
           </div>
         </div>
         
         <!-- Event 2 -->
         <div class="event-slide">
-          <div class="event-card">
+          <div class="event-card" data-event-id="2">
             <div class="event-img-container">
               <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Tournament" class="event-img">
             </div>
@@ -936,14 +1054,14 @@
               <h3 class="event-title">3x3 Basketball Tournament</h3>
               <p class="event-location">WorkFit Sports Center</p>
               <p class="event-description">Compete in our friendly 3x3 basketball tournament. All skill levels welcome. Prizes for winners and best team spirit!</p>
-              <button class="register-btn">Register Now</button>
+              <button class="view-details-btn">View Details</button>
             </div>
           </div>
         </div>
         
         <!-- Event 3 -->
         <div class="event-slide">
-          <div class="event-card">
+          <div class="event-card" data-event-id="3">
             <div class="event-img-container">
               <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Challenge" class="event-img">
             </div>
@@ -952,13 +1070,18 @@
               <h3 class="event-title">Cycling Challenge</h3>
               <p class="event-location">Karura Forest</p>
               <p class="event-description">Explore the beautiful trails of Karura Forest in our cycling challenge. Routes available for beginners and experienced cyclists.</p>
-              <button class="register-btn">Register Now</button>
+              <button class="view-details-btn">View Details</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="events-indicators" id="eventsIndicators">
-        <!-- Indicators will be added by JavaScript -->
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="eventsPrevBtn" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn" id="eventsNextBtn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   </section>
@@ -970,7 +1093,7 @@
       <div class="blogs-track" id="blogsTrack">
         <!-- Blog 1 -->
         <div class="blog-slide">
-          <div class="blog-card">
+          <div class="blog-card" data-blog-id="1">
             <div class="blog-img-container">
               <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nutrition Tips" class="blog-img">
             </div>
@@ -986,7 +1109,7 @@
         
         <!-- Blog 2 -->
         <div class="blog-slide">
-          <div class="blog-card">
+          <div class="blog-card" data-blog-id="2">
             <div class="blog-img-container">
               <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Drills" class="blog-img">
             </div>
@@ -1002,7 +1125,7 @@
         
         <!-- Blog 3 -->
         <div class="blog-slide">
-          <div class="blog-card">
+          <div class="blog-card" data-blog-id="3">
             <div class="blog-img-container">
               <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Gear" class="blog-img">
             </div>
@@ -1016,11 +1139,62 @@
           </div>
         </div>
       </div>
-      <div class="blogs-indicators" id="blogsIndicators">
-        <!-- Indicators will be added by JavaScript -->
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="blogsPrevBtn" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn" id="blogsNextBtn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   </section>
+
+  <!-- Event Detail Modals -->
+  <div class="modal" id="eventModal">
+    <div class="modal-content">
+      <button class="modal-close" id="eventModalClose">&times;</button>
+      <div class="modal-img-container">
+        <img id="eventModalImg" src="" alt="Event Image" class="modal-img">
+      </div>
+      <div class="modal-body">
+        <h2 id="eventModalTitle" class="modal-title">Event Title</h2>
+        <div id="eventModalMeta" class="modal-meta"></div>
+        <div id="eventModalDescription" class="modal-description"></div>
+        <div class="modal-actions">
+          <button class="btn-primary" id="eventRegisterBtn">
+            <i class="fas fa-ticket-alt"></i> Register Now
+          </button>
+          <button class="btn-secondary" id="eventShareBtn">
+            <i class="fas fa-share-alt"></i> Share Event
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Detail Modals -->
+  <div class="modal" id="blogModal">
+    <div class="modal-content">
+      <button class="modal-close" id="blogModalClose">&times;</button>
+      <div class="modal-img-container">
+        <img id="blogModalImg" src="" alt="Blog Image" class="modal-img">
+      </div>
+      <div class="modal-body">
+        <h2 id="blogModalTitle" class="modal-title">Blog Title</h2>
+        <div id="blogModalMeta" class="modal-meta"></div>
+        <div id="blogModalDescription" class="modal-description"></div>
+        <div class="modal-actions">
+          <button class="btn-primary" id="blogReadBtn">
+            <i class="fas fa-book-open"></i> Continue Reading
+          </button>
+          <button class="btn-secondary" id="blogShareBtn">
+            <i class="fas fa-share-alt"></i> Share Article
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Testimonials Section -->
   <section class="testimonials" id="testimonials">
@@ -1269,60 +1443,47 @@ function initializeHeroCarousel() {
 function initializeEventsCarousel() {
   const eventsTrack = document.getElementById('eventsTrack');
   const eventSlides = eventsTrack ? eventsTrack.querySelectorAll('.event-slide') : [];
-  const eventsIndicators = document.getElementById('eventsIndicators');
+  const eventsPrevBtn = document.getElementById('eventsPrevBtn');
+  const eventsNextBtn = document.getElementById('eventsNextBtn');
   
-  if (eventSlides.length > 0 && eventsTrack && eventsIndicators) {
+  if (eventSlides.length > 0 && eventsTrack) {
     let currentEvent = 0;
-    let eventsInterval = null;
+    const slidesPerView = window.innerWidth < 768 ? 1 : 3;
+    const maxSlide = eventSlides.length - slidesPerView;
     
-    // Create indicators
-    eventSlides.forEach((_, index) => {
-      const indicator = document.createElement('div');
-      indicator.classList.add('events-indicator');
-      if (index === 0) indicator.classList.add('active');
-      indicator.addEventListener('click', () => {
-        goToEvent(index);
-      });
-      eventsIndicators.appendChild(indicator);
-    });
-    
-    function goToEvent(index) {
-      currentEvent = index;
-      eventsTrack.style.transform = `translateX(-${currentEvent * 33.333}%)`;
+    function updateCarousel() {
+      eventsTrack.style.transform = `translateX(-${currentEvent * (100 / slidesPerView)}%)`;
       
-      // Update active indicator
-      document.querySelectorAll('.events-indicator').forEach((indicator, i) => {
-        if (i === currentEvent) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
-      
-      // Reset auto-slide timer
-      resetEventsInterval();
+      // Update button states
+      eventsPrevBtn.disabled = currentEvent === 0;
+      eventsNextBtn.disabled = currentEvent >= maxSlide;
     }
     
     function nextEvent() {
-      currentEvent = (currentEvent + 1) % eventSlides.length;
-      goToEvent(currentEvent);
+      if (currentEvent < maxSlide) {
+        currentEvent++;
+        updateCarousel();
+      }
     }
     
-    function startEventsInterval() {
-      eventsInterval = setInterval(nextEvent, 6000);
+    function prevEvent() {
+      if (currentEvent > 0) {
+        currentEvent--;
+        updateCarousel();
+      }
     }
     
-    function resetEventsInterval() {
-      clearInterval(eventsInterval);
-      startEventsInterval();
+    // Event listeners for buttons
+    if (eventsNextBtn) {
+      eventsNextBtn.addEventListener('click', nextEvent);
     }
     
-    // Pause on hover
-    eventsTrack.addEventListener('mouseenter', () => clearInterval(eventsInterval));
-    eventsTrack.addEventListener('mouseleave', startEventsInterval);
+    if (eventsPrevBtn) {
+      eventsPrevBtn.addEventListener('click', prevEvent);
+    }
     
     // Initialize
-    startEventsInterval();
+    updateCarousel();
   }
 }
 
@@ -1330,60 +1491,227 @@ function initializeEventsCarousel() {
 function initializeBlogsCarousel() {
   const blogsTrack = document.getElementById('blogsTrack');
   const blogSlides = blogsTrack ? blogsTrack.querySelectorAll('.blog-slide') : [];
-  const blogsIndicators = document.getElementById('blogsIndicators');
+  const blogsPrevBtn = document.getElementById('blogsPrevBtn');
+  const blogsNextBtn = document.getElementById('blogsNextBtn');
   
-  if (blogSlides.length > 0 && blogsTrack && blogsIndicators) {
+  if (blogSlides.length > 0 && blogsTrack) {
     let currentBlog = 0;
-    let blogsInterval = null;
+    const slidesPerView = window.innerWidth < 768 ? 1 : 3;
+    const maxSlide = blogSlides.length - slidesPerView;
     
-    // Create indicators
-    blogSlides.forEach((_, index) => {
-      const indicator = document.createElement('div');
-      indicator.classList.add('blogs-indicator');
-      if (index === 0) indicator.classList.add('active');
-      indicator.addEventListener('click', () => {
-        goToBlog(index);
-      });
-      blogsIndicators.appendChild(indicator);
-    });
-    
-    function goToBlog(index) {
-      currentBlog = index;
-      blogsTrack.style.transform = `translateX(-${currentBlog * 33.333}%)`;
+    function updateCarousel() {
+      blogsTrack.style.transform = `translateX(-${currentBlog * (100 / slidesPerView)}%)`;
       
-      // Update active indicator
-      document.querySelectorAll('.blogs-indicator').forEach((indicator, i) => {
-        if (i === currentBlog) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
-      
-      // Reset auto-slide timer
-      resetBlogsInterval();
+      // Update button states
+      blogsPrevBtn.disabled = currentBlog === 0;
+      blogsNextBtn.disabled = currentBlog >= maxSlide;
     }
     
     function nextBlog() {
-      currentBlog = (currentBlog + 1) % blogSlides.length;
-      goToBlog(currentBlog);
+      if (currentBlog < maxSlide) {
+        currentBlog++;
+        updateCarousel();
+      }
     }
     
-    function startBlogsInterval() {
-      blogsInterval = setInterval(nextBlog, 7000);
+    function prevBlog() {
+      if (currentBlog > 0) {
+        currentBlog--;
+        updateCarousel();
+      }
     }
     
-    function resetBlogsInterval() {
-      clearInterval(blogsInterval);
-      startBlogsInterval();
+    // Event listeners for buttons
+    if (blogsNextBtn) {
+      blogsNextBtn.addEventListener('click', nextBlog);
     }
     
-    // Pause on hover
-    blogsTrack.addEventListener('mouseenter', () => clearInterval(blogsInterval));
-    blogsTrack.addEventListener('mouseleave', startBlogsInterval);
+    if (blogsPrevBtn) {
+      blogsPrevBtn.addEventListener('click', prevBlog);
+    }
     
     // Initialize
-    startBlogsInterval();
+    updateCarousel();
+  }
+}
+
+// Event Detail Modal Functionality
+function initializeEventModals() {
+  const eventCards = document.querySelectorAll('.event-card');
+  const eventModal = document.getElementById('eventModal');
+  const eventModalClose = document.getElementById('eventModalClose');
+  const eventModalImg = document.getElementById('eventModalImg');
+  const eventModalTitle = document.getElementById('eventModalTitle');
+  const eventModalMeta = document.getElementById('eventModalMeta');
+  const eventModalDescription = document.getElementById('eventModalDescription');
+  const eventRegisterBtn = document.getElementById('eventRegisterBtn');
+  
+  // Event data
+  const eventData = {
+    1: {
+      title: "WorkFit Fun Run",
+      date: "November 15, 2025",
+      time: "7:00 AM - 10:00 AM",
+      location: "Nairobi Arboretum",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      description: "Join us for a scenic 5K fun run through the beautiful Nairobi Arboretum. This event is perfect for all fitness levels with multiple route options available. Whether you're a seasoned runner or just starting out, you'll enjoy the beautiful scenery and supportive atmosphere.<br><br>All participants will receive a commemorative t-shirt and refreshments. Prizes will be awarded to top finishers in each category. Registration is required and spots are limited, so sign up early!"
+    },
+    2: {
+      title: "3x3 Basketball Tournament",
+      date: "November 22, 2025",
+      time: "2:00 PM - 6:00 PM",
+      location: "WorkFit Sports Center",
+      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      description: "Compete in our friendly 3x3 basketball tournament. All skill levels are welcome to participate in this exciting event. Teams will be formed on-site, so you can come alone or with friends.<br><br>Prizes will be awarded to the winning team and for best team spirit. Refreshments will be provided, and there will be music and entertainment throughout the event. Don't miss this opportunity to showcase your skills and have fun with fellow basketball enthusiasts!"
+    },
+    3: {
+      title: "Cycling Challenge",
+      date: "December 5, 2025",
+      time: "8:00 AM - 12:00 PM",
+      location: "Karura Forest",
+      image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      description: "Explore the beautiful trails of Karura Forest in our cycling challenge. We'll have routes available for both beginners and experienced cyclists, so everyone can participate at their own pace.<br><br>The event will include guided group rides, safety briefings, and mechanical support. Helmets are mandatory, and we recommend bringing your own water and snacks. This is a great opportunity to discover new cycling routes and connect with fellow cycling enthusiasts in the WorkFit community."
+    }
+  };
+  
+  // Open event modal when card is clicked
+  eventCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Don't open modal if the click was on the button
+      if (e.target.classList.contains('view-details-btn')) return;
+      
+      const eventId = card.dataset.eventId;
+      const event = eventData[eventId];
+      
+      if (event) {
+        eventModalImg.src = event.image;
+        eventModalImg.alt = event.title;
+        eventModalTitle.textContent = event.title;
+        eventModalMeta.innerHTML = `
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Time:</strong> ${event.time}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
+        `;
+        eventModalDescription.innerHTML = event.description;
+        
+        eventModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+  
+  // Close event modal
+  if (eventModalClose) {
+    eventModalClose.addEventListener('click', () => {
+      eventModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+  }
+  
+  // Close modal when clicking outside
+  eventModal.addEventListener('click', (e) => {
+    if (e.target === eventModal) {
+      eventModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+  
+  // Register button functionality
+  if (eventRegisterBtn) {
+    eventRegisterBtn.addEventListener('click', () => {
+      alert('Registration form would open here!');
+      // In a real implementation, this would open a registration form
+    });
+  }
+}
+
+// Blog Detail Modal Functionality
+function initializeBlogModals() {
+  const blogCards = document.querySelectorAll('.blog-card');
+  const blogModal = document.getElementById('blogModal');
+  const blogModalClose = document.getElementById('blogModalClose');
+  const blogModalImg = document.getElementById('blogModalImg');
+  const blogModalTitle = document.getElementById('blogModalTitle');
+  const blogModalMeta = document.getElementById('blogModalMeta');
+  const blogModalDescription = document.getElementById('blogModalDescription');
+  const blogReadBtn = document.getElementById('blogReadBtn');
+  
+  // Blog data
+  const blogData = {
+    1: {
+      title: "5 Nutrition Tips for Better Workouts",
+      category: "Nutrition",
+      date: "October 12, 2025",
+      author: "Sarah Johnson",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      description: "Proper nutrition is essential for maximizing your workout performance and recovery. Here are five key tips to help you fuel your fitness journey:<br><br>1. <strong>Time Your Meals:</strong> Eat a balanced meal 2-3 hours before your workout and refuel within 30 minutes after exercising.<br><br>2. <strong>Stay Hydrated:</strong> Drink water throughout the day and consider electrolyte replacement during intense workouts.<br><br>3. <strong>Balance Macronutrients:</strong> Include a mix of carbohydrates, protein, and healthy fats in your diet.<br><br>4. <strong>Choose Whole Foods:</strong> Opt for nutrient-dense foods over processed options.<br><br>5. <strong>Listen to Your Body:</strong> Pay attention to how different foods affect your energy levels and performance."
+    },
+    2: {
+      title: "Essential Drills to Improve Your Basketball Skills",
+      category: "Basketball",
+      date: "October 5, 2025",
+      author: "James Mwangi",
+      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      description: "Whether you're a beginner or an experienced player, these fundamental basketball drills will help enhance your shooting, dribbling, and defensive skills:<br><br><strong>Shooting Drills:</strong><br>- Form shooting: Focus on proper technique close to the basket<br>- Spot shooting: Practice from different positions on the court<br>- Free throws: Develop consistency from the line<br><br><strong>Dribbling Drills:</strong><br>- Stationary dribbling: Work on ball control with both hands<br>- Cone drills: Improve agility and ball handling<br>- Two-ball dribbling: Enhance coordination<br><br><strong>Defensive Drills:</strong><br>- Defensive slides: Work on lateral movement and stance<br>- Closeout drills: Practice contesting shots effectively<br>- Shell drill: Learn team defensive principles"
+    },
+    3: {
+      title: "Essential Cycling Gear for Beginners",
+      category: "Cycling",
+      date: "September 28, 2025",
+      author: "Michael Chen",
+      image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      description: "Getting started with cycling can be overwhelming with all the gear options available. Here's a guide to the essential equipment you'll need for a safe and enjoyable riding experience:<br><br><strong>Safety First:</strong><br>- Helmet: Non-negotiable for head protection<br>- Lights: Front and rear lights for visibility<br>- Reflective gear: Especially important for low-light conditions<br><br><strong>Comfort & Performance:</strong><br>- Padded shorts: Reduce discomfort on longer rides<br>- Cycling jersey: Moisture-wicking and breathable<br>- Gloves: Improve grip and protect hands<br><br><strong>Tools & Maintenance:</strong><br>- Multi-tool: For on-the-go adjustments and repairs<br>- Spare tube and pump: Essential for fixing flats<br>- Bike lock: Protect your investment when parked<br><br>Remember, you don't need the most expensive gear to get started. Focus on quality essentials that fit well and meet safety standards."
+    }
+  };
+  
+  // Open blog modal when card is clicked
+  blogCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Don't open modal if the click was on the button
+      if (e.target.classList.contains('read-more-btn')) return;
+      
+      const blogId = card.dataset.blogId;
+      const blog = blogData[blogId];
+      
+      if (blog) {
+        blogModalImg.src = blog.image;
+        blogModalImg.alt = blog.title;
+        blogModalTitle.textContent = blog.title;
+        blogModalMeta.innerHTML = `
+          <p><strong>Category:</strong> ${blog.category}</p>
+          <p><strong>Date:</strong> ${blog.date}</p>
+          <p><strong>Author:</strong> ${blog.author}</p>
+        `;
+        blogModalDescription.innerHTML = blog.description;
+        
+        blogModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+  
+  // Close blog modal
+  if (blogModalClose) {
+    blogModalClose.addEventListener('click', () => {
+      blogModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+  }
+  
+  // Close modal when clicking outside
+  blogModal.addEventListener('click', (e) => {
+    if (e.target === blogModal) {
+      blogModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+  
+  // Read more button functionality
+  if (blogReadBtn) {
+    blogReadBtn.addEventListener('click', () => {
+      alert('Full blog article would open here!');
+      // In a real implementation, this would navigate to the full blog post
+    });
   }
 }
 
@@ -1457,6 +1785,12 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
   }
 });
 
+// Handle window resize for carousels
+function handleResize() {
+  initializeEventsCarousel();
+  initializeBlogsCarousel();
+}
+
 // Main initialization function
 function initializeApp() {
   console.log('Initializing WorkFit Landing Page...');
@@ -1467,7 +1801,12 @@ function initializeApp() {
   initializeHeroCarousel();
   initializeEventsCarousel();
   initializeBlogsCarousel();
+  initializeEventModals();
+  initializeBlogModals();
   initializeTestimonialsCarousel();
+  
+  // Add resize listener
+  window.addEventListener('resize', handleResize);
   
   console.log('WorkFit Landing Page initialized successfully');
 }
