@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>WorkFit - Fitness, Basketball, Running & Cycling Clubs</title>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+  <meta name="theme-color" content="#001f3f">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -144,55 +145,82 @@
       fill: var(--text-primary);
     }
 
-    /* Hero Section */
+    /* Hero Section with Carousel */
     .hero {
       position: relative;
-      padding: 4rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      height: 60vh;
+      min-height: 400px;
+      overflow: hidden;
+      border-radius: 0 0 20px 20px;
+      margin: 0 1rem;
     }
 
-    .hero-content {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      color: white;
-      padding: 3rem 2rem;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    .hero-carousel {
       position: relative;
+      height: 100%;
+      width: 100%;
+      border-radius: 20px;
       overflow: hidden;
     }
 
-    .hero-content::before {
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      padding: 2rem;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide-content {
+      max-width: 800px;
+      text-align: center;
+      color: white;
+      z-index: 2;
+    }
+
+    .hero-slide h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .hero-slide p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .hero-slide-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+    }
+
+    .hero-slide-bg::after {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80') center/cover no-repeat;
-      opacity: 0.2;
-      z-index: 1;
-    }
-
-    .hero-content > * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,31,63,0.8) 0%, rgba(0,51,102,0.7) 100%);
     }
 
     .hero-buttons {
@@ -242,11 +270,35 @@
       transform: translateY(-2px);
     }
 
-    /* Clubs Section */
-    .clubs {
+    .hero-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 3;
+    }
+
+    .hero-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero-indicator.active {
+      background-color: var(--gold);
+      transform: scale(1.2);
+    }
+
+    /* Statistics Section */
+    .statistics {
+      background-color: var(--bg-primary);
       padding: 3rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
     }
 
     .section-title {
@@ -255,108 +307,6 @@
       color: var(--navy);
       font-size: 2rem;
       font-weight: 700;
-    }
-
-    .clubs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .club-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px var(--shadow-color);
-      transition: transform 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .club-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .club-img-container {
-      height: 200px;
-      overflow: hidden;
-    }
-
-    .club-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .club-card:hover .club-img {
-      transform: scale(1.05);
-    }
-
-    .club-content {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .club-title {
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
-      color: var(--navy);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .club-description {
-      margin-bottom: 1.5rem;
-      color: var(--text-secondary);
-      flex: 1;
-    }
-
-    .club-features {
-      margin-bottom: 1.5rem;
-    }
-
-    .club-features h4 {
-      margin-bottom: 0.5rem;
-      color: var(--navy);
-    }
-
-    .club-features ul {
-      padding-left: 1.2rem;
-    }
-
-    .club-features li {
-      margin-bottom: 0.3rem;
-      color: var(--text-secondary);
-    }
-
-    .club-cta {
-      display: inline-block;
-      background: var(--navy);
-      color: var(--white);
-      padding: 0.8rem 1.5rem;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.3s;
-      align-self: flex-start;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      width: 100%;
-    }
-
-    .club-cta:hover {
-      background: var(--navy-light);
-    }
-
-    /* Statistics Section */
-    .statistics {
-      background-color: var(--bg-primary);
-      padding: 3rem 1rem;
     }
 
     .stats-card {
@@ -371,8 +321,9 @@
     }
 
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
       gap: 1.5rem;
       margin-top: 1.5rem;
     }
@@ -381,6 +332,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 150px;
     }
 
     .stat-number {
@@ -560,11 +512,17 @@
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
+      .hero {
+        height: 50vh;
+        min-height: 350px;
+        margin: 0 0.5rem;
       }
 
-      .hero p {
+      .hero-slide h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero-slide p {
         font-size: 1rem;
       }
 
@@ -596,7 +554,11 @@
       }
 
       .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+      }
+
+      .stat-item {
+        min-width: 120px;
       }
     }
 
@@ -633,14 +595,6 @@
       .mobile-menu-btn {
         display: block;
       }
-
-      .clubs-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -667,109 +621,80 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Carousel -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>WorkFit: Your Personal Fitness Journey Starts Here</h1>
-      <p>Join our community-focused clubs for fitness, basketball, running, and cycling. We're here to support your personal growth, discipline, and wellness journey.</p>
-      <div class="hero-buttons">
-        <a href="membership.html" class="btn-primary">
-          <i class="fas fa-running"></i> Explore Our Clubs
-        </a>
-        <a href="contact.wpa.html" class="btn-secondary">
-          <i class="fas fa-question-circle"></i> Learn More
-        </a>
+    <div class="hero-carousel">
+      <!-- Fitness Club Slide -->
+      <div class="hero-slide active">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Fitness Club</h1>
+          <p>Build strength, improve endurance, and develop lifelong healthy habits with our comprehensive fitness programs.</p>
+          <div class="hero-buttons">
+            <a href="membership.html#fitness" class="btn-primary">
+              <i class="fas fa-dumbbell"></i> Join Fitness Club
+            </a>
+            <a href="contact.wpa.html" class="btn-secondary">
+              <i class="fas fa-question-circle"></i> Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Basketball Club Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Basketball Club</h1>
+          <p>Improve your skills, enjoy friendly competition, and connect with fellow basketball enthusiasts.</p>
+          <div class="hero-buttons">
+            <a href="membership.html#basketball" class="btn-primary">
+              <i class="fas fa-basketball-ball"></i> Join Basketball Club
+            </a>
+            <a href="contact.wpa.html" class="btn-secondary">
+              <i class="fas fa-question-circle"></i> Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Running Club Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Running Club</h1>
+          <p>From beginners to marathoners, find your pace and achieve your running goals with our supportive community.</p>
+          <div class="hero-buttons">
+            <a href="membership.html#running" class="btn-primary">
+              <i class="fas fa-running"></i> Join Running Club
+            </a>
+            <a href="contact.wpa.html" class="btn-secondary">
+              <i class="fas fa-question-circle"></i> Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cycling Club Slide -->
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="hero-slide-content">
+          <h1>Cycling Club</h1>
+          <p>Explore scenic routes, build endurance, and share the joy of cycling with fellow enthusiasts.</p>
+          <div class="hero-buttons">
+            <a href="membership.html#cycling" class="btn-primary">
+              <i class="fas fa-bicycle"></i> Join Cycling Club
+            </a>
+            <a href="contact.wpa.html" class="btn-secondary">
+              <i class="fas fa-question-circle"></i> Learn More
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- Clubs Section -->
-  <section class="clubs">
-    <h2 class="section-title">Our Clubs</h2>
-    <div class="clubs-grid">
-      <!-- Fitness Club -->
-      <div class="club-card">
-        <div class="club-img-container">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fitness Club" class="club-img">
-        </div>
-        <div class="club-content">
-          <h3 class="club-title"><i class="fas fa-dumbbell"></i> Fitness Club</h3>
-          <p class="club-description">Build strength, improve endurance, and develop lifelong healthy habits with our comprehensive fitness programs.</p>
-          <div class="club-features">
-            <h4>What You'll Gain:</h4>
-            <ul>
-              <li>Personalized workout plans</li>
-              <li>Nutrition guidance</li>
-              <li>Progress tracking</li>
-              <li>Community support</li>
-            </ul>
-          </div>
-          <a href="plans-wpa.html" class="club-cta">Join Fitness Club</a>
-        </div>
-      </div>
-      
-      <!-- Basketball Club -->
-      <div class="club-card">
-        <div class="club-img-container">
-          <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Club" class="club-img">
-        </div>
-        <div class="club-content">
-          <h3 class="club-title"><i class="fas fa-basketball-ball"></i> Basketball Club</h3>
-          <p class="club-description">Improve your skills, enjoy friendly competition, and connect with fellow basketball enthusiasts.</p>
-          <div class="club-features">
-            <h4>What You'll Gain:</h4>
-            <ul>
-              <li>Skill development sessions</li>
-              <li>Regular practice games</li>
-              <li>Fitness tailored for basketball</li>
-              <li>Team camaraderie</li>
-            </ul>
-          </div>
-          <a href="membership.html#basketball" class="club-cta">Join Basketball Club</a>
-        </div>
-      </div>
-      
-      <!-- Running Club -->
-      <div class="club-card">
-        <div class="club-img-container">
-          <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Running Club" class="club-img">
-        </div>
-        <div class="club-content">
-          <h3 class="club-title"><i class="fas fa-running"></i> Running Club</h3>
-          <p class="club-description">From beginners to marathoners, find your pace and achieve your running goals with our supportive community.</p>
-          <div class="club-features">
-            <h4>What You'll Gain:</h4>
-            <ul>
-              <li>Structured training plans</li>
-              <li>Group runs at various paces</li>
-              <li>Race preparation support</li>
-              <li>Injury prevention guidance</li>
-            </ul>
-          </div>
-          <a href="membership.html#running" class="club-cta">Join Running Club</a>
-        </div>
-      </div>
-      
-      <!-- Cycling Club -->
-      <div class="club-card">
-        <div class="club-img-container">
-          <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Club" class="club-img">
-        </div>
-        <div class="club-content">
-          <h3 class="club-title"><i class="fas fa-bicycle"></i> Cycling Club</h3>
-          <p class="club-description">Explore scenic routes, build endurance, and share the joy of cycling with fellow enthusiasts.</p>
-          <div class="club-features">
-            <h4>What You'll Gain:</h4>
-            <ul>
-              <li>Group rides for all levels</li>
-              <li>Route planning assistance</li>
-              <li>Bike maintenance workshops</li>
-              <li>Endurance building programs</li>
-            </ul>
-          </div>
-          <a href="membership.html#cycling" class="club-cta">Join Cycling Club</a>
-        </div>
-      </div>
+    
+    <div class="hero-indicators" id="heroIndicators">
+      <!-- Indicators will be added by JavaScript -->
     </div>
   </section>
 
@@ -984,36 +909,64 @@ function initializeMobileMenu() {
   }
 }
 
-// Smooth scrolling for navigation
-function initializeSmoothScrolling() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      if (this.getAttribute('href') !== '#') {
-        e.preventDefault();
-      }
-      
-      // Close mobile menu if open
-      const navLinks = document.getElementById('navLinks');
-      const menuBtn = document.getElementById('menuBtn');
-      
-      if (navLinks && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        const icon = menuBtn.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-      
-      // Scroll to section
-      if (this.getAttribute('href') !== '#') {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-      }
+// Hero Carousel Functionality
+function initializeHeroCarousel() {
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroIndicators = document.getElementById('heroIndicators');
+  
+  if (heroSlides.length > 0 && heroIndicators) {
+    let currentSlide = 0;
+    let heroInterval = null;
+    
+    // Create indicators
+    heroSlides.forEach((_, index) => {
+      const indicator = document.createElement('div');
+      indicator.classList.add('hero-indicator');
+      if (index === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        goToSlide(index);
+      });
+      heroIndicators.appendChild(indicator);
     });
-  });
+    
+    function goToSlide(index) {
+      // Remove active class from all slides and indicators
+      heroSlides.forEach(slide => slide.classList.remove('active'));
+      document.querySelectorAll('.hero-indicator').forEach(indicator => {
+        indicator.classList.remove('active');
+      });
+      
+      // Add active class to current slide and indicator
+      heroSlides[index].classList.add('active');
+      document.querySelectorAll('.hero-indicator')[index].classList.add('active');
+      
+      currentSlide = index;
+      
+      // Reset auto-slide timer
+      resetHeroInterval();
+    }
+    
+    function nextSlide() {
+      const nextIndex = (currentSlide + 1) % heroSlides.length;
+      goToSlide(nextIndex);
+    }
+    
+    function startHeroInterval() {
+      heroInterval = setInterval(nextSlide, 5000);
+    }
+    
+    function resetHeroInterval() {
+      clearInterval(heroInterval);
+      startHeroInterval();
+    }
+    
+    // Pause on hover
+    document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(heroInterval));
+    document.querySelector('.hero').addEventListener('mouseleave', startHeroInterval);
+    
+    // Initialize
+    startHeroInterval();
+  }
 }
 
 // Testimonials Carousel Functionality
@@ -1093,7 +1046,7 @@ function initializeApp() {
   // Initialize all components
   initializeTheme();
   initializeMobileMenu();
-  initializeSmoothScrolling();
+  initializeHeroCarousel();
   initializeTestimonialsCarousel();
   
   console.log('WorkFit Landing Page initialized successfully');
