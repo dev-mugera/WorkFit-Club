@@ -295,10 +295,11 @@
       transform: scale(1.2);
     }
 
-    /* Statistics Section */
-    .statistics {
-      background-color: var(--bg-primary);
+    /* Activities Section */
+    .activities {
       padding: 3rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .section-title {
@@ -307,6 +308,59 @@
       color: var(--navy);
       font-size: 2rem;
       font-weight: 700;
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .activity-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px var(--shadow-color);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .activity-icon {
+      background: var(--navy);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    .activity-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--navy);
+    }
+
+    .activity-description {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      flex: 1;
+    }
+
+    /* Statistics Section */
+    .statistics {
+      background-color: var(--bg-primary);
+      padding: 3rem 1rem;
     }
 
     .stats-card {
@@ -560,6 +614,10 @@
       .stat-item {
         min-width: 120px;
       }
+
+      .activities-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 768px) {
@@ -698,18 +756,80 @@
     </div>
   </section>
 
+  <!-- Activities Section -->
+  <section class="activities">
+    <h2 class="section-title">How We Run Our Activities</h2>
+    <div class="activities-grid">
+      <!-- Monthly Challenges -->
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <div class="activity-content">
+          <h3 class="activity-title">Monthly Challenges</h3>
+          <p class="activity-description">
+            Stay motivated with our monthly fitness challenges designed to push your limits and track your progress. 
+            Each challenge is tailored to different fitness levels and includes leaderboards, rewards, and community support.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Personal Fitness Coaching -->
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i class="fas fa-user-tie"></i>
+        </div>
+        <div class="activity-content">
+          <h3 class="activity-title">Personal Fitness Coaching</h3>
+          <p class="activity-description">
+            Get one-on-one guidance from certified fitness coaches who create personalized workout plans, 
+            provide form correction, and help you achieve your specific fitness goals at your own pace.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Community Events -->
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="activity-content">
+          <h3 class="activity-title">Community Events</h3>
+          <p class="activity-description">
+            Join our regular community events including fun runs, fitness workshops, social gatherings, 
+            and wellness seminars. Connect with like-minded individuals and build lasting relationships.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Group-led Fitness Clubs -->
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i class="fas fa-running"></i>
+        </div>
+        <div class="activity-content">
+          <h3 class="activity-title">Group-led Fitness Clubs</h3>
+          <p class="activity-description">
+            Participate in our specialized clubs led by experienced members. Whether you're into fitness, 
+            basketball, running, or cycling, our group sessions provide structure, motivation, and camaraderie.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Statistics Section -->
   <section class="statistics">
-    <h2 class="section-title">Our Community Impact</h2>
+    <h2 class="section-title">Our Coverage</h2>
     <div class="stats-card">
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-number">500+</div>
-          <div class="stat-label">Active Members</div>
+          <div class="stat-number">Nairobi</div>
+          <div class="stat-label">Current Area</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">95%</div>
-          <div class="stat-label">Member Satisfaction</div>
+          <div class="stat-number">Expanding</div>
+          <div class="stat-label">Coming Soon</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">4</div>
@@ -721,7 +841,9 @@
         </div>
       </div>
       <p class="stats-description">
-        WorkFit has helped thousands of individuals discover the joy of fitness, build lasting habits, and connect with like-minded people. Our focus is on personal growth, discipline, and creating a supportive environment where everyone can thrive.
+        WorkFit currently operates in Nairobi with plans to expand to other areas. Our four specialized clubs 
+        have been helping individuals achieve their fitness goals for over a decade, focusing on personal growth 
+        and building a supportive community environment.
       </p>
     </div>
   </section>
