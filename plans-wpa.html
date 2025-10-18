@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Our Plans - WorkFit</title>
+    <title>Membership - WorkFit Fitness & Sports</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
     
     <!-- PWA Meta Tags -->
@@ -340,6 +340,106 @@
             font-weight: 600;
             z-index: 10;
         }
+
+        /* Sports Section */
+        .sports-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .sports-intro {
+            text-align: center;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .sports-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .sport-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid var(--gold);
+        }
+
+        .sport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+
+        .sport-img-container {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .sport-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .sport-card:hover .sport-img {
+            transform: scale(1.05);
+        }
+
+        .sport-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sport-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--navy);
+            text-align: center;
+        }
+
+        .sport-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .sport-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: auto;
+        }
+
+        .sport-btn:hover {
+            background: var(--navy-light);
+        }
         
         /* Modal Styles */
         .modal {
@@ -449,6 +549,80 @@
             animation: spin 1s linear infinite;
         }
         
+        /* Google Form Modal */
+        .google-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .google-form-modal.active {
+            display: flex;
+        }
+
+        .google-form-container {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .google-form-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .google-form-title {
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin: 0;
+        }
+
+        .google-form-close {
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .google-form-close:hover {
+            background: var(--white);
+            transform: scale(1.1);
+        }
+
+        .google-form-frame {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -545,10 +719,18 @@
             .packages-container {
                 grid-template-columns: 1fr;
             }
+
+            .sports-container {
+                grid-template-columns: 1fr;
+            }
             
             .modal-content {
                 width: 95%;
                 margin: 10% auto;
+            }
+
+            .google-form-container {
+                height: 95vh;
             }
         }
 
@@ -573,7 +755,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="nav-links" id="navLinks">
-                <a href="plans-wpa.html">Our Plans</a>
+                <a href="index.html">Home</a>
                 <a href="media-wpa.html">Tutorials</a>
                 <a href="Blogs.html">Blogs</a>
                 <a href="Store.html">WorkFit Store</a>
@@ -590,13 +772,14 @@
 
     <!-- Page Header -->
     <section class="page-header">
-        <h1>Our Membership Plans</h1>
-        <p>Choose the perfect plan for your fitness journey. All plans include guided training sessions and community support.</p>
+        <h1>WorkFit Membership Plans</h1>
+        <p>Choose your fitness journey with WorkFit Fitness programs or join our community sports clubs</p>
     </section>
 
     <!-- Plans Container -->
     <div class="plans-container">
-        <h2 class="section-title">Available Plans</h2>
+        <!-- WorkFit Fitness Section -->
+        <h2 class="section-title">WorkFit Fitness Programs</h2>
         
         <div class="intro">
             <p>Start your fitness journey with our flexible membership options designed for individuals and families</p>
@@ -663,7 +846,69 @@
             </div>
         </div>
 
-        <!-- Registration Modal -->
+        <!-- WorkFit Sports Section -->
+        <div class="sports-section">
+            <h2 class="section-title">WorkFit Sports Clubs</h2>
+            
+            <div class="sports-intro">
+                <p>Join our community sports clubs! No packages needed - just register and start playing with fellow enthusiasts</p>
+            </div>
+            
+            <div class="sports-container">
+                <!-- Basketball Club -->
+                <div class="sport-card">
+                    <div class="sport-img-container">
+                        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Club" class="sport-img">
+                    </div>
+                    <div class="sport-content">
+                        <h3 class="sport-title">Basketball Club</h3>
+                        <p class="sport-description">
+                            Join our basketball community for regular games, skill development sessions, and friendly tournaments. 
+                            Perfect for players of all skill levels looking to improve their game and connect with fellow basketball enthusiasts.
+                        </p>
+                        <button class="sport-btn" onclick="openSportsForm('Basketball Club')">
+                            <i class="fas fa-basketball-ball"></i> Join Basketball Club
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Running Club -->
+                <div class="sport-card">
+                    <div class="sport-img-container">
+                        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Running Club" class="sport-img">
+                    </div>
+                    <div class="sport-content">
+                        <h3 class="sport-title">Running Club</h3>
+                        <p class="sport-description">
+                            From beginners to marathoners, our running club offers group runs, training programs, and race preparation. 
+                            Join us for scenic routes, pace groups for all levels, and a supportive community of runners.
+                        </p>
+                        <button class="sport-btn" onclick="openSportsForm('Running Club')">
+                            <i class="fas fa-running"></i> Join Running Club
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Cycling Club -->
+                <div class="sport-card">
+                    <div class="sport-img-container">
+                        <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Club" class="sport-img">
+                    </div>
+                    <div class="sport-content">
+                        <h3 class="sport-title">Cycling Club</h3>
+                        <p class="sport-description">
+                            Explore scenic routes with our cycling community. We offer group rides for all levels, 
+                            from casual cyclists to experienced riders. Enjoy the camaraderie and discover new cycling routes together.
+                        </p>
+                        <button class="sport-btn" onclick="openSportsForm('Cycling Club')">
+                            <i class="fas fa-bicycle"></i> Join Cycling Club
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Modal for Fitness Programs -->
         <div id="registrationModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -726,6 +971,17 @@
         <p>Email: sales.workfit@gmail.com</p>
     </section>
 
+    <!-- Google Form Modal for Sports Clubs -->
+    <div class="google-form-modal" id="sportsFormModal">
+        <div class="google-form-container">
+            <div class="google-form-header">
+                <h3 class="google-form-title" id="sportsFormTitle">Join Sports Club</h3>
+                <button class="google-form-close" id="sportsFormClose">&times;</button>
+            </div>
+            <iframe class="google-form-frame" id="sportsFormFrame" src="" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
+
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="index.html" class="bottom-nav-item">
@@ -738,7 +994,7 @@
         </a>
         <a href="plans-wpa.html" class="bottom-nav-item active">
             <i class="fas fa-chart-line bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Our Plans</span>
+            <span class="bottom-nav-label">Membership</span>
         </a>
         <a href="contact.wpa.html" class="bottom-nav-item">
             <i class="fas fa-phone bottom-nav-icon"></i>
@@ -911,6 +1167,40 @@
                 document.getElementById('registrationForm').style.display = 'block';
             }
         });
+
+        // Sports Clubs Google Form Functionality
+        function openSportsForm(clubName) {
+            const sportsFormModal = document.getElementById('sportsFormModal');
+            const sportsFormTitle = document.getElementById('sportsFormTitle');
+            const sportsFormFrame = document.getElementById('sportsFormFrame');
+            const sportsFormClose = document.getElementById('sportsFormClose');
+            
+            // Set the form title
+            sportsFormTitle.textContent = `Join ${clubName}`;
+            
+            // Set the Google Form URL
+            sportsFormFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSddD-Pt-n1hhhfJF7wlQiwuOkvIuJSfVIVTlhVGXkb3v6vt9g/viewform?embedded=true';
+            
+            // Show the modal
+            sportsFormModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Close functionality
+            sportsFormClose.addEventListener('click', () => {
+                sportsFormModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                sportsFormFrame.src = '';
+            });
+            
+            // Close when clicking outside
+            sportsFormModal.addEventListener('click', (e) => {
+                if (e.target === sportsFormModal) {
+                    sportsFormModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    sportsFormFrame.src = '';
+                }
+            });
+        }
     </script>
     <script>
 // Force cache refresh for PWA
