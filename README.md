@@ -1,2 +1,2 @@
 # WorkFit-Club
-WorkFit-Club is an app that makes fitness possible for fitness enthusiasts
+WorkFit-Club app is an platform that helps our club members manage their personalised fitness levels and progress.
