@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>WorkFit - Fitness Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #F7F7F7;
+      --gray: #777777;
+      --white: #FFFFFF;
+      --text-primary: #222222;
+      --text-secondary: #5a5a5a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+
+    /* Dark mode variables */
+    [data-theme="dark"] {
+      --navy: #0a2e57;
+      --navy-light: #1a3e67;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #1a1a1a;
+      --gray: #aaaaaa;
+      --white: #222222;
+      --text-primary: #f0f0f0;
+      --text-secondary: #cccccc;
+      --bg-primary: #121212;
+      --bg-secondary: #1a1a1a;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding-bottom: 80px; /* Space for bottom nav */
+    }
+
+    /* Header */
+    header {
+      background-color: var(--bg-primary);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid var(--gold);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-primary);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.8rem 0;
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      flex: 1;
+      padding: 0.5rem;
+    }
+
+    .nav-item.active {
+      color: var(--navy);
+    }
+
+    .nav-icon {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: left;
+      margin-bottom: 1.5rem;
+      color: var(--navy);
+      position: relative;
+      font-size: 1.5rem;
+      padding-left: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px var(--shadow-color);
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 25px rgba(0, 31, 63, 0.15);
+    }
+
+    .greeting {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .activity-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .activity-name {
+      font-weight: 600;
+    }
+
+    .activity-date {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-item {
+      min-width: 100%;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: var(--navy);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-primary);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 90%;
+      max-height: 90%;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+
+    /* Challenge Cards */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .challenge-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px var(--shadow-color);
+    }
+
+    .challenge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .challenge-title {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .progress-bar {
+      background: var(--border-color);
+      border-radius: 10px;
+      height: 8px;
+      margin: 0.5rem 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: var(--success);
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    /* Content Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px var(--shadow-color);
+    }
+
+    .content-image {
+      width: 100%;
+      height: 160px;
+      background: var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+    }
+
+    /* Tracker Page */
+    .tracker-nav {
+      display: flex;
+      background: var(--bg-primary);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px var(--shadow-color);
+    }
+
+    .tracker-nav-item {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: var(--gray);
+    }
+
+    .tracker-nav-item.active {
+      background: var(--navy);
+      color: white;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--text-primary);
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--navy-light);
+    }
+
+    .btn-success {
+      background: var(--success);
+    }
+
+    .btn-success:hover {
+      background: #45a049;
+    }
+
+    .btn-warning {
+      background: var(--accent);
+    }
+
+    .btn-warning:hover {
+      background: #b5351a;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--navy);
+      color: var(--navy);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .btn-outline:hover {
+      background: var(--navy);
+      color: white;
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Alerts */
+    .alert-container {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 500px;
+      z-index: 1000;
+    }
+
+    .alert {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert-success {
+      background-color: var(--success);
+      color: white;
+      border: none;
+    }
+
+    .alert-error {
+      background-color: var(--error);
+      color: white;
+      border: none;
+    }
+
+    /* Hidden utility class */
+    .hidden {
+      display: none;
+    }
+
+    /* Avatar Upload */
+    .avatar-upload {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--border-color);
+      margin: 0 auto 1rem;
+      overflow: hidden;
+      border: 3px solid var(--gold);
+    }
+
+    .avatar-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Subscription Info */
+    .subscription-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .subscription-status {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Loading Spinner */
+    .loading {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--navy);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Tracker Tabs */
+    .tracker-tab {
+      display: none;
+    }
+
+    .tracker-tab.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Pages */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .greeting {
+        font-size: 1.5rem;
+      }
+      
+      .hero-card {
+        padding: 1.5rem;
+      }
+      
+      .challenge-grid,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .tracker-nav {
+        flex-direction: column;
+      }
+      
+      .nav-item {
+        font-size: 0.7rem;
+      }
+      
+      .nav-icon {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 0.8rem;
+      }
+
+      .card {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-card {
+        padding: 1rem;
+      }
+
+      .greeting {
+        font-size: 1.3rem;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-nav">
+      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <div class="user-avatar" id="userAvatar" onclick="showPage('account')">
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Alert Container -->
+  <div id="alert-area" class="alert-container"></div>
+
+  <!-- Login Section -->
+  <section id="login-section">
+    <div class="card" style="max-width: 400px; margin: 2rem auto; text-align: center;">
+      <h2 style="color: var(--navy); margin-bottom: 1rem;">Welcome to WorkFit</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Please log in to access your fitness journey</p>
+      
+      <div class="form-group">
+        <input type="text" id="login-username" class="form-control" placeholder="Enter your username">
+      </div>
+      
+      <div class="form-group">
+        <input type="password" id="login-passcode" class="form-control" placeholder="Enter your 4-digit passcode" maxlength="4">
+      </div>
+      
+      <button id="login-btn" class="btn btn-success" style="width: 100%;">
+        <i class="fas fa-sign-in-alt"></i> Log In
+      </button>
+      
+      <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+        <p>Your credentials will be remembered until you log out</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main App Content -->
+  <div id="app-content" class="hidden">
+    <!-- Home Page -->
+    <section id="home-page" class="page active">
+      <!-- Hero Section with Greeting -->
+      <div class="hero-card">
+        <div class="greeting" id="time-greeting">Good Morning!</div>
+        <div class="hero-subtitle">Here's what's happening in your furnace</div>
+        
+        <div id="recent-activities">
+          <div class="activity-item">
+            <div class="activity-name">Morning Run</div>
+            <div class="activity-date">Today, 7:00 AM</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-name">Strength Training</div>
+            <div class="activity-date">Yesterday, 6:00 PM</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-name">Yoga Session</div>
+            <div class="activity-date">2 days ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly Digest Carousel -->
+      <div class="card">
+        <h3 class="section-title">Weekly Digest</h3>
+        <div class="carousel">
+          <div class="carousel-track" id="weekly-digest-carousel">
+            <div class="carousel-item">
+              <h4>This Week's Progress</h4>
+              <p>Your furnace completed 12 sessions with 95% attendance rate.</p>
+              <button class="btn btn-outline" onclick="openWeeklyDigest()">View Full Report</button>
+            </div>
+            <div class="carousel-item">
+              <h4>Top Performers</h4>
+              <p>See who's leading the fitness challenges this week.</p>
+              <button class="btn btn-outline" onclick="openWeeklyDigest()">View Full Report</button>
+            </div>
+          </div>
+          <div class="carousel-nav">
+            <div class="carousel-dot active" onclick="moveCarousel(0)"></div>
+            <div class="carousel-dot" onclick="moveCarousel(1)"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges Section -->
+      <div class="card">
+        <h3 class="section-title">Current Challenges</h3>
+        <div class="challenge-grid">
+          <div class="challenge-card">
+            <div class="challenge-header">
+              <div class="challenge-title">30-Day Running</div>
+              <div class="subscription-status">Active</div>
+            </div>
+            <p>Run 5km every day for 30 days</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 65%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+              <span>Furnace Rank: #2</span>
+              <span>65% Complete</span>
+            </div>
+          </div>
+          
+          <div class="challenge-card">
+            <div class="challenge-header">
+              <div class="challenge-title">Strength Master</div>
+              <div class="subscription-status">Active</div>
+            </div>
+            <p>Complete 1000 pushups this month</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 40%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+              <span>Furnace Rank: #3</span>
+              <span>40% Complete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Content Sections -->
+      <div class="content-grid">
+        <div class="content-card">
+          <h4 class="section-title">Latest Blogs</h4>
+          <div class="content-image">
+            <i class="fas fa-newspaper fa-2x"></i>
+          </div>
+          <h5>5 Tips for Better Running Form</h5>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Learn how to improve your running technique and prevent injuries.</p>
+          <button class="btn btn-outline" style="margin-top: 1rem;">Read More</button>
+        </div>
+
+        <div class="content-card">
+          <h4 class="section-title">Latest Videos</h4>
+          <div class="content-image">
+            <i class="fas fa-play-circle fa-2x"></i>
+          </div>
+          <h5>Full Body Workout Routine</h5>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">30-minute guided workout for all fitness levels.</p>
+          <button class="btn btn-outline" style="margin-top: 1rem;">Watch Now</button>
+        </div>
+
+        <div class="content-card">
+          <h4 class="section-title">Newsletter</h4>
+          <div class="content-image">
+            <i class="fas fa-envelope fa-2x"></i>
+          </div>
+          <h5>October Fitness Digest</h5>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Monthly updates, tips, and furnace highlights.</p>
+          <button class="btn btn-outline" style="margin-top: 1rem;">Read Issue</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tracker Page -->
+    <section id="tracker-page" class="page hidden">
+      <div class="hero-card">
+        <div class="greeting" id="tracker-greeting">Good Morning!</div>
+        <div class="hero-subtitle">Track your fitness journey</div>
+      </div>
+
+      <div class="tracker-nav">
+        <button class="tracker-nav-item active" onclick="showTrackerTab('schedule')">Daily Schedule</button>
+        <button class="tracker-nav-item" onclick="showTrackerTab('summary')">Summary</button>
+        <button class="tracker-nav-item" onclick="showTrackerTab('track')">Track Workout</button>
+      </div>
+
+      <!-- Daily Schedule Tab -->
+      <div id="tracker-schedule" class="tracker-tab active">
+        <div class="card">
+          <h4 class="section-title">Today's Schedule</h4>
+          <div id="today-schedule-content">
+            <div class="loading">
+              <div class="spinner"></div>
+              <p>Loading today's schedule...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Tab -->
+      <div id="tracker-summary" class="tracker-tab hidden">
+        <div class="card">
+          <h4 class="section-title">Quick Summary</h4>
+          <div class="form-group">
+            <label for="summary-start-date">Start Date</label>
+            <input type="date" id="summary-start-date" class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label for="summary-end-date">End Date</label>
+            <input type="date" id="summary-end-date" class="form-control">
+          </div>
+          
+          <button id="get-summary" class="btn" onclick="loadSummary()">
+            <i class="fas fa-chart-bar"></i> Get Summary
+          </button>
+          
+          <div id="summary-results" style="margin-top: 1rem;"></div>
+        </div>
+      </div>
+
+      <!-- Track Workout Tab -->
+      <div id="tracker-workout" class="tracker-tab hidden">
+        <div class="card">
+          <h4 class="section-title">Track Workout</h4>
+          <div class="form-group">
+            <label for="activity-select">Select Activity</label>
+            <select id="activity-select" class="form-control">
+              <option value="">-- Select an activity --</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="custom-activity" style="display: inline-block; margin-right: 1rem;">
+              <input type="checkbox" id="custom-activity"> Custom Activity
+            </label>
+            <input type="text" id="custom-activity-name" class="form-control" placeholder="Enter custom activity name" style="display: none;">
+          </div>
+          
+          <div class="form-group">
+            <label for="activity-duration">Duration (minutes)</label>
+            <input type="number" id="activity-duration" class="form-control" placeholder="Enter duration in minutes" min="1" value="30">
+          </div>
+          
+          <button id="start-activity" class="btn btn-success" onclick="startActivity()">
+            <i class="fas fa-play"></i> Start Activity
+          </button>
+          
+          <div id="active-activity" class="hidden" style="margin-top: 1rem;">
+            <div class="active-activity-info" style="background: var(--navy-light); color: white; padding: 1rem; border-radius: 8px;">
+              <h4><i class="fas fa-running"></i> Active Activity</h4>
+              <p id="active-activity-name">Activity Name</p>
+              <div class="timer-display" id="activity-timer" style="font-size: 2rem; font-weight: bold; text-align: center; margin: 1rem 0;">00:00:00</div>
+              <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                <button id="pause-activity" class="btn btn-warning" onclick="pauseActivity()">
+                  <i class="fas fa-pause"></i> Pause
+                </button>
+                <button id="resume-activity" class="btn btn-success" style="display: none;" onclick="resumeActivity()">
+                  <i class="fas fa-play"></i> Resume
+                </button>
+                <button id="finish-activity" class="btn" onclick="finishActivity()">
+                  <i class="fas fa-stop"></i> Finish
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Store Page -->
+    <section id="store-page" class="page hidden">
+      <div class="card">
+        <h3 class="section-title">WorkFit Store</h3>
+        <p>Our store is coming soon! Check back later for fitness gear and supplements.</p>
+        <!-- Store content will be loaded via your provided HTML href -->
+        <div style="text-align: center; margin-top: 2rem;">
+          <div class="content-image" style="max-width: 400px; margin: 0 auto;">
+            <i class="fas fa-store fa-3x"></i>
+          </div>
+          <h4 style="margin: 1rem 0;">Under Construction</h4>
+          <p style="color: var(--text-secondary);">We're working hard to bring you the best fitness products.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Account Page -->
+    <section id="account-page" class="page hidden">
+      <div class="card">
+        <h3 class="section-title">Account Management</h3>
+        
+        <!-- Avatar Section -->
+        <div class="avatar-upload">
+          <div class="avatar-preview">
+            <i class="fas fa-user fa-2x" style="color: white; line-height: 100px;"></i>
+          </div>
+          <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+          <button class="btn btn-outline" onclick="document.getElementById('avatar-upload').click()">
+            <i class="fas fa-camera"></i> Change Avatar
+          </button>
+        </div>
+
+        <!-- Subscription Info -->
+        <div class="subscription-card">
+          <h4>Your Subscription</h4>
+          <div class="subscription-status">Active</div>
+          <p style="margin-top: 1rem; opacity: 0.9;">Premium Member • Renews on Dec 15, 2024</p>
+        </div>
+
+        <!-- Change Passcode -->
+        <div class="card">
+          <h4 class="section-title">Security Settings</h4>
+          <div class="form-group">
+            <label for="current-passcode">Current Passcode</label>
+            <input type="password" id="current-passcode" placeholder="Enter current 4-digit passcode" maxlength="4">
+          </div>
+          
+          <div class="form-group">
+            <label for="new-passcode">New Passcode</label>
+            <input type="password" id="new-passcode" placeholder="Enter new 4-digit passcode" maxlength="4">
+          </div>
+          
+          <div class="form-group">
+            <label for="confirm-passcode">Confirm New Passcode</label>
+            <input type="password" id="confirm-passcode" placeholder="Confirm new 4-digit passcode" maxlength="4">
+          </div>
+          
+          <button id="change-passcode-btn" class="btn btn-warning" onclick="changePasscode()">
+            <i class="fas fa-key"></i> Change Passcode
+          </button>
+        </div>
+
+        <!-- Account Actions -->
+        <div class="card">
+          <h4 class="section-title">Account Actions</h4>
+          <button class="btn btn-outline" style="width: 100%; margin-bottom: 0.5rem;">
+            <i class="fas fa-download"></i> Export Data
+          </button>
+          <button class="btn btn-outline" style="width: 100%; margin-bottom: 0.5rem;">
+            <i class="fas fa-bell"></i> Notification Settings
+          </button>
+          <button id="logout-btn" class="btn" style="width: 100%; background: var(--error);">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="#" class="nav-item active" onclick="showPage('home')">
+      <i class="fas fa-home nav-icon"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('tracker')">
+      <i class="fas fa-running nav-icon"></i>
+      <span>Tracker</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('store')">
+      <i class="fas fa-store nav-icon"></i>
+      <span>Store</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('account')">
+      <i class="fas fa-user nav-icon"></i>
+      <span>Account</span>
+    </a>
+  </div>
+
+  <!-- Weekly Digest Modal -->
+  <div class="modal" id="weekly-digest-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeWeeklyDigest()">&times;</button>
+      <h3 class="section-title">Weekly Digest Report</h3>
+      <div id="weekly-digest-content">
+        <div class="card">
+          <h4>Complete Weekly Analysis</h4>
+          <p>Your comprehensive fitness report for the week of October 15-21, 2024</p>
+          
+          <div class="stats-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+            <div style="background: var(--navy); color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold;">12</div>
+              <div style="font-size: 0.8rem;">Sessions Completed</div>
+            </div>
+            <div style="background: var(--success); color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold;">95%</div>
+              <div style="font-size: 0.8rem;">Attendance Rate</div>
+            </div>
+            <div style="background: var(--accent); color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold;">#2</div>
+              <div style="font-size: 0.8rem;">Furnace Rank</div>
+            </div>
+          </div>
+          
+          <h5>Weekly Highlights</h5>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li>Completed all scheduled training sessions</li>
+            <li>Improved running pace by 8%</li>
+            <li>Consistent attendance throughout the week</li>
+            <li>Active participation in group challenges</li>
+          </ul>
+          
+          <h5>Recommendations for Next Week</h5>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li>Focus on strength training progression</li>
+            <li>Increase cardio duration by 10 minutes</li>
+            <li>Try the new yoga routine for flexibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration - UPDATE THIS WITH YOUR ACTUAL SCRIPT URL
+    const CONFIG = {
+      SCRIPT_URL: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+      SCRIPT_ENVIRONMENT: 'production' // Change to 'development' for local testing
+    };
+
+    // Session Management
+    let currentUser = null;
+    let currentCarouselIndex = 0;
+    let activeActivity = null;
+    let timerInterval = null;
+    let timerStart = null;
+    let elapsedTime = 0;
+    let isTimerPaused = false;
+
+    // Google Apps Script API Service
+    const GASService = {
+      callFunction: async function(functionName, params = {}) {
+        try {
+          // For development/testing without GAS
+          if (CONFIG.SCRIPT_ENVIRONMENT === 'development') {
+            return await this.mockCall(functionName, params);
+          }
+
+          const formData = new FormData();
+          formData.append('action', functionName);
+          
+          Object.keys(params).forEach(key => {
+            formData.append(key, params[key]);
+          });
+
+          const response = await fetch(CONFIG.SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          return result;
+        } catch (error) {
+          console.error('GAS API Error:', error);
+          throw error;
+        }
+      },
+
+      mockCall: function(functionName, params) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const mockResponses = {
+              'verifyUserCredentials': { success: true, message: 'Credentials verified successfully' },
+              'markAttendance': { success: true, message: 'Attendance marked successfully!' },
+              'getTrainingSummary': { 
+                success: true, 
+                userName: params.username,
+                userFurnace: 'Uthiru Furnace',
+                userSessions: [
+                  { date: '2024-01-15', activity: 'Running', duration: 30, status: 'Completed' },
+                  { date: '2024-01-14', activity: 'Strength Training', duration: 45, status: 'Completed' }
+                ],
+                furnaceSessions: [
+                  { date: '2024-01-15', activity: 'Group Run', duration: 60 },
+                  { date: '2024-01-13', activity: 'Circuit Training', duration: 50 }
+                ],
+                totalDuration: 75
+              },
+              'changePasscode': { success: true, message: 'Passcode changed successfully!' },
+              'getTodaysWorkoutSchedule': [
+                { day: 'Monday', type: 'Cardio', name: 'Morning Run', duration: 30, sets: 1, reps: 1, description: 'Steady pace running', difficulty: 'Beginner' },
+                { day: 'Monday', type: 'Strength', name: 'Upper Body', duration: 45, sets: 3, reps: 12, description: 'Chest and back focus', difficulty: 'Intermediate' }
+              ],
+              'getAllActivities': [
+                { day: 'Monday', type: 'Cardio', name: 'Morning Run', duration: 30, sets: 1, reps: 1, description: 'Steady pace running', difficulty: 'Beginner' },
+                { day: 'Monday', type: 'Strength', name: 'Upper Body', duration: 45, sets: 3, reps: 12, description: 'Chest and back focus', difficulty: 'Intermediate' },
+                { day: 'Tuesday', type: 'Yoga', name: 'Morning Yoga', duration: 30, sets: 1, reps: 1, description: 'Gentle stretching and breathing', difficulty: 'Beginner' }
+              ],
+              'startActivity': { success: true, message: 'Activity started successfully!', logId: 'LOG123456' },
+              'finishActivity': { success: true, message: 'Activity completed successfully!', duration: 30 }
+            };
+
+            const response = mockResponses[functionName] || { success: false, message: 'Function not found' };
+            resolve(response);
+          }, 1000);
+        });
+      },
+
+      verifyUserCredentials: function(username, passcode) {
+        return this.callFunction('verifyUserCredentials', { username, passcode });
+      },
+
+      markAttendance: function(username, passcode, furnace, date) {
+        return this.callFunction('markAttendance', { username, passcode, furnace, date });
+      },
+
+      getTrainingSummary: function(username, passcode, startDate, endDate) {
+        return this.callFunction('getTrainingSummary', { username, passcode, startDate, endDate });
+      },
+
+      changePasscode: function(username, currentPasscode, newPasscode) {
+        return this.callFunction('changePasscode', { username, currentPasscode, newPasscode });
+      },
+
+      getTodaysWorkoutSchedule: function() {
+        return this.callFunction('getTodaysWorkoutSchedule');
+      },
+
+      getAllActivities: function() {
+        return this.callFunction('getAllActivities');
+      },
+
+      startActivity: function(activityName, userName, secretCode, duration) {
+        return this.callFunction('startActivity', { activityName, userName, secretCode, duration });
+      },
+
+      finishActivity: function(activityName, userName) {
+        return this.callFunction('finishActivity', { activityName, userName });
+      }
+    };
+
+    // Initialize the app
+    function initApp() {
+      updateGreeting();
+      
+      // Check if user is already logged in
+      const savedUser = localStorage.getItem('workfit_user');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          showAppContent();
+          updateUserAvatar();
+        } catch (e) {
+          console.error('Error parsing saved user data', e);
+          localStorage.removeItem('workfit_user');
+        }
+      }
+      
+      setupEventListeners();
+      setInterval(updateGreeting, 60000);
+      testConnection();
+
+      // Set default dates
+      const today = new Date();
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setDate(today.getDate() - 7);
+      
+      const summaryStartDate = document.getElementById('summary-start-date');
+      const summaryEndDate = document.getElementById('summary-end-date');
+      
+      if (summaryStartDate) summaryStartDate.valueAsDate = oneWeekAgo;
+      if (summaryEndDate) summaryEndDate.valueAsDate = today;
+    }
+
+    // Test connection to Google Apps Script
+    async function testConnection() {
+      try {
+        if (CONFIG.SCRIPT_ENVIRONMENT !== 'development') {
+          const result = await GASService.verifyUserCredentials('test', '0000');
+          console.log('GAS Connection:', result.success ? 'Connected' : 'Connection issue');
+        }
+      } catch (error) {
+        console.warn('GAS Connection Test Failed:', error);
+        showAlert('Warning: Backend connection issue. Some features may not work.', 'error');
+      }
+    }
+
+    // Update greeting based on time of day
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let greeting = 'Good Morning!';
+      
+      if (hour >= 12 && hour < 17) {
+        greeting = 'Good Afternoon!';
+      } else if (hour >= 17) {
+        greeting = 'Good Evening!';
+      }
+      
+      const timeGreeting = document.getElementById('time-greeting');
+      const trackerGreeting = document.getElementById('tracker-greeting');
+      
+      if (timeGreeting) timeGreeting.textContent = greeting;
+      if (trackerGreeting) trackerGreeting.textContent = greeting;
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Login
+      document.getElementById('login-btn').addEventListener('click', handleLogin);
+      
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', logoutUser);
+      
+      // Enter key login
+      const loginPasscode = document.getElementById('login-passcode');
+      if (loginPasscode) {
+        loginPasscode.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') handleLogin();
+        });
+      }
+      
+      // Custom activity toggle
+      const customActivityCheckbox = document.getElementById('custom-activity');
+      if (customActivityCheckbox) {
+        customActivityCheckbox.addEventListener('change', function() {
+          const customActivityField = document.getElementById('custom-activity-name');
+          const activitySelect = document.getElementById('activity-select');
+          
+          if (this.checked) {
+            customActivityField.style.display = 'block';
+            activitySelect.disabled = true;
+          } else {
+            customActivityField.style.display = 'none';
+            activitySelect.disabled = false;
+          }
+        });
+      }
+
+      // Avatar upload
+      const avatarUpload = document.getElementById('avatar-upload');
+      if (avatarUpload) {
+        avatarUpload.addEventListener('change', handleAvatarUpload);
+      }
+    }
+
+    // Handle login
+    async function handleLogin() {
+      const username = document.getElementById('login-username').value;
+      const passcode = document.getElementById('login-passcode').value;
+      
+      if (!username || !passcode) {
+        showAlert('Please enter both username and passcode', 'error');
+        return;
+      }
+      
+      if (passcode.length !== 4 || !/^\d+$/.test(passcode)) {
+        showAlert('Passcode must be exactly 4 digits', 'error');
+        return;
+      }
+      
+      const loginBtn = document.getElementById('login-btn');
+      const originalText = loginBtn.innerHTML;
+      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+      loginBtn.disabled = true;
+      
+      try {
+        const result = await GASService.verifyUserCredentials(username, passcode);
+        
+        if (result.success) {
+          currentUser = {
+            username: username,
+            passcode: passcode,
+            loginTime: new Date().toISOString()
+          };
+          
+          localStorage.setItem('workfit_user', JSON.stringify(currentUser));
+          showAppContent();
+          updateUserAvatar();
+          showAlert(`Welcome back, ${username}!`, 'success');
+        } else {
+          showAlert(result.message, 'error');
+          loginBtn.innerHTML = originalText;
+          loginBtn.disabled = false;
+        }
+      } catch (error) {
+        showAlert('Login failed: ' + error.toString(), 'error');
+        loginBtn.innerHTML = originalText;
+        loginBtn.disabled = false;
+      }
+    }
+
+    // Logout function
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem('workfit_user');
+      document.getElementById('login-section').classList.remove('hidden');
+      document.getElementById('app-content').classList.add('hidden');
+      showAlert('You have been logged out', 'success');
+    }
+
+    // Show app content
+    function showAppContent() {
+      document.getElementById('login-section').classList.add('hidden');
+      document.getElementById('app-content').classList.remove('hidden');
+    }
+
+    // Update user avatar display
+    function updateUserAvatar() {
+      if (currentUser) {
+        const avatar = document.getElementById('userAvatar');
+        if (avatar) {
+          avatar.innerHTML = currentUser.username.charAt(0).toUpperCase();
+        }
+      }
+    }
+
+    // Handle avatar upload
+    function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const avatarPreview = document.querySelector('.avatar-preview');
+          avatarPreview.innerHTML = `<img src="${e.target.result}" alt="Avatar">`;
+          showAlert('Avatar updated successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Page navigation
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      
+      const targetPage = document.getElementById(`${page}-page`);
+      if (targetPage) {
+        targetPage.classList.remove('hidden');
+      }
+      
+      event.currentTarget.classList.add('active');
+      
+      if (page === 'home') {
+        loadHomeData();
+      } else if (page === 'tracker') {
+        loadTrackerData();
+      } else if (page === 'store') {
+        loadStoreData();
+      }
+    }
+
+    // Tracker tab navigation
+    function showTrackerTab(tab) {
+      document.querySelectorAll('.tracker-tab').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('.tracker-nav-item').forEach(item => item.classList.remove('active'));
+      
+      const targetTab = document.getElementById(`tracker-${tab}`);
+      if (targetTab) {
+        targetTab.classList.remove('hidden');
+      }
+      
+      event.currentTarget.classList.add('active');
+      
+      if (tab === 'schedule') {
+        loadTodaySchedule();
+      } else if (tab === 'track') {
+        loadActivities();
+      }
+    }
+
+    // Carousel functions
+    function moveCarousel(index) {
+      currentCarouselIndex = index;
+      const track = document.getElementById('weekly-digest-carousel');
+      if (track) {
+        track.style.transform = `translateX(-${index * 100}%)`;
+      }
+      
+      document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    // Weekly digest modal
+    function openWeeklyDigest() {
+      const modal = document.getElementById('weekly-digest-modal');
+      if (modal) {
+        modal.classList.add('active');
+      }
+    }
+
+    function closeWeeklyDigest() {
+      const modal = document.getElementById('weekly-digest-modal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    // Load page data functions
+    async function loadHomeData() {
+      updateGreeting();
+    }
+
+    async function loadTrackerData() {
+      updateGreeting();
+    }
+
+    function loadStoreData() {
+      // Store content can be loaded here
+    }
+
+    // Load today's schedule
+    async function loadTodaySchedule() {
+      const scheduleContent = document.getElementById('today-schedule-content');
+      if (!scheduleContent) return;
+
+      scheduleContent.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading today's schedule...</p>
+        </div>
+      `;
+
+      try {
+        const schedule = await GASService.getTodaysWorkoutSchedule();
+        displayTodaySchedule(schedule);
+      } catch (error) {
+        scheduleContent.innerHTML = `
+          <div style="text-align: center; color: var(--error);">
+            <p>Error loading schedule</p>
+          </div>
+        `;
+      }
+    }
+
+    function displayTodaySchedule(schedule) {
+      const scheduleContent = document.getElementById('today-schedule-content');
+      if (!scheduleContent) return;
+
+      if (!schedule || schedule.length === 0) {
+        scheduleContent.innerHTML = `
+          <div style="text-align: center; color: var(--text-secondary);">
+            <p>No workouts scheduled for today</p>
+            <p>Enjoy your rest day!</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      schedule.forEach(workout => {
+        html += `
+          <div class="card" style="margin-bottom: 1rem; border-left: 4px solid var(--gold);">
+            <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 0.5rem;">
+              <h5 style="margin: 0; color: var(--navy);">${workout.name}</h5>
+              <span class="subscription-status">${workout.type}</span>
+            </div>
+            <p style="margin: 0.5rem 0; color: var(--text-secondary);">${workout.description}</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; font-size: 0.9rem;">
+              <div><i class="fas fa-clock"></i> ${workout.duration} min</div>
+              <div><i class="fas fa-sync-alt"></i> ${workout.sets} sets</div>
+              <div><i class="fas fa-redo"></i> ${workout.reps} reps</div>
+              <div><i class="fas fa-tachometer-alt"></i> ${workout.difficulty}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      scheduleContent.innerHTML = html;
+    }
+
+    // Load activities for dropdown
+    async function loadActivities() {
+      const activitySelect = document.getElementById('activity-select');
+      if (!activitySelect) return;
+
+      while (activitySelect.options.length > 1) {
+        activitySelect.remove(1);
+      }
+
+      try {
+        const activities = await GASService.getAllActivities();
+        activities.forEach(activity => {
+          const option = document.createElement('option');
+          option.value = activity.name;
+          option.textContent = `${activity.name} (${activity.day})`;
+          activitySelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading activities:', error);
+      }
+    }
+
+    // Start activity
+    async function startActivity() {
+      if (!currentUser) {
+        showAlert('Please log in first', 'error');
+        return;
+      }
+      
+      const isCustom = document.getElementById('custom-activity').checked;
+      const activityName = isCustom ? 
+        document.getElementById('custom-activity-name').value : 
+        document.getElementById('activity-select').value;
+      const duration = document.getElementById('activity-duration').value;
+      
+      if (!activityName || !duration) {
+        showAlert('Please fill in all fields', 'error');
+        return;
+      }
+      
+      try {
+        const result = await GASService.startActivity(
+          activityName, 
+          currentUser.username, 
+          currentUser.passcode, 
+          duration
+        );
+        
+        if (result.success) {
+          showAlert(`Started tracking: ${activityName}`, 'success');
+          
+          document.getElementById('active-activity').classList.remove('hidden');
+          document.getElementById('active-activity-name').textContent = activityName;
+          
+          timerStart = new Date();
+          elapsedTime = 0;
+          isTimerPaused = false;
+          
+          if (timerInterval) {
+            clearInterval(timerInterval);
+          }
+          
+          updateTimer();
+          timerInterval = setInterval(updateTimer, 1000);
+          
+          activeActivity = {
+            name: activityName,
+            startTime: new Date(),
+            userName: currentUser.username,
+            logId: result.logId,
+            duration: duration
+          };
+        } else {
+          showAlert(result.message, 'error');
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    }
+
+    // Timer functions
+    function updateTimer() {
+      if (!timerStart || isTimerPaused) return;
+      
+      const now = new Date();
+      elapsedTime = now - timerStart;
+      
+      const hours = Math.floor(elapsedTime / 3600000);
+      const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+      const seconds = Math.floor((elapsedTime % 60000) / 1000);
+      
+      document.getElementById('activity-timer').textContent = 
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function pauseActivity() {
+      if (!timerInterval) return;
+      
+      isTimerPaused = true;
+      document.getElementById('pause-activity').style.display = 'none';
+      document.getElementById('resume-activity').style.display = 'inline-block';
+      showAlert('Activity paused', 'success');
+    }
+
+    function resumeActivity() {
+      if (!timerStart) return;
+      
+      timerStart = new Date(Date.now() - elapsedTime);
+      isTimerPaused = false;
+      document.getElementById('pause-activity').style.display = 'inline-block';
+      document.getElementById('resume-activity').style.display = 'none';
+      showAlert('Activity resumed', 'success');
+    }
+
+    async function finishActivity() {
+      if (!activeActivity) return;
+      
+      try {
+        const result = await GASService.finishActivity(
+          activeActivity.name, 
+          activeActivity.userName
+        );
+        
+        if (result.success) {
+          showAlert(`Completed: ${activeActivity.name}`, 'success');
+          
+          document.getElementById('active-activity').classList.add('hidden');
+          document.getElementById('activity-select').value = '';
+          document.getElementById('custom-activity').checked = false;
+          document.getElementById('custom-activity-name').style.display = 'none';
+          document.getElementById('custom-activity-name').value = '';
+          document.getElementById('activity-duration').value = '30';
+          
+          if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+          }
+          
+          activeActivity = null;
+        } else {
+          showAlert(result.message, 'error');
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    }
+
+    // Load summary
+    async function loadSummary() {
+      if (!currentUser) {
+        showAlert('Please log in first', 'error');
+        return;
+      }
+      
+      const startDate = document.getElementById('summary-start-date').value;
+      const endDate = document.getElementById('summary-end-date').value;
+      
+      if (!startDate || !endDate) {
+        showAlert('Please fill in all fields', 'error');
+        return;
+      }
+      
+      const getSummaryBtn = document.getElementById('get-summary');
+      const originalText = getSummaryBtn.innerHTML;
+      getSummaryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+      getSummaryBtn.disabled = true;
+      
+      try {
+        const result = await GASService.getTrainingSummary(
+          currentUser.username,
+          currentUser.passcode,
+          startDate,
+          endDate
+        );
+        
+        if (result.success) {
+          displaySummary(result);
+          showAlert('Summary loaded successfully!', 'success');
+        } else {
+          showAlert(result.message, 'error');
+        }
+      } catch (error) {
+        handleError(error);
+      } finally {
+        getSummaryBtn.innerHTML = originalText;
+        getSummaryBtn.disabled = false;
+      }
+    }
+
+    function displaySummary(result) {
+      const summaryResults = document.getElementById('summary-results');
+      if (!summaryResults) return;
+
+      let html = `
+        <div class="card">
+          <h5>Summary for ${result.userName}</h5>
+          <p>Period: ${result.startDate} to ${result.endDate}</p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;">
+            <div style="background: var(--navy); color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold;">${result.userSessions.length}</div>
+              <div style="font-size: 0.8rem;">Your Sessions</div>
+            </div>
+            <div style="background: var(--success); color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold;">${result.furnaceSessions.length}</div>
+              <div style="font-size: 0.8rem;">Furnace Sessions</div>
+            </div>
+            <div style="background: var(--accent); color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold;">${result.totalDuration}</div>
+              <div style="font-size: 0.8rem;">Total Minutes</div>
+            </div>
+          </div>
+      `;
+
+      if (result.userSessions.length > 0) {
+        html += `<h6>Your Training Sessions</h6>`;
+        result.userSessions.forEach(session => {
+          html += `
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
+              <span>${session.date}</span>
+              <span>${session.activity}</span>
+              <span>${session.duration} min</span>
+              <span style="color: var(--success);">${session.status}</span>
+            </div>
+          `;
+        });
+      }
+
+      html += `</div>`;
+      summaryResults.innerHTML = html;
+    }
+
+    // Change passcode
+    async function changePasscode() {
+      if (!currentUser) return;
+      
+      const currentPasscode = document.getElementById('current-passcode').value;
+      const newPasscode = document.getElementById('new-passcode').value;
+      const confirmPasscode = document.getElementById('confirm-passcode').value;
+      
+      if (!currentPasscode || !newPasscode || !confirmPasscode) {
+        showAlert('Please fill in all fields', 'error');
+        return;
+      }
+      
+      if (newPasscode !== confirmPasscode) {
+        showAlert('New passcodes do not match', 'error');
+        return;
+      }
+      
+      try {
+        const result = await GASService.changePasscode(
+          currentUser.username, 
+          currentPasscode, 
+          newPasscode
+        );
+        
+        if (result.success) {
+          showAlert('Passcode changed successfully!', 'success');
+          currentUser.passcode = newPasscode;
+          localStorage.setItem('workfit_user', JSON.stringify(currentUser));
+          document.getElementById('current-passcode').value = '';
+          document.getElementById('new-passcode').value = '';
+          document.getElementById('confirm-passcode').value = '';
+        } else {
+          showAlert(result.message, 'error');
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    }
+
+    // Alert system
+    function showAlert(message, type) {
+      const alertArea = document.getElementById('alert-area');
+      if (!alertArea) return;
+
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.textContent = message;
+      alertArea.appendChild(alert);
+      
+      setTimeout(() => {
+        if (alert.parentNode) {
+          alert.remove();
+        }
+      }, 5000);
+    }
+
+    function handleError(error) {
+      showAlert('Error: ' + error.toString(), 'error');
+      console.error(error);
+    }
+
+    // Initialize app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
