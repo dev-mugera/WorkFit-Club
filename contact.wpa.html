@@ -2,23 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkFit - Contact Us</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
-    
-    <!-- PWA Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="WorkFit">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#001f3f">
-    
-    <!-- Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- iOS Icons -->
-    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -226,7 +211,7 @@
             color: var(--gold);
         }
 
-        /* Contact Info */
+        /* Contact Info - IMPROVED */
         .contact-info {
             display: flex;
             flex-direction: column;
@@ -248,11 +233,12 @@
             width: 24px;
             text-align: center;
             padding-top: 2px;
+            flex-shrink: 0;
         }
 
         .info-content h3 {
             color: var(--navy);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
@@ -260,6 +246,43 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
             line-height: 1.4;
+        }
+
+        /* Email List - FIXED ALIGNMENT */
+        .email-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .email-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            word-break: break-word;
+        }
+
+        .email-list li:not(:last-child) {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .email-list i {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .email-address {
+            font-weight: 600;
+            color: var(--navy);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .email-purpose {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
 
         /* Centers List */
@@ -541,6 +564,55 @@
             .contact-card {
                 padding: 1.2rem;
             }
+            
+            /* Improved responsive grid for contact cards */
+            .contact-grid {
+                gap: 1rem;
+            }
+            
+            .contact-card[style*="grid-column"] {
+                grid-column: 1 / -1 !important;
+            }
+            
+            /* Better spacing for info items on mobile */
+            .info-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            
+            .info-item i {
+                align-self: center;
+            }
+            
+            /* Better form layout on mobile */
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 0.7rem;
+            }
+            
+            /* Better hours layout on mobile */
+            .hours-list li {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.3rem;
+            }
+            
+            /* Improved email list for mobile */
+            .email-list li {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.3rem;
+            }
+            
+            .email-list i {
+                align-self: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -556,6 +628,22 @@
 
             .social-links {
                 flex-wrap: wrap;
+            }
+            
+            .contact-card {
+                padding: 1rem;
+            }
+            
+            .page-header {
+                padding: 1.2rem 0.8rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .page-header p {
+                font-size: 0.9rem;
             }
         }
 
@@ -616,14 +704,40 @@
                             <p>+254 786544322 (Sales & Partnerships)</p>
                         </div>
                     </div>
-                    
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
                         <div class="info-content">
                             <h3>Email Addresses</h3>
-                            <p>workfit.songa@gmail.com (General Inquiries)</p>
-                            <p>membership.workfit@gmail.com (Membership)</p>
-                            <p>sales.workfit@gmail.com (Sales and Marketing)</p>
+                            <ul class="email-list">
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <span class="email-address">workfit.songa@gmail.com</span>
+                                        <span class="email-purpose">(General Inquiries)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <span class="email-address">membership.workfit@gmail.com</span>
+                                        <span class="email-purpose">(Membership)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <span class="email-address">sales.workfit@gmail.com</span>
+                                        <span class="email-purpose">(Sales and Marketing)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <span class="email-address">sports.workfit@gmail.com</span>
+                                        <span class="email-purpose">(Sports Inquiries)</span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     
