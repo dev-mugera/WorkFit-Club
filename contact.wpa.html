@@ -2,8 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>WorkFit - Contact Us</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WorkFit">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#001f3f">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -248,41 +259,48 @@
             line-height: 1.4;
         }
 
-        /* Email List - FIXED ALIGNMENT */
+        /* Email List - IMPROVED FORMAT */
         .email-list {
             list-style: none;
             margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
         }
 
-        .email-list li {
-            padding: 0.5rem 0;
+        .email-item {
             display: flex;
             align-items: flex-start;
-            gap: 0.5rem;
-            word-break: break-word;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
         }
 
-        .email-list li:not(:last-child) {
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .email-list i {
+        .email-item i {
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-top: 0.2rem;
             flex-shrink: 0;
+        }
+
+        .email-details {
+            flex: 1;
         }
 
         .email-address {
             font-weight: 600;
             color: var(--navy);
             display: block;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
         }
 
         .email-purpose {
             color: var(--text-secondary);
             font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         /* Centers List */
@@ -332,66 +350,6 @@
         .time {
             color: var(--gold);
             font-weight: 600;
-        }
-
-        /* Contact Form */
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--navy);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: var(--navy);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .submit-btn:hover {
-            background: var(--navy-light);
-            transform: translateY(-2px);
         }
 
         /* Contact Methods */
@@ -585,17 +543,6 @@
                 align-self: center;
             }
             
-            /* Better form layout on mobile */
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            
-            .form-group input,
-            .form-group textarea,
-            .form-group select {
-                padding: 0.7rem;
-            }
-            
             /* Better hours layout on mobile */
             .hours-list li {
                 flex-direction: column;
@@ -604,13 +551,13 @@
             }
             
             /* Improved email list for mobile */
-            .email-list li {
+            .email-item {
                 flex-direction: column;
                 text-align: center;
-                gap: 0.3rem;
+                gap: 0.5rem;
             }
             
-            .email-list i {
+            .email-item i {
                 align-self: center;
             }
         }
@@ -709,32 +656,32 @@
                         <div class="info-content">
                             <h3>Email Addresses</h3>
                             <ul class="email-list">
-                                <li>
+                                <li class="email-item">
                                     <i class="fas fa-envelope"></i>
-                                    <div>
+                                    <div class="email-details">
                                         <span class="email-address">workfit.songa@gmail.com</span>
-                                        <span class="email-purpose">(General Inquiries)</span>
+                                        <span class="email-purpose">General inquiries and information about our services</span>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="email-item">
                                     <i class="fas fa-envelope"></i>
-                                    <div>
+                                    <div class="email-details">
                                         <span class="email-address">membership.workfit@gmail.com</span>
-                                        <span class="email-purpose">(Membership)</span>
+                                        <span class="email-purpose">Membership registration, billing, and account management</span>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="email-item">
                                     <i class="fas fa-envelope"></i>
-                                    <div>
+                                    <div class="email-details">
                                         <span class="email-address">sales.workfit@gmail.com</span>
-                                        <span class="email-purpose">(Sales and Marketing)</span>
+                                        <span class="email-purpose">Corporate partnerships and sales inquiries</span>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="email-item">
                                     <i class="fas fa-envelope"></i>
-                                    <div>
+                                    <div class="email-details">
                                         <span class="email-address">sports.workfit@gmail.com</span>
-                                        <span class="email-purpose">(Sports Inquiries)</span>
+                                        <span class="email-purpose">Sports events, competitions, and training programs</span>
                                     </div>
                                 </li>
                             </ul>
@@ -780,53 +727,6 @@
                     <i class="fas fa-map" style="font-size: 2rem; margin-right: 1rem;"></i>
                     <span>Interactive Map Coming Soon</span>
                 </div>
-            </div>
-
-            <!-- Contact Form -->
-            <div class="contact-card" style="grid-column: 1 / -1;">
-                <h2><i class="fas fa-envelope"></i> Send Us a Message</h2>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter your email address">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="company">Company/Organization</label>
-                        <input type="text" id="company" name="company" placeholder="Enter your company name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="inquiry">Type of Inquiry</label>
-                        <select id="inquiry" name="inquiry">
-                            <option value="">Select an option</option>
-                            <option value="membership">Membership Information</option>
-                            <option value="corporate">Corporate Wellness Program</option>
-                            <option value="partnership">Partnership Opportunities</option>
-                            <option value="general">General Inquiry</option>
-                            <option value="feedback">Feedback</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
             </div>
 
             <!-- Quick Contact Methods -->
@@ -959,30 +859,6 @@
             // Prevent clicks inside nav from closing it
             navLinks.addEventListener('click', (e) => {
                 e.stopPropagation();
-            });
-        }
-
-        // Form submission handling
-        const contactForm = document.getElementById('contactForm');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-                
-                // Simple validation
-                if (!name || !email || !message) {
-                    alert('Please fill in all required fields');
-                    return;
-                }
-                
-                // In a real application, you would send this data to a server
-                alert(`Thank you ${name}! Your message has been received. We will contact you at ${email} shortly.`);
-                contactForm.reset();
             });
         }
 
