@@ -78,7 +78,7 @@
             padding-bottom: 4rem;
         }
 
-        /* Header & Navigation */
+        /* Main Header */
         .main-header {
             background: var(--navy);
             color: var(--white);
@@ -105,12 +105,85 @@
             text-decoration: none;
         }
 
-        .nav-auth {
+        .header-actions {
             display: flex;
             gap: 1rem;
             align-items: center;
         }
 
+        /* Kebab Menu */
+        .kebab-menu {
+            position: relative;
+        }
+
+        .kebab-toggle {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .kebab-toggle:hover {
+            background: var(--navy-light);
+        }
+
+        .kebab-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1001;
+            border: 1px solid var(--border-color);
+        }
+
+        .kebab-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .kebab-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .kebab-item:last-child {
+            border-bottom: none;
+        }
+
+        .kebab-item:hover {
+            background: var(--light);
+        }
+
+        .kebab-item i {
+            width: 16px;
+            text-align: center;
+        }
+
+        .kebab-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 0.5rem 0;
+        }
+
+        /* Auth Buttons */
         .auth-btn {
             background: transparent;
             color: var(--white);
@@ -124,25 +197,6 @@
 
         .auth-btn:hover {
             background: var(--white);
-            color: var(--navy);
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--white);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
             color: var(--navy);
         }
 
@@ -263,11 +317,53 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
+        }
         
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 1rem;
+            gap: 1.2rem;
         }
         
         .product-card {
@@ -279,6 +375,11 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
         
         .product-image-container {
@@ -295,8 +396,54 @@
             transition: transform 0.5s ease;
         }
 
-        /* OPTIMIZED Customization Modal - Much Faster */
-        .customization-modal {
+        .product-card:hover .product-image-slide img {
+            transform: scale(1.05);
+        }
+
+        .product-category {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            z-index: 10;
+        }
+        
+        .product-content {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            color: var(--text-primary);
+            margin: 0 0 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        /* Modals */
+        .modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -310,11 +457,11 @@
             padding: 1rem;
         }
         
-        .customization-modal.active {
+        .modal.active {
             display: flex;
         }
         
-        .customization-form {
+        .modal-content {
             background: var(--white);
             border-radius: 12px;
             box-shadow: var(--shadow-lg);
@@ -330,8 +477,8 @@
             to { opacity: 1; transform: scale(1); }
         }
         
-        .customization-header {
-            padding: 1rem 1.2rem;
+        .modal-header {
+            padding: 1.2rem 1.5rem;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
@@ -341,119 +488,26 @@
             border-radius: 12px 12px 0 0;
         }
         
-        .customization-content {
-            padding: 1.2rem;
+        .modal-body {
+            padding: 1.5rem;
         }
-        
-        .option-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        .option-title {
-            display: block;
-            margin-bottom: 0.6rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-        
-        .option-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .option-item {
-            position: relative;
-        }
-        
-        .option-item input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-        
-        .option-item label {
-            display: inline-block;
-            padding: 0.6rem 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            cursor: pointer;
-            background: var(--white);
-            transition: var(--transition);
-            min-width: 60px;
-            text-align: center;
-            font-size: 0.85rem;
-        }
-        
-        .option-item input[type="radio"]:checked + label {
-            background: var(--navy);
+
+        .close-btn {
+            background: none;
+            border: none;
             color: var(--white);
-            border-color: var(--navy);
-        }
-        
-        .customization-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.2rem;
-            border-top: 1px solid var(--border-color);
-            gap: 1rem;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .quantity-btn {
-            background: var(--light);
-            border: 1px solid var(--border-color);
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
+            font-size: 1.2rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-input {
-            width: 50px;
-            text-align: center;
-            border: 1px solid var(--border-color);
+            padding: 0.2rem;
             border-radius: 4px;
-            padding: 0.3rem;
+            transition: var(--transition);
         }
 
-        /* Auth Modals */
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 1rem;
-        }
-        
-        .auth-modal.active {
-            display: flex;
-        }
-        
-        .auth-form {
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            width: 100%;
-            max-width: 400px;
-            animation: modalSlideIn 0.2s ease-out;
+        .close-btn:hover {
+            background: rgba(255,255,255,0.1);
         }
 
+        /* Auth Tabs */
         .auth-tabs {
             display: flex;
             border-bottom: 1px solid var(--border-color);
@@ -468,6 +522,7 @@
             cursor: pointer;
             font-weight: 500;
             transition: var(--transition);
+            font-size: 0.9rem;
         }
 
         .auth-tab.active {
@@ -475,17 +530,22 @@
             color: var(--white);
         }
 
-        .auth-content {
-            padding: 1.5rem;
+        .auth-form {
+            display: none;
         }
 
+        .auth-form.active {
+            display: block;
+        }
+
+        /* Forms */
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             font-weight: 500;
             color: var(--text-primary);
             font-size: 0.9rem;
@@ -493,11 +553,49 @@
 
         .form-control {
             width: 100%;
-            padding: 0.7rem 1rem;
+            padding: 0.8rem 1rem;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             font-size: 0.9rem;
             transition: var(--transition);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            text-decoration: none;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
         }
 
         /* Bottom Navigation */
@@ -510,40 +608,77 @@
             box-shadow: 0 -2px 10px var(--shadow-color);
             display: flex;
             justify-content: space-around;
-            padding: 0.4rem 0;
+            padding: 0.5rem 0;
             z-index: 1000;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            padding: 0.3rem;
+            transition: color 0.3s;
+            flex: 1;
+            max-width: 25%;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--navy);
+        }
+        
+        .bottom-nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .bottom-nav-label {
+            font-weight: 500;
         }
 
         /* Utility Classes */
-        .btn-primary {
-            background: var(--navy);
-            color: var(--white);
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary:hover {
-            background: var(--navy-light);
-        }
-
-        .btn-block {
-            width: 100%;
-            justify-content: center;
-        }
-
         .hidden {
             display: none !important;
         }
 
-        /* Loading States */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+
+        /* Messages */
+        .message {
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+        }
+        
+        .message-success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid var(--success);
+        }
+        
+        .message-error {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid var(--error);
+        }
+
+        /* Loading */
         .loading {
             display: inline-block;
             width: 18px;
@@ -558,6 +693,7 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .hero-section {
                 height: 250px;
@@ -569,7 +705,7 @@
             
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 0.8rem;
+                gap: 1rem;
             }
 
             .product-image-container {
@@ -577,28 +713,74 @@
             }
 
             .header-container {
-                flex-direction: column;
+                padding: 0 0.8rem;
+            }
+
+            .kebab-dropdown {
+                min-width: 180px;
+            }
+
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                flex-wrap: wrap;
                 gap: 0.8rem;
             }
 
-            .nav-auth {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .header-actions {
+                order: 3;
                 width: 100%;
                 justify-content: center;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Main Header with Auth -->
+    <!-- Main Header with Kebab Menu -->
     <header class="main-header">
         <div class="header-container">
             <a href="#" class="logo">WorkFit STORES</a>
-            <div class="nav-auth">
-                <div id="userMenu" class="user-menu hidden">
-                    <div class="user-avatar" id="userAvatar">U</div>
-                    <span id="userName">User</span>
-                    <button class="auth-btn" id="logoutBtn">Logout</button>
+            <div class="header-actions">
+                <!-- Kebab Menu for Logged-in Users -->
+                <div id="kebabMenu" class="kebab-menu hidden">
+                    <button class="kebab-toggle" id="kebabToggle">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="kebab-dropdown" id="kebabDropdown">
+                        <a href="#" class="kebab-item" id="profileLink">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="kebab-item" id="ordersLink">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>My Orders</span>
+                        </a>
+                        <a href="#" class="kebab-item" id="addressLink">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Addresses</span>
+                        </a>
+                        <div class="kebab-divider"></div>
+                        <a href="#" class="kebab-item" id="logoutLink">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Auth Buttons for Logged-out Users -->
                 <div id="authButtons">
                     <button class="auth-btn" id="loginBtn">Login</button>
                     <button class="auth-btn" id="registerBtn">Register</button>
@@ -635,7 +817,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </section>
 
     <!-- Product Listings -->
     <section class="product-listings">
@@ -656,34 +838,44 @@
         </div>
     </section>
 
-    <!-- Auth Modals -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-form">
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login">Login</button>
-                <button class="auth-tab" data-tab="register">Register</button>
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="margin: 0; font-size: 1.2rem;">Account</h3>
+                <button class="close-btn" id="closeAuthModal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="auth-content">
-                <form id="loginForm">
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
                     <div class="form-group">
-                        <label class="form-label">Email</label>
+                        <label class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="loginEmail" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control" id="loginPassword" required>
                     </div>
-                    <button type="submit" class="btn-primary btn-block">
-                        <i class="fas fa-sign-in-alt"></i> Login
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login to Account
                     </button>
                 </form>
-                <form id="registerForm" class="hidden">
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
                     <div class="form-group">
                         <label class="form-label">Full Name</label>
                         <input type="text" class="form-control" id="registerName" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Email</label>
+                        <label class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="registerEmail" required>
                     </div>
                     <div class="form-group">
@@ -691,46 +883,20 @@
                         <input type="password" class="form-control" id="registerPassword" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Phone</label>
+                        <label class="form-label">Phone Number</label>
                         <input type="tel" class="form-control" id="registerPhone" required>
                     </div>
-                    <button type="submit" class="btn-primary btn-block">
+                    <div class="form-group">
+                        <label class="form-label">Delivery Address</label>
+                        <textarea class="form-control" id="registerAddress" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
                         <i class="fas fa-user-plus"></i> Create Account
                     </button>
                 </form>
-            </div>
-        </div>
-    </div>
 
-    <!-- Optimized Customization Modal -->
-    <div class="customization-modal" id="customizationModal">
-        <div class="customization-form">
-            <div class="customization-header">
-                <h3 id="customizationTitle">Customize Product</h3>
-                <button class="close-btn" id="closeCustomization">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="customization-content">
-                <div class="option-group">
-                    <span class="option-title">Quantity</span>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" id="decreaseQty">-</button>
-                        <input type="number" id="productQuantity" value="1" min="1" class="quantity-input">
-                        <button class="quantity-btn" id="increaseQty">+</button>
-                    </div>
-                </div>
-                <div id="customizationOptions">
-                    <!-- Options will be injected here -->
-                </div>
-            </div>
-            <div class="customization-footer">
-                <div>
-                    <strong id="customizationPrice">KSh 0.00</strong>
-                </div>
-                <button id="addToCartBtn" class="btn-primary">
-                    <i class="fas fa-shopping-cart"></i> Add to Cart
-                </button>
+                <!-- Messages -->
+                <div id="authMessage" class="hidden"></div>
             </div>
         </div>
     </div>
@@ -751,21 +917,17 @@
         </a>
         <a href="store-webpage.html" class="bottom-nav-item active">
             <i class="fas fa-store bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Our Store</span>
+            <span class="bottom-nav-label">Store</span>
         </a>
     </nav>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
     <script>
-        // ===== PERFORMANCE OPTIMIZATIONS =====
         class WorkFitStore {
             constructor() {
                 this.products = [];
-                this.currentProduct = null;
                 this.user = null;
-                this.cart = [];
-                this.scriptUrl = 'https://script.google.com/macros/s/AKfycbwd7-U1T1hlmI6Tgc-KOQ9DhIzgiuAfzILfnDMQnK4iJYuW2fkJAnCRe46JwcUq9gsmlw/exec';
-                
+                this.scriptUrl = 'https://script.google.com/macros/s/AKfycby3WYzj6NdVdpPIMb3uCV2bU-RiKH-9gSVAIoIyFlxYYR8Se_TldsM7DnaqZHh2uDnEnw/exec';
                 this.init();
             }
 
@@ -773,29 +935,27 @@
                 this.setupEventListeners();
                 this.loadUserSession();
                 await this.loadProducts();
-                this.setupServiceWorker();
+                this.setupSwiper();
             }
 
             setupEventListeners() {
-                // Auth
+                // Auth buttons
                 document.getElementById('loginBtn').addEventListener('click', () => this.showAuthModal('login'));
                 document.getElementById('registerBtn').addEventListener('click', () => this.showAuthModal('register'));
-                document.getElementById('logoutBtn').addEventListener('click', () => this.logout());
                 
                 // Auth modal
+                document.getElementById('closeAuthModal').addEventListener('click', () => this.hideAuthModal());
                 document.querySelectorAll('.auth-tab').forEach(tab => {
                     tab.addEventListener('click', (e) => this.switchAuthTab(e.target.dataset.tab));
                 });
                 
+                // Auth forms
                 document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
                 document.getElementById('registerForm').addEventListener('submit', (e) => this.handleRegister(e));
                 
-                // Customization modal
-                document.getElementById('closeCustomization').addEventListener('click', () => this.hideCustomization());
-                document.getElementById('addToCartBtn').addEventListener('click', () => this.addToCart());
-                document.getElementById('decreaseQty').addEventListener('click', () => this.adjustQuantity(-1));
-                document.getElementById('increaseQty').addEventListener('click', () => this.adjustQuantity(1));
-                document.getElementById('productQuantity').addEventListener('change', (e) => this.validateQuantity(e.target.value));
+                // Kebab menu
+                document.getElementById('kebabToggle').addEventListener('click', (e) => this.toggleKebabMenu(e));
+                document.getElementById('logoutLink').addEventListener('click', (e) => this.handleLogout(e));
                 
                 // Search
                 document.getElementById('searchBtn').addEventListener('click', () => this.handleSearch());
@@ -805,19 +965,51 @@
                 document.querySelectorAll('.category-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => this.filterByCategory(e.target.dataset.category));
                 });
+
+                // Close modals on outside click
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal')) {
+                        this.hideAuthModal();
+                    }
+                    // Close kebab menu when clicking outside
+                    if (!e.target.closest('.kebab-menu')) {
+                        document.getElementById('kebabDropdown').classList.remove('active');
+                    }
+                });
             }
 
-            // ===== AUTHENTICATION =====
+            setupSwiper() {
+                new Swiper('.heroSwiper', {
+                    loop: true,
+                    autoplay: { delay: 5000 },
+                    pagination: { el: '.swiper-pagination', clickable: true }
+                });
+            }
+
+            // Kebab Menu Functions
+            toggleKebabMenu(e) {
+                e.stopPropagation();
+                const dropdown = document.getElementById('kebabDropdown');
+                dropdown.classList.toggle('active');
+            }
+
+            // Auth Functions
             async handleLogin(e) {
                 e.preventDefault();
                 const email = document.getElementById('loginEmail').value;
                 const password = document.getElementById('loginPassword').value;
 
+                this.showMessage('Logging in...', 'info');
+
                 try {
-                    const response = await fetch(`${this.scriptUrl}?action=login`, {
+                    const response = await fetch(this.scriptUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, password })
+                        body: JSON.stringify({
+                            action: 'login',
+                            email: email,
+                            password: password
+                        })
                     });
                     
                     const result = await response.json();
@@ -829,9 +1021,10 @@
                         this.hideAuthModal();
                         this.showMessage('Login successful!', 'success');
                     } else {
-                        this.showMessage(result.message || 'Login failed', 'error');
+                        this.showMessage(result.message || 'Login failed. Please check your credentials.', 'error');
                     }
                 } catch (error) {
+                    console.error('Login error:', error);
                     this.showMessage('Login failed. Please try again.', 'error');
                 }
             }
@@ -842,171 +1035,97 @@
                 const email = document.getElementById('registerEmail').value;
                 const password = document.getElementById('registerPassword').value;
                 const phone = document.getElementById('registerPhone').value;
+                const address = document.getElementById('registerAddress').value;
+
+                this.showMessage('Creating account...', 'info');
 
                 try {
-                    const response = await fetch(`${this.scriptUrl}?action=register`, {
+                    const response = await fetch(this.scriptUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, password, phone })
+                        body: JSON.stringify({
+                            action: 'register',
+                            name: name,
+                            email: email,
+                            password: password,
+                            phone: phone,
+                            address: address
+                        })
                     });
                     
                     const result = await response.json();
                     
                     if (result.success) {
-                        this.showMessage('Registration successful! Please login.', 'success');
+                        this.showMessage('Account created successfully! Please login.', 'success');
                         this.switchAuthTab('login');
+                        // Clear form
+                        document.getElementById('registerForm').reset();
                     } else {
-                        this.showMessage(result.message || 'Registration failed', 'error');
+                        this.showMessage(result.message || 'Registration failed. Please try again.', 'error');
                     }
                 } catch (error) {
+                    console.error('Registration error:', error);
                     this.showMessage('Registration failed. Please try again.', 'error');
                 }
             }
 
-            // ===== PRODUCT MANAGEMENT =====
-            async loadProducts() {
-                try {
-                    // Try cache first
-                    const cached = this.getCachedProducts();
-                    if (cached) {
-                        this.products = cached;
-                        this.renderProducts();
-                        return;
-                    }
-
-                    const response = await fetch(`${this.scriptUrl}?action=getProducts`);
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        this.products = result.data;
-                        this.cacheProducts();
-                        this.renderProducts();
-                    }
-                } catch (error) {
-                    console.error('Failed to load products:', error);
-                }
+            handleLogout(e) {
+                e.preventDefault();
+                this.user = null;
+                localStorage.removeItem('workfit_user');
+                this.updateUI();
+                this.showMessage('Logged out successfully', 'success');
+                document.getElementById('kebabDropdown').classList.remove('active');
             }
 
-            // ===== OPTIMIZED CUSTOMIZATION MODAL =====
-            showCustomization(product) {
-                this.currentProduct = product;
-                
-                // Update modal content instantly
-                document.getElementById('customizationTitle').textContent = product.name;
-                document.getElementById('customizationPrice').textContent = `KSh ${product.basePrice}`;
-                document.getElementById('productQuantity').value = 1;
-                
-                // Build options HTML efficiently
-                const optionsHTML = this.buildCustomizationOptions(product);
-                document.getElementById('customizationOptions').innerHTML = optionsHTML;
-                
-                // Show modal with optimized animation
-                document.getElementById('customizationModal').classList.add('active');
-            }
-
-            buildCustomizationOptions(product) {
-                let html = '';
-                
-                // Color options
-                if (product.availableColors) {
-                    const colors = product.availableColors.split(',').map(c => c.trim());
-                    html += `
-                        <div class="option-group">
-                            <span class="option-title">Color</span>
-                            <div class="option-items">
-                                ${colors.map((color, index) => `
-                                    <div class="option-item">
-                                        <input type="radio" id="color-${index}" name="color" value="${color}" ${index === 0 ? 'checked' : ''}>
-                                        <label for="color-${index}">${color}</label>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-
-                // Material options
-                if (product.availableMaterials) {
-                    const materials = product.availableMaterials.split(',').map(m => m.trim());
-                    html += `
-                        <div class="option-group">
-                            <span class="option-title">Material</span>
-                            <div class="option-items">
-                                ${materials.map((material, index) => `
-                                    <div class="option-item">
-                                        <input type="radio" id="material-${index}" name="material" value="${material}" ${index === 0 ? 'checked' : ''}>
-                                        <label for="material-${index}">${material}</label>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-
-                return html;
-            }
-
-            // ===== PERFORMANCE METHODS =====
-            getCachedProducts() {
-                const cached = localStorage.getItem('workfit_products');
-                if (cached) {
-                    const { data, expiry } = JSON.parse(cached);
-                    if (Date.now() < expiry) {
-                        return data;
-                    }
-                }
-                return null;
-            }
-
-            cacheProducts() {
-                const cacheData = {
-                    data: this.products,
-                    expiry: Date.now() + (5 * 60 * 1000) // 5 minutes
-                };
-                localStorage.setItem('workfit_products', JSON.stringify(cacheData));
-            }
-
-            setupServiceWorker() {
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('/sw.js')
-                        .then(() => console.log('Service Worker registered'))
-                        .catch(err => console.log('SW registration failed'));
-                }
-            }
-
-            // ===== UI METHODS =====
+            // UI Functions
             showAuthModal(tab = 'login') {
                 document.getElementById('authModal').classList.add('active');
                 this.switchAuthTab(tab);
+                document.getElementById('authMessage').classList.add('hidden');
             }
 
             hideAuthModal() {
                 document.getElementById('authModal').classList.remove('active');
+                document.getElementById('authMessage').classList.add('hidden');
             }
 
             switchAuthTab(tab) {
+                // Update tabs
                 document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
                 document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
                 
-                document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
-                document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+                // Update forms
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById(`${tab}Form`).classList.add('active');
+                
+                // Clear messages
+                document.getElementById('authMessage').classList.add('hidden');
             }
 
-            hideCustomization() {
-                document.getElementById('customizationModal').classList.remove('active');
+            showMessage(message, type) {
+                const messageDiv = document.getElementById('authMessage');
+                messageDiv.textContent = message;
+                messageDiv.className = `message message-${type}`;
+                messageDiv.classList.remove('hidden');
+                
+                // Auto-hide success messages after 3 seconds
+                if (type === 'success') {
+                    setTimeout(() => {
+                        messageDiv.classList.add('hidden');
+                    }, 3000);
+                }
             }
 
             updateUI() {
                 const isLoggedIn = !!this.user;
-                document.getElementById('authButtons').classList.toggle('hidden', isLoggedIn);
-                document.getElementById('userMenu').classList.toggle('hidden', !isLoggedIn);
                 
-                if (isLoggedIn) {
-                    document.getElementById('userName').textContent = this.user.name;
-                    document.getElementById('userAvatar').textContent = this.user.name.charAt(0).toUpperCase();
-                }
+                // Toggle auth buttons and kebab menu
+                document.getElementById('authButtons').classList.toggle('hidden', isLoggedIn);
+                document.getElementById('kebabMenu').classList.toggle('hidden', !isLoggedIn);
             }
 
+            // User Session Management
             saveUserSession() {
                 if (this.user) {
                     localStorage.setItem('workfit_user', JSON.stringify(this.user));
@@ -1021,24 +1140,41 @@
                 }
             }
 
-            logout() {
-                this.user = null;
-                localStorage.removeItem('workfit_user');
-                this.updateUI();
-                this.showMessage('Logged out successfully', 'success');
+            // Product Functions
+            async loadProducts() {
+                try {
+                    const response = await fetch(`${this.scriptUrl}?action=getProducts`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.products = result.data;
+                        this.renderProducts();
+                    } else {
+                        this.showProductError('Failed to load products');
+                    }
+                } catch (error) {
+                    console.error('Load products error:', error);
+                    this.showProductError('Failed to load products. Please try again.');
+                }
             }
 
-            showMessage(message, type) {
-                // Simple message display - you can enhance this
-                alert(message);
-            }
-
-            // ===== PRODUCT METHODS =====
             renderProducts() {
                 const grid = document.getElementById('productGrid');
+                
+                if (this.products.length === 0) {
+                    grid.innerHTML = `
+                        <div class="text-center" style="grid-column: 1 / -1; padding: 3rem 1rem;">
+                            <i class="fas fa-box-open" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                            <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">No Products Available</h3>
+                            <p style="color: var(--gray);">Please check back later for new products.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
                 grid.innerHTML = this.products.map(product => `
                     <div class="product-card" data-category="${product.category}">
-                        <div class="product-image-container" onclick="store.showCustomization(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                        <div class="product-image-container">
                             <div class="product-image-slide">
                                 <img src="${this.getProductImage(product.id)}" alt="${product.name}" loading="lazy">
                             </div>
@@ -1047,8 +1183,12 @@
                         <div class="product-content">
                             <h3 class="product-title">${product.name}</h3>
                             <div class="product-price">KSh ${product.basePrice}</div>
+                            <div class="product-meta">
+                                <span><i class="fas fa-tag"></i> ${product.category}</span>
+                                ${product.availableColors ? `<span><i class="fas fa-palette"></i> ${product.availableColors.split(',').length} colors</span>` : ''}
+                            </div>
                             <div class="product-footer">
-                                <button class="btn-primary btn-block" onclick="store.showCustomization(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                                <button class="btn btn-primary btn-block" onclick="store.addToCart('${product.id}')">
                                     <i class="fas fa-shopping-cart"></i> Add To Cart
                                 </button>
                             </div>
@@ -1068,49 +1208,23 @@
                 return images[productId] || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
             }
 
-            adjustQuantity(change) {
-                const input = document.getElementById('productQuantity');
-                const newValue = parseInt(input.value) + change;
-                input.value = Math.max(1, newValue);
+            showProductError(message) {
+                const grid = document.getElementById('productGrid');
+                grid.innerHTML = `
+                    <div class="text-center" style="grid-column: 1 / -1; padding: 3rem 1rem;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--error); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Unable to Load Products</h3>
+                        <p style="color: var(--gray); margin-bottom: 1rem;">${message}</p>
+                        <button class="btn btn-primary" onclick="store.loadProducts()">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                `;
             }
 
-            validateQuantity(value) {
-                const num = parseInt(value);
-                if (isNaN(num) || num < 1) {
-                    document.getElementById('productQuantity').value = 1;
-                }
-            }
-
-            addToCart() {
-                if (!this.user) {
-                    this.showAuthModal('login');
-                    return;
-                }
-
-                const quantity = parseInt(document.getElementById('productQuantity').value);
-                const color = document.querySelector('input[name="color"]:checked')?.value || 'Default';
-                const material = document.querySelector('input[name="material"]:checked')?.value || 'Default';
-
-                const cartItem = {
-                    ...this.currentProduct,
-                    quantity,
-                    selectedColor: color,
-                    selectedMaterial: material,
-                    addedAt: new Date().toISOString()
-                };
-
-                this.cart.push(cartItem);
-                this.saveCart();
-                this.hideCustomization();
-                this.showMessage(`${this.currentProduct.name} added to cart!`, 'success');
-            }
-
-            saveCart() {
-                localStorage.setItem('workfit_cart', JSON.stringify(this.cart));
-            }
-
+            // Search and Filter
             handleSearch() {
-                const term = document.getElementById('searchInput').value.toLowerCase();
+                const term = document.getElementById('searchInput').value.toLowerCase().trim();
                 const filtered = this.products.filter(product => 
                     product.name.toLowerCase().includes(term) ||
                     product.category.toLowerCase().includes(term) ||
@@ -1120,6 +1234,7 @@
             }
 
             filterByCategory(category) {
+                // Update active button
                 document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelector(`[data-category="${category}"]`).classList.add('active');
 
@@ -1132,14 +1247,24 @@
 
             renderFilteredProducts(products) {
                 const grid = document.getElementById('productGrid');
+                
                 if (products.length === 0) {
-                    grid.innerHTML = '<div class="no-products">No products found</div>';
+                    grid.innerHTML = `
+                        <div class="text-center" style="grid-column: 1 / -1; padding: 3rem 1rem;">
+                            <i class="fas fa-search" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                            <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">No Products Found</h3>
+                            <p style="color: var(--gray);">Try adjusting your search or filter criteria.</p>
+                            <button class="btn btn-primary mt-2" onclick="store.clearSearch()">
+                                <i class="fas fa-times"></i> Clear Search
+                            </button>
+                        </div>
+                    `;
                     return;
                 }
-                
+
                 grid.innerHTML = products.map(product => `
                     <div class="product-card">
-                        <div class="product-image-container" onclick="store.showCustomization(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                        <div class="product-image-container">
                             <div class="product-image-slide">
                                 <img src="${this.getProductImage(product.id)}" alt="${product.name}" loading="lazy">
                             </div>
@@ -1149,7 +1274,7 @@
                             <h3 class="product-title">${product.name}</h3>
                             <div class="product-price">KSh ${product.basePrice}</div>
                             <div class="product-footer">
-                                <button class="btn-primary btn-block" onclick="store.showCustomization(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                                <button class="btn btn-primary btn-block" onclick="store.addToCart('${product.id}')">
                                     <i class="fas fa-shopping-cart"></i> Add To Cart
                                 </button>
                             </div>
@@ -1157,28 +1282,33 @@
                     </div>
                 `).join('');
             }
+
+            clearSearch() {
+                document.getElementById('searchInput').value = '';
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector('[data-category="all"]').classList.add('active');
+                this.renderProducts();
+            }
+
+            // Cart Function (simplified for demo)
+            addToCart(productId) {
+                if (!this.user) {
+                    this.showAuthModal('login');
+                    this.showMessage('Please login to add items to cart', 'error');
+                    return;
+                }
+
+                const product = this.products.find(p => p.id === productId);
+                if (product) {
+                    this.showMessage(`${product.name} added to cart!`, 'success');
+                    // Here you would add to actual cart storage
+                }
+            }
         }
 
-        // Initialize the store when DOM is loaded
+        // Initialize the store
         document.addEventListener('DOMContentLoaded', () => {
             window.store = new WorkFitStore();
-            
-            // Initialize Swiper
-            new Swiper('.heroSwiper', {
-                loop: true,
-                autoplay: { delay: 5000 },
-                pagination: { el: '.swiper-pagination', clickable: true }
-            });
-        });
-
-        // Close modals when clicking outside
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('auth-modal')) {
-                e.target.classList.remove('active');
-            }
-            if (e.target.classList.contains('customization-modal')) {
-                e.target.classList.remove('active');
-            }
         });
     </script>
 </body>
