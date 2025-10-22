@@ -80,6 +80,23 @@
             padding-bottom: 4rem;
         }
 
+        /* Blur effect when modal is open */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        body.modal-open::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
         /* Navigation */
         header {
             background-color: var(--bg-primary);
@@ -452,6 +469,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
         }
         
         .modal-content {
@@ -465,6 +483,7 @@
             animation: modalFade 0.3s;
             color: var(--text-primary);
             box-shadow: 0 10px 30px var(--shadow-color);
+            z-index: 1001;
         }
         
         .close {
@@ -476,6 +495,7 @@
             right: 1rem;
             top: 0.5rem;
             cursor: pointer;
+            transition: color 0.3s;
         }
         
         .close:hover,
@@ -549,7 +569,7 @@
             animation: spin 1s linear infinite;
         }
         
-        /* Google Form Modal */
+        /* Google Form Modal - FIXED */
         .google-form-modal {
             display: none;
             position: fixed;
@@ -557,8 +577,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1001;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
             padding: 1rem;
@@ -572,13 +593,14 @@
             background: var(--bg-primary);
             border-radius: 12px;
             width: 100%;
-            max-width: 800px;
-            height: 90vh;
+            max-width: 900px;
+            height: 85vh;
             overflow: hidden;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            box-shadow: 0 20px 40px var(--shadow-color);
             position: relative;
             display: flex;
             flex-direction: column;
+            animation: modalFade 0.3s;
         }
 
         .google-form-header {
@@ -587,12 +609,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--navy);
+            color: white;
         }
 
         .google-form-title {
             font-size: 1.3rem;
-            color: var(--navy);
+            color: var(--white);
             margin: 0;
+            font-weight: 600;
         }
 
         .google-form-close {
@@ -621,6 +646,7 @@
             border: none;
             width: 100%;
             height: 100%;
+            background: white;
         }
         
         @keyframes spin {
@@ -629,8 +655,14 @@
         }
         
         @keyframes modalFade {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
 
         /* Bottom Navigation */
@@ -727,10 +759,16 @@
             .modal-content {
                 width: 95%;
                 margin: 10% auto;
+                padding: 1.2rem;
             }
 
             .google-form-container {
-                height: 95vh;
+                height: 90vh;
+                margin: 1rem;
+            }
+            
+            .google-form-header {
+                padding: 1rem;
             }
         }
 
@@ -797,6 +835,11 @@
             .comparison-table {
                 display: block;
                 overflow-x: auto;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 0.8rem;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -1230,12 +1273,14 @@
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('loadingIndicator').style.display = 'none';
             
-            // Show modal  
+            // Show modal with blur effect
             document.getElementById('registrationModal').style.display = 'block';
+            document.body.classList.add('modal-open');
         }
         
         function closeModal() {
             document.getElementById('registrationModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
         }
         
         // Close modal when clicking outside of it
@@ -1301,7 +1346,7 @@
             }
         });
 
-        // Sports Clubs Google Form Functionality
+        // Sports Clubs Google Form Functionality - FIXED
         function openSportsForm(clubName) {
             const sportsFormModal = document.getElementById('sportsFormModal');
             const sportsFormTitle = document.getElementById('sportsFormTitle');
@@ -1311,29 +1356,51 @@
             // Set the form title
             sportsFormTitle.textContent = `Join ${clubName}`;
             
-            // Set the Google Form URL
-            sportsFormFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSddD-Pt-n1hhhfJF7wlQiwuOkvIuJSfVIVTlhVGXkb3v6vt9g/viewform?embedded=true';
+            // Set the Google Form URL with proper parameters for better display
+            const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSddD-Pt-n1hhhfJF7wlQiwuOkvIuJSfVIVTlhVGXkb3v6vt9g/viewform?embedded=true&usp=pp_url&entry.1234567890=' + encodeURIComponent(clubName);
+            sportsFormFrame.src = formUrl;
             
-            // Show the modal
+            // Show the modal with blur effect
             sportsFormModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
             
             // Close functionality
-            sportsFormClose.addEventListener('click', () => {
+            const closeForm = () => {
                 sportsFormModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                document.body.classList.remove('modal-open');
                 sportsFormFrame.src = '';
-            });
+            };
+            
+            sportsFormClose.onclick = closeForm;
             
             // Close when clicking outside
             sportsFormModal.addEventListener('click', (e) => {
                 if (e.target === sportsFormModal) {
-                    sportsFormModal.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                    sportsFormFrame.src = '';
+                    closeForm();
+                }
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', function handleEscape(e) {
+                if (e.key === 'Escape' && sportsFormModal.classList.contains('active')) {
+                    closeForm();
+                    document.removeEventListener('keydown', handleEscape);
                 }
             });
         }
+
+        // Close all modals when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                const sportsFormModal = document.getElementById('sportsFormModal');
+                if (sportsFormModal.classList.contains('active')) {
+                    sportsFormModal.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                    document.getElementById('sportsFormFrame').src = '';
+                }
+            }
+        });
     </script>
 </body>
 </html>
