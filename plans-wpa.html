@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership - WorkFit Fitness & Sports</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
     
@@ -19,7 +19,12 @@
     <!-- iOS Icons -->
     <link rel="apple-touch-icon" href="icons/icon-152x152.png">
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --navy: #001f3f;
@@ -40,6 +45,11 @@
             --card-bg: #ffffff;
             --success: #4CAF50;
             --error: #f44336;
+            --gradient-primary: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFC400 100%);
+            --gradient-accent: linear-gradient(135deg, #C73E1D 0%, #D9534F 100%);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
         }
 
         /* Dark mode variables */
@@ -66,7 +76,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -74,39 +84,46 @@
             background-color: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
-            font-size: 15px;
+            font-size: 16px;
             -webkit-text-size-adjust: 100%;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: var(--transition);
             padding-bottom: 4rem;
+            overflow-x: hidden;
         }
 
         /* Navigation */
         header {
             background-color: var(--bg-primary);
-            box-shadow: 0 2px 10px var(--shadow-color);
+            box-shadow: 0 2px 15px var(--shadow-color);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
         }
 
         .logo {
-            height: 35px;
+            height: 40px;
             width: auto;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -114,24 +131,49 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s;
-            font-size: 0.85rem;
-            padding: 0.5rem;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: var(--gold);
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: var(--navy-dark);
             padding: 0.5rem;
             cursor: pointer;
             z-index: 101;
+            transition: var(--transition);
+            border-radius: 6px;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: rgba(0,0,0,0.1);
         }
 
         .theme-toggle {
@@ -143,110 +185,144 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 35px;
-            height: 35px;
-            transition: background-color 0.3s;
+            width: 40px;
+            height: 40px;
+            transition: var(--transition);
         }
 
         .theme-toggle:hover {
             background-color: rgba(0,0,0,0.1);
+            transform: rotate(15deg);
         }
 
         .theme-toggle svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             fill: var(--text-primary);
         }
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            background: var(--gradient-primary);
             color: white;
-            padding: 2rem 1rem;
+            padding: 3rem 1.5rem;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
         }
 
         .page-header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            position: relative;
         }
 
         .page-header p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
+            position: relative;
+            font-weight: 400;
         }
 
         /* Plans Container */
         .plans-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem 2rem;
+            padding: 0 1.5rem 3rem;
         }
 
         .section-title {
             text-align: left;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             color: var(--navy);
             position: relative;
-            font-size: 1.3rem;
-            padding-left: 8px;
-            border-left: 3px solid var(--gold);
+            font-size: 1.8rem;
+            padding-left: 12px;
+            border-left: 4px solid var(--gold);
+            font-weight: 700;
         }
 
         .intro {
             text-align: center;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
+            padding: 2rem;
+            margin: 2rem 0;
             background: var(--bg-primary);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px var(--shadow-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px var(--shadow-color);
             color: var(--navy);
-            font-size: 1rem;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-gold);
         }
         
         .packages-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
         
         .package-card {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
-            border-top: 4px solid var(--gold);
+            border-top: 5px solid var(--gold);
+            position: relative;
         }
         
         .package-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
         
         .card-header {
-            background: var(--navy);
+            background: var(--gradient-primary);
             color: var(--white);
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             text-align: center;
+            position: relative;
         }
         
         .card-header h2 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
         
         .price {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 2rem;
+            font-weight: 800;
             text-align: center;
+            margin: 0.5rem 0;
         }
         
         .price span {
@@ -255,7 +331,7 @@
         }
         
         .card-content {
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -263,60 +339,110 @@
         
         .features {
             list-style-type: none;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             flex: 1;
         }
         
         .features li {
-            padding: 0.5rem 0;
+            padding: 0.8rem 0;
             border-bottom: 1px dashed var(--border-color);
             display: flex;
             align-items: center;
+            transition: var(--transition);
+        }
+        
+        .features li:hover {
+            background-color: rgba(0,0,0,0.03);
+            padding-left: 5px;
         }
         
         .features li i {
             color: var(--gold);
-            margin-right: 0.5rem;
-            font-size: 0.9rem;
+            margin-right: 0.8rem;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
         }
         
         .btn {
             display: block;
             width: 100%;
-            padding: 0.8rem;
-            background: var(--navy);
+            padding: 1rem;
+            background: var(--gradient-primary);
             color: var(--white);
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: var(--transition);
             text-align: center;
             text-decoration: none;
             margin-top: auto;
+            box-shadow: 0 4px 10px rgba(0, 31, 63, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
         }
         
         .btn:hover {
             background: var(--navy-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 31, 63, 0.3);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-secondary {
+            background: var(--gradient-accent);
+        }
+        
+        .btn-secondary:hover {
+            background: #D9534F;
+        }
+        
+        .btn-disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .btn-disabled:hover {
+            background: var(--gray);
+            transform: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         
         .contact-info {
             text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--navy);
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: var(--gradient-primary);
             color: var(--white);
-            border-radius: 12px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 31, 63, 0.2);
         }
         
         .contact-info h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             color: var(--gold);
+            font-size: 1.5rem;
         }
         
         .contact-info p {
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .highlight {
@@ -325,166 +451,184 @@
         }
         
         .highlight .card-header {
-            background: var(--navy-light);
+            background: var(--gradient-gold);
+            color: var(--navy);
         }
         
         .popular-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background: var(--accent);
             color: var(--white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
             z-index: 10;
+            box-shadow: 0 4px 10px rgba(199, 62, 29, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* Sports Section */
         .sports-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
             border-top: 2px solid var(--border-color);
         }
 
         .sports-intro {
             text-align: center;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
+            padding: 2rem;
+            margin: 2rem 0;
             background: var(--bg-primary);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px var(--shadow-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px var(--shadow-color);
             color: var(--navy);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .sports-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .sport-card {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
-            border-top: 4px solid var(--gold);
+            border-top: 5px solid var(--gold);
         }
 
         .sport-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
 
         .sport-img-container {
-            height: 180px;
+            height: 200px;
             overflow: hidden;
+            position: relative;
         }
 
         .sport-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: var(--transition);
         }
 
         .sport-card:hover .sport-img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .sport-content {
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
         .sport-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
             color: var(--navy);
             text-align: center;
+            font-weight: 700;
         }
 
         .sport-description {
             margin-bottom: 1.5rem;
             color: var(--text-secondary);
             flex: 1;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .sport-btn {
             display: block;
             width: 100%;
-            padding: 0.8rem;
-            background: var(--navy);
+            padding: 1rem;
+            background: var(--gradient-primary);
             color: var(--white);
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: var(--transition);
             text-align: center;
             text-decoration: none;
             margin-top: auto;
+            box-shadow: 0 4px 10px rgba(0, 31, 63, 0.2);
         }
 
         .sport-btn:hover {
             background: var(--navy-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 31, 63, 0.3);
         }
         
         /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
         
         .modal-content {
             background-color: var(--bg-primary);
             margin: 5% auto;
-            padding: 1.5rem;
-            border-radius: 12px;
+            padding: 2rem;
+            border-radius: var(--border-radius);
             width: 90%;
             max-width: 500px;
             position: relative;
-            animation: modalFade 0.3s;
+            animation: modalFade 0.4s;
             color: var(--text-primary);
-            box-shadow: 0 10px 30px var(--shadow-color);
+            box-shadow: 0 20px 40px var(--shadow-color);
         }
         
         .close {
             color: var(--gray);
             float: right;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             position: absolute;
-            right: 1rem;
-            top: 0.5rem;
+            right: 1.5rem;
+            top: 1rem;
             cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
         }
         
         .close:hover,
         .close:focus {
             color: var(--navy);
+            transform: rotate(90deg);
         }
         
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group label {
@@ -492,25 +636,26 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--navy);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 1rem;
             color: var(--text-primary);
-            transition: border-color 0.3s;
+            transition: var(--transition);
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
         }
         
         .required {
@@ -521,9 +666,9 @@
             display: none;
             background: var(--success);
             color: white;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 8px;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             text-align: center;
         }
         
@@ -531,21 +676,21 @@
             display: none;
             background: var(--error);
             color: white;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 8px;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             text-align: center;
         }
         
         .loading {
             display: none;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         .loading i {
             color: var(--navy);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             animation: spin 1s linear infinite;
         }
         
@@ -558,7 +703,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.8);
-            z-index: 1001;
+            z-index: 2001;
             justify-content: center;
             align-items: center;
             padding: 1rem;
@@ -570,45 +715,48 @@
 
         .google-form-container {
             background: var(--bg-primary);
-            border-radius: 12px;
+            border-radius: var(--border-radius);
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             height: 90vh;
             overflow: hidden;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            box-shadow: 0 20px 40px var(--shadow-color);
             position: relative;
             display: flex;
             flex-direction: column;
         }
 
         .google-form-header {
-            padding: 1.5rem;
+            padding: 1.5rem 2rem;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--gradient-primary);
+            color: white;
         }
 
         .google-form-title {
             font-size: 1.3rem;
-            color: var(--navy);
+            color: var(--white);
             margin: 0;
+            font-weight: 600;
         }
 
         .google-form-close {
             background: var(--gold);
             color: var(--navy);
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
 
         .google-form-close:hover {
@@ -640,11 +788,12 @@
             left: 0;
             width: 100%;
             background-color: var(--bg-primary);
-            box-shadow: 0 -2px 10px var(--shadow-color);
+            box-shadow: 0 -2px 15px var(--shadow-color);
             display: flex;
             justify-content: space-around;
-            padding: 0.4rem 0;
+            padding: 0.5rem 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
         
         .bottom-nav-item {
@@ -653,20 +802,26 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-secondary);
-            font-size: 0.65rem;
-            padding: 0.2rem;
-            transition: color 0.3s;
+            font-size: 0.7rem;
+            padding: 0.3rem;
+            transition: var(--transition);
             flex: 1;
             max-width: 25%;
+            border-radius: 8px;
         }
         
         .bottom-nav-item.active {
             color: var(--navy);
         }
         
+        .bottom-nav-item:hover {
+            color: var(--navy);
+            background-color: rgba(0, 31, 63, 0.05);
+        }
+        
         .bottom-nav-icon {
-            font-size: 1.1rem;
-            margin-bottom: 0.1rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
         }
         
         .bottom-nav-label {
@@ -678,15 +833,16 @@
             .nav-links {
                 display: none;
                 position: fixed;
-                top: 60px;
+                top: 70px;
                 left: 0;
                 width: 100%;
                 background: var(--navy);
                 flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 4px 6px var(--shadow-color);
+                padding: 1.5rem;
+                box-shadow: 0 4px 15px var(--shadow-color);
                 z-index: 99;
                 gap: 0;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
             }
 
             .nav-links.active {
@@ -695,9 +851,10 @@
 
             .nav-links a {
                 padding: 1rem;
-                border-bottom: 1px solid var(--border-color);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
                 width: 100%;
                 color: var(--white);
+                text-align: center;
             }
 
             .mobile-menu-btn {
@@ -705,15 +862,15 @@
             }
 
             .page-header {
-                padding: 1.5rem 1rem;
+                padding: 2rem 1rem;
             }
 
             .page-header h1 {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
 
             .plans-container {
-                padding: 0 0.8rem 2rem;
+                padding: 0 1rem 2rem;
             }
 
             .packages-container {
@@ -727,10 +884,15 @@
             .modal-content {
                 width: 95%;
                 margin: 10% auto;
+                padding: 1.5rem;
             }
 
             .google-form-container {
                 height: 95vh;
+            }
+            
+            .intro, .sports-intro {
+                padding: 1.5rem;
             }
         }
 
@@ -743,6 +905,59 @@
 
             header {
                 padding-top: env(safe-area-inset-top);
+            }
+        }
+        
+        /* Feature Comparison */
+        .feature-comparison {
+            margin: 3rem 0;
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px var(--shadow-color);
+            overflow: hidden;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .comparison-table th {
+            background: var(--navy);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .feature-name {
+            font-weight: 600;
+            color: var(--navy);
+        }
+        
+        .feature-yes {
+            color: var(--success);
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .feature-no {
+            color: var(--gray);
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
             }
         }
     </style>
@@ -773,7 +988,7 @@
     <!-- Page Header -->
     <section class="page-header">
         <h1>WorkFit Membership Plans</h1>
-        <p>Choose your fitness journey with WorkFit Fitness programs or join our community sports clubs</p>
+        <p>Choose your fitness journey with WorkFit Fitness programs or join our community sports clubs. All members get app access with tiered features.</p>
     </section>
 
     <!-- Plans Container -->
@@ -782,7 +997,7 @@
         <h2 class="section-title">WorkFit Fitness Programs</h2>
         
         <div class="intro">
-            <p>Start your fitness journey with our flexible membership options designed for individuals and families</p>
+            <p>Start your fitness journey with our flexible membership options. All members receive app access with features tailored to your membership level.</p>
         </div>
         
         <div class="packages-container">
@@ -790,7 +1005,8 @@
             <div class="package-card">
                 <div class="card-header">
                     <h2>FIT-SARE</h2>
-                    <div class="price">Free /month</div>
+                    <div class="price">Free <span>/month</span></div>
+                    <p>Basic App Access</p>
                 </div>
                 <div class="card-content">
                     <ul class="features">
@@ -799,30 +1015,32 @@
                         <li><i class="fas fa-check-circle"></i> Basic workout plans</li>
                         <li><i class="fas fa-check-circle"></i> Access to online resources</li>
                         <li><i class="fas fa-check-circle"></i> Email support</li>
+                        <li><i class="fas fa-check-circle"></i> App access: Schedules, Blogs & Events</li>
                         <li><i class="fas fa-check-circle"></i> Option to upgrade to paid plans</li>
-                        <li><i class="fas fa-check-circle"></i> Suitable for beginners</li>
                     </ul>
-                    <button class="btn" onclick="openForm('FIT-FREE', 0)">Select Plan</button>
+                    <button class="btn" onclick="openForm('FIT-SARE', 0)">Select Free Plan</button>
                 </div>
             </div>
 
             <!-- Coming Soon Package -->
             <div class="package-card highlight">
-                <div class="popular-badge">Coming Soon</div>
+                <div class="popular-badge">Most Popular</div>
                 <div class="card-header">
                     <h2>FIT-FAM</h2>
-                    <div class="price">2000 KES/month</div>
+                    <div class="price">2000 KES<span>/month</span></div>
+                    <p>Full App Access</p>
                 </div>
                 <div class="card-content">
                     <ul class="features">
-                        <li><i class="fas fa-check-circle"></i> All FIT-FREE features</li>
+                        <li><i class="fas fa-check-circle"></i> All FIT-SARE features</li>
                         <li><i class="fas fa-check-circle"></i> 4 Family fitness Sessions (Once per week)</li>
                         <li><i class="fas fa-check-circle"></i> 2 Family zhumba Sessions (Weekends)</li>
                         <li><i class="fas fa-check-circle"></i> Customised family meal plans</li>
                         <li><i class="fas fa-check-circle"></i> Family wellness workshops</li>
                         <li><i class="fas fa-check-circle"></i> Priority event registration</li>
+                        <li><i class="fas fa-check-circle"></i> Full app access with activity tracking</li>
                     </ul>
-                    <button class="btn" onclick="contactSales()">Coming Soon</button>
+                    <button class="btn btn-secondary" onclick="openForm('FIT-FAM', 2000)">Select Family Plan</button>
                 </div>
             </div>
 
@@ -830,20 +1048,80 @@
             <div class="package-card">
                 <div class="card-header">
                     <h2>FIT-SOLO</h2>
-                    <div class="price">1000 KES/month</div>
+                    <div class="price">1000 KES<span>/month</span></div>
+                    <p>Full App Access</p>
                 </div>
                 <div class="card-content">
                     <ul class="features">
-                        <li><i class="fas fa-check-circle"></i> All FIT-FREE features</li>
+                        <li><i class="fas fa-check-circle"></i> All FIT-SARE features</li>
                         <li><i class="fas fa-check-circle"></i> 4 Personal training sessions (Once per week)</li>
                         <li><i class="fas fa-check-circle"></i> Customised meal plan</li>
                         <li><i class="fas fa-check-circle"></i> Personalized fitness assessment</li>
                         <li><i class="fas fa-check-circle"></i> Progress tracking dashboard</li>
                         <li><i class="fas fa-check-circle"></i> Dedicated coach support</li>
+                        <li><i class="fas fa-check-circle"></i> Full app access with activity tracking</li>
                     </ul>
-                    <button class="btn" onclick="contactSales()">Coming Soon</button>
+                    <button class="btn" onclick="openForm('FIT-SOLO', 1000)">Select Solo Plan</button>
                 </div>
             </div>
+        </div>
+
+        <!-- Feature Comparison Table -->
+        <div class="feature-comparison">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>FIT-SARE</th>
+                        <th>FIT-SOLO</th>
+                        <th>FIT-FAM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">App Access</td>
+                        <td class="feature-yes">Basic</td>
+                        <td class="feature-yes">Full</td>
+                        <td class="feature-yes">Full</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">View Schedules</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Read Blogs</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Event Registration</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Activity Tracking</td>
+                        <td class="feature-no">✗</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Monthly Reports</td>
+                        <td class="feature-no">✗</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Personal Training</td>
+                        <td class="feature-no">✗</td>
+                        <td class="feature-yes">✓</td>
+                        <td class="feature-yes">✓</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- WorkFit Sports Section -->
@@ -851,7 +1129,7 @@
             <h2 class="section-title">WorkFit Sports Clubs</h2>
             
             <div class="sports-intro">
-                <p>Join our community sports clubs! Register with us and meet your fellow sports enthusiasts</p>
+                <p>Join our community sports clubs! Register with us and meet your fellow sports enthusiasts. All club members get basic app access.</p>
             </div>
             
             <div class="sports-container">
@@ -939,6 +1217,9 @@
                         <select id="location" name="location" required>
                             <option value="">Select a location</option>
                             <option value="NBO">Nairobi</option>
+                            <option value="MSA">Mombasa</option>
+                            <option value="KIS">Kisumu</option>
+                            <option value="NAK">Nakuru</option>
                         </select>
                     </div>
                     
@@ -948,7 +1229,7 @@
                 <div id="successMessage">
                     <i class="fas fa-check-circle"></i>
                     <h3>Registration Successful!</h3>
-                    <p>Thank you for registering. We've sent a confirmation email.</p>
+                    <p>Thank you for registering. We've sent a confirmation email with your app login details.</p>
                 </div>
                 
                 <div id="errorMessage">
@@ -968,7 +1249,8 @@
     <section class="contact-info">
         <h3>Have Questions About Our Plans?</h3>
         <p>Phone: +254 784599322</p>
-        <p>Email: sales.workfit@gmail.com</p>
+        <p>Email: membership.workfit@gmail.com</p>
+        <p>All members receive app access with features based on membership level</p>
     </section>
 
     <!-- Google Form Modal for Sports Clubs -->
@@ -998,7 +1280,7 @@
         </a>
         <a href="store-webpage.html" class="bottom-nav-item">
             <i class="fas fa-store bottom-nav-icon"></i>
-            <span class="bottom-nav-store">our Store</span>
+            <span class="bottom-nav-label">Store</span>
         </a>
     </nav>
 
@@ -1037,7 +1319,7 @@
             if (theme === 'dark') {
                 themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
             } else {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>';
             }
         }
         
@@ -1085,8 +1367,8 @@
             });
         }
 
-        // FORM FUNCTIONALITY - PRESERVED EXACTLY AS IS
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzoLi_x18NAaR_E6bVV9WbjHs2OZsgdzKpz3_3U4xkwbR2M6d612sM656sE7zxzP8-ZTQ/exec';
+        // FORM FUNCTIONALITY
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwvSoWfARGlnGqpT0cne811U01WyuDIMO-lnYFCWvQAYjwIwM5UOnU0Y8B3pmW2conbiA/exec';
         
         let selectedPackage = '';
         let selectedPrice = 0;
@@ -1100,9 +1382,9 @@
             document.getElementById('packagePriceValue').value = price;
             
             if (price === 0) {
-                document.getElementById('packagePrice').textContent = 'Free Plan';
+                document.getElementById('packagePrice').textContent = 'Free Plan - Basic App Access';
             } else {
-                document.getElementById('packagePrice').textContent = price + ' KES per month';
+                document.getElementById('packagePrice').textContent = price + ' KES per month - Full App Access';
             }
             
             // Reset form and messages
@@ -1118,10 +1400,6 @@
         
         function closeModal() {
             document.getElementById('registrationModal').style.display = 'none';
-        }
-        
-        function contactSales() {
-            alert("Please contact our sales team at sales.workfit@gmail.com or +254 784599322 for VIP membership details.");
         }
         
         // Close modal when clicking outside of it
@@ -1156,6 +1434,25 @@
                     // Show success message
                     document.getElementById('successMessage').style.display = 'block';
                     document.getElementById('loadingIndicator').style.display = 'none';
+                    
+                    // Update success message based on membership type
+                    if (result.isPaidMember) {
+                        document.getElementById('successMessage').innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Premium Membership Registered!</h3>
+                            <p>Thank you for your premium membership! We've created your account with full app access and sent your login credentials to your email.</p>
+                            <p><strong>Username:</strong> ${result.username}</p>
+                            <p><strong>Passcode:</strong> ${result.passcode}</p>
+                        `;
+                    } else {
+                        document.getElementById('successMessage').innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Free Membership Registered!</h3>
+                            <p>Welcome to WorkFit! Your free membership with basic app access has been created. Check your email for login details and app information.</p>
+                            <p><strong>Username:</strong> ${result.username}</p>
+                            <p><strong>Passcode:</strong> ${result.passcode}</p>
+                        `;
+                    }
                 } else {
                     throw new Error(result.message);
                 }
@@ -1201,48 +1498,35 @@
                 }
             });
         }
+
+        // Add scroll animations
+        window.addEventListener('scroll', function() {
+            const cards = document.querySelectorAll('.package-card, .sport-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Initialize card animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.package-card, .sport-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Trigger initial animation
+            setTimeout(() => {
+                window.dispatchEvent(new Event('scroll'));
+            }, 100);
+        });
     </script>
-    <script>
-// Force cache refresh for PWA
-if ('serviceWorker' in navigator) {
-  // Unregister all service workers
-  navigator.serviceWorker.getRegistrations().then(function(registrations) {
-    for(let registration of registrations) {
-      registration.unregister();
-      console.log('ServiceWorker unregistered');
-    }
-  });
-  
-  // Clear all caches
-  caches.keys().then(function(names) {
-    for (let name of names) {
-      caches.delete(name);
-      console.log('Cache deleted:', name);
-    }
-  });
-}
-
-// Force page reload with cache bypass
-window.addEventListener('load', function() {
-  // Check if page is loaded from cache
-  if (window.performance) {
-    const navEntries = performance.getEntriesByType('navigation');
-    if (navEntries.length > 0 && navEntries[0].type === 'back_forward') {
-      location.reload(true);
-    }
-  }
-});
-
-// Add cache-busting parameter to CSS and JS
-document.addEventListener('DOMContentLoaded', function() {
-  const links = document.querySelectorAll('link[rel="stylesheet"]');
-  const scripts = document.querySelectorAll('script[src]');
-  const cacheBuster = '?v=' + Date.now();
-  
-  links.forEach(link => {
-    link.href = link.href.split('?')[0] + cacheBuster;
-  });
-});
-</script>
 </body>
 </html>
