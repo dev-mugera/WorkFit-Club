@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Membership - WorkFit Fitness & Sports</title>
+    <title>WorkFit Membership Registration</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
     
     <!-- PWA Meta Tags -->
@@ -12,12 +12,6 @@
     <meta name="apple-mobile-web-app-title" content="WorkFit">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#001f3f">
-    
-    <!-- Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- iOS Icons -->
-    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -40,9 +34,9 @@
             --card-bg: #ffffff;
             --success: #4CAF50;
             --error: #f44336;
+            --warning: #ff9800;
         }
 
-        /* Dark mode variables */
         [data-theme="dark"] {
             --navy: #0a2e57;
             --navy-light: #1a3e67;
@@ -80,24 +74,7 @@
             padding-bottom: 4rem;
         }
 
-        /* Blur effect when modal is open */
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        body.modal-open::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-        }
-
-        /* Navigation */
+        /* Header & Navigation */
         header {
             background-color: var(--bg-primary);
             box-shadow: 0 2px 10px var(--shadow-color);
@@ -113,66 +90,11 @@
             padding: 1rem;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
         }
 
         .logo {
             height: 35px;
             width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            font-size: 0.85rem;
-            padding: 0.5rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            color: var(--navy-dark);
-            padding: 0.5rem;
-            cursor: pointer;
-            z-index: 101;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 35px;
-            height: 35px;
-            transition: background-color 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background-color: rgba(0,0,0,0.1);
-        }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-primary);
         }
 
         /* Page Header */
@@ -197,110 +119,260 @@
             margin: 0 auto;
         }
 
-        /* Plans Container */
-        .plans-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem 2rem;
+        /* Membership Selection */
+        .membership-selection {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        .section-title {
-            text-align: left;
-            margin-bottom: 1.2rem;
-            color: var(--navy);
-            position: relative;
-            font-size: 1.3rem;
-            padding-left: 8px;
-            border-left: 3px solid var(--gold);
-        }
-
-        .intro {
-            text-align: center;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            color: var(--navy);
-            font-size: 1rem;
-        }
-        
-        .packages-container {
+        .selection-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-        
-        .package-card {
+
+        .selection-card {
             background: var(--card-bg);
             border-radius: 12px;
-            overflow: hidden;
+            padding: 2rem;
+            text-align: center;
             box-shadow: 0 4px 6px var(--shadow-color);
             transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            border-top: 4px solid var(--gold);
+            cursor: pointer;
+            border: 2px solid transparent;
         }
-        
-        .package-card:hover {
+
+        .selection-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px var(--shadow-color);
+            border-color: var(--gold);
         }
-        
-        .card-header {
-            background: var(--navy);
-            color: var(--white);
-            padding: 1.5rem;
-            text-align: center;
+
+        .selection-card.active {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.1) 100%);
         }
-        
-        .card-header h2 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
         }
-        
-        .price {
+
+        .card-title {
             font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
             font-weight: 700;
-            text-align: center;
         }
-        
-        .price span {
-            font-size: 1rem;
-            font-weight: normal;
-        }
-        
-        .card-content {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .features {
-            list-style-type: none;
+
+        .card-description {
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            flex: 1;
         }
-        
-        .features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed var(--border-color);
+
+        /* Registration Form */
+        .registration-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem 2rem;
+            display: none;
+        }
+
+        .registration-container.active {
+            display: block;
+        }
+
+        .form-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--navy);
         }
-        
-        .features li i {
-            color: var(--gold);
-            margin-right: 0.5rem;
+
+        .section-icon {
+            background: var(--navy);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--navy);
             font-size: 0.9rem;
         }
-        
-        .btn {
-            display: block;
+
+        .required::after {
+            content: " *";
+            color: var(--accent);
+        }
+
+        .form-control {
             width: 100%;
             padding: 0.8rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 2px rgba(0, 31, 63, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-help {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        /* Checkbox and Radio Styles */
+        .checkbox-group, .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkbox-group input, .radio-group input {
+            margin-right: 0.5rem;
+        }
+
+        .agreement-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            max-width: 1000px;
+            margin: 2rem auto 1rem;
+            padding: 0 1rem;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--gray);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        /* Form Navigation */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
             background: var(--navy);
             color: var(--white);
             border: none;
@@ -309,155 +381,32 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s ease;
-            text-align: center;
             text-decoration: none;
-            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
+
         .btn:hover {
             background: var(--navy-light);
         }
-        
-        .contact-info {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--navy);
+            color: var(--navy);
+        }
+
+        .btn-outline:hover {
             background: var(--navy);
             color: var(--white);
-            border-radius: 12px;
-        }
-        
-        .contact-info h3 {
-            margin-bottom: 0.5rem;
-            color: var(--gold);
-        }
-        
-        .contact-info p {
-            margin-bottom: 0.5rem;
-        }
-        
-        .highlight {
-            border: 2px solid var(--gold);
-            transform: scale(1.03);
-        }
-        
-        .highlight .card-header {
-            background: var(--navy-light);
-        }
-        
-        .popular-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--accent);
-            color: var(--white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 10;
         }
 
-        /* Sports Section */
-        .sports-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 2px solid var(--border-color);
+        .btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
         }
 
-        .sports-intro {
-            text-align: center;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            color: var(--navy);
-            font-size: 1rem;
-        }
-
-        .sports-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .sport-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            border-top: 4px solid var(--gold);
-        }
-
-        .sport-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow-color);
-        }
-
-        .sport-img-container {
-            height: 180px;
-            overflow: hidden;
-        }
-
-        .sport-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .sport-card:hover .sport-img {
-            transform: scale(1.05);
-        }
-
-        .sport-content {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sport-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: var(--navy);
-            text-align: center;
-        }
-
-        .sport-description {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            flex: 1;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .sport-btn {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--navy);
-            color: var(--white);
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            margin-top: auto;
-        }
-
-        .sport-btn:hover {
-            background: var(--navy-light);
-        }
-        
         /* Modal Styles */
         .modal {
             display: none;
@@ -471,11 +420,11 @@
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
         }
-        
+
         .modal-content {
             background-color: var(--bg-primary);
             margin: 5% auto;
-            padding: 1.5rem;
+            padding: 2rem;
             border-radius: 12px;
             width: 90%;
             max-width: 500px;
@@ -483,9 +432,8 @@
             animation: modalFade 0.3s;
             color: var(--text-primary);
             box-shadow: 0 10px 30px var(--shadow-color);
-            z-index: 1001;
         }
-        
+
         .close {
             color: var(--gray);
             float: right;
@@ -493,176 +441,44 @@
             font-weight: bold;
             position: absolute;
             right: 1rem;
-            top: 0.5rem;
+            top: 1rem;
             cursor: pointer;
             transition: color 0.3s;
         }
-        
-        .close:hover,
-        .close:focus {
+
+        .close:hover {
             color: var(--navy);
         }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--navy);
-            font-size: 0.9rem;
-        }
-        
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            color: var(--text-primary);
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--navy);
-        }
-        
-        .required {
-            color: var(--accent);
-        }
-        
-        #successMessage {
-            display: none;
-            background: var(--success);
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
-        #errorMessage {
-            display: none;
-            background: var(--error);
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
+
+        /* Loading and Messages */
         .loading {
             display: none;
             text-align: center;
-            margin-top: 1rem;
+            margin: 1rem 0;
         }
-        
+
         .loading i {
             color: var(--navy);
             font-size: 1.5rem;
             animation: spin 1s linear infinite;
         }
-        
-        /* Google Form Modal - FIXED */
-        .google-form-modal {
+
+        .message {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
             padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
         }
 
-        .google-form-modal.active {
-            display: flex;
-        }
-
-        .google-form-container {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            width: 100%;
-            max-width: 900px;
-            height: 85vh;
-            overflow: hidden;
-            box-shadow: 0 20px 40px var(--shadow-color);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            animation: modalFade 0.3s;
-        }
-
-        .google-form-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--navy);
+        .success-message {
+            background: var(--success);
             color: white;
         }
 
-        .google-form-title {
-            font-size: 1.3rem;
-            color: var(--white);
-            margin: 0;
-            font-weight: 600;
-        }
-
-        .google-form-close {
-            background: var(--gold);
-            color: var(--navy);
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .google-form-close:hover {
-            background: var(--white);
-            transform: scale(1.1);
-        }
-
-        .google-form-frame {
-            flex: 1;
-            border: none;
-            width: 100%;
-            height: 100%;
-            background: white;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes modalFade {
-            from { 
-                opacity: 0; 
-                transform: translateY(-30px) scale(0.9); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
+        .error-message {
+            background: var(--error);
+            color: white;
         }
 
         /* Bottom Navigation */
@@ -678,7 +494,7 @@
             padding: 0.4rem 0;
             z-index: 1000;
         }
-        
+
         .bottom-nav-item {
             display: flex;
             flex-direction: column;
@@ -691,84 +507,84 @@
             flex: 1;
             max-width: 25%;
         }
-        
+
         .bottom-nav-item.active {
             color: var(--navy);
         }
-        
+
         .bottom-nav-icon {
             font-size: 1.1rem;
             margin-bottom: 0.1rem;
         }
-        
+
         .bottom-nav-label {
             font-weight: 500;
         }
-        
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes modalFade {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background: var(--navy);
+            .selection-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 1.5rem;
+            }
+
+            .section-header {
                 flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 4px 6px var(--shadow-color);
-                z-index: 99;
-                gap: 0;
+                text-align: center;
             }
 
-            .nav-links.active {
-                display: flex;
+            .section-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
             }
 
-            .nav-links a {
-                padding: 1rem;
-                border-bottom: 1px solid var(--border-color);
+            .progress-bar {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .progress-step {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+
+            .step-label {
+                font-size: 0.7rem;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
                 width: 100%;
-                color: var(--white);
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .page-header {
-                padding: 1.5rem 1rem;
-            }
-
-            .page-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .plans-container {
-                padding: 0 0.8rem 2rem;
-            }
-
-            .packages-container {
-                grid-template-columns: 1fr;
-            }
-
-            .sports-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 1.2rem;
-            }
-
-            .google-form-container {
-                height: 90vh;
-                margin: 1rem;
-            }
-            
-            .google-form-header {
-                padding: 1rem;
+                justify-content: center;
             }
         }
 
@@ -784,63 +600,63 @@
             }
         }
 
-        /* Feature Comparison Table */
-        .feature-comparison {
-            margin: 2rem 0;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px var(--shadow-color);
-            overflow: hidden;
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .comparison-table th, .comparison-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.9rem;
-        }
-        
-        .comparison-table th {
-            background: var(--navy);
+        /* Special Form Elements */
+        .medical-warning {
+            background: var(--warning);
             color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
             font-weight: 600;
         }
-        
-        .comparison-table tr:last-child td {
-            border-bottom: none;
+
+        .conditional-section {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 4px solid var(--navy);
         }
-        
-        .feature-name {
-            font-weight: 600;
-            color: var(--navy);
+
+        .conditional-section.active {
+            display: block;
         }
-        
-        .feature-yes {
-            color: var(--success);
-            text-align: center;
-            font-weight: bold;
+
+        .premium-options {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
         }
-        
-        .feature-no {
-            color: var(--gray);
-            text-align: center;
+
+        .premium-option {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ddd;
         }
-        
-        @media (max-width: 768px) {
-            .comparison-table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .comparison-table th, .comparison-table td {
-                padding: 0.8rem;
-                font-size: 0.85rem;
-            }
+
+        .premium-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .field-error .form-control {
+            border-color: var(--error);
+        }
+
+        .field-error .error-message {
+            display: block;
         }
     </style>
 </head>
@@ -848,298 +664,1070 @@
     <header>
         <nav>
             <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
-            <button class="mobile-menu-btn" id="menuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="Blogs.html">Blogs</a>
-                <a href="media-wpa.html">Tutorials</a>
-                <a href="contact.wpa.html">Contact Us</a>
-                <a href="about-us.html">About Us</a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>
-                    </svg>
-                </button>
-            </div>
+            <h1>Membership Registration</h1>
         </nav>
     </header>
 
     <!-- Page Header -->
     <section class="page-header">
-        <h1>WorkFit Membership Plans</h1>
-        <p>Choose your fitness journey with WorkFit Fitness programs or join our community sports clubs. All members get app access with tiered features.</p>
+        <h1>Join WorkFit Community</h1>
+        <p>Choose your membership type and begin your journey to better health and fitness</p>
     </section>
 
-    <!-- Plans Container -->
-    <div class="plans-container">
-        <!-- WorkFit Fitness Section -->
-        <h2 class="section-title">WorkFit Fitness Programs</h2>
+    <!-- Membership Selection -->
+    <section class="membership-selection" id="membershipSelection">
+        <h2 style="text-align: center; color: var(--navy); margin-bottom: 1rem;">Select Membership Type</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+            Choose the membership that best fits your goals and lifestyle
+        </p>
         
-        <div class="intro">
-            <p>Start your fitness journey with our flexible membership options. All members receive app access with features tailored to your membership level.</p>
-        </div>
-        
-        <div class="packages-container">
-            <!-- Freemium Package -->
-            <div class="package-card">
-                <div class="card-header">
-                    <h2>FIT-SARE</h2>
-                    <div class="price">Free /month</div>
+        <div class="selection-cards">
+            <div class="selection-card" data-type="fitness">
+                <div class="card-icon">
+                    <i class="fas fa-dumbbell"></i>
                 </div>
-                <div class="card-content">
-                    <ul class="features">
-                        <li><i class="fas fa-check-circle"></i> Guided group outdoor training sessions</li>
-                        <li><i class="fas fa-check-circle"></i> Access to community events</li>     
-                        <li><i class="fas fa-check-circle"></i> Basic workout plans</li>
-                        <li><i class="fas fa-check-circle"></i> Access to online resources</li>
-                        <li><i class="fas fa-check-circle"></i> Email support</li>
-                        <li><i class="fas fa-check-circle"></i> App access: Schedules, Blogs & Events</li>
-                        <li><i class="fas fa-check-circle"></i> Option to upgrade to paid plans</li>
-                    </ul>
-                    <button class="btn" onclick="openForm('FIT-SARE', 0)">Select Plan</button>
-                </div>
-            </div>
-
-            <!-- Coming Soon Package -->
-            <div class="package-card highlight">
-                <div class="popular-badge">Most Popular</div>
-                <div class="card-header">
-                    <h2>FIT-FAM</h2>
-                    <div class="price">2000 KES/month</div>
-                </div>
-                <div class="card-content">
-                    <ul class="features">
-                        <li><i class="fas fa-check-circle"></i> All FIT-SARE features</li>
-                        <li><i class="fas fa-check-circle"></i> 4 Family fitness Sessions (Once per week)</li>
-                        <li><i class="fas fa-check-circle"></i> 2 Family zhumba Sessions (Weekends)</li>
-                        <li><i class="fas fa-check-circle"></i> Customised family meal plans</li>
-                        <li><i class="fas fa-check-circle"></i> Family wellness workshops</li>
-                        <li><i class="fas fa-check-circle"></i> Priority event registration</li>
-                        <li><i class="fas fa-check-circle"></i> Full app access with activity tracking</li>
-                    </ul>
-                    <button class="btn" onclick="openForm('FIT-FAM', 2000)">Select Plan</button>
-                </div>
-            </div>
-
-            <!-- Coming Soon Package -->
-            <div class="package-card">
-                <div class="card-header">
-                    <h2>FIT-SOLO</h2>
-                    <div class="price">1000 KES/month</div>
-                </div>
-                <div class="card-content">
-                    <ul class="features">
-                        <li><i class="fas fa-check-circle"></i> All FIT-SARE features</li>
-                        <li><i class="fas fa-check-circle"></i> 4 Personal training sessions (Once per week)</li>
-                        <li><i class="fas fa-check-circle"></i> Customised meal plan</li>
-                        <li><i class="fas fa-check-circle"></i> Personalized fitness assessment</li>
-                        <li><i class="fas fa-check-circle"></i> Progress tracking dashboard</li>
-                        <li><i class="fas fa-check-circle"></i> Dedicated coach support</li>
-                        <li><i class="fas fa-check-circle"></i> Full app access with activity tracking</li>
-                    </ul>
-                    <button class="btn" onclick="openForm('FIT-SOLO', 1000)">Select Plan</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature Comparison Table -->
-        <div class="feature-comparison">
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>FIT-SARE</th>
-                        <th>FIT-SOLO</th>
-                        <th>FIT-FAM</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="feature-name">App Access</td>
-                        <td class="feature-yes">Basic</td>
-                        <td class="feature-yes">Full</td>
-                        <td class="feature-yes">Full</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">View Schedules</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Read Blogs</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Event Registration</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Activity Tracking</td>
-                        <td class="feature-no">✗</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Monthly Reports</td>
-                        <td class="feature-no">✗</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Personal Training</td>
-                        <td class="feature-no">✗</td>
-                        <td class="feature-yes">✓</td>
-                        <td class="feature-yes">✓</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- WorkFit Sports Section -->
-        <div class="sports-section">
-            <h2 class="section-title">WorkFit Sports Clubs</h2>
-            
-            <div class="sports-intro">
-                <p>Join our community sports clubs! Register with us and meet your fellow sports enthusiasts. All club members get basic app access.</p>
+                <h3 class="card-title">WorkFit Fitness</h3>
+                <p class="card-description">
+                    Focus on personal health, wellness, and fitness goals. 
+                    Perfect for individuals seeking structured fitness programs, 
+                    medical rehabilitation support, or general wellness improvement.
+                </p>
+                <div class="btn">Select Fitness Membership</div>
             </div>
             
-            <div class="sports-container">
-                <!-- Basketball Club -->
-                <div class="sport-card">
-                    <div class="sport-img-container">
-                        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Club" class="sport-img">
-                    </div>
-                    <div class="sport-content">
-                        <h3 class="sport-title">Basketball Club</h3>
-                        <p class="sport-description">
-                            Join our basketball community for regular games, skill development sessions, and friendly tournaments. 
-                            Perfect for players of all skill levels looking to improve their game and connect with fellow basketball enthusiasts.
-                        </p>
-                        <button class="sport-btn" onclick="openSportsForm('Basketball Club')">
-                            <i class="fas fa-basketball-ball"></i> Join Basketball Club
-                        </button>
-                    </div>
+            <div class="selection-card" data-type="sports">
+                <div class="card-icon">
+                    <i class="fas fa-basketball-ball"></i>
                 </div>
-                
-                <!-- Running Club -->
-                <div class="sport-card">
-                    <div class="sport-img-container">
-                        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Running Club" class="sport-img">
-                    </div>
-                    <div class="sport-content">
-                        <h3 class="sport-title">Running Club</h3>
-                        <p class="sport-description">
-                            From beginners to marathoners, our running club offers group runs, training programs, and race preparation. 
-                            Join us for scenic routes, pace groups for all levels, and a supportive community of runners.
-                        </p>
-                        <button class="sport-btn" onclick="openSportsForm('Running Club')">
-                            <i class="fas fa-running"></i> Join Running Club
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Cycling Club -->
-                <div class="sport-card">
-                    <div class="sport-img-container">
-                        <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Club" class="sport-img">
-                    </div>
-                    <div class="sport-content">
-                        <h3 class="sport-title">Cycling Club</h3>
-                        <p class="sport-description">
-                            Explore scenic routes with our cycling community. We offer group rides for all levels, 
-                            from casual cyclists to experienced riders. Enjoy the camaraderie and discover new cycling routes together.
-                        </p>
-                        <button class="sport-btn" onclick="openSportsForm('Cycling Club')">
-                            <i class="fas fa-bicycle"></i> Join Cycling Club
-                        </button>
-                    </div>
-                </div>
+                <h3 class="card-title">WorkFit Sports</h3>
+                <p class="card-description">
+                    Join our competitive sports community. Engage in team sports, 
+                    develop skills, and participate in tournaments. Commitment to 
+                    regular training and team participation required.
+                </p>
+                <div class="btn">Select Sports Membership</div>
             </div>
         </div>
+    </section>
 
-        <!-- Registration Modal for Fitness Programs -->
-        <div id="registrationModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Register for <span id="selectedPackage"></span></h2>
-                <p id="packagePrice"></p>
-                
-                <form id="registrationForm">
-                    <input type="hidden" id="packageName" name="packageName">
-                    <input type="hidden" id="packagePriceValue" name="packagePrice">
-                    
-                    <div class="form-group">
-                        <label for="name">Full Name <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number <span class="required">*</span></label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="location">Select Location <span class="required">*</span></label>
-                        <select id="location" name="location" required>
-                            <option value="">Select a location</option>
-                            <option value="NBO">Nairobi</option>
-                            <option value="MSA">Mombasa</option>
-                            <option value="KIS">Kisumu</option>
-                            <option value="NAK">Nakuru</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="btn">Complete Registration</button>
-                </form>
-                
-                <div id="successMessage">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Registration Successful!</h3>
-                    <p>Thank you for registering. We've sent a confirmation email with your app login details.</p>
-                </div>
-                
-                <div id="errorMessage">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <h3>Registration Failed</h3>
-                    <p id="errorText">Please try again later.</p>
-                </div>
-                
-                <div class="loading" id="loadingIndicator">
-                    <i class="fas fa-spinner"></i>
-                    <p>Processing your registration...</p>
-                </div>
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress-step active" id="step1">
+                1
+                <span class="step-label">Personal</span>
+            </div>
+            <div class="progress-step" id="step2">
+                2
+                <span class="step-label">Contact</span>
+            </div>
+            <div class="progress-step" id="step3">
+                3
+                <span class="step-label">Medical</span>
+            </div>
+            <div class="progress-step" id="step4">
+                4
+                <span class="step-label">Membership</span>
+            </div>
+            <div class="progress-step" id="step5">
+                5
+                <span class="step-label">Agreements</span>
             </div>
         </div>
     </div>
-    
-    <section class="contact-info">
-        <h3>Have Questions About Our Plans?</h3>
-        <p>Phone: +254 784599322</p>
-        <p>Email: membership.workfit@gmail.com</p>
-        <p>All members receive app access with features based on membership level</p>
-    </section>
 
-    <!-- Google Form Modal for Sports Clubs -->
-    <div class="google-form-modal" id="sportsFormModal">
-        <div class="google-form-container">
-            <div class="google-form-header">
-                <h3 class="google-form-title" id="sportsFormTitle">Join Sports Club</h3>
-                <button class="google-form-close" id="sportsFormClose">&times;</button>
+    <!-- Fitness Registration Form -->
+    <div class="registration-container" id="fitnessForm">
+        <form id="fitnessRegistrationForm">
+            <!-- Section 1: Personal Details -->
+            <div class="form-section" id="section1">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="section-title">Personal Details</h2>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label required">Full Legal Name</label>
+                        <input type="text" class="form-control" name="fullName" required placeholder="Enter your full name as per official documents">
+                        <div class="error-message">Please enter your full name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Date of Birth</label>
+                        <input type="date" class="form-control" name="dateOfBirth" required>
+                        <div class="error-message">Please enter your date of birth</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Gender</label>
+                        <select class="form-control" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                        <div class="error-message">Please select your gender</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Nationality</label>
+                        <select class="form-control" name="nationality" required>
+                            <option value="">Select Country</option>
+                            <option value="Kenyan">Kenyan</option>
+                            <option value="Other">Other African</option>
+                            <option value="International">International</option>
+                        </select>
+                        <div class="error-message">Please select your nationality</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">City/Region</label>
+                        <select class="form-control" name="city" required>
+                            <option value="">Select City</option>
+                            <option value="Nairobi">Nairobi</option>
+                            <option value="Mombasa">Mombasa</option>
+                            <option value="Kisumu">Kisumu</option>
+                            <option value="Nakuru">Nakuru</option>
+                            <option value="Eldoret">Eldoret</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select your city</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Occupation Type</label>
+                        <select class="form-control" name="occupationType" required id="occupationType">
+                            <option value="">Select Occupation</option>
+                            <option value="Business">Business</option>
+                            <option value="Student">Student</option>
+                            <option value="Employed">Employed</option>
+                            <option value="Unemployed">Unemployed</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select your occupation type</div>
+                    </div>
+                    
+                    <div class="form-group full-width" id="occupationDetailsSection" style="display: none;">
+                        <label class="form-label required">Occupation Details</label>
+                        <input type="text" class="form-control" name="occupationDetails" placeholder="e.g., Software Developer at Tech Company, Business Owner in Retail, Medical Student at University">
+                        <div class="form-help">Please specify your specific role, company/institution, and industry</div>
+                        <div class="error-message">Please provide occupation details</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Religious Background</label>
+                        <select class="form-control" name="religiousBackground">
+                            <option value="">Select Religion</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Other">Other</option>
+                            <option value="None">Prefer not to say</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Marital Status</label>
+                        <select class="form-control" name="maritalStatus">
+                            <option value="">Select Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <iframe class="google-form-frame" id="sportsFormFrame" src="" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+            <!-- Section 2: Contact Details -->
+            <div class="form-section" id="section2" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h2 class="section-title">Contact & Emergency Information</h2>
+                </div>
+                
+                <div class="medical-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    This information is crucial for your safety and emergency situations
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Primary Phone Number</label>
+                        <input type="tel" class="form-control" name="primaryPhone" required placeholder="+254 XXX XXX XXX">
+                        <div class="error-message">Please enter your phone number</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Secondary Phone Number</label>
+                        <input type="tel" class="form-control" name="secondaryPhone" placeholder="Optional additional number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Email Address</label>
+                        <input type="email" class="form-control" name="email" required placeholder="your.email@example.com">
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Social Media Handles</label>
+                        <input type="text" class="form-control" name="socialMedia" placeholder="Instagram, Twitter, Facebook (optional)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Emergency Contact Name</label>
+                        <input type="text" class="form-control" name="emergencyContactName" required placeholder="Full name of emergency contact">
+                        <div class="error-message">Please enter emergency contact name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Emergency Contact Phone</label>
+                        <input type="tel" class="form-control" name="emergencyContactPhone" required placeholder="Emergency contact phone number">
+                        <div class="error-message">Please enter emergency contact phone</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Emergency Contact Relationship</label>
+                        <select class="form-control" name="emergencyContactRelationship" required>
+                            <option value="">Select Relationship</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select relationship</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Medical Details -->
+            <div class="form-section" id="section3" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h2 class="section-title">Medical & Health Information</h2>
+                </div>
+                
+                <div class="medical-warning">
+                    <i class="fas fa-shield-alt"></i>
+                    Your safety is our priority. This information helps us provide appropriate care.
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label required">Current Medical Status</label>
+                        <textarea class="form-control" name="currentMedicalStatus" required placeholder="Describe your current general health status, any ongoing health issues, or state 'Excellent Health' if applicable"></textarea>
+                        <div class="error-message">Please describe your current medical status</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Recent Surgeries (Last 2 Years)</label>
+                        <textarea class="form-control" name="recentSurgeries" placeholder="List any surgeries, procedures, or hospitalizations in the last 2 years. Include dates if possible."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Known Medical Conditions</label>
+                        <textarea class="form-control" name="medicalConditions" placeholder="e.g., Asthma, Diabetes, Hypertension, Arthritis, Heart conditions, etc."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Current Medications & Treatments</label>
+                        <textarea class="form-control" name="currentTreatments" placeholder="List all current medications, dosages, and any ongoing medical treatments"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Known Allergies</label>
+                        <input type="text" class="form-control" name="allergies" placeholder="Food, medication, environmental allergies">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Family Medical History</label>
+                        <input type="text" class="form-control" name="familyMedicalHistory" placeholder="Significant family health history">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label required">Is fitness part of a medical prescription?</label>
+                        <div class="radio-group">
+                            <input type="radio" name="fitnessAsPrescription" value="Yes" id="prescriptionYes" required>
+                            <label for="prescriptionYes">Yes</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="fitnessAsPrescription" value="No" id="prescriptionNo" required>
+                            <label for="prescriptionNo">No</label>
+                        </div>
+                        <div class="error-message">Please select an option</div>
+                    </div>
+                    
+                    <div class="conditional-section" id="prescriptionDetails" style="display: none;">
+                        <div class="form-group full-width">
+                            <label class="form-label">Prescription Details</label>
+                            <textarea class="form-control" name="prescriptionDetails" placeholder="Please provide details about your medical prescription, including doctor's recommendations and specific goals"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Additional Medical Notes</label>
+                        <textarea class="form-control" name="medicalNotes" placeholder="Any other health information that would help us ensure your safety"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Fitness Assessment -->
+            <div class="form-section" id="section4" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="section-title">Fitness Assessment & Goals</h2>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Current Weight (kg)</label>
+                        <input type="number" class="form-control" name="currentWeight" placeholder="Optional">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Height (cm)</label>
+                        <input type="number" class="form-control" name="height" placeholder="Optional">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Current Fitness Level</label>
+                        <select class="form-control" name="fitnessLevel" required>
+                            <option value="">Select Level</option>
+                            <option value="Beginner">Beginner (New to exercise)</option>
+                            <option value="Intermediate">Intermediate (Some experience)</option>
+                            <option value="Advanced">Advanced (Regular exerciser)</option>
+                            <option value="Expert">Expert (Athlete level)</option>
+                        </select>
+                        <div class="error-message">Please select your fitness level</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label required">Primary Fitness Goals</label>
+                        <textarea class="form-control" name="primaryGoals" required placeholder="What are your main reasons for joining? Weight loss, strength building, rehabilitation, general wellness, etc."></textarea>
+                        <div class="error-message">Please describe your fitness goals</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Previous Fitness Experience</label>
+                        <textarea class="form-control" name="previousExperience" placeholder="Describe any previous gym experience, sports background, or fitness activities"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Time Availability (Hours/Week)</label>
+                        <select class="form-control" name="timeAvailability">
+                            <option value="">Select Availability</option>
+                            <option value="1-2">1-2 hours</option>
+                            <option value="3-4">3-4 hours</option>
+                            <option value="5-7">5-7 hours</option>
+                            <option value="8+">8+ hours</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Specific Challenges or Limitations</label>
+                        <textarea class="form-control" name="specificChallenges" placeholder="Any time constraints, physical limitations, or other challenges we should know about"></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Motivational Factors</label>
+                        <textarea class="form-control" name="motivationalFactors" placeholder="What motivates you to stay committed to your fitness journey?"></textarea>
+                    </div>
+
+                    <!-- Premium Plan Options -->
+                    <div class="form-group full-width">
+                        <div class="premium-options">
+                            <h3 style="color: var(--navy); margin-bottom: 1rem;">Premium Plan Options (Optional)</h3>
+                            <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                                Consider upgrading for personalized attention and specialized programs
+                            </p>
+                            
+                            <div class="premium-option">
+                                <div class="radio-group">
+                                    <input type="radio" name="premiumPlanType" value="Medical Rehabilitation" id="planMedical">
+                                    <label for="planMedical"><strong>Medical Rehabilitation Program</strong></label>
+                                </div>
+                                <p style="font-size: 0.9rem; margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                                    For members with specific medical conditions requiring supervised exercise
+                                </p>
+                            </div>
+                            
+                            <div class="premium-option">
+                                <div class="radio-group">
+                                    <input type="radio" name="premiumPlanType" value="Executive Fitness" id="planExecutive">
+                                    <label for="planExecutive"><strong>Executive Fitness Program</strong></label>
+                                </div>
+                                <p style="font-size: 0.9rem; margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                                    For professionals with tight schedules needing flexible timing
+                                </p>
+                            </div>
+                            
+                            <div class="premium-option">
+                                <div class="radio-group">
+                                    <input type="radio" name="premiumPlanType" value="Performance Training" id="planPerformance">
+                                    <label for="planPerformance"><strong>Performance Training</strong></label>
+                                </div>
+                                <p style="font-size: 0.9rem; margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                                    For athletes and advanced individuals seeking performance enhancement
+                                </p>
+                            </div>
+                            
+                            <div class="radio-group" style="margin-top: 1rem;">
+                                <input type="radio" name="premiumPlanType" value="" id="planNone" checked>
+                                <label for="planNone"><strong>Basic Membership Only</strong> (No premium plan)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width" id="premiumReasonSection" style="display: none;">
+                        <label class="form-label">Reason for Premium Plan Selection</label>
+                        <textarea class="form-control" name="premiumReason" placeholder="Please explain why you're interested in this premium plan and your specific needs"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Agreements -->
+            <div class="form-section" id="section5" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h2 class="section-title">Membership Agreements</h2>
+                </div>
+                
+                <div class="medical-warning">
+                    <i class="fas fa-gavel"></i>
+                    Please read and accept all agreements to complete your registration
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="termsAccepted" id="termsAccepted" required>
+                            <label for="termsAccepted" class="form-label required">I accept the WorkFit Terms & Conditions</label>
+                        </div>
+                        <div class="agreement-text">
+                            I agree to abide by all WorkFit policies, procedures, and membership rules. I understand that membership fees are non-refundable and subject to the terms outlined in the membership agreement.
+                        </div>
+                        <div class="error-message">You must accept the terms and conditions</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="codeOfConductAccepted" id="codeOfConductAccepted" required>
+                            <label for="codeOfConductAccepted" class="form-label required">I accept the Code of Conduct</label>
+                        </div>
+                        <div class="agreement-text">
+                            I agree to maintain respectful and professional behavior towards all members, staff, and facilities. I understand that violation of the code of conduct may result in membership termination.
+                        </div>
+                        <div class="error-message">You must accept the code of conduct</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="liabilityWaiverSigned" id="liabilityWaiverSigned" required>
+                            <label for="liabilityWaiverSigned" class="form-label required">I accept the Liability Waiver</label>
+                        </div>
+                        <div class="agreement-text">
+                            I understand and acknowledge the risks associated with physical activity and release WorkFit from liability for any injuries that may occur during participation in activities, except where caused by gross negligence.
+                        </div>
+                        <div class="error-message">You must accept the liability waiver</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="photoReleaseConsent" id="photoReleaseConsent">
+                            <label for="photoReleaseConsent" class="form-label">Photo Release Consent (Optional)</label>
+                        </div>
+                        <div class="agreement-text">
+                            I grant WorkFit permission to use photographs/videos taken during activities for promotional purposes, including social media, website, and marketing materials.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="dataPrivacyAgreement" id="dataPrivacyAgreement">
+                            <label for="dataPrivacyAgreement" class="form-label">Data Privacy Agreement</label>
+                        </div>
+                        <div class="agreement-text">
+                            I understand that my personal information will be stored securely and used only for membership management, communication, and emergency purposes in accordance with data protection regulations.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Additional Notes or Special Requests</label>
+                        <textarea class="form-control" name="additionalNotes" placeholder="Any additional information, special requirements, or questions you'd like to share"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Navigation -->
+            <div class="form-navigation" id="formNavigation" style="display: none;">
+                <button type="button" class="btn btn-outline" id="prevBtn">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button type="button" class="btn" id="nextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="submit" class="btn" id="submitBtn" style="display: none;">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </div>
+        </form>
+        
+        <!-- Loading and Messages -->
+        <div class="loading" id="loadingIndicator">
+            <i class="fas fa-spinner"></i>
+            <p>Processing your application...</p>
+        </div>
+        
+        <div class="message success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h3>Application Submitted Successfully!</h3>
+            <p>Thank you for your WorkFit Fitness membership application. We will review your information and contact you within 2-3 business days.</p>
+            <p>Check your email for a confirmation message with your application details.</p>
+        </div>
+        
+        <div class="message error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Application Failed</h3>
+            <p id="errorText">Please try again later or contact us for assistance.</p>
+        </div>
+    </div>
+
+    <!-- Sports Registration Form -->
+    <div class="registration-container" id="sportsForm">
+        <form id="sportsRegistrationForm">
+            <!-- Section 1: Personal Details -->
+            <div class="form-section" id="sportsSection1">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="section-title">Personal Details</h2>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label required">Full Legal Name</label>
+                        <input type="text" class="form-control" name="fullName" required placeholder="Enter your full name as per official documents">
+                        <div class="error-message">Please enter your full name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Date of Birth</label>
+                        <input type="date" class="form-control" name="dateOfBirth" required>
+                        <div class="error-message">Please enter your date of birth</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Gender</label>
+                        <select class="form-control" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                        <div class="error-message">Please select your gender</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Nationality</label>
+                        <select class="form-control" name="nationality" required>
+                            <option value="">Select Country</option>
+                            <option value="Kenyan">Kenyan</option>
+                            <option value="Other">Other African</option>
+                            <option value="International">International</option>
+                        </select>
+                        <div class="error-message">Please select your nationality</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">City/Region</label>
+                        <select class="form-control" name="city" required>
+                            <option value="">Select City</option>
+                            <option value="Nairobi">Nairobi</option>
+                            <option value="Mombasa">Mombasa</option>
+                            <option value="Kisumu">Kisumu</option>
+                            <option value="Nakuru">Nakuru</option>
+                            <option value="Eldoret">Eldoret</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select your city</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Occupation Type</label>
+                        <select class="form-control" name="occupationType" required id="sportsOccupationType">
+                            <option value="">Select Occupation</option>
+                            <option value="Business">Business</option>
+                            <option value="Student">Student</option>
+                            <option value="Employed">Employed</option>
+                            <option value="Unemployed">Unemployed</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select your occupation type</div>
+                    </div>
+                    
+                    <div class="form-group full-width" id="sportsOccupationDetailsSection" style="display: none;">
+                        <label class="form-label required">Occupation Details</label>
+                        <input type="text" class="form-control" name="occupationDetails" placeholder="e.g., Software Developer at Tech Company, Business Owner in Retail, Medical Student at University">
+                        <div class="form-help">Please specify your specific role, company/institution, and industry</div>
+                        <div class="error-message">Please provide occupation details</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Religious Background</label>
+                        <select class="form-control" name="religiousBackground">
+                            <option value="">Select Religion</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Other">Other</option>
+                            <option value="None">Prefer not to say</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Marital Status</label>
+                        <select class="form-control" name="maritalStatus">
+                            <option value="">Select Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Contact Details -->
+            <div class="form-section" id="sportsSection2" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h2 class="section-title">Contact & Emergency Information</h2>
+                </div>
+                
+                <div class="medical-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    This information is crucial for your safety and emergency situations
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Primary Phone Number</label>
+                        <input type="tel" class="form-control" name="primaryPhone" required placeholder="+254 XXX XXX XXX">
+                        <div class="error-message">Please enter your phone number</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Secondary Phone Number</label>
+                        <input type="tel" class="form-control" name="secondaryPhone" placeholder="Optional additional number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Email Address</label>
+                        <input type="email" class="form-control" name="email" required placeholder="your.email@example.com">
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Social Media Handles</label>
+                        <input type="text" class="form-control" name="socialMedia" placeholder="Instagram, Twitter, Facebook (optional)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Emergency Contact Name</label>
+                        <input type="text" class="form-control" name="emergencyContactName" required placeholder="Full name of emergency contact">
+                        <div class="error-message">Please enter emergency contact name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Emergency Contact Phone</label>
+                        <input type="tel" class="form-control" name="emergencyContactPhone" required placeholder="Emergency contact phone number">
+                        <div class="error-message">Please enter emergency contact phone</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Emergency Contact Relationship</label>
+                        <select class="form-control" name="emergencyContactRelationship" required>
+                            <option value="">Select Relationship</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select relationship</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Medical Details -->
+            <div class="form-section" id="sportsSection3" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h2 class="section-title">Medical & Health Information</h2>
+                </div>
+                
+                <div class="medical-warning">
+                    <i class="fas fa-shield-alt"></i>
+                    Your safety is our priority. This information helps us provide appropriate care during sports activities.
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label required">Current Medical Status</label>
+                        <textarea class="form-control" name="currentMedicalStatus" required placeholder="Describe your current general health status, any ongoing health issues, or state 'Excellent Health' if applicable"></textarea>
+                        <div class="error-message">Please describe your current medical status</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Recent Surgeries (Last 2 Years)</label>
+                        <textarea class="form-control" name="recentSurgeries" placeholder="List any surgeries, procedures, or hospitalizations in the last 2 years. Include dates if possible."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Known Medical Conditions</label>
+                        <textarea class="form-control" name="medicalConditions" placeholder="e.g., Asthma, Diabetes, Hypertension, Arthritis, Heart conditions, etc."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Current Medications & Treatments</label>
+                        <textarea class="form-control" name="currentTreatments" placeholder="List all current medications, dosages, and any ongoing medical treatments"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Known Allergies</label>
+                        <input type="text" class="form-control" name="allergies" placeholder="Food, medication, environmental allergies">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Family Medical History</label>
+                        <input type="text" class="form-control" name="familyMedicalHistory" placeholder="Significant family health history">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Additional Medical Notes</label>
+                        <textarea class="form-control" name="medicalNotes" placeholder="Any other health information that would help us ensure your safety during sports activities"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Sports Specific Details -->
+            <div class="form-section" id="sportsSection4" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                    <h2 class="section-title">Sports Information & Preferences</h2>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Sport Choice</label>
+                        <select class="form-control" name="sportChoice" required id="sportChoice">
+                            <option value="">Select Sport</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Running">Running</option>
+                            <option value="Cycling">Cycling</option>
+                            <option value="Football">Football</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Swimming">Swimming</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message">Please select a sport</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Experience Level</label>
+                        <select class="form-control" name="experienceLevel" required>
+                            <option value="">Select Level</option>
+                            <option value="Beginner">Beginner (New to sport)</option>
+                            <option value="Intermediate">Intermediate (Some experience)</option>
+                            <option value="Advanced">Advanced (Regular player)</option>
+                            <option value="Expert">Expert (Competitive level)</option>
+                        </select>
+                        <div class="error-message">Please select your experience level</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Years of Experience</label>
+                        <select class="form-control" name="yearsOfExperience">
+                            <option value="">Select Years</option>
+                            <option value="0-1">0-1 years</option>
+                            <option value="1-3">1-3 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5+">5+ years</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Previous Teams/Clubs</label>
+                        <textarea class="form-control" name="previousTeams" placeholder="List any previous sports teams, clubs, or organized sports participation"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Preferred Position/Role</label>
+                        <input type="text" class="form-control" name="preferredPosition" placeholder="e.g., Point Guard, Striker, Goalkeeper, etc.">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label required">Reason for Joining</label>
+                        <textarea class="form-control" name="reasonForJoining" required placeholder="Why are you interested in joining this sports club? What are your goals?"></textarea>
+                        <div class="error-message">Please explain why you want to join</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label required">Availability (Days/Times)</label>
+                        <textarea class="form-control" name="availability" required placeholder="Please specify your available days and times for training sessions (e.g., Weekdays 6-8pm, Weekends mornings)"></textarea>
+                        <div class="error-message">Please specify your availability</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Transportation Means</label>
+                        <select class="form-control" name="transportationMeans">
+                            <option value="">Select Transportation</option>
+                            <option value="Personal Vehicle">Personal Vehicle</option>
+                            <option value="Public Transport">Public Transport</option>
+                            <option value="Walking">Walking</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Equipment Owned</label>
+                        <input type="text" class="form-control" name="equipmentOwned" placeholder="e.g., Basketball shoes, running gear, bicycle, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Team Preference</label>
+                        <select class="form-control" name="teamPreference">
+                            <option value="">Select Preference</option>
+                            <option value="Competitive">Competitive</option>
+                            <option value="Recreational">Recreational</option>
+                            <option value="Both">Both</option>
+                        </select>
+                    </div>
+
+                    <!-- Minor Section -->
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="isMinor" id="isMinor">
+                            <label for="isMinor" class="form-label">I am registering a minor (under 18 years)</label>
+                        </div>
+                    </div>
+
+                    <div class="conditional-section" id="minorSection" style="display: none;">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3 class="section-title">Parent/Guardian Information (For Minors)</h3>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required">Parent/Guardian Full Name</label>
+                                <input type="text" class="form-control" name="parentGuardianName" placeholder="Full name of parent or guardian">
+                                <div class="error-message">Please enter parent/guardian name</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required">Parent/Guardian Phone</label>
+                                <input type="tel" class="form-control" name="parentContact" placeholder="Parent/guardian phone number">
+                                <div class="error-message">Please enter parent/guardian phone</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required">Parent/Guardian Email</label>
+                                <input type="email" class="form-control" name="parentEmail" placeholder="Parent/guardian email address">
+                                <div class="error-message">Please enter parent/guardian email</div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label class="form-label">School Information</label>
+                                <input type="text" class="form-control" name="schoolInformation" placeholder="School name, grade/class, and location">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label class="form-label">Special Needs or Accommodations</label>
+                                <textarea class="form-control" name="specialNeeds" placeholder="Any special needs, accommodations, or important information for the coaches"></textarea>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" name="medicalConsent" id="sportsMedicalConsent">
+                                    <label for="sportsMedicalConsent" class="form-label">Medical Treatment Consent</label>
+                                </div>
+                                <div class="agreement-text">
+                                    I consent to emergency medical treatment for my child if required during sports activities when I cannot be reached immediately.
+                                </div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label class="form-label">Pickup/Dropoff Authorization</label>
+                                <textarea class="form-control" name="pickupAuthorization" placeholder="List authorized persons for pickup/dropoff (names and relationships)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Agreements -->
+            <div class="form-section" id="sportsSection5" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h2 class="section-title">Sports Membership Agreements</h2>
+                </div>
+                
+                <div class="medical-warning">
+                    <i class="fas fa-gavel"></i>
+                    Please read and accept all agreements to complete your sports membership registration
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="termsAccepted" id="sportsTermsAccepted" required>
+                            <label for="sportsTermsAccepted" class="form-label required">I accept the WorkFit Sports Terms & Conditions</label>
+                        </div>
+                        <div class="agreement-text">
+                            I agree to abide by all WorkFit Sports policies, procedures, and membership rules. I understand the commitment required for sports participation and agree to regular attendance at training sessions.
+                        </div>
+                        <div class="error-message">You must accept the terms and conditions</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="codeOfConductAccepted" id="sportsCodeOfConductAccepted" required>
+                            <label for="sportsCodeOfConductAccepted" class="form-label required">I accept the Sports Code of Conduct</label>
+                        </div>
+                        <div class="agreement-text">
+                            I agree to maintain sportsmanship, respect for teammates, coaches, officials, and opponents. I understand that unsportsmanlike conduct may result in suspension or termination of membership.
+                        </div>
+                        <div class="error-message">You must accept the code of conduct</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="liabilityWaiverSigned" id="sportsLiabilityWaiverSigned" required>
+                            <label for="sportsLiabilityWaiverSigned" class="form-label required">I accept the Sports Liability Waiver</label>
+                        </div>
+                        <div class="agreement-text">
+                            I understand and acknowledge the risks associated with sports participation and release WorkFit from liability for any injuries that may occur during sports activities, except where caused by gross negligence.
+                        </div>
+                        <div class="error-message">You must accept the liability waiver</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="attendanceCommitment" id="attendanceCommitment" required>
+                            <label for="attendanceCommitment" class="form-label required">I commit to regular attendance</label>
+                        </div>
+                        <div class="agreement-text">
+                            I understand that sports team participation requires regular attendance at training sessions and commitment to team schedules. I will communicate any absences in advance.
+                        </div>
+                        <div class="error-message">You must commit to regular attendance</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="photoReleaseConsent" id="sportsPhotoReleaseConsent">
+                            <label for="sportsPhotoReleaseConsent" class="form-label">Photo Release Consent (Optional)</label>
+                        </div>
+                        <div class="agreement-text">
+                            I grant WorkFit permission to use photographs/videos taken during sports activities for promotional purposes, including social media, website, and marketing materials.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="dataPrivacyAgreement" id="sportsDataPrivacyAgreement">
+                            <label for="sportsDataPrivacyAgreement" class="form-label">Data Privacy Agreement</label>
+                        </div>
+                        <div class="agreement-text">
+                            I understand that my personal information will be stored securely and used only for sports membership management, communication, and emergency purposes in accordance with data protection regulations.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Additional Notes or Special Requests</label>
+                        <textarea class="form-control" name="additionalNotes" placeholder="Any additional information, special requirements, or questions you'd like to share with the sports coordinators"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Navigation -->
+            <div class="form-navigation" id="sportsFormNavigation" style="display: none;">
+                <button type="button" class="btn btn-outline" id="sportsPrevBtn">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button type="button" class="btn" id="sportsNextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="submit" class="btn" id="sportsSubmitBtn" style="display: none;">
+                    <i class="fas fa-paper-plane"></i> Submit Sports Application
+                </button>
+            </div>
+        </form>
+        
+        <!-- Loading and Messages -->
+        <div class="loading" id="sportsLoadingIndicator">
+            <i class="fas fa-spinner"></i>
+            <p>Processing your sports application...</p>
+        </div>
+        
+        <div class="message success-message" id="sportsSuccessMessage">
+            <i class="fas fa-check-circle"></i>
+            <h3>Sports Application Submitted Successfully!</h3>
+            <p>Thank you for your WorkFit Sports membership application. We will review your information and contact you within 2-3 business days.</p>
+            <p>Check your email for a confirmation message with your application details.</p>
+        </div>
+        
+        <div class="message error-message" id="sportsErrorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Sports Application Failed</h3>
+            <p id="sportsErrorText">Please try again later or contact us for assistance.</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('successModal')">&times;</span>
+            <div style="text-align: center; padding: 2rem;">
+                <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success); margin-bottom: 1rem;"></i>
+                <h2 style="color: var(--navy); margin-bottom: 1rem;">Application Received!</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                    Thank you for your WorkFit membership application. Our team will review your information and contact you within 2-3 business days.
+                </p>
+                <p style="margin-bottom: 1.5rem; font-weight: 600; color: var(--navy);">
+                    Check your email for a confirmation message with your application details.
+                </p>
+                <button class="btn" onclick="closeModal('successModal'); resetForm();">
+                    <i class="fas fa-home"></i> Return to Home
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1159,247 +1747,545 @@
         </a>
         <a href="store-webpage.html" class="bottom-nav-item">
             <i class="fas fa-store bottom-nav-icon"></i>
-            <span class="bottom-nav-store">our Store</span>
+            <span class="bottom-nav-store">Our Store</span>
         </a>
     </nav>
 
     <script>
-        // Theme Management
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const htmlElement = document.documentElement;
+        // Configuration
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK03l0BYv9Xv1_7WbPDwoxx6HebPDjtzL7n0jtGwELs8feYnzyBxm7vZTlcTTfJpwy/exec';
         
-        // Check for saved theme preference or use system preference
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        // Set initial theme
-        if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        } else if (systemPrefersDark) {
-            htmlElement.setAttribute('data-theme', 'dark');
-            updateThemeIcon('dark');
-        }
-        
-        // Theme toggle functionality
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-        
-        function updateThemeIcon(theme) {
-            if (!themeIcon) return;
-            
-            if (theme === 'dark') {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>';
-            } else {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>';
-            }
-        }
-        
-        // Listen for system theme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('theme')) {
-                const newTheme = e.matches ? 'dark' : 'light';
-                htmlElement.setAttribute('data-theme', newTheme);
-                updateThemeIcon(newTheme);
-            }
+        // Global Variables
+        let currentMembershipType = '';
+        let currentSection = 1;
+        let currentSportsSection = 1;
+        const totalSections = 5;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMembershipSelection();
+            initializeFormNavigation();
+            initializeSportsFormNavigation();
+            setupConditionalFields();
         });
 
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (menuBtn && navLinks) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                navLinks.classList.toggle('active');
+        // Membership Selection
+        function initializeMembershipSelection() {
+            const selectionCards = document.querySelectorAll('.selection-card');
+            
+            selectionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove active class from all cards
+                    selectionCards.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked card
+                    this.classList.add('active');
+                    
+                    // Set current membership type
+                    currentMembershipType = this.dataset.type;
+                    
+                    // Show registration form and progress bar
+                    document.getElementById('membershipSelection').style.display = 'none';
+                    document.getElementById('progressContainer').style.display = 'block';
+                    
+                    // Show appropriate form
+                    if (currentMembershipType === 'fitness') {
+                        document.getElementById('fitnessForm').classList.add('active');
+                        document.getElementById('formNavigation').style.display = 'flex';
+                        document.getElementById('section1').style.display = 'block';
+                        currentSection = 1;
+                    } else {
+                        document.getElementById('sportsForm').classList.add('active');
+                        document.getElementById('sportsFormNavigation').style.display = 'flex';
+                        document.getElementById('sportsSection1').style.display = 'block';
+                        currentSportsSection = 1;
+                    }
+                });
+            });
+        }
+
+        // Fitness Form Navigation
+        function initializeFormNavigation() {
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            nextBtn.addEventListener('click', navigateToNextSection);
+            prevBtn.addEventListener('click', navigateToPrevSection);
+            
+            // Form submission
+            const fitnessForm = document.getElementById('fitnessRegistrationForm');
+            fitnessForm.addEventListener('submit', handleFormSubmission);
+        }
+
+        function navigateToNextSection() {
+            if (validateCurrentSection()) {
+                // Hide current section
+                document.getElementById(`section${currentSection}`).style.display = 'none';
                 
-                const icon = menuBtn.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
+                // Update progress bar
+                document.getElementById(`step${currentSection}`).classList.remove('active');
+                document.getElementById(`step${currentSection}`).classList.add('completed');
+                
+                currentSection++;
+                
+                // Show next section
+                document.getElementById(`section${currentSection}`).style.display = 'block';
+                document.getElementById(`step${currentSection}`).classList.add('active');
+                
+                // Update navigation buttons
+                updateNavigationButtons();
+            }
+        }
+
+        function navigateToPrevSection() {
+            // Hide current section
+            document.getElementById(`section${currentSection}`).style.display = 'none';
+            
+            // Update progress bar
+            document.getElementById(`step${currentSection}`).classList.remove('active');
+            
+            currentSection--;
+            
+            // Show previous section
+            document.getElementById(`section${currentSection}`).style.display = 'block';
+            document.getElementById(`step${currentSection}`).classList.add('active');
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Show/hide previous button
+            if (currentSection === 1) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'inline-flex';
+            }
+            
+            // Show/hide next and submit buttons
+            if (currentSection === totalSections) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-flex';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Sports Form Navigation
+        function initializeSportsFormNavigation() {
+            const nextBtn = document.getElementById('sportsNextBtn');
+            const prevBtn = document.getElementById('sportsPrevBtn');
+            const submitBtn = document.getElementById('sportsSubmitBtn');
+            
+            nextBtn.addEventListener('click', navigateToNextSportsSection);
+            prevBtn.addEventListener('click', navigateToPrevSportsSection);
+            
+            // Form submission
+            const sportsForm = document.getElementById('sportsRegistrationForm');
+            sportsForm.addEventListener('submit', handleSportsFormSubmission);
+        }
+
+        function navigateToNextSportsSection() {
+            if (validateCurrentSportsSection()) {
+                // Hide current section
+                document.getElementById(`sportsSection${currentSportsSection}`).style.display = 'none';
+                
+                // Update progress bar
+                document.getElementById(`step${currentSportsSection}`).classList.remove('active');
+                document.getElementById(`step${currentSportsSection}`).classList.add('completed');
+                
+                currentSportsSection++;
+                
+                // Show next section
+                document.getElementById(`sportsSection${currentSportsSection}`).style.display = 'block';
+                document.getElementById(`step${currentSportsSection}`).classList.add('active');
+                
+                // Update navigation buttons
+                updateSportsNavigationButtons();
+            }
+        }
+
+        function navigateToPrevSportsSection() {
+            // Hide current section
+            document.getElementById(`sportsSection${currentSportsSection}`).style.display = 'none';
+            
+            // Update progress bar
+            document.getElementById(`step${currentSportsSection}`).classList.remove('active');
+            
+            currentSportsSection--;
+            
+            // Show previous section
+            document.getElementById(`sportsSection${currentSportsSection}`).style.display = 'block';
+            document.getElementById(`step${currentSportsSection}`).classList.add('active');
+            
+            // Update navigation buttons
+            updateSportsNavigationButtons();
+        }
+
+        function updateSportsNavigationButtons() {
+            const prevBtn = document.getElementById('sportsPrevBtn');
+            const nextBtn = document.getElementById('sportsNextBtn');
+            const submitBtn = document.getElementById('sportsSubmitBtn');
+            
+            // Show/hide previous button
+            if (currentSportsSection === 1) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'inline-flex';
+            }
+            
+            // Show/hide next and submit buttons
+            if (currentSportsSection === totalSections) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-flex';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Form Validation
+        function validateCurrentSection() {
+            const currentSectionEl = document.getElementById(`section${currentSection}`);
+            const requiredFields = currentSectionEl.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
+                    isValid = false;
+                    markFieldError(field, 'This field is required');
                 } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                    clearFieldError(field);
+                    
+                    // Additional validation for specific fields
+                    if (field.type === 'email' && !isValidEmail(field.value)) {
+                        isValid = false;
+                        markFieldError(field, 'Please enter a valid email address');
+                    }
                 }
             });
             
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    const icon = menuBtn.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+            if (!isValid) {
+                alert('Please fill in all required fields before proceeding.');
+            }
+            
+            return isValid;
+        }
+
+        function validateCurrentSportsSection() {
+            const currentSectionEl = document.getElementById(`sportsSection${currentSportsSection}`);
+            const requiredFields = currentSectionEl.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
+                    isValid = false;
+                    markFieldError(field, 'This field is required');
+                } else {
+                    clearFieldError(field);
+                    
+                    // Additional validation for specific fields
+                    if (field.type === 'email' && !isValidEmail(field.value)) {
+                        isValid = false;
+                        markFieldError(field, 'Please enter a valid email address');
+                    }
                 }
             });
             
-            // Prevent clicks inside nav from closing it
-            navLinks.addEventListener('click', (e) => {
-                e.stopPropagation();
+            // Special validation for minor section
+            if (currentSportsSection === 4) {
+                const isMinor = document.getElementById('isMinor').checked;
+                if (isMinor) {
+                    const minorRequiredFields = document.querySelectorAll('#minorSection [required]');
+                    minorRequiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            markFieldError(field, 'This field is required for minors');
+                        }
+                    });
+                }
+            }
+            
+            if (!isValid) {
+                alert('Please fill in all required fields before proceeding.');
+            }
+            
+            return isValid;
+        }
+
+        function markFieldError(field, message) {
+            field.parentNode.classList.add('field-error');
+            const errorElement = field.parentNode.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function clearFieldError(field) {
+            field.parentNode.classList.remove('field-error');
+            const errorElement = field.parentNode.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Conditional Fields
+        function setupConditionalFields() {
+            // Fitness occupation details
+            const occupationType = document.getElementById('occupationType');
+            const occupationDetailsSection = document.getElementById('occupationDetailsSection');
+            
+            occupationType.addEventListener('change', function() {
+                if (this.value) {
+                    occupationDetailsSection.style.display = 'block';
+                } else {
+                    occupationDetailsSection.style.display = 'none';
+                }
+            });
+
+            // Fitness medical prescription details
+            const prescriptionYes = document.getElementById('prescriptionYes');
+            const prescriptionNo = document.getElementById('prescriptionNo');
+            const prescriptionDetails = document.getElementById('prescriptionDetails');
+            
+            prescriptionYes.addEventListener('change', function() {
+                if (this.checked) {
+                    prescriptionDetails.style.display = 'block';
+                }
+            });
+            
+            prescriptionNo.addEventListener('change', function() {
+                if (this.checked) {
+                    prescriptionDetails.style.display = 'none';
+                }
+            });
+
+            // Fitness premium plan reason
+            const premiumPlans = document.querySelectorAll('#fitnessRegistrationForm input[name="premiumPlanType"]');
+            const premiumReasonSection = document.getElementById('premiumReasonSection');
+            
+            premiumPlans.forEach(plan => {
+                plan.addEventListener('change', function() {
+                    if (this.value) {
+                        premiumReasonSection.style.display = 'block';
+                    } else {
+                        premiumReasonSection.style.display = 'none';
+                    }
+                });
+            });
+
+            // Sports occupation details
+            const sportsOccupationType = document.getElementById('sportsOccupationType');
+            const sportsOccupationDetailsSection = document.getElementById('sportsOccupationDetailsSection');
+            
+            sportsOccupationType.addEventListener('change', function() {
+                if (this.value) {
+                    sportsOccupationDetailsSection.style.display = 'block';
+                } else {
+                    sportsOccupationDetailsSection.style.display = 'none';
+                }
+            });
+
+            // Sports minor section
+            const isMinorCheckbox = document.getElementById('isMinor');
+            const minorSection = document.getElementById('minorSection');
+            
+            isMinorCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    minorSection.style.display = 'block';
+                } else {
+                    minorSection.style.display = 'none';
+                }
             });
         }
 
-        // FORM FUNCTIONALITY
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxGRYrUGoawd431AVWad-9Hsfpn-yXUTm6YxVHFkDSDjRs2OxUnt0bVQt8u7afsQn3DeA/exec';
-        
-        let selectedPackage = '';
-        let selectedPrice = 0;
-        
-        function openForm(packageName, price) {
-            selectedPackage = packageName;
-            selectedPrice = price;
-            
-            document.getElementById('selectedPackage').textContent = packageName;
-            document.getElementById('packageName').value = packageName;
-            document.getElementById('packagePriceValue').value = price;
-            
-            if (price === 0) {
-                document.getElementById('packagePrice').textContent = 'Free Plan - Basic App Access';
-            } else {
-                document.getElementById('packagePrice').textContent = price + ' KES per month - Full App Access';
-            }
-            
-            // Reset form and messages
-            document.getElementById('registrationForm').reset();
-            document.getElementById('registrationForm').style.display = 'block';
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-            document.getElementById('loadingIndicator').style.display = 'none';
-            
-            // Show modal with blur effect
-            document.getElementById('registrationModal').style.display = 'block';
-            document.body.classList.add('modal-open');
-        }
-        
-        function closeModal() {
-            document.getElementById('registrationModal').style.display = 'none';
-            document.body.classList.remove('modal-open');
-        }
-        
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('registrationModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-        
-        // Handle form submission
-        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+        // Form Submission
+        async function handleFormSubmission(e) {
             e.preventDefault();
+            
+            if (!validateCurrentSection()) {
+                alert('Please complete all required fields before submitting.');
+                return;
+            }
             
             // Show loading indicator
             document.getElementById('loadingIndicator').style.display = 'block';
-            document.getElementById('registrationForm').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('formNavigation').style.display = 'none';
             
             try {
                 const formData = new FormData(e.target);
+                formData.append('membershipType', 'fitness');
                 formData.append('timestamp', new Date().toISOString());
                 
-                const response = await fetch(scriptURL, {
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: formData
                 });
                 
                 const result = await response.json();
                 
-                if (result.result === 'success') {
+                if (result.success) {
                     // Show success message
-                    document.getElementById('successMessage').style.display = 'block';
                     document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
                     
-                    // Update success message based on membership type
-                    if (result.isPaidMember) {
-                        document.getElementById('successMessage').innerHTML = `
-                            <i class="fas fa-check-circle"></i>
-                            <h3>Premium Membership Registered!</h3>
-                            <p>Thank you for your premium membership! We've created your account with full app access and sent your login credentials to your email.</p>
-                            <p><strong>Username:</strong> ${result.username}</p>
-                            <p><strong>Passcode:</strong> ${result.passcode}</p>
-                        `;
-                    } else {
-                        document.getElementById('successMessage').innerHTML = `
-                            <i class="fas fa-check-circle"></i>
-                            <h3>Free Membership Registered!</h3>
-                            <p>Welcome to WorkFit! Your free membership with basic app access has been created. Check your email for login details and app information.</p>
-                            <p><strong>Username:</strong> ${result.username}</p>
-                            <p><strong>Passcode:</strong> ${result.passcode}</p>
-                        `;
-                    }
+                    // Show success modal
+                    setTimeout(() => {
+                        document.getElementById('successModal').style.display = 'block';
+                    }, 1000);
+                    
                 } else {
                     throw new Error(result.message);
                 }
             } catch (error) {
                 // Show error message
+                document.getElementById('loadingIndicator').style.display = 'none';
                 document.getElementById('errorText').textContent = error.message || 'An error occurred. Please try again.';
                 document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('loadingIndicator').style.display = 'none';
-                document.getElementById('registrationForm').style.display = 'block';
+                document.getElementById('formNavigation').style.display = 'flex';
             }
-        });
+        }
 
-        // Sports Clubs Google Form Functionality - FIXED
-        function openSportsForm(clubName) {
-            const sportsFormModal = document.getElementById('sportsFormModal');
-            const sportsFormTitle = document.getElementById('sportsFormTitle');
-            const sportsFormFrame = document.getElementById('sportsFormFrame');
-            const sportsFormClose = document.getElementById('sportsFormClose');
+        async function handleSportsFormSubmission(e) {
+            e.preventDefault();
             
-            // Set the form title
-            sportsFormTitle.textContent = `Join ${clubName}`;
+            if (!validateCurrentSportsSection()) {
+                alert('Please complete all required fields before submitting.');
+                return;
+            }
             
-            // Set the Google Form URL with proper parameters for better display
-            const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSddD-Pt-n1hhhfJF7wlQiwuOkvIuJSfVIVTlhVGXkb3v6vt9g/viewform?embedded=true&usp=pp_url&entry.1234567890=' + encodeURIComponent(clubName);
-            sportsFormFrame.src = formUrl;
+            // Show loading indicator
+            document.getElementById('sportsLoadingIndicator').style.display = 'block';
+            document.getElementById('sportsFormNavigation').style.display = 'none';
             
-            // Show the modal with blur effect
-            sportsFormModal.classList.add('active');
-            document.body.classList.add('modal-open');
-            
-            // Close functionality
-            const closeForm = () => {
-                sportsFormModal.classList.remove('active');
-                document.body.classList.remove('modal-open');
-                sportsFormFrame.src = '';
-            };
-            
-            sportsFormClose.onclick = closeForm;
-            
-            // Close when clicking outside
-            sportsFormModal.addEventListener('click', (e) => {
-                if (e.target === sportsFormModal) {
-                    closeForm();
+            try {
+                const formData = new FormData(e.target);
+                formData.append('membershipType', 'sports');
+                formData.append('timestamp', new Date().toISOString());
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success message
+                    document.getElementById('sportsLoadingIndicator').style.display = 'none';
+                    document.getElementById('sportsSuccessMessage').style.display = 'block';
+                    
+                    // Show success modal
+                    setTimeout(() => {
+                        document.getElementById('successModal').style.display = 'block';
+                    }, 1000);
+                    
+                } else {
+                    throw new Error(result.message);
                 }
-            });
+            } catch (error) {
+                // Show error message
+                document.getElementById('sportsLoadingIndicator').style.display = 'none';
+                document.getElementById('sportsErrorText').textContent = error.message || 'An error occurred. Please try again.';
+                document.getElementById('sportsErrorMessage').style.display = 'block';
+                document.getElementById('sportsFormNavigation').style.display = 'flex';
+            }
+        }
 
-            // Close with Escape key
-            document.addEventListener('keydown', function handleEscape(e) {
-                if (e.key === 'Escape' && sportsFormModal.classList.contains('active')) {
-                    closeForm();
-                    document.removeEventListener('keydown', handleEscape);
-                }
+        // Utility Functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function resetForm() {
+            // Reset to initial state
+            currentSection = 1;
+            currentSportsSection = 1;
+            currentMembershipType = '';
+            
+            // Hide forms and show selection
+            document.getElementById('fitnessForm').classList.remove('active');
+            document.getElementById('sportsForm').classList.remove('active');
+            document.getElementById('membershipSelection').style.display = 'block';
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('formNavigation').style.display = 'none';
+            document.getElementById('sportsFormNavigation').style.display = 'none';
+            
+            // Reset progress bar
+            for (let i = 1; i <= totalSections; i++) {
+                const step = document.getElementById(`step${i}`);
+                step.classList.remove('active', 'completed');
+                if (i === 1) step.classList.add('active');
+            }
+            
+            // Reset forms
+            document.getElementById('fitnessRegistrationForm').reset();
+            document.getElementById('sportsRegistrationForm').reset();
+            
+            // Hide all sections except first
+            for (let i = 2; i <= totalSections; i++) {
+                document.getElementById(`section${i}`).style.display = 'none';
+                document.getElementById(`sportsSection${i}`).style.display = 'none';
+            }
+            document.getElementById('section1').style.display = 'none';
+            document.getElementById('sportsSection1').style.display = 'none';
+            
+            // Hide conditional sections
+            document.getElementById('occupationDetailsSection').style.display = 'none';
+            document.getElementById('prescriptionDetails').style.display = 'none';
+            document.getElementById('premiumReasonSection').style.display = 'none';
+            document.getElementById('sportsOccupationDetailsSection').style.display = 'none';
+            document.getElementById('minorSection').style.display = 'none';
+            
+            // Hide messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('sportsSuccessMessage').style.display = 'none';
+            document.getElementById('sportsErrorMessage').style.display = 'none';
+            
+            // Remove active class from selection cards
+            document.querySelectorAll('.selection-card').forEach(card => {
+                card.classList.remove('active');
             });
         }
 
-        // Close all modals when pressing Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-                const sportsFormModal = document.getElementById('sportsFormModal');
-                if (sportsFormModal.classList.contains('active')) {
-                    sportsFormModal.classList.remove('active');
-                    document.body.classList.remove('modal-open');
-                    document.getElementById('sportsFormFrame').src = '';
-                }
+        // Input formatting helpers
+        function formatPhoneNumber(input) {
+            // Remove all non-digit characters
+            let numbers = input.value.replace(/\D/g, '');
+            
+            // Format based on length
+            if (numbers.length <= 3) {
+                input.value = numbers;
+            } else if (numbers.length <= 6) {
+                input.value = numbers.slice(0, 3) + ' ' + numbers.slice(3);
+            } else if (numbers.length <= 9) {
+                input.value = numbers.slice(0, 3) + ' ' + numbers.slice(3, 6) + ' ' + numbers.slice(6);
+            } else {
+                input.value = numbers.slice(0, 3) + ' ' + numbers.slice(3, 6) + ' ' + numbers.slice(6, 9);
             }
+        }
+
+        // Add input event listeners for phone formatting
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInputs = document.querySelectorAll('input[type="tel"]');
+            phoneInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    formatPhoneNumber(this);
+                });
+            });
         });
     </script>
 </body>
