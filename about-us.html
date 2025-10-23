@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>About Us - WorkFit Fitness & Sports</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WorkFit">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#001f3f">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #001f3f;
+            --navy-light: #003366;
+            --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #F7F7F7;
+            --gray: #777777;
+            --white: #FFFFFF;
+            --text-primary: #222222;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --success: #4CAF50;
+            --error: #f44336;
+        }
+
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --navy: #0a2e57;
+            --navy-light: #1a3e67;
+            --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #1a1a1a;
+            --gray: #aaaaaa;
+            --white: #222222;
+            --text-primary: #f0f0f0;
+            --text-secondary: #cccccc;
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: #1e1e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-text-size-adjust: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 4rem;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--bg-primary);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo {
+            height: 35px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--navy-dark);
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 2rem;
+        }
+
+        .section-title {
+            text-align: left;
+            margin-bottom: 1.2rem;
+            color: var(--navy);
+            position: relative;
+            font-size: 1.3rem;
+            padding-left: 8px;
+            border-left: 3px solid var(--gold);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .content-section h2 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .content-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Vision & Mission Cards */
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .mission-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            border-top: 4px solid var(--gold);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+
+        .mission-card h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-card h3 i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--gold);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--gold);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--card-bg);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            border: 4px solid var(--gold);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Membership Plans Overview */
+        .plans-overview {
+            background: var(--navy);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .plans-overview h2 {
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .plan-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .plan-feature {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .plan-feature i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .plan-feature h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .cta-section h2 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--navy-light);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 12px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            box-shadow: 0 -2px 10px var(--shadow-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.4rem 0;
+            z-index: 1000;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.65rem;
+            padding: 0.2rem;
+            transition: color 0.3s;
+            flex: 1;
+            max-width: 25%;
+        }
+
+        .bottom-nav-item.active {
+            color: var(--navy);
+        }
+
+        .bottom-nav-icon {
+            font-size: 1.1rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .bottom-nav-label {
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--navy);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px var(--shadow-color);
+                z-index: 99;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+                color: var(--white);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .content-container {
+                padding: 0 0.8rem 2rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::after {
+                left: -10px;
+            }
+
+            .mission-vision-grid,
+            .values-grid,
+            .plan-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* PWA standalone mode adjustments */
+        @media all and (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: calc(env(safe-area-inset-bottom) + 4rem);
+            }
+
+            header {
+                padding-top: env(safe-area-inset-top);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="Blogs.html">Blogs</a>
+                <a href="media-wpa.html">Tutorials</a>
+                <a href="contact.wpa.html">Contact Us</a>
+                <a href="About.html" class="active">About Us</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>About WorkFit</h1>
+        <p>Transforming lives through fitness, community, and determination since 2025</p>
+    </section>
+
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Our Story Section -->
+        <section class="content-section">
+            <h2 class="section-title">Our Story</h2>
+            <p>WorkFit began as a simple fitness group on July 7th, 2025, with a vision to create a community where people could come together to improve their physical health, mental clarity, and social connections. What started as a small gathering of fitness enthusiasts has grown into a thriving community that has transformed countless lives.</p>
+            
+            <p>We've witnessed incredible transformations - from individuals who couldn't run a mile completing their first marathons, to families finding new ways to bond through healthy activities, to people discovering mental strength they never knew they possessed. Every success story fuels our passion to continue building this community.</p>
+            
+            <p>At WorkFit, we understand that we're working with real people with real lives, challenges, and aspirations. That's why we take special care to listen to our members' needs and create programs that fit into their lifestyles while pushing them toward their fitness goals.</p>
+        </section>
+
+        <!-- Vision & Mission Section -->
+        <section class="content-section">
+            <h2 class="section-title">Our Vision & Mission</h2>
+            <div class="mission-vision-grid">
+                <div class="mission-card">
+                    <h3><i class="fas fa-bullseye"></i> Our Vision</h3>
+                    <p>To create a world where people are united through bodily fitness, mental acuity, and social strength. We envision communities where fitness becomes the foundation for stronger relationships, clearer thinking, and more fulfilling lives.</p>
+                </div>
+                <div class="mission-card">
+                    <h3><i class="fas fa-tasks"></i> Our Mission</h3>
+                    <p>To achieve our vision by organizing transformative training activities, planning engaging fitness-related events, and bringing individuals and families together through shared fitness experiences that build discipline, determination, and consistency.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values Section -->
+        <section class="content-section">
+            <h2 class="section-title">Our Core Values</h2>
+            <p>These four pillars form the foundation of everything we do at WorkFit and guide our interactions with every member of our community.</p>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Bodily Fitness</h3>
+                    <p>We believe physical health is the foundation for overall wellbeing. Our programs are designed to build strength, endurance, and vitality.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Mental Acuity</h3>
+                    <p>Fitness sharpens the mind. We incorporate mental challenges and mindfulness practices into our training regimens.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Social Strength</h3>
+                    <p>Community is our superpower. We build connections that support, motivate, and inspire every member to reach their potential.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Determination</h3>
+                    <p>We cultivate the mental toughness needed to push through barriers and achieve what once seemed impossible.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Journey Timeline -->
+        <section class="content-section">
+            <h2 class="section-title">Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">July 7, 2025</div>
+                        <h3>WorkFit Begins</h3>
+                        <p>Founded as a small fitness group with a vision to unite people through fitness and community.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">September 2025</div>
+                        <h3>First Community Event</h3>
+                        <p>Organized our first large-scale fitness event, bringing together over 100 participants.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">January 2026</div>
+                        <h3>Family Programs Launch</h3>
+                        <p>Introduced family-focused fitness programs to encourage health and bonding within households.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Present Day</div>
+                        <h3>Thriving Community</h3>
+                        <p>Now serving hundreds of members with comprehensive fitness programs, sports clubs, and community events.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How Our Membership Works -->
+        <section class="content-section">
+            <h2 class="section-title">How Our Membership Works</h2>
+            <p>At WorkFit, we believe everyone deserves access to fitness and community, which is why we've created tiered membership options to suit different needs and budgets. All members receive app access with features tailored to their membership level.</p>
+            
+            <div class="plans-overview">
+                <h2>Membership Tiers</h2>
+                <div class="plan-features">
+                    <div class="plan-feature">
+                        <i class="fas fa-users"></i>
+                        <h3>FIT-SARE (Free)</h3>
+                        <p>Basic app access to view schedules, read blogs, and register for events. Perfect for those wanting to explore our community.</p>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-user"></i>
+                        <h3>FIT-SOLO (1000 KES/month)</h3>
+                        <p>Full app access with activity tracking, personalized training sessions, and progress reports for individual members.</p>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-home"></i>
+                        <h3>FIT-FAM (2000 KES/month)</h3>
+                        <p>Comprehensive family package with group sessions, customized meal plans, and wellness workshops for the whole household.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Our unique approach means that <strong>every member receives an app account</strong>, with free members getting basic access to schedules, blogs, and event registration, while premium members enjoy full features including activity tracking, progress analytics, and personalized training.</p>
+            
+            <p>We also offer sports clubs for basketball, running, and cycling - perfect for those who want to combine fitness with social connection and friendly competition.</p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2>Ready to Start Your Transformation?</h2>
+            <p>Join the WorkFit community today and begin your journey toward better health, stronger connections, and a more fulfilling life.</p>
+            <a href="plans-wpa.html" class="btn">View Membership Plans</a>
+        </section>
+
+        <!-- Contact Information -->
+        <section class="contact-info">
+            <h3>Get In Touch</h3>
+            <p>Phone: +254 784599322</p>
+            <p>Email: membership.workfit@gmail.com</p>
+            <p>We're here to help you on your fitness journey!</p>
+        </section>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home bottom-nav-icon"></i>
+            <span class="bottom-nav-label">Home</span>
+        </a>
+        <a href="Announcements-wpa.html" class="bottom-nav-item">
+            <i class="fas fa-bullhorn bottom-nav-icon"></i>
+            <span class="bottom-nav-label">Updates</span>
+        </a>
+        <a href="plans-wpa.html" class="bottom-nav-item">
+            <i class="fas fa-running bottom-nav-icon"></i>
+            <span class="bottom-nav-label">Membership</span>
+        </a>
+        <a href="store-webpage.html" class="bottom-nav-item">
+            <i class="fas fa-store bottom-nav-icon"></i>
+            <span class="bottom-nav-store">our Store</span>
+        </a>
+    </nav>
+
+    <script>
+        // Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateThemeIcon('dark');
+        }
+        
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (!themeIcon) return;
+            
+            if (theme === 'dark') {
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>';
+            } else {
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>';
+            }
+        }
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (menuBtn && navLinks) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                
+                const icon = menuBtn.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Prevent clicks inside nav from closing it
+            navLinks.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+
+        // Add scroll animations for cards
+        window.addEventListener('scroll', function() {
+            const cards = document.querySelectorAll('.mission-card, .value-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Initialize card animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.mission-card, .value-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Trigger initial animation
+            setTimeout(() => {
+                window.dispatchEvent(new Event('scroll'));
+            }, 100);
+        });
+    </script>
+</body>
+</html>
