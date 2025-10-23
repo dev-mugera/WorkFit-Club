@@ -2110,137 +2110,137 @@
             });
         }
 
-        // Form Submission
-        async function handleFormSubmission(e) {
-    e.preventDefault();
-    
-    if (!validateCurrentSection()) {
-        alert('Please complete all required fields before submitting.');
-        return;
-    }
-    
-    // Show loading indicator
-    document.getElementById('loadingIndicator').style.display = 'block';
-    document.getElementById('formNavigation').style.display = 'none';
-    
-    try {
-        // Convert FormData to JSON object
-        const formData = new FormData(e.target);
-        const jsonData = {};
-        
-        // Convert all form fields to JSON
-        for (let [key, value] of formData.entries()) {
-            // Handle checkbox values properly
-            if (key === 'termsAccepted' || key === 'codeOfConductAccepted' || 
-                key === 'liabilityWaiverSigned' || key === 'photoReleaseConsent' || 
-                key === 'dataPrivacyAgreement' || key === 'fitnessAsPrescription') {
-                jsonData[key] = value === 'on' ? true : false;
-            } else {
-                jsonData[key] = value;
+                // Form Submission
+                async function handleFormSubmission(e) {
+            e.preventDefault();
+            
+            if (!validateCurrentSection()) {
+                alert('Please complete all required fields before submitting.');
+                return;
+            }
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('formNavigation').style.display = 'none';
+            
+            try {
+                // Convert FormData to JSON object
+                const formData = new FormData(e.target);
+                const jsonData = {};
+                
+                // Convert all form fields to JSON
+                for (let [key, value] of formData.entries()) {
+                    // Handle checkbox values properly
+                    if (key === 'termsAccepted' || key === 'codeOfConductAccepted' || 
+                        key === 'liabilityWaiverSigned' || key === 'photoReleaseConsent' || 
+                        key === 'dataPrivacyAgreement' || key === 'fitnessAsPrescription') {
+                        jsonData[key] = value === 'on' ? true : false;
+                    } else {
+                        jsonData[key] = value;
+                    }
+                }
+                
+                // Add metadata
+                jsonData.membershipType = 'fitness';
+                jsonData.timestamp = new Date().toISOString();
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jsonData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success message
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    
+                    // Show success modal
+                    setTimeout(() => {
+                        document.getElementById('successModal').style.display = 'block';
+                    }, 1000);
+                    
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                // Show error message
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('errorText').textContent = error.message || 'An error occurred. Please try again.';
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('formNavigation').style.display = 'flex';
             }
         }
-        
-        // Add metadata
-        jsonData.membershipType = 'fitness';
-        jsonData.timestamp = new Date().toISOString();
-        
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jsonData)
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // Show success message
-            document.getElementById('loadingIndicator').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Show success modal
-            setTimeout(() => {
-                document.getElementById('successModal').style.display = 'block';
-            }, 1000);
-            
-        } else {
-            throw new Error(result.message);
-        }
-    } catch (error) {
-        // Show error message
-        document.getElementById('loadingIndicator').style.display = 'none';
-        document.getElementById('errorText').textContent = error.message || 'An error occurred. Please try again.';
-        document.getElementById('errorMessage').style.display = 'block';
-        document.getElementById('formNavigation').style.display = 'flex';
-    }
-}
 
-        async function handleSportsFormSubmission(e) {
-    e.preventDefault();
-    
-    if (!validateCurrentSportsSection()) {
-        alert('Please complete all required fields before submitting.');
-        return;
-    }
-    
-    // Show loading indicator
-    document.getElementById('sportsLoadingIndicator').style.display = 'block';
-    document.getElementById('sportsFormNavigation').style.display = 'none';
-    
-    try {
-        // Convert FormData to JSON object
-        const formData = new FormData(e.target);
-        const jsonData = {};
-        
-        // Convert all form fields to JSON
-        for (let [key, value] of formData.entries()) {
-            // Handle checkbox values properly
-            if (key === 'termsAccepted' || key === 'codeOfConductAccepted' || 
-                key === 'liabilityWaiverSigned' || key === 'photoReleaseConsent' || 
-                key === 'dataPrivacyAgreement' || key === 'attendanceCommitment' ||
-                key === 'isMinor' || key === 'medicalConsent') {
-                jsonData[key] = value === 'on' ? true : false;
-            } else {
-                jsonData[key] = value;
+                async function handleSportsFormSubmission(e) {
+            e.preventDefault();
+            
+            if (!validateCurrentSportsSection()) {
+                alert('Please complete all required fields before submitting.');
+                return;
+            }
+            
+            // Show loading indicator
+            document.getElementById('sportsLoadingIndicator').style.display = 'block';
+            document.getElementById('sportsFormNavigation').style.display = 'none';
+            
+            try {
+                // Convert FormData to JSON object
+                const formData = new FormData(e.target);
+                const jsonData = {};
+                
+                // Convert all form fields to JSON
+                for (let [key, value] of formData.entries()) {
+                    // Handle checkbox values properly
+                    if (key === 'termsAccepted' || key === 'codeOfConductAccepted' || 
+                        key === 'liabilityWaiverSigned' || key === 'photoReleaseConsent' || 
+                        key === 'dataPrivacyAgreement' || key === 'attendanceCommitment' ||
+                        key === 'isMinor' || key === 'medicalConsent') {
+                        jsonData[key] = value === 'on' ? true : false;
+                    } else {
+                        jsonData[key] = value;
+                    }
+                }
+                
+                // Add metadata
+                jsonData.membershipType = 'sports';
+                jsonData.timestamp = new Date().toISOString();
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jsonData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success message
+                    document.getElementById('sportsLoadingIndicator').style.display = 'none';
+                    document.getElementById('sportsSuccessMessage').style.display = 'block';
+                    
+                    // Show success modal
+                    setTimeout(() => {
+                        document.getElementById('successModal').style.display = 'block';
+                    }, 1000);
+                    
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                // Show error message
+                document.getElementById('sportsLoadingIndicator').style.display = 'none';
+                document.getElementById('sportsErrorText').textContent = error.message || 'An error occurred. Please try again.';
+                document.getElementById('sportsErrorMessage').style.display = 'block';
+                document.getElementById('sportsFormNavigation').style.display = 'flex';
             }
         }
-        
-        // Add metadata
-        jsonData.membershipType = 'sports';
-        jsonData.timestamp = new Date().toISOString();
-        
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jsonData)
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // Show success message
-            document.getElementById('sportsLoadingIndicator').style.display = 'none';
-            document.getElementById('sportsSuccessMessage').style.display = 'block';
-            
-            // Show success modal
-            setTimeout(() => {
-                document.getElementById('successModal').style.display = 'block';
-            }, 1000);
-            
-        } else {
-            throw new Error(result.message);
-        }
-    } catch (error) {
-        // Show error message
-        document.getElementById('sportsLoadingIndicator').style.display = 'none';
-        document.getElementById('sportsErrorText').textContent = error.message || 'An error occurred. Please try again.';
-        document.getElementById('sportsErrorMessage').style.display = 'block';
-        document.getElementById('sportsFormNavigation').style.display = 'flex';
-    }
-}
 
         // Utility Functions
         function closeModal(modalId) {
