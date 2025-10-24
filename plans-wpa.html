@@ -90,11 +90,67 @@
             padding: 1rem;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
 
         .logo {
             height: 35px;
             width: auto;
+        }
+
+        /* Hamburger Menu Styles */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--navy-dark);
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
         }
 
         /* Page Header */
@@ -586,6 +642,41 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            /* Mobile Menu Styles */
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--navy);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px var(--shadow-color);
+                z-index: 99;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+                color: var(--white);
+            }
+
+            .theme-toggle {
+                margin-top: 1rem;
+                align-self: center;
+            }
         }
 
         /* PWA standalone mode adjustments */
@@ -664,6 +755,22 @@
     <header>
         <nav>
             <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="Blogs.html">Blogs</a>
+                <a href="media-wpa.html">Tutorials</a>
+                <a href="contact.wpa.html">Contact Us</a>
+                <a href="about-us.html">About Us</a>
+
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+                    </svg>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -1762,11 +1869,49 @@
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
+            initializeMobileMenu();
             initializeMembershipSelection();
             initializeFormNavigation();
             initializeSportsFormNavigation();
             setupConditionalFields();
         });
+
+        // Mobile Menu Functionality
+        function initializeMobileMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navLinks.classList.toggle('active');
+                    
+                    const icon = menuBtn.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = menuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+                
+                // Prevent clicks inside nav from closing it
+                navLinks.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+        }
 
         // Membership Selection
         function initializeMembershipSelection() {
