@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Gallery - WorkFit</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WorkFit">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#001f3f">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #F7F7F7;
+      --gray: #777777;
+      --white: #FFFFFF;
+      --text-primary: #222222;
+      --text-secondary: #5a5a5a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
+      --warning: #ff9800;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+      --radius: 12px;
+    }
+
+    [data-theme="dark"] {
+      --navy: #0a2e57;
+      --navy-light: #1a3e67;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #1a1a1a;
+      --gray: #aaaaaa;
+      --white: #222222;
+      --text-primary: #f0f0f0;
+      --text-secondary: #cccccc;
+      --bg-primary: #121212;
+      --bg-secondary: #1a1a1a;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding: 0.8rem;
+      padding-bottom: 5rem; /* Space for bottom nav */
+    }
+
+    /* Header Navigation */
+    header {
+      background-color: var(--bg-primary);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .logo {
+      height: 35px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--navy-dark);
+      padding: 0.5rem;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-primary);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      min-height: 320px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius);
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      border-radius: var(--radius);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 1.5rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+
+    .slide-text {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      font-weight: 300;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .slide-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.2rem 0.8rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      min-width: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    /* Section Styling */
+    .page-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--navy);
+      font-weight: 700;
+      position: relative;
+      padding-left: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      border: none;
+      font-size: 0.85rem;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--navy-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Search Section */
+    .search-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid var(--border-color);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+    }
+
+    .search-btn {
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-btn:hover {
+      background: var(--navy-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Categories Navigation */
+    .categories-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .category-btn {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 31, 63, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay i {
+      color: var(--white);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .gallery-title {
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-category {
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+    }
+
+    /* Featured Gallery Section */
+    .featured-gallery {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+    }
+
+    .featured-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 1rem;
+      padding: 0.5rem 0;
+    }
+
+    .featured-item {
+      flex: 0 0 calc(33.333% - 0.7rem);
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      min-height: 280px;
+    }
+
+    .featured-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .featured-image {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .featured-content {
+      padding: 1.2rem;
+    }
+
+    .featured-meta {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .featured-category {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .featured-title {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .featured-description {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .carousel-btn {
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .carousel-btn:hover {
+      background: var(--navy-dark);
+      transform: scale(1.1);
+    }
+
+    /* Image Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1002;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .image-modal.active {
+      display: flex;
+    }
+
+    .image-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .image-modal-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .modal-image {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    .image-details {
+      padding: 2rem;
+      overflow-y: auto;
+      max-height: calc(90vh - 70vh);
+    }
+
+    .image-details-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .image-details-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .image-details-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .image-details-content {
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .image-details-content p {
+      margin-bottom: 1rem;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-primary);
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.4rem 0;
+      z-index: 1000;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.65rem;
+      padding: 0.2rem;
+      transition: color 0.3s;
+      flex: 1;
+      max-width: 25%;
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--navy);
+    }
+    
+    .bottom-nav-icon {
+      font-size: 1.1rem;
+      margin-bottom: 0.1rem;
+    }
+    
+    .bottom-nav-label {
+      font-weight: 600;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--navy);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        z-index: 99;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        color: var(--white);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero {
+        height: 35vh;
+        min-height: 280px;
+      }
+      
+      .slide-title {
+        font-size: 1.5rem;
+      }
+      
+      .slide-text {
+        font-size: 0.85rem;
+      }
+      
+      .slide-stats {
+        gap: 0.8rem;
+      }
+      
+      .stat {
+        min-width: 85px;
+        padding: 1rem 0.6rem;
+      }
+      
+      .stat-number {
+        font-size: 1.4rem;
+      }
+      
+      .search-container {
+        flex-direction: column;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      
+      .featured-item {
+        flex: 0 0 calc(50% - 0.7rem);
+      }
+      
+      .image-modal-content {
+        width: 95%;
+      }
+      
+      .image-details {
+        padding: 1.5rem;
+      }
+      
+      .image-details-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 30vh;
+        min-height: 240px;
+      }
+      
+      .slide-title {
+        font-size: 1.3rem;
+      }
+      
+      .slide-text {
+        font-size: 0.8rem;
+      }
+      
+      .slide-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      
+      .stat {
+        flex: 1;
+        min-width: 70px;
+        padding: 0.8rem 0.4rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.8rem;
+      }
+      
+      .featured-item {
+        flex: 0 0 100%;
+      }
+      
+      .categories-nav {
+        justify-content: center;
+      }
+    }
+
+    /* PWA standalone mode adjustments */
+    @media all and (display-mode: standalone) {
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
+      }
+
+      header {
+        padding-top: env(safe-area-inset-top);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header>
+    <nav>
+      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="videos.html">Videos</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="gallery.html" class="active">Gallery</a>
+        <a href="about.html">About</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-slides">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1 class="slide-title">WorkFit Gallery</h1>
+            <p class="slide-text">Explore inspiring moments from our fitness community, events, and success stories</p>
+            <div class="slide-stats">
+              <div class="stat">
+                <span class="stat-number">200+</span>
+                <span class="stat-label">Photos</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Categories</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Events</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search for workout photos, events, transformations...">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
+          Search
+        </button>
+      </div>
+      
+      <div class="categories-nav">
+        <button class="category-btn active">All Photos</button>
+        <button class="category-btn">Workouts</button>
+        <button class="category-btn">Events</button>
+        <button class="category-btn">Transformations</button>
+        <button class="category-btn">Team Building</button>
+        <button class="category-btn">Success Stories</button>
+        <button class="category-btn">Facilities</button>
+      </div>
+    </section>
+
+    <!-- Featured Gallery Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Featured Moments</h2>
+      </div>
+      
+      <div class="featured-gallery">
+        <div class="featured-track" id="featuredTrack">
+          <!-- Featured Item 1 -->
+          <div class="featured-item" data-image-id="annual-fitness-event">
+            <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+            <div class="featured-content">
+              <div class="featured-meta">
+                <span class="featured-category">Events</span>
+                <span>Oct 15, 2023</span>
+              </div>
+              <h3 class="featured-title">Annual Fitness Challenge 2023</h3>
+              <p class="featured-description">Highlights from our biggest community event of the year with over 200 participants.</p>
+            </div>
+          </div>
+          
+          <!-- Featured Item 2 -->
+          <div class="featured-item" data-image-id="team-workout">
+            <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+            <div class="featured-content">
+              <div class="featured-meta">
+                <span class="featured-category">Team Building</span>
+                <span>Oct 10, 2023</span>
+              </div>
+              <h3 class="featured-title">Corporate Team Workout Session</h3>
+              <p class="featured-description">Local businesses joined forces for a team-building fitness session.</p>
+            </div>
+          </div>
+          
+          <!-- Featured Item 3 -->
+          <div class="featured-item" data-image-id="transformation-story">
+            <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+            <div class="featured-content">
+              <div class="featured-meta">
+                <span class="featured-category">Success Stories</span>
+                <span>Oct 5, 2023</span>
+              </div>
+              <h3 class="featured-title">Mark's 6-Month Transformation</h3>
+              <p class="featured-description">Inspiring journey of dedication and commitment to fitness goals.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevFeatured">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn" id="nextFeatured">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Gallery Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">Gallery Collection</h2>
+      </div>
+      
+      <div class="gallery-grid">
+        <!-- Image 1 -->
+        <div class="gallery-item" data-image-id="group-workout">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Group Workout Session" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">Morning Group Workout</div>
+            <div class="gallery-category">Workouts</div>
+          </div>
+        </div>
+        
+        <!-- Image 2 -->
+        <div class="gallery-item" data-image-id="yoga-class">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1120&q=80" alt="Yoga Class" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">Sunrise Yoga Session</div>
+            <div class="gallery-category">Workouts</div>
+          </div>
+        </div>
+        
+        <!-- Image 3 -->
+        <div class="gallery-item" data-image-id="facility-tour">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Facility Tour" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">State-of-the-Art Facilities</div>
+            <div class="gallery-category">Facilities</div>
+          </div>
+        </div>
+        
+        <!-- Image 4 -->
+        <div class="gallery-item" data-image-id="nutrition-workshop">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1153&q=80" alt="Nutrition Workshop" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">Nutrition Workshop</div>
+            <div class="gallery-category">Events</div>
+          </div>
+        </div>
+        
+        <!-- Image 5 -->
+        <div class="gallery-item" data-image-id="team-competition">
+          <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Team Competition" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">Friendly Team Competition</div>
+            <div class="gallery-category">Team Building</div>
+          </div>
+        </div>
+        
+        <!-- Image 6 -->
+        <div class="gallery-item" data-image-id="success-celebration">
+          <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80" alt="Success Celebration" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">Goal Achievement Celebration</div>
+            <div class="gallery-category">Success Stories</div>
+          </div>
+        </div>
+        
+        <!-- Image 7 -->
+        <div class="gallery-item" data-image-id="personal-training">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Personal Training" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">One-on-One Training</div>
+            <div class="gallery-category">Workouts</div>
+          </div>
+        </div>
+        
+        <!-- Image 8 -->
+        <div class="gallery-item" data-image-id="community-event">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Community Event" class="gallery-image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+            <div class="gallery-title">Community Fitness Day</div>
+            <div class="gallery-category">Events</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Detail Modals -->
+    <!-- Annual Fitness Event Modal -->
+    <div class="image-modal" id="annual-fitness-event-modal">
+      <div class="image-modal-content">
+        <button class="image-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Annual Fitness Challenge 2023" class="modal-image">
+        <div class="image-details">
+          <div class="image-details-header">
+            <div class="image-details-meta">
+              <span class="featured-category">Events</span>
+              <span>October 15, 2023</span>
+              <span>Photo by WorkFit Team</span>
+            </div>
+            <h2 class="image-details-title">Annual Fitness Challenge 2023</h2>
+          </div>
+          <div class="image-details-content">
+            <p>Our biggest community event of the year brought together over 200 participants for a day of fitness, fun, and friendly competition. The Annual Fitness Challenge featured multiple workout stations, team activities, and individual challenges designed to test strength, endurance, and agility.</p>
+            
+            <p>The event raised over $5,000 for local youth sports programs and created lasting memories for all participants. We're already planning for next year's event, which promises to be even bigger and better!</p>
+            
+            <p>Special thanks to our sponsors, volunteers, and of course, all the amazing participants who made this event such a tremendous success.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group Workout Modal -->
+    <div class="image-modal" id="group-workout-modal">
+      <div class="image-modal-content">
+        <button class="image-modal-close">&times;</button>
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Morning Group Workout" class="modal-image">
+        <div class="image-details">
+          <div class="image-details-header">
+            <div class="image-details-meta">
+              <span class="featured-category">Workouts</span>
+              <span>September 28, 2023</span>
+              <span>Photo by WorkFit Team</span>
+            </div>
+            <h2 class="image-details-title">Morning Group Workout Session</h2>
+          </div>
+          <div class="image-details-content">
+            <p>Our popular morning group workout sessions continue to draw enthusiastic participants eager to start their day with energy and purpose. This session focused on full-body conditioning with a mix of strength training, cardio intervals, and core work.</p>
+            
+            <p>Group workouts provide not just physical benefits but also create a supportive community atmosphere where members motivate each other to push through challenges and celebrate achievements together.</p>
+            
+            <p>New sessions are available every weekday at 6:00 AM and 7:30 AM. All fitness levels are welcome, with modifications provided for every exercise.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional modals for other images would continue here -->
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="videos.html" class="bottom-nav-item">
+      <i class="fas fa-play-circle bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Videos</span>
+    </a>
+    <a href="blogs.html" class="bottom-nav-item">
+      <i class="fas fa-newspaper bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Blogs</span>
+    </a>
+    <a href="gallery.html" class="bottom-nav-item active">
+      <i class="fas fa-images bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Gallery</span>
+    </a>
+  </nav>
+
+  <script>
+    // Theme Management
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+    } else if (systemPrefersDark) {
+      htmlElement.setAttribute('data-theme', 'dark');
+      updateThemeIcon('dark');
+    }
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+      } else {
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+      }
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        htmlElement.setAttribute('data-theme', newTheme);
+        updateThemeIcon(newTheme);
+      }
+    });
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      
+      const icon = menuBtn.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Prevent clicks inside nav from closing it
+    navLinks.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // Gallery Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const featuredTrack = document.getElementById('featuredTrack');
+      const prevFeaturedBtn = document.getElementById('prevFeatured');
+      const nextFeaturedBtn = document.getElementById('nextFeatured');
+      const galleryItems = document.querySelectorAll('.gallery-item, .featured-item');
+      const imageModals = document.querySelectorAll('.image-modal');
+      const closeModalButtons = document.querySelectorAll('.image-modal-close');
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      const searchInput = document.querySelector('.search-input');
+      const searchBtn = document.querySelector('.search-btn');
+      
+      let currentSlide = 0;
+      const slidesToShow = window.innerWidth < 768 ? (window.innerWidth < 480 ? 1 : 2) : 3;
+      
+      // Function to update carousel position
+      function updateCarousel() {
+        const itemWidth = document.querySelector('.featured-item').offsetWidth + 16; // including gap
+        featuredTrack.style.transform = `translateX(-${currentSlide * itemWidth}px)`;
+      }
+      
+      // Next slide
+      nextFeaturedBtn.addEventListener('click', function() {
+        const totalSlides = document.querySelectorAll('.featured-item').length;
+        if (currentSlide < totalSlides - slidesToShow) {
+          currentSlide++;
+          updateCarousel();
+        }
+      });
+      
+      // Previous slide
+      prevFeaturedBtn.addEventListener('click', function() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateCarousel();
+        }
+      });
+      
+      // Update carousel on window resize
+      window.addEventListener('resize', function() {
+        const newSlidesToShow = window.innerWidth < 768 ? (window.innerWidth < 480 ? 1 : 2) : 3;
+        if (newSlidesToShow !== slidesToShow) {
+          currentSlide = 0;
+          updateCarousel();
+        }
+      });
+      
+      // Image Modal Functionality
+      function openImageModal(imageId) {
+        const modal = document.getElementById(`${imageId}-modal`);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      function closeAllModals() {
+        imageModals.forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Add click event to gallery items
+      galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const imageId = item.dataset.imageId;
+          openImageModal(imageId);
+        });
+      });
+      
+      // Close modal functionality
+      closeModalButtons.forEach(btn => {
+        btn.addEventListener('click', closeAllModals);
+      });
+      
+      // Close modal when clicking outside
+      imageModals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeAllModals();
+          }
+        });
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAllModals();
+        }
+      });
+      
+      // Category filtering
+      categoryButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          categoryButtons.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const category = this.textContent;
+          filterImages(category);
+        });
+      });
+      
+      // Search functionality
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          performSearch();
+        }
+      });
+      
+      function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase();
+        filterImages('All Photos', searchTerm);
+      }
+      
+      function filterImages(category, searchTerm = '') {
+        const galleryItems = document.querySelectorAll('.gallery-item, .featured-item');
+        
+        galleryItems.forEach(item => {
+          const itemCategory = item.querySelector('.gallery-category, .featured-category').textContent;
+          const title = item.querySelector('.gallery-title, .featured-title').textContent.toLowerCase();
+          
+          const categoryMatch = category === 'All Photos' || itemCategory === category;
+          const searchMatch = !searchTerm || title.includes(searchTerm);
+          
+          if (categoryMatch && searchMatch) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+      
+      // Initialize carousel
+      updateCarousel();
+
+      // Handle bottom navigation active state
+      document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          document.querySelectorAll('.bottom-nav-item').forEach(navItem => {
+            navItem.classList.remove('active');
+          });
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
