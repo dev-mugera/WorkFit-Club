@@ -1752,7 +1752,7 @@
 
     <script>
         // Configuration
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyp4fbP9UA51LIEFh_WRvnBfCVrvOVUGzQgbZHnakXfRka3rtCU41aET70AHS5P8cdd/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK03l0BYv9Xv1_7WbPDwoxx6HebPDjtzL7n0jtGwELs8feYnzyBxm7vZTlcTTfJpwy/exec';
         
         // Global Variables
         let currentMembershipType = '';
@@ -2110,8 +2110,8 @@
             });
         }
 
-                // Form Submission
-                async function handleFormSubmission(e) {
+        // Form Submission
+        async function handleFormSubmission(e) {
             e.preventDefault();
             
             if (!validateCurrentSection()) {
@@ -2124,32 +2124,13 @@
             document.getElementById('formNavigation').style.display = 'none';
             
             try {
-                // Convert FormData to JSON object
                 const formData = new FormData(e.target);
-                const jsonData = {};
-                
-                // Convert all form fields to JSON
-                for (let [key, value] of formData.entries()) {
-                    // Handle checkbox values properly
-                    if (key === 'termsAccepted' || key === 'codeOfConductAccepted' || 
-                        key === 'liabilityWaiverSigned' || key === 'photoReleaseConsent' || 
-                        key === 'dataPrivacyAgreement' || key === 'fitnessAsPrescription') {
-                        jsonData[key] = value === 'on' ? true : false;
-                    } else {
-                        jsonData[key] = value;
-                    }
-                }
-                
-                // Add metadata
-                jsonData.membershipType = 'fitness';
-                jsonData.timestamp = new Date().toISOString();
+                formData.append('membershipType', 'fitness');
+                formData.append('timestamp', new Date().toISOString());
                 
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(jsonData)
+                    body: formData
                 });
                 
                 const result = await response.json();
@@ -2176,7 +2157,7 @@
             }
         }
 
-                async function handleSportsFormSubmission(e) {
+        async function handleSportsFormSubmission(e) {
             e.preventDefault();
             
             if (!validateCurrentSportsSection()) {
@@ -2189,33 +2170,13 @@
             document.getElementById('sportsFormNavigation').style.display = 'none';
             
             try {
-                // Convert FormData to JSON object
                 const formData = new FormData(e.target);
-                const jsonData = {};
-                
-                // Convert all form fields to JSON
-                for (let [key, value] of formData.entries()) {
-                    // Handle checkbox values properly
-                    if (key === 'termsAccepted' || key === 'codeOfConductAccepted' || 
-                        key === 'liabilityWaiverSigned' || key === 'photoReleaseConsent' || 
-                        key === 'dataPrivacyAgreement' || key === 'attendanceCommitment' ||
-                        key === 'isMinor' || key === 'medicalConsent') {
-                        jsonData[key] = value === 'on' ? true : false;
-                    } else {
-                        jsonData[key] = value;
-                    }
-                }
-                
-                // Add metadata
-                jsonData.membershipType = 'sports';
-                jsonData.timestamp = new Date().toISOString();
+                formData.append('membershipType', 'sports');
+                formData.append('timestamp', new Date().toISOString());
                 
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(jsonData)
+                    body: formData
                 });
                 
                 const result = await response.json();
