@@ -2,22 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Videos - WorkFit</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WorkFit">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#001f3f">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #2E8B57;
-      --primary-light: #3CB371;
-      --primary-dark: #1F6B42;
-      --accent: #FF6B35;
-      --accent-light: #FF8C5A;
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #F7F7F7;
+      --gray: #777777;
       --white: #FFFFFF;
-      --light-gray: #F5F5F5;
       --text-primary: #222222;
-      --text-secondary: #555555;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --text-secondary: #5a5a5a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
+      --warning: #ff9800;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
       --radius: 12px;
+    }
+
+    [data-theme="dark"] {
+      --navy: #0a2e57;
+      --navy-light: #1a3e67;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #1a1a1a;
+      --gray: #aaaaaa;
+      --white: #222222;
+      --text-primary: #f0f0f0;
+      --text-secondary: #cccccc;
+      --bg-primary: #121212;
+      --bg-secondary: #1a1a1a;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: #1e1e1e;
     }
 
     * {
@@ -29,16 +70,99 @@
     }
 
     body {
-      background-color: var(--light-gray);
+      background-color: var(--bg-secondary);
       color: var(--text-primary);
       line-height: 1.6;
-      font-size: 14px;
+      font-size: 15px;
       -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
       min-height: 100vh;
       padding: 0.8rem;
+      padding-bottom: 5rem; /* Space for bottom nav */
     }
 
+    /* Header Navigation */
+    header {
+      background-color: var(--bg-primary);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .logo {
+      height: 35px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--navy-dark);
+      padding: 0.5rem;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-primary);
+    }
+
+    /* Container */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -54,13 +178,13 @@
       height: 40vh;
       min-height: 320px;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-lg);
     }
 
     .hero-slides {
@@ -162,7 +286,7 @@
     .stat-number {
       font-size: 1.6rem;
       font-weight: bold;
-      color: var(--accent);
+      color: var(--gold);
       display: block;
       line-height: 1;
       margin-bottom: 0.3rem;
@@ -176,10 +300,11 @@
 
     /* Section Styling */
     .page-section {
-      background: var(--white);
+      background: var(--card-bg);
       border-radius: var(--radius);
       padding: 1.5rem;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
 
     .section-header {
@@ -191,7 +316,11 @@
 
     .section-title {
       font-size: 1.3rem;
-      color: var(--primary);
+      color: var(--navy);
+      font-weight: 700;
+      position: relative;
+      padding-left: 10px;
+      border-left: 4px solid var(--gold);
     }
 
     .btn {
@@ -209,21 +338,22 @@
     }
 
     .btn-primary {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
     }
 
     .btn-primary:hover {
-      background: var(--primary-dark);
+      background: var(--navy-dark);
       transform: translateY(-2px);
     }
 
     /* Search Section */
     .search-section {
-      background: var(--white);
+      background: var(--card-bg);
       border-radius: var(--radius);
       padding: 1.5rem;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
 
     .search-container {
@@ -235,20 +365,22 @@
     .search-input {
       flex: 1;
       padding: 0.8rem 1.2rem;
-      border: 2px solid var(--light-gray);
+      border: 2px solid var(--border-color);
       border-radius: 50px;
       font-size: 0.9rem;
       transition: all 0.3s ease;
+      background: var(--bg-primary);
+      color: var(--text-primary);
     }
 
     .search-input:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
     }
 
     .search-btn {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
       border: none;
       padding: 0.8rem 1.5rem;
@@ -262,7 +394,7 @@
     }
 
     .search-btn:hover {
-      background: var(--primary-dark);
+      background: var(--navy-dark);
       transform: translateY(-2px);
     }
 
@@ -275,7 +407,7 @@
     }
 
     .category-btn {
-      background: var(--light-gray);
+      background: var(--bg-secondary);
       color: var(--text-primary);
       border: none;
       padding: 0.6rem 1.2rem;
@@ -288,7 +420,7 @@
 
     .category-btn.active,
     .category-btn:hover {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
     }
 
@@ -309,18 +441,18 @@
 
     .latest-video-card {
       flex: 0 0 calc(33.333% - 0.7rem);
-      background: var(--light-gray);
+      background: var(--card-bg);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
       min-height: 280px;
     }
 
     .latest-video-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md);
     }
 
     .latest-video-image {
@@ -342,13 +474,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--primary);
+      color: var(--navy);
       font-size: 1.2rem;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .latest-video-card:hover .play-icon {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
       transform: translate(-50%, -50%) scale(1.1);
     }
@@ -366,7 +498,7 @@
     }
 
     .latest-video-category {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
       padding: 0.2rem 0.5rem;
       border-radius: 50px;
@@ -379,6 +511,7 @@
       margin-bottom: 0.6rem;
       color: var(--text-primary);
       line-height: 1.3;
+      font-weight: 600;
     }
 
     .latest-video-excerpt {
@@ -399,7 +532,7 @@
     }
 
     .carousel-btn {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
       border: none;
       width: 40px;
@@ -409,11 +542,11 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .carousel-btn:hover {
-      background: var(--primary-dark);
+      background: var(--navy-dark);
       transform: scale(1.1);
     }
 
@@ -425,14 +558,14 @@
     }
 
     .video-card {
-      background: var(--white);
+      background: var(--card-bg);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
       display: flex;
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
       padding: 1rem;
       gap: 1.2rem;
       align-items: flex-start;
@@ -440,7 +573,7 @@
 
     .video-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--shadow-md);
     }
 
     .video-image {
@@ -474,7 +607,7 @@
     }
 
     .video-category {
-      background: var(--primary);
+      background: var(--navy);
       color: var(--white);
       padding: 0.3rem 0.8rem;
       border-radius: 50px;
@@ -524,7 +657,7 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: var(--primary);
+      background: var(--navy);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -549,15 +682,15 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: var(--primary);
+      color: var(--navy);
       text-decoration: none;
       font-weight: 600;
       font-size: 0.8rem;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .video-link:hover {
-      color: var(--primary-dark);
+      color: var(--navy-dark);
       gap: 0.7rem;
     }
 
@@ -586,10 +719,10 @@
       width: 100%;
       max-width: 900px;
       max-height: 90vh;
-      background: var(--white);
+      background: var(--bg-primary);
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--shadow-lg);
     }
 
     .video-modal-close {
@@ -608,7 +741,7 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      transition: all 0.3s;
+      transition: var(--transition);
       z-index: 10;
     }
 
@@ -649,7 +782,7 @@
     .video-details-title {
       font-size: 1.8rem;
       margin-bottom: 1rem;
-      color: var(--primary);
+      color: var(--navy);
       line-height: 1.3;
     }
 
@@ -659,7 +792,7 @@
     }
 
     .video-details-content h3 {
-      color: var(--primary);
+      color: var(--navy);
       margin: 1.5rem 0 1rem 0;
       border-bottom: 2px solid var(--accent);
       padding-bottom: 0.5rem;
@@ -678,8 +811,77 @@
       margin-bottom: 0.5rem;
     }
 
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-primary);
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.4rem 0;
+      z-index: 1000;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.65rem;
+      padding: 0.2rem;
+      transition: color 0.3s;
+      flex: 1;
+      max-width: 25%;
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--navy);
+    }
+    
+    .bottom-nav-icon {
+      font-size: 1.1rem;
+      margin-bottom: 0.1rem;
+    }
+    
+    .bottom-nav-label {
+      font-weight: 600;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--navy);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        z-index: 99;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        color: var(--white);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
       .hero {
         height: 35vh;
         min-height: 280px;
@@ -714,7 +916,6 @@
         flex: 0 0 calc(50% - 0.7rem);
       }
       
-      /* Updated for small screens - keep horizontal layout */
       .video-card {
         flex-direction: row;
         padding: 1rem;
@@ -786,7 +987,6 @@
         justify-content: center;
       }
       
-      /* Ensure horizontal layout even on very small screens */
       .video-card {
         flex-direction: row;
         padding: 0.8rem;
@@ -823,9 +1023,44 @@
         gap: 0.3rem;
       }
     }
+
+    /* PWA standalone mode adjustments */
+    @media all and (display-mode: standalone) {
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
+      }
+
+      header {
+        padding-top: env(safe-area-inset-top);
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Header Navigation -->
+  <header>
+    <nav>
+      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="Videos.html" class="active">Videos</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
   <div class="container">
     <!-- Hero Section -->
     <section class="hero">
@@ -1187,7 +1422,105 @@
     <!-- Additional modals for other videos would continue here -->
   </div>
 
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="videos.html" class="bottom-nav-item active">
+      <i class="fas fa-play-circle bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Videos</span>
+    </a>
+    <a href="blogs.html" class="bottom-nav-item">
+      <i class="fas fa-newspaper bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Blogs</span>
+    </a>
+    <a href="gallery.html" class="bottom-nav-item">
+      <i class="fas fa-images bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Gallery</span>
+    </a>
+  </nav>
+
   <script>
+    // Theme Management
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+    } else if (systemPrefersDark) {
+      htmlElement.setAttribute('data-theme', 'dark');
+      updateThemeIcon('dark');
+    }
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+      } else {
+        themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+      }
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        htmlElement.setAttribute('data-theme', newTheme);
+        updateThemeIcon(newTheme);
+      }
+    });
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      
+      const icon = menuBtn.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // Prevent clicks inside nav from closing it
+    navLinks.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
     // Video Carousel Functionality
     document.addEventListener('DOMContentLoaded', function() {
       const latestVideosTrack = document.getElementById('latestVideosTrack');
@@ -1340,6 +1673,16 @@
       
       // Initialize carousel
       updateCarousel();
+
+      // Handle bottom navigation active state
+      document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          document.querySelectorAll('.bottom-nav-item').forEach(navItem => {
+            navItem.classList.remove('active');
+          });
+          this.classList.add('active');
+        });
+      });
     });
   </script>
 </body>
