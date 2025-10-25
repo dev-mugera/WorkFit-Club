@@ -1874,6 +1874,7 @@
             initializeFormNavigation();
             initializeSportsFormNavigation();
             setupConditionalFields();
+            initializeThemeToggle();
         });
 
         // Mobile Menu Functionality
@@ -1913,6 +1914,24 @@
             }
         }
 
+        // Theme Toggle
+        function initializeThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            // Check for saved theme preference or default to light
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+
         // Membership Selection
         function initializeMembershipSelection() {
             const selectionCards = document.querySelectorAll('.selection-card');
@@ -1938,11 +1957,13 @@
                         document.getElementById('formNavigation').style.display = 'flex';
                         document.getElementById('section1').style.display = 'block';
                         currentSection = 1;
+                        updateNavigationButtons();
                     } else {
                         document.getElementById('sportsForm').classList.add('active');
                         document.getElementById('sportsFormNavigation').style.display = 'flex';
                         document.getElementById('sportsSection1').style.display = 'block';
                         currentSportsSection = 1;
+                        updateSportsNavigationButtons();
                     }
                 });
             });
@@ -1979,6 +2000,9 @@
                 
                 // Update navigation buttons
                 updateNavigationButtons();
+                
+                // Scroll to top of form for better UX
+                document.getElementById(`section${currentSection}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -1988,6 +2012,7 @@
             
             // Update progress bar
             document.getElementById(`step${currentSection}`).classList.remove('active');
+            document.getElementById(`step${currentSection}`).classList.remove('completed');
             
             currentSection--;
             
@@ -1997,6 +2022,9 @@
             
             // Update navigation buttons
             updateNavigationButtons();
+            
+            // Scroll to top of form for better UX
+            document.getElementById(`section${currentSection}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function updateNavigationButtons() {
@@ -2052,6 +2080,9 @@
                 
                 // Update navigation buttons
                 updateSportsNavigationButtons();
+                
+                // Scroll to top of form for better UX
+                document.getElementById(`sportsSection${currentSportsSection}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -2061,6 +2092,7 @@
             
             // Update progress bar
             document.getElementById(`step${currentSportsSection}`).classList.remove('active');
+            document.getElementById(`step${currentSportsSection}`).classList.remove('completed');
             
             currentSportsSection--;
             
@@ -2070,6 +2102,9 @@
             
             // Update navigation buttons
             updateSportsNavigationButtons();
+            
+            // Scroll to top of form for better UX
+            document.getElementById(`sportsSection${currentSportsSection}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function updateSportsNavigationButtons() {
@@ -2100,23 +2135,48 @@
             const requiredFields = currentSectionEl.querySelectorAll('[required]');
             let isValid = true;
             
+            // Clear previous errors
+            clearAllFieldErrors(currentSectionEl);
+            
             requiredFields.forEach(field => {
-                if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
-                    isValid = false;
+                let fieldValid = true;
+                
+                if (field.type === 'checkbox' || field.type === 'radio') {
+                    // For checkboxes and radio buttons, check if at least one is checked
+                    const fieldName = field.name;
+                    const checkedField = currentSectionEl.querySelector(`[name="${fieldName}"]:checked`);
+                    if (!checkedField) {
+                        fieldValid = false;
+                        markFieldError(field, 'This field is required');
+                    }
+                } else if (!field.value.trim()) {
+                    fieldValid = false;
                     markFieldError(field, 'This field is required');
                 } else {
-                    clearFieldError(field);
-                    
                     // Additional validation for specific fields
                     if (field.type === 'email' && !isValidEmail(field.value)) {
-                        isValid = false;
+                        fieldValid = false;
                         markFieldError(field, 'Please enter a valid email address');
                     }
+                    
+                    if (field.type === 'tel' && !isValidPhone(field.value)) {
+                        fieldValid = false;
+                        markFieldError(field, 'Please enter a valid phone number');
+                    }
+                }
+                
+                if (!fieldValid) {
+                    isValid = false;
                 }
             });
             
             if (!isValid) {
-                alert('Please fill in all required fields before proceeding.');
+                // Scroll to first error for better UX
+                const firstError = currentSectionEl.querySelector('.field-error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                alert('Please complete all required fields before proceeding.');
             }
             
             return isValid;
@@ -2127,18 +2187,38 @@
             const requiredFields = currentSectionEl.querySelectorAll('[required]');
             let isValid = true;
             
+            // Clear previous errors
+            clearAllFieldErrors(currentSectionEl);
+            
             requiredFields.forEach(field => {
-                if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
-                    isValid = false;
+                let fieldValid = true;
+                
+                if (field.type === 'checkbox' || field.type === 'radio') {
+                    // For checkboxes and radio buttons, check if at least one is checked
+                    const fieldName = field.name;
+                    const checkedField = currentSectionEl.querySelector(`[name="${fieldName}"]:checked`);
+                    if (!checkedField) {
+                        fieldValid = false;
+                        markFieldError(field, 'This field is required');
+                    }
+                } else if (!field.value.trim()) {
+                    fieldValid = false;
                     markFieldError(field, 'This field is required');
                 } else {
-                    clearFieldError(field);
-                    
                     // Additional validation for specific fields
                     if (field.type === 'email' && !isValidEmail(field.value)) {
-                        isValid = false;
+                        fieldValid = false;
                         markFieldError(field, 'Please enter a valid email address');
                     }
+                    
+                    if (field.type === 'tel' && !isValidPhone(field.value)) {
+                        fieldValid = false;
+                        markFieldError(field, 'Please enter a valid phone number');
+                    }
+                }
+                
+                if (!fieldValid) {
+                    isValid = false;
                 }
             });
             
@@ -2157,32 +2237,60 @@
             }
             
             if (!isValid) {
-                alert('Please fill in all required fields before proceeding.');
+                // Scroll to first error for better UX
+                const firstError = currentSectionEl.querySelector('.field-error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                alert('Please complete all required fields before proceeding.');
             }
             
             return isValid;
         }
 
         function markFieldError(field, message) {
-            field.parentNode.classList.add('field-error');
-            const errorElement = field.parentNode.querySelector('.error-message');
-            if (errorElement) {
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
+            const formGroup = field.closest('.form-group');
+            if (formGroup) {
+                formGroup.classList.add('field-error');
+                const errorElement = formGroup.querySelector('.error-message');
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                }
             }
         }
 
         function clearFieldError(field) {
-            field.parentNode.classList.remove('field-error');
-            const errorElement = field.parentNode.querySelector('.error-message');
-            if (errorElement) {
-                errorElement.style.display = 'none';
+            const formGroup = field.closest('.form-group');
+            if (formGroup) {
+                formGroup.classList.remove('field-error');
+                const errorElement = formGroup.querySelector('.error-message');
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
             }
+        }
+
+        function clearAllFieldErrors(section) {
+            const errorFields = section.querySelectorAll('.field-error');
+            errorFields.forEach(field => {
+                field.classList.remove('field-error');
+                const errorElement = field.querySelector('.error-message');
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            });
         }
 
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            // Basic phone validation - accepts numbers, spaces, +, -, and ()
+            const phoneRegex = /^[\d\s+\-()]+$/;
+            return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 8;
         }
 
         // Conditional Fields
@@ -2191,30 +2299,34 @@
             const occupationType = document.getElementById('occupationType');
             const occupationDetailsSection = document.getElementById('occupationDetailsSection');
             
-            occupationType.addEventListener('change', function() {
-                if (this.value) {
-                    occupationDetailsSection.style.display = 'block';
-                } else {
-                    occupationDetailsSection.style.display = 'none';
-                }
-            });
+            if (occupationType) {
+                occupationType.addEventListener('change', function() {
+                    if (this.value && this.value !== '') {
+                        occupationDetailsSection.style.display = 'block';
+                    } else {
+                        occupationDetailsSection.style.display = 'none';
+                    }
+                });
+            }
 
             // Fitness medical prescription details
             const prescriptionYes = document.getElementById('prescriptionYes');
             const prescriptionNo = document.getElementById('prescriptionNo');
             const prescriptionDetails = document.getElementById('prescriptionDetails');
             
-            prescriptionYes.addEventListener('change', function() {
-                if (this.checked) {
-                    prescriptionDetails.style.display = 'block';
-                }
-            });
-            
-            prescriptionNo.addEventListener('change', function() {
-                if (this.checked) {
-                    prescriptionDetails.style.display = 'none';
-                }
-            });
+            if (prescriptionYes && prescriptionNo) {
+                prescriptionYes.addEventListener('change', function() {
+                    if (this.checked) {
+                        prescriptionDetails.style.display = 'block';
+                    }
+                });
+                
+                prescriptionNo.addEventListener('change', function() {
+                    if (this.checked) {
+                        prescriptionDetails.style.display = 'none';
+                    }
+                });
+            }
 
             // Fitness premium plan reason
             const premiumPlans = document.querySelectorAll('#fitnessRegistrationForm input[name="premiumPlanType"]');
@@ -2222,7 +2334,7 @@
             
             premiumPlans.forEach(plan => {
                 plan.addEventListener('change', function() {
-                    if (this.value) {
+                    if (this.value && this.value !== '') {
                         premiumReasonSection.style.display = 'block';
                     } else {
                         premiumReasonSection.style.display = 'none';
@@ -2234,31 +2346,36 @@
             const sportsOccupationType = document.getElementById('sportsOccupationType');
             const sportsOccupationDetailsSection = document.getElementById('sportsOccupationDetailsSection');
             
-            sportsOccupationType.addEventListener('change', function() {
-                if (this.value) {
-                    sportsOccupationDetailsSection.style.display = 'block';
-                } else {
-                    sportsOccupationDetailsSection.style.display = 'none';
-                }
-            });
+            if (sportsOccupationType) {
+                sportsOccupationType.addEventListener('change', function() {
+                    if (this.value && this.value !== '') {
+                        sportsOccupationDetailsSection.style.display = 'block';
+                    } else {
+                        sportsOccupationDetailsSection.style.display = 'none';
+                    }
+                });
+            }
 
             // Sports minor section
             const isMinorCheckbox = document.getElementById('isMinor');
             const minorSection = document.getElementById('minorSection');
             
-            isMinorCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    minorSection.style.display = 'block';
-                } else {
-                    minorSection.style.display = 'none';
-                }
-            });
+            if (isMinorCheckbox) {
+                isMinorCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        minorSection.style.display = 'block';
+                    } else {
+                        minorSection.style.display = 'none';
+                    }
+                });
+            }
         }
 
         // Form Submission
         async function handleFormSubmission(e) {
             e.preventDefault();
             
+            // Validate the final section before submission
             if (!validateCurrentSection()) {
                 alert('Please complete all required fields before submitting.');
                 return;
@@ -2291,9 +2408,10 @@
                     }, 1000);
                     
                 } else {
-                    throw new Error(result.message);
+                    throw new Error(result.message || 'Submission failed');
                 }
             } catch (error) {
+                console.error('Form submission error:', error);
                 // Show error message
                 document.getElementById('loadingIndicator').style.display = 'none';
                 document.getElementById('errorText').textContent = error.message || 'An error occurred. Please try again.';
@@ -2305,6 +2423,7 @@
         async function handleSportsFormSubmission(e) {
             e.preventDefault();
             
+            // Validate the final section before submission
             if (!validateCurrentSportsSection()) {
                 alert('Please complete all required fields before submitting.');
                 return;
@@ -2337,9 +2456,10 @@
                     }, 1000);
                     
                 } else {
-                    throw new Error(result.message);
+                    throw new Error(result.message || 'Submission failed');
                 }
             } catch (error) {
+                console.error('Sports form submission error:', error);
                 // Show error message
                 document.getElementById('sportsLoadingIndicator').style.display = 'none';
                 document.getElementById('sportsErrorText').textContent = error.message || 'An error occurred. Please try again.';
@@ -2383,8 +2503,6 @@
                 document.getElementById(`section${i}`).style.display = 'none';
                 document.getElementById(`sportsSection${i}`).style.display = 'none';
             }
-            document.getElementById('section1').style.display = 'none';
-            document.getElementById('sportsSection1').style.display = 'none';
             
             // Hide conditional sections
             document.getElementById('occupationDetailsSection').style.display = 'none';
@@ -2428,6 +2546,18 @@
             phoneInputs.forEach(input => {
                 input.addEventListener('input', function() {
                     formatPhoneNumber(this);
+                });
+            });
+            
+            // Add real-time validation for better UX
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        markFieldError(this, 'This field is required');
+                    } else {
+                        clearFieldError(this);
+                    }
                 });
             });
         });
