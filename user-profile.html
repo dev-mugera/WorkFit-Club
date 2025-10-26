@@ -1,593 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>WorkFit Fitness</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Keep all the CSS from previous fitness profile */
-        /* Add loading states */
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-        }
-        
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>WorkFit - Tracker</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+  <meta name="theme-color" content="#001f3f">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #001f3f;
+      --navy-light: #003366;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #F7F7F7;
+      --gray: #777777;
+      --white: #FFFFFF;
+      --text-primary: #222222;
+      --text-secondary: #5a5a5a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+
+    /* Dark mode variables */
+    [data-theme="dark"] {
+      --navy: #0a2e57;
+      --navy-light: #1a3e67;
+      --navy-dark: #001a33;
+      --navy-medium: #0a2e57;
+      --gold: #FFD700;
+      --accent: #C73E1D;
+      --light: #1a1a1a;
+      --gray: #aaaaaa;
+      --white: #222222;
+      --text-primary: #f0f0f0;
+      --text-secondary: #cccccc;
+      --bg-primary: #121212;
+      --bg-secondary: #1a1a1a;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding-bottom: 4rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Loading Animation */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: var(--bg-secondary);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loading-container.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(0, 31, 63, 0.2);
+      border-top: 5px solid var(--navy);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    .loading-text {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Tracker Section */
+    .tracker-container {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 60px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tracker-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: var(--bg-primary);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-primary);
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.4rem 0;
+      z-index: 1000;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.65rem;
+      padding: 0.2rem;
+      transition: color 0.3s;
+      flex: 1;
+      max-width: 25%;
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--navy);
+    }
+    
+    .bottom-nav-icon {
+      font-size: 1.1rem;
+      margin-bottom: 0.1rem;
+    }
+    
+    .bottom-nav-label {
+      font-weight: 500;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .loading-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="app-header">
-        <div class="user-welcome">
-            <h1>Welcome, <span id="userName">Member</span>!</h1>
-            <p id="welcomeMessage">Loading your fitness journey...</p>
-        </div>
-    </header>
+  <!-- Loading Animation -->
+  <div class="loading-container" id="loadingContainer">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading WorkFit Tracker...</div>
+  </div>
 
-    <!-- Home Section -->
-    <section id="home" class="app-content active">
-        <div id="homeContent">
-            <div class="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading your fitness dashboard...</p>
-            </div>
-        </div>
-    </section>
+  <!-- Tracker Section -->
+  <div class="tracker-container">
+    <iframe class="tracker-iframe" src="https://sites.google.com/view/workfit-info/tracker" id="trackerIframe"></iframe>
+  </div>
 
-    <!-- Tracker Section -->
-    <section id="tracker" class="app-content">
-        <div id="trackerContent">
-            <div class="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading today's activities...</p>
-            </div>
-        </div>
-    </section>
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fas fa-home bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="Announcements-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-bullhorn bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Updates</span>
+    </a>
+    <a href="plans-wpa.html" class="bottom-nav-item">
+      <i class="fas fa-running bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Membership</span>
+    </a>
+    <a href="store-webpage.html" class="bottom-nav-item">
+      <i class="fas fa-store bottom-nav-icon"></i>
+      <span class="bottom-nav-label">Our Store</span>
+    </a>
+  </nav>
 
-    <!-- Account Section -->
-    <section id="account" class="app-content">
-        <div id="accountContent">
-            <div class="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading your account...</p>
-            </div>
-        </div>
-    </section>
+<script>
+// Theme Management
+const htmlElement = document.documentElement;
 
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-        <a href="#" class="nav-item active" onclick="showSection('home')">
-            <div class="nav-icon">
-                <i class="fas fa-home"></i>
-            </div>
-            <div class="nav-label">Home</div>
-        </a>
-        
-        <a href="#" class="nav-item" onclick="showSection('tracker')">
-            <div class="nav-icon center">
-                <i class="fas fa-dumbbell"></i>
-            </div>
-            <div class="nav-label">Tracker</div>
-        </a>
-        
-        <a href="#" class="nav-item" onclick="showSection('account')">
-            <div class="nav-icon">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="nav-label">Account</div>
-        </a>
-    </nav>
+function initializeTheme() {
+  // Check for saved theme preference or use system preference
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Set initial theme
+  if (savedTheme) {
+    htmlElement.setAttribute('data-theme', savedTheme);
+  } else if (systemPrefersDark) {
+    htmlElement.setAttribute('data-theme', 'dark');
+  }
+}
 
-    <!-- Passcode Change Modal -->
-    <div id="passcodeModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000;">
-        <div style="background: white; margin: 20% auto; padding: 2rem; border-radius: 12px; max-width: 400px;">
-            <h3>Change Passcode</h3>
-            <input type="password" id="currentPasscode" placeholder="Current passcode" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 1px solid #ddd; border-radius: 6px;">
-            <input type="password" id="newPasscode" placeholder="New 4-digit passcode" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 1px solid #ddd; border-radius: 6px;">
-            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                <button onclick="hidePasscodeModal()" style="flex: 1; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px; background: white;">Cancel</button>
-                <button onclick="submitPasscodeChange()" style="flex: 1; padding: 0.8rem; background: var(--navy); color: white; border: none; border-radius: 6px;">Change</button>
-            </div>
-        </div>
-    </div>
+// Loading Animation
+function initializeLoadingAnimation() {
+  const loadingContainer = document.getElementById('loadingContainer');
+  const trackerIframe = document.getElementById('trackerIframe');
+  
+  if (trackerIframe && loadingContainer) {
+    // Hide loading animation when iframe is loaded
+    trackerIframe.addEventListener('load', function() {
+      setTimeout(function() {
+        loadingContainer.classList.add('hidden');
+      }, 500); // Small delay for smoother transition
+    });
+    
+    // Fallback: hide loading animation after 5 seconds max
+    setTimeout(function() {
+      loadingContainer.classList.add('hidden');
+    }, 5000);
+  }
+}
 
-    <script>
-        // Configuration
-        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbySUFXxlu3LKlOut7ooXMTqr3PwOBD7DsQIr-Zx-kQmf9PjG5C1dETfQjBIIiOles_y/exec';
-        let USER_PROFILE = null;
-        let USER_STATS = null;
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('theme')) {
+    const newTheme = e.matches ? 'dark' : 'light';
+    htmlElement.setAttribute('data-theme', newTheme);
+  }
+});
 
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAuthentication();
-        });
+// Main initialization function
+function initializeApp() {
+  console.log('Initializing WorkFit Tracker Page...');
+  
+  // Initialize all components
+  initializeTheme();
+  initializeLoadingAnimation();
+  
+  console.log('WorkFit Tracker Page initialized successfully');
+}
 
-        // Authentication check
-        function checkAuthentication() {
-            const savedProfile = localStorage.getItem('workfit_profile');
-            const savedCredentials = localStorage.getItem('workfit_credentials');
-            
-            if (savedProfile && savedCredentials) {
-                USER_PROFILE = JSON.parse(savedProfile);
-                loadUserData();
-            } else {
-                // Redirect to login if not authenticated
-                window.location.href = 'login.html';
-            }
-        }
-
-        // Load user data from backend
-        async function loadUserData() {
-            try {
-                // Load profile if not already loaded
-                if (!USER_PROFILE) {
-                    await loadUserProfile();
-                }
-                
-                // Load stats
-                await loadUserStats();
-                
-                // Update UI
-                updateUI();
-                
-            } catch (error) {
-                showError('Failed to load user data: ' + error.message);
-            }
-        }
-
-        async function loadUserProfile() {
-            const credentials = JSON.parse(localStorage.getItem('workfit_credentials'));
-            
-            const response = await fetch(BACKEND_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'login',
-                    username: credentials.username,
-                    passcode: credentials.passcode
-                })
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                USER_PROFILE = result.profile;
-                localStorage.setItem('workfit_profile', JSON.stringify(USER_PROFILE));
-            } else {
-                throw new Error(result.message);
-            }
-        }
-
-        async function loadUserStats() {
-            const response = await fetch(BACKEND_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'getStats',
-                    memberId: USER_PROFILE.memberId,
-                    type: USER_PROFILE.type
-                })
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                USER_STATS = result.stats;
-            } else {
-                throw new Error(result.message);
-            }
-        }
-
-        async function loadTodaysSchedule() {
-            const response = await fetch(BACKEND_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'getSchedule',
-                    type: USER_PROFILE.type
-                })
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                return result.schedule;
-            } else {
-                throw new Error(result.message);
-            }
-        }
-
-        // Update UI with loaded data
-        function updateUI() {
-            // Update header
-            document.getElementById('userName').textContent = USER_PROFILE.fullName;
-            document.getElementById('welcomeMessage').textContent = 
-                USER_PROFILE.type === 'fitness' ? 'Ready for your fitness journey today?' : 'Ready for training today?';
-            
-            // Load section content
-            loadHomeSection();
-            loadTrackerSection();
-            loadAccountSection();
-        }
-
-        function loadHomeSection() {
-            const stats = USER_STATS || {};
-            
-            const homeContent = USER_PROFILE.type === 'fitness' ? `
-                <!-- Stats Overview -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-dumbbell"></i>
-                        </div>
-                        <div class="stat-number">${stats.weeklySessions || 0}</div>
-                        <div class="stat-label">This Week</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <div class="stat-number">${stats.caloriesBurned || 0}</div>
-                        <div class="stat-label">Calories</div>
-                    </div>
-                </div>
-
-                <!-- Next Session -->
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">Next Session</h2>
-                    </div>
-                    <div class="next-session">
-                        <div class="session-time">Tomorrow, 6:00 AM</div>
-                        <div class="session-activity">HIIT Training</div>
-                        <div class="session-location">Central Park</div>
-                    </div>
-                </div>
-
-                <!-- Weekly Meal Plan -->
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">Today's Nutrition</h2>
-                        <a href="#" class="view-all">View Plan</a>
-                    </div>
-                    <div class="meal-plan-grid">
-                        <div class="meal-card">
-                            <div class="meal-icon">
-                                <i class="fas fa-egg"></i>
-                            </div>
-                            <div class="meal-info">
-                                <h4>Breakfast</h4>
-                                <p>Oatmeal with fruits & protein shake</p>
-                            </div>
-                        </div>
-                        <div class="meal-card">
-                            <div class="meal-icon">
-                                <i class="fas fa-drumstick-bite"></i>
-                            </div>
-                            <div class="meal-info">
-                                <h4>Lunch</h4>
-                                <p>Grilled chicken with quinoa & vegetables</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ` : `
-                <!-- Sports-specific home content -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-basketball-ball"></i>
-                        </div>
-                        <div class="stat-number">${stats.weeklyTrainings || 0}</div>
-                        <div class="stat-label">This Week</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="stat-number">${stats.goalsScored || 0}</div>
-                        <div class="stat-label">Goals</div>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('homeContent').innerHTML = homeContent;
-        }
-
-        async function loadTrackerSection() {
-            try {
-                const schedule = await loadTodaysSchedule();
-                const today = new Date().toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                });
-                
-                const activitiesHTML = schedule.map(activity => `
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-${getActivityIcon(activity.activity)}"></i>
-                        </div>
-                        <div class="activity-info">
-                            <h4>${activity.activity}</h4>
-                            <p>${activity.description}</p>
-                        </div>
-                        <div class="activity-time">${activity.time}</div>
-                    </div>
-                `).join('');
-                
-                const trackerContent = `
-                    <!-- Attendance Marking -->
-                    <div class="attendance-card">
-                        <div class="attendance-icon">
-                            <i class="fas fa-clipboard-check"></i>
-                        </div>
-                        <div class="attendance-status" id="attendanceStatus">
-                            Mark Today's Attendance
-                        </div>
-                        <button class="attendance-btn" id="markAttendanceBtn" onclick="markAttendance()">
-                            <i class="fas fa-check-circle"></i> Mark Attendance
-                        </button>
-                    </div>
-
-                    <!-- Today's Activities -->
-                    <div class="today-activities">
-                        <div class="section-header">
-                            <h2 class="section-title">
-                                ${USER_PROFILE.type === 'fitness' ? 'Today\'s Workout' : 'Today\'s Training'}
-                            </h2>
-                            <div class="session-date">${today}</div>
-                        </div>
-                        ${activitiesHTML}
-                    </div>
-                `;
-                
-                document.getElementById('trackerContent').innerHTML = trackerContent;
-                updateAttendanceStatus();
-                
-            } catch (error) {
-                document.getElementById('trackerContent').innerHTML = `
-                    <div class="error-message">
-                        Failed to load schedule: ${error.message}
-                    </div>
-                `;
-            }
-        }
-
-        function loadAccountSection() {
-            const accountContent = `
-                <!-- Profile Header -->
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h2 class="profile-name">${USER_PROFILE.fullName}</h2>
-                    <div class="profile-id">Member ID: ${USER_PROFILE.memberId}</div>
-                    ${USER_PROFILE.type === 'sports' ? `
-                    <div class="profile-sport" style="color: var(--sports-green); margin-top: 0.5rem;">
-                        <i class="fas fa-${getSportIcon(USER_PROFILE.sportChoice)}"></i> ${USER_PROFILE.sportChoice}
-                    </div>
-                    ` : ''}
-                </div>
-
-                <!-- Account Menu -->
-                <div class="account-menu">
-                    <a href="#" class="menu-item" onclick="showPasscodeModal()">
-                        <div class="menu-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="menu-text">
-                            <h4>Change Passcode</h4>
-                            <p>Update your security passcode</p>
-                        </div>
-                        <div class="menu-arrow">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>
-                    
-                    <!-- Other menu items... -->
-                    
-                    <a href="#" class="menu-item" onclick="logout()">
-                        <div class="menu-icon">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </div>
-                        <div class="menu-text">
-                            <h4>Logout</h4>
-                            <p>Sign out of your account</p>
-                        </div>
-                        <div class="menu-arrow">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </div>
-            `;
-            
-            document.getElementById('accountContent').innerHTML = accountContent;
-        }
-
-        // Attendance functions
-        async function markAttendance() {
-            try {
-                const response = await fetch(BACKEND_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'markAttendance',
-                        memberId: USER_PROFILE.memberId,
-                        type: USER_PROFILE.type
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    document.getElementById('attendanceStatus').textContent = 'Attendance Marked Successfully! ✓';
-                    document.getElementById('markAttendanceBtn').disabled = true;
-                    document.getElementById('markAttendanceBtn').textContent = 'Attendance Marked';
-                    
-                    // Reload stats to update counts
-                    await loadUserStats();
-                    loadHomeSection();
-                    
-                    alert('Attendance marked successfully for today!');
-                } else {
-                    throw new Error(result.message);
-                }
-                
-            } catch (error) {
-                alert('Failed to mark attendance: ' + error.message);
-            }
-        }
-
-        function updateAttendanceStatus() {
-            const today = new Date().toDateString();
-            const lastAttendance = localStorage.getItem(`lastAttendance_${USER_PROFILE.memberId}`);
-            
-            if (lastAttendance === today) {
-                document.getElementById('attendanceStatus').textContent = 'Attendance Marked Today ✓';
-                document.getElementById('markAttendanceBtn').disabled = true;
-                document.getElementById('markAttendanceBtn').textContent = 'Already Marked';
-            }
-        }
-
-        // Passcode change functions
-        function showPasscodeModal() {
-            document.getElementById('passcodeModal').style.display = 'block';
-        }
-
-        function hidePasscodeModal() {
-            document.getElementById('passcodeModal').style.display = 'none';
-            document.getElementById('currentPasscode').value = '';
-            document.getElementById('newPasscode').value = '';
-        }
-
-        async function submitPasscodeChange() {
-            const currentPasscode = document.getElementById('currentPasscode').value;
-            const newPasscode = document.getElementById('newPasscode').value;
-            
-            if (!currentPasscode || !newPasscode) {
-                alert('Please fill in both fields');
-                return;
-            }
-            
-            if (newPasscode.length !== 4 || isNaN(newPasscode)) {
-                alert('Please enter a valid 4-digit passcode');
-                return;
-            }
-            
-            try {
-                const response = await fetch(BACKEND_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'changePasscode',
-                        memberId: USER_PROFILE.memberId,
-                        type: USER_PROFILE.type,
-                        currentPasscode: currentPasscode,
-                        newPasscode: newPasscode
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Passcode changed successfully!');
-                    hidePasscodeModal();
-                    
-                    // Update stored credentials
-                    const credentials = JSON.parse(localStorage.getItem('workfit_credentials'));
-                    credentials.passcode = newPasscode;
-                    localStorage.setItem('workfit_credentials', JSON.stringify(credentials));
-                    
-                } else {
-                    throw new Error(result.message);
-                }
-                
-            } catch (error) {
-                alert('Failed to change passcode: ' + error.message);
-            }
-        }
-
-        // Utility functions
-        function getActivityIcon(activity) {
-            const icons = {
-                'Cardio': 'running',
-                'Strength': 'dumbbell',
-                'Yoga': 'spa',
-                'Warm-up': 'fire',
-                'Practice': 'basketball-ball',
-                'Scrimmage': 'users'
-            };
-            
-            for (const [key, icon] of Object.entries(icons)) {
-                if (activity.toLowerCase().includes(key.toLowerCase())) {
-                    return icon;
-                }
-            }
-            
-            return 'running';
-        }
-
-        function getSportIcon(sport) {
-            const icons = {
-                'Basketball': 'basketball-ball',
-                'Running': 'running',
-                'Football': 'futbol',
-                'Tennis': 'table-tennis',
-                'Swimming': 'swimmer'
-            };
-            
-            return icons[sport] || 'running';
-        }
-
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('workfit_profile');
-                localStorage.removeItem('workfit_credentials');
-                window.location.href = 'login.html';
-            }
-        }
-
-        // Keep the existing navigation function
-        function showSection(sectionId) {
-            document.querySelectorAll('.app-content').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-            
-            // Reload section data when switching
-            if (sectionId === 'tracker') {
-                loadTrackerSection();
-            } else if (sectionId === 'home') {
-                loadHomeSection();
-            }
-        }
-
-        function showError(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = message;
-            document.body.prepend(errorDiv);
-            
-            setTimeout(() => {
-                errorDiv.remove();
-            }, 5000);
-        }
-    </script>
+// Start the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeApp);
+</script>
 </body>
 </html>
