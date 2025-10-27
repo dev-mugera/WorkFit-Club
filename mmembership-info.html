@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WorkFit Membership Information</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WorkFit">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#001f3f">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #001f3f;
+            --navy-light: #003366;
+            --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #F7F7F7;
+            --gray: #777777;
+            --white: #FFFFFF;
+            --text-primary: #222222;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --success: #4CAF50;
+            --error: #f44336;
+            --warning: #ff9800;
+        }
+
+        [data-theme="dark"] {
+            --navy: #0a2e57;
+            --navy-light: #1a3e67;
+            --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #1a1a1a;
+            --gray: #aaaaaa;
+            --white: #222222;
+            --text-primary: #f0f0f0;
+            --text-secondary: #cccccc;
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: #1e1e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-text-size-adjust: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 4rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-primary);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo {
+            height: 35px;
+            width: auto;
+        }
+
+        /* Hamburger Menu Styles */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--navy-dark);
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Membership Information Section */
+        .membership-info {
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .intro-text {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Membership Cards */
+        .membership-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .membership-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .membership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .card-title {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.9rem;
+        }
+
+        .benefits-list li i {
+            color: var(--success);
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Children Sports Section */
+        .children-sports {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .children-sports h2 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .children-sports p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .sport-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            transition: transform 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .sport-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .sport-item i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .sport-item span {
+            color: var(--text-primary);
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* How to Join Section */
+        .how-to-join {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .how-to-join h2 {
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--navy-light);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            box-shadow: 0 -2px 10px var(--shadow-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.4rem 0;
+            z-index: 1000;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.65rem;
+            padding: 0.2rem;
+            transition: color 0.3s;
+            flex: 1;
+            max-width: 25%;
+        }
+
+        .bottom-nav-item.active {
+            color: var(--navy);
+        }
+
+        .bottom-nav-icon {
+            font-size: 1.1rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .bottom-nav-label {
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .membership-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .sports-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            /* Mobile Menu Styles */
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--navy);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px var(--shadow-color);
+                z-index: 99;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+                color: var(--white);
+            }
+
+            .theme-toggle {
+                margin-top: 1rem;
+                align-self: center;
+            }
+        }
+
+        /* PWA standalone mode adjustments */
+        @media all and (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: calc(env(safe-area-inset-bottom) + 4rem);
+            }
+
+            header {
+                padding-top: env(safe-area-inset-top);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="Blogs.html">Blogs</a>
+                <a href="media-wpa.html">Tutorials</a>
+                <a href="contact.wpa.html">Contact Us</a>
+                <a href="about-us.html">About Us</a>
+
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>WorkFit Membership Information</h1>
+        <p>Discover how our membership options can help you achieve your fitness goals</p>
+    </section>
+
+    <!-- Membership Information Section -->
+    <section class="membership-info">
+        <h2 class="section-title">Our Membership Options</h2>
+        <p class="intro-text">At WorkFit, we offer specialized membership programs designed to meet diverse fitness needs. Whether you're focused on personal wellness or competitive sports, we have the right program for you.</p>
+        
+        <div class="membership-cards">
+            <div class="membership-card">
+                <div class="card-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3 class="card-title">WorkFit Fitness</h3>
+                <p class="card-description">Personalized fitness programs for health, wellness, and rehabilitation</p>
+                
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check"></i> Comprehensive fitness assessments</li>
+                    <li><i class="fas fa-check"></i> Customized workout plans</li>
+                    <li><i class="fas fa-check"></i> Medical rehabilitation support</li>
+                    <li><i class="fas fa-check"></i> Nutritional guidance</li>
+                    <li><i class="fas fa-check"></i> Progress tracking and adjustments</li>
+                    <li><i class="fas fa-check"></i> Access to all fitness facilities</li>
+                </ul>
+                
+                <p class="card-description">Ideal for individuals seeking to improve overall health, recover from injury, or maintain an active lifestyle with professional guidance.</p>
+            </div>
+            
+            <div class="membership-card">
+                <div class="card-icon">
+                    <i class="fas fa-basketball-ball"></i>
+                </div>
+                <h3 class="card-title">WorkFit Sports</h3>
+                <p class="card-description">Team-based training and competitive sports development</p>
+                
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check"></i> Professional coaching and skill development</li>
+                    <li><i class="fas fa-check"></i> Team training sessions</li>
+                    <li><i class="fas fa-check"></i> Competitive league participation</li>
+                    <li><i class="fas fa-check"></i> Sports-specific conditioning</li>
+                    <li><i class="fas fa-check"></i> Team building activities</li>
+                    <li><i class="fas fa-check"></i> Tournament opportunities</li>
+                </ul>
+                
+                <p class="card-description">Perfect for athletes and sports enthusiasts looking to develop skills, compete, and be part of a team community.</p>
+            </div>
+        </div>
+        
+        <!-- Children Sports Section -->
+        <div class="children-sports">
+            <h2>Youth Sports Programs</h2>
+            <p>We strongly encourage children's participation in our sports programs to build healthy habits, develop skills, and foster teamwork from an early age.</p>
+            
+            <div class="sports-grid">
+                <div class="sport-item">
+                    <i class="fas fa-basketball-ball"></i>
+                    <span>Basketball</span>
+                </div>
+                <div class="sport-item">
+                    <i class="fas fa-running"></i>
+                    <span>Running & Athletics</span>
+                </div>
+                <div class="sport-item">
+                    <i class="fas fa-bicycle"></i>
+                    <span>Cycling</span>
+                </div>
+                <div class="sport-item">
+                    <i class="fas fa-swimmer"></i>
+                    <span>Swimming</span>
+                </div>
+            </div>
+            
+            <p style="margin-top: 1.5rem; text-align: center; color: var(--text-secondary); font-size: 0.95rem;">
+                Our youth programs focus on skill development, sportsmanship, and fun in a safe, supportive environment. All coaches are certified and trained in working with children.
+            </p>
+        </div>
+        
+        <!-- How to Join Section -->
+        <div class="how-to-join">
+            <h2>How to Become a Member</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose Your Program</h3>
+                    <p>Select between Fitness or Sports membership based on your goals and interests.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Complete Registration</h3>
+                    <p>Fill out our membership form with your personal, contact, and health information.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Application Review</h3>
+                    <p>Our team will review your application and contact you within 2-3 business days.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Welcome & Orientation</h3>
+                    <p>Once approved, you'll receive a welcome package and schedule your orientation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Start Your Fitness Journey?</h2>
+            <p>Join the WorkFit community today and take the first step toward achieving your health and fitness goals.</p>
+            <a href="plans-wpa.html" class="btn">
+                <i class="fas fa-user-plus"></i> Begin Registration
+            </a>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home bottom-nav-icon"></i>
+            <span class="bottom-nav-label">Home</span>
+        </a>
+        <a href="Announcements-wpa.html" class="bottom-nav-item">
+            <i class="fas fa-bullhorn bottom-nav-icon"></i>
+            <span class="bottom-nav-label">Updates</span>
+        </a>
+        <a href="membership-info.html" class="bottom-nav-item">
+            <i class="fas fa-running bottom-nav-icon"></i>
+            <span class="bottom-nav-label">Membership</span>
+        </a>
+        <a href="store-webpage.html" class="bottom-nav-item">
+            <i class="fas fa-store bottom-nav-icon"></i>
+            <span class="bottom-nav-store">Our Store</span>
+        </a>
+    </nav>
+
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMobileMenu();
+            initializeThemeToggle();
+        });
+
+        // Mobile Menu Functionality
+        function initializeMobileMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navLinks.classList.toggle('active');
+                    
+                    const icon = menuBtn.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = menuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+                
+                // Prevent clicks inside nav from closing it
+                navLinks.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+        }
+
+        // Theme Toggle
+        function initializeThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            // Check for saved theme preference or default to light
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+    </script>
+</body>
+</html>
