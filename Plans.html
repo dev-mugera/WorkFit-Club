@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>WorkFit - Membership Plans</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -23,6 +23,28 @@
             --border-color: #ddd;
             --shadow-color: rgba(0, 0, 0, 0.1);
             --card-bg: #ffffff;
+            --success: #4CAF50;
+            --error: #f44336;
+            --warning: #ff9800;
+        }
+
+        [data-theme="dark"] {
+            --navy: #0a2e57;
+            --navy-light: #1a3e67;
+            --navy-dark: #001a33;
+            --navy-medium: #0a2e57;
+            --gold: #FFD700;
+            --accent: #C73E1D;
+            --light: #1a1a1a;
+            --gray: #aaaaaa;
+            --white: #222222;
+            --text-primary: #f0f0f0;
+            --text-secondary: #cccccc;
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: #1e1e1e;
         }
 
         * {
@@ -37,7 +59,7 @@
             background-color: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
-            font-size: 16px;
+            font-size: 15px; /* Updated from 16px to match membership code */
             -webkit-text-size-adjust: 100%;
             transition: background-color 0.3s ease, color 0.3s ease;
             padding-bottom: 2rem;
@@ -63,7 +85,7 @@
         }
 
         .logo {
-            height: 40px;
+            height: 35px; /* Slightly smaller to match membership code */
             width: auto;
         }
 
@@ -74,11 +96,11 @@
         }
 
         .nav-links a {
-            color: var(--white);
+            color: var(--text-primary); /* Updated from white to match theme */
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Updated from 0.9rem to match membership code */
             padding: 0.5rem;
         }
 
@@ -90,11 +112,35 @@
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* Updated from 1.5rem to match membership code */
             color: var(--navy-dark);
             padding: 0.5rem;
             cursor: pointer;
             z-index: 101;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
         }
 
         /* Sections */
@@ -140,7 +186,7 @@
         }
         
         .package-card {
-            background: var(--bg-primary);
+            background: var(--card-bg); /* Updated from bg-primary to match membership code */
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px var(--shadow-color);
@@ -201,7 +247,7 @@
             background: var(--navy);
             color: var(--white);
             border: none;
-            border-radius: 4px;
+            border-radius: 25px; /* Updated from 4px to match membership code */
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -266,6 +312,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); /* Added from membership code */
         }
         
         .modal-open main {
@@ -276,7 +323,7 @@
         .modal-content {
             background-color: var(--bg-primary);
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: 12px; /* Updated from 8px to match membership code */
             width: 90%;
             max-width: 500px;
             position: relative;
@@ -289,6 +336,7 @@
             transform: translate(-50%, -50%);
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 10px 30px var(--shadow-color); /* Added from membership code */
         }
         
         .close {
@@ -300,6 +348,7 @@
             right: 1rem;
             top: 0.5rem;
             cursor: pointer;
+            transition: color 0.3s; /* Added from membership code */
         }
         
         .close:hover,
@@ -325,15 +374,17 @@
             padding: 0.8rem;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 8px; /* Updated from 4px to match membership code */
             font-size: 1rem;
             color: var(--text-primary);
+            transition: border-color 0.3s; /* Added from membership code */
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--navy);
+            box-shadow: 0 0 0 2px rgba(0, 31, 63, 0.1); /* Added from membership code */
         }
         
         .required {
@@ -383,8 +434,14 @@
         }
         
         @keyframes modalFade {
-            from { opacity: 0; transform: translate(-50%, -60%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
+            from { 
+                opacity: 0; 
+                transform: translate(-50%, -60%); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translate(-50%, -50%); 
+            }
         }
         
         /* Responsive */
@@ -421,6 +478,7 @@
                 padding: 1rem;
                 border-bottom: 1px solid var(--border-color);
                 width: 100%;
+                color: var(--white); /* Ensure text is visible on navy background */
             }
 
             .mobile-menu-btn {
@@ -586,23 +644,14 @@
     </div>
 
     <script>
-        // Theme Management
+        // Theme Management - Updated to match membership code
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const htmlElement = document.documentElement;
         
-        // Check for saved theme preference or use system preference
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        // Set initial theme
-        if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        } else if (systemPrefersDark) {
-            htmlElement.setAttribute('data-theme', 'dark');
-            updateThemeIcon('dark');
-        }
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
         
         // Theme toggle functionality
         themeToggle.addEventListener('click', function() {
@@ -611,16 +660,7 @@
             
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
         });
-        
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20极-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
-            } else {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s极.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
-            }
-        }
         
         // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
@@ -628,7 +668,6 @@
             if (!localStorage.getItem('theme')) {
                 const newTheme = e.matches ? 'dark' : 'light';
                 htmlElement.setAttribute('data-theme', newTheme);
-                updateThemeIcon(newTheme);
             }
         });
 
