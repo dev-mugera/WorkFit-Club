@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>WorkFit STORES | Workout Equipment & Accessories</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
     
@@ -70,22 +70,14 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        html {
-            font-size: 14px;
-        }
-        
         body {
             background-color: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
-            font-size: 1rem;
+            font-size: 15px;
             -webkit-text-size-adjust: 100%;
             transition: background-color 0.3s ease, color 0.3s ease;
             padding-bottom: 4rem;
-            transform: scale(0.95);
-            transform-origin: top center;
-            width: 100%;
-            overflow-x: hidden;
         }
 
         /* Header & Navigation */
@@ -367,33 +359,30 @@
             border-color: var(--navy);
         }
         
-        /* Modern Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
         }
         
         .product-card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: var(--shadow-sm);
             overflow: hidden;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
             height: 100%;
-            position: relative;
-            border: 1px solid var(--border-color);
         }
         
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
         
         .product-image-container {
-            height: 240px;
+            height: 220px;
             overflow: hidden;
             position: relative;
             cursor: pointer;
@@ -412,7 +401,7 @@
         .product-image-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.5s ease;
         }
         
@@ -434,7 +423,7 @@
         }
         
         .product-content {
-            padding: 1.5rem;
+            padding: 1.2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -443,15 +432,15 @@
         .product-title {
             color: var(--text-primary);
             margin: 0 0 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 600;
             line-height: 1.4;
         }
         
         .product-price {
             font-weight: 700;
             color: var(--navy);
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
         
@@ -477,12 +466,12 @@
             margin-top: auto;
         }
         
-        /* Modern button style for View Details */
-        .view-details-btn {
+        /* Updated button style for Add To Cart */
+        .add-to-cart-btn {
             background: var(--navy);
             color: var(--white);
             border: none;
-            padding: 0.8rem 1.2rem;
+            padding: 0.7rem 1rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -490,12 +479,12 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             width: 100%;
             justify-content: center;
         }
         
-        .view-details-btn:hover {
+        .add-to-cart-btn:hover {
             background: var(--navy-light);
             transform: translateY(-2px);
         }
@@ -541,173 +530,7 @@
             font-weight: 600;
         }
         
-        /* Product Detail Modal */
-        .product-detail-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            padding: 1rem;
-        }
-        
-        .product-detail-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .product-detail-form {
-            background: var(--white);
-            border-radius: 16px;
-            box-shadow: var(--shadow-lg);
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
-            overflow-y: auto;
-            transform: translateY(20px);
-            transition: transform 0.2s ease-out;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-detail-modal.active .product-detail-form {
-            transform: translateY(0);
-        }
-        
-        .product-detail-header {
-            padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--navy);
-            color: var(--white);
-            border-radius: 16px 16px 0 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            flex-shrink: 0;
-        }
-        
-        .product-detail-header h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        
-        .product-detail-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--white);
-            transition: var(--transition);
-        }
-        
-        .product-detail-close:hover {
-            transform: rotate(90deg);
-        }
-        
-        .product-detail-content {
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-        }
-        
-        @media (min-width: 768px) {
-            .product-detail-content {
-                flex-direction: row;
-            }
-        }
-        
-        .product-detail-images {
-            flex: 1;
-            position: relative;
-            min-height: 300px;
-        }
-        
-        .product-detail-images .swiper {
-            height: 100%;
-        }
-        
-        .product-detail-images .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .product-detail-images img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .product-detail-info {
-            flex: 1;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-detail-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        
-        .product-detail-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--navy);
-            margin-bottom: 1rem;
-        }
-        
-        .product-detail-description {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-        
-        .product-detail-features {
-            margin-bottom: 1.5rem;
-        }
-        
-        .product-detail-features h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        
-        .product-detail-features ul {
-            padding-left: 1.2rem;
-        }
-        
-        .product-detail-features li {
-            margin-bottom: 0.3rem;
-            color: var(--text-secondary);
-        }
-        
-        .product-detail-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 1.5rem;
-            border-top: 1px solid var(--border-color);
-            position: sticky;
-            bottom: 0;
-            background: var(--white);
-        }
-        
-        /* Cart Modal */
+        /* Cart Modal - Updated to match customization modal style */
         .cart-modal {
             position: fixed;
             top: 0;
@@ -1234,18 +1057,15 @@
             transform: translateY(-2px);
         }
         
-        /* Messages - Updated for better visibility */
+        /* Messages */
         .message {
-            padding: 1.2rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            font-size: 0.95rem;
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            z-index: 5;
+            gap: 0.6rem;
+            font-size: 0.9rem;
         }
         
         .success-message {
@@ -1263,7 +1083,7 @@
         }
         
         .message-icon {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
         
         /* Loading State */
@@ -1401,23 +1221,6 @@
             background: var(--white);
         }
         
-        /* Loading state for customization modal */
-        .customization-loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .customization-loading .loading {
-            width: 30px;
-            height: 30px;
-            border-width: 3px;
-            margin-bottom: 1rem;
-        }
-        
         /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
@@ -1428,9 +1231,8 @@
             box-shadow: 0 -2px 10px var(--shadow-color);
             display: flex;
             justify-content: space-around;
-            padding: 0.6rem 0;
+            padding: 0.4rem 0;
             z-index: 1000;
-            transform: scale(1);
         }
         
         .bottom-nav-item {
@@ -1439,8 +1241,8 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-secondary);
-            font-size: 0.75rem;
-            padding: 0.3rem;
+            font-size: 0.65rem;
+            padding: 0.2rem;
             transition: color 0.3s;
             flex: 1;
             max-width: 25%;
@@ -1451,8 +1253,8 @@
         }
         
         .bottom-nav-icon {
-            font-size: 1.3rem;
-            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.1rem;
         }
         
         .bottom-nav-label {
@@ -1479,7 +1281,7 @@
             }
             
             .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
                 gap: 1rem;
             }
             
@@ -1503,7 +1305,7 @@
                 gap: 0;
             }
             
-            .cart-form, .order-form, .customization-form, .product-detail-form {
+            .cart-form, .order-form, .customization-form {
                 margin: 0.5rem;
                 max-height: 80vh;
             }
@@ -1701,7 +1503,7 @@
         <span class="cart-count" id="cartCount">0</span>
     </button>
     
-    <!-- Cart Modal -->
+    <!-- Cart Modal - Updated to match customization modal style -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-form">
             <div class="cart-header">
@@ -1749,48 +1551,6 @@
             </div>
         </div>
     </section>
-    
-    <!-- Product Detail Modal -->
-    <div class="product-detail-modal" id="productDetailModal">
-        <div class="product-detail-form">
-            <div class="product-detail-header">
-                <h3 id="productDetailTitle">Product Details</h3>
-                <button class="product-detail-close" id="closeProductDetail">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="product-detail-content">
-                <div class="product-detail-images">
-                    <div class="swiper productDetailSwiper">
-                        <div class="swiper-wrapper" id="productDetailImages">
-                            <!-- Images will be added dynamically -->
-                        </div>
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
-                <div class="product-detail-info">
-                    <h2 class="product-detail-title" id="productDetailName">Product Name</h2>
-                    <div class="product-detail-price" id="productDetailPrice">KSh 0.00</div>
-                    <div class="product-detail-description" id="productDetailDescription">
-                        Product description will appear here.
-                    </div>
-                    <div class="product-detail-features">
-                        <h4>Features</h4>
-                        <ul id="productDetailFeatures">
-                            <!-- Features will be added dynamically -->
-                        </ul>
-                    </div>
-                    <div class="product-detail-footer">
-                        <button class="view-details-btn" id="addToCartFromDetail">
-                            <i class="fas fa-shopping-cart"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <!-- Image Modal -->
     <div class="image-modal" id="imageModal">
@@ -1896,15 +1656,35 @@
                 </button>
             </div>
             
-            <div class="customization-content" id="customizationContent">
-                <div class="customization-loading" id="customizationLoading">
-                    <div class="loading" style="border-top-color: var(--navy);"></div>
-                    <p>Loading product details...</p>
+            <div class="customization-content">
+                <div class="option-group">
+                    <span class="option-title">Quantity</span>
+                    <input type="number" id="customQuantity" value="1" min="1" class="form-control" style="max-width: 100px;">
                 </div>
-                <!-- Customization options will be added dynamically -->
+                
+                <div id="colorOptions" class="option-group">
+                    <span class="option-title">Color</span>
+                    <div class="option-items" id="colorOptionsContainer">
+                        <!-- Color options will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div id="materialOptions" class="option-group">
+                    <span class="option-title">Material</span>
+                    <div class="option-items" id="materialOptionsContainer">
+                        <!-- Material options will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div id="typeOptions" class="option-group">
+                    <span class="option-title">Type</span>
+                    <div class="option-items" id="typeOptionsContainer">
+                        <!-- Type options will be added dynamically -->
+                    </div>
+                </div>
             </div>
             
-            <div class="customization-footer" id="customizationFooter" style="display: none;">
+            <div class="customization-footer">
                 <div>
                     <strong id="customizationProductPrice">KSh 0.00</strong>
                 </div>
@@ -2039,7 +1819,6 @@
             
             // Initialize image modal swiper (will be reinitialized when opened)
             let imageModalSwiper = null;
-            let productDetailSwiper = null;
             
             // Your deployed web app URL
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbwBBTtXJf9TEW2e5MrjBHhXyo1c67bHwA-wlZ6TlNj4iYW4hZkqJHWzmWqHuRqUm6OLIQ/exec';
@@ -2047,12 +1826,10 @@
             const imageModal = document.getElementById('imageModal');
             const cartModal = document.getElementById('cartModal');
             const customizationModal = document.getElementById('customizationModal');
-            const productDetailModal = document.getElementById('productDetailModal');
             const closeModalBtn = document.getElementById('closeModal');
             const closeImageModalBtn = document.getElementById('closeImageModal');
             const closeCartBtn = document.getElementById('closeCart');
             const closeCustomizationModalBtn = document.getElementById('closeCustomizationModal');
-            const closeProductDetailBtn = document.getElementById('closeProductDetail');
             const cartBtn = document.getElementById('cartBtn');
             const cartCount = document.getElementById('cartCount');
             const cartContent = document.getElementById('cartContent');
@@ -2071,23 +1848,15 @@
             const addToCartCustomBtn = document.getElementById('addToCartCustomBtn');
             const customizationProductName = document.getElementById('customizationProductName');
             const customizationProductPrice = document.getElementById('customizationProductPrice');
-            const customizationContent = document.getElementById('customizationContent');
-            const customizationLoading = document.getElementById('customizationLoading');
-            const customizationFooter = document.getElementById('customizationFooter');
-            const addToCartFromDetail = document.getElementById('addToCartFromDetail');
-            
-            // Product Detail Modal Elements
-            const productDetailTitle = document.getElementById('productDetailTitle');
-            const productDetailName = document.getElementById('productDetailName');
-            const productDetailPrice = document.getElementById('productDetailPrice');
-            const productDetailDescription = document.getElementById('productDetailDescription');
-            const productDetailFeatures = document.getElementById('productDetailFeatures');
-            const productDetailImages = document.getElementById('productDetailImages');
+            const colorOptionsContainer = document.getElementById('colorOptionsContainer');
+            const materialOptionsContainer = document.getElementById('materialOptionsContainer');
+            const typeOptionsContainer = document.getElementById('typeOptionsContainer');
+            const customQuantity = document.getElementById('customQuantity');
             
             // Cart items storage
             let cartItems = JSON.parse(localStorage.getItem('workfit_cart')) || [];
             
-            // Current product being viewed/customized
+            // Current product being customized
             let currentProduct = null;
             
             // Sample product images with multiple images per product
@@ -2112,74 +1881,10 @@
                 ]
             };
             
-            // Sample product descriptions and features
-            const productDetails = {
-                'RN-T001': {
-                    name: 'WorkFit Training Tee',
-                    description: 'High-performance training t-shirt made from breathable, moisture-wicking fabric. Perfect for intense workouts and everyday wear.',
-                    features: [
-                        'Moisture-wicking fabric',
-                        'Breathable and lightweight',
-                        'Durable construction',
-                        'Available in multiple colors'
-                    ]
-                },
-                'RN-T002': {
-                    name: 'WorkFit Performance Tee',
-                    description: 'Premium performance t-shirt designed for maximum comfort during workouts. Features advanced fabric technology for optimal performance.',
-                    features: [
-                        'Advanced moisture management',
-                        '4-way stretch fabric',
-                        'Odor-resistant technology',
-                        'Tagless design for comfort'
-                    ]
-                },
-                'RN-T003': {
-                    name: 'WorkFit Gym Shorts',
-                    description: 'Comfortable and flexible gym shorts with moisture-wicking properties. Perfect for all types of workouts.',
-                    features: [
-                        'Flexible 4-way stretch',
-                        'Moisture-wicking fabric',
-                        'Elastic waistband with drawstring',
-                        'Multiple pockets for storage'
-                    ]
-                },
-                'WHS-H001': {
-                    name: 'WorkFit Running Shoes',
-                    description: 'Lightweight running shoes with superior cushioning and support. Designed for comfort during long runs and intense training sessions.',
-                    features: [
-                        'Advanced cushioning system',
-                        'Breathable mesh upper',
-                        'Durable rubber outsole',
-                        'Supportive midsole'
-                    ]
-                },
-                'ACR-A001': {
-                    name: 'WorkFit Sports Bottle',
-                    description: 'Durable and leak-proof sports bottle perfect for hydration during workouts. BPA-free and easy to clean.',
-                    features: [
-                        'Leak-proof design',
-                        'BPA-free material',
-                        'Easy-to-carry handle',
-                        'Large 1L capacity'
-                    ]
-                },
-                'ELC-001': {
-                    name: 'WorkFit Resistance Bands',
-                    description: 'Set of 5 resistance bands with varying resistance levels. Perfect for strength training, physical therapy, and mobility work.',
-                    features: [
-                        '5 different resistance levels',
-                        'Comes with carrying bag',
-                        'Latex-free material',
-                        'Includes exercise guide'
-                    ]
-                }
-            };
-            
             // Initialize cart
             updateCartUI();
             
-            // Cart functionality
+            // Cart functionality - Updated to match customization modal style
             cartBtn.addEventListener('click', function() {
                 cartModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2226,12 +1931,6 @@
                 }
             });
             
-            productDetailModal.addEventListener('click', function(e) {
-                if (e.target === productDetailModal || e.target === closeProductDetailBtn || e.target.closest('.product-detail-close')) {
-                    closeProductDetailModal();
-                }
-            });
-            
             function closeModal() {
                 modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -2247,11 +1946,6 @@
                 document.body.style.overflow = 'auto';
             }
             
-            function closeProductDetailModal() {
-                productDetailModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-            
             function openModal() {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2261,11 +1955,6 @@
             
             function openCustomizationModal() {
                 customizationModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function openProductDetailModal() {
-                productDetailModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
             
@@ -2285,7 +1974,7 @@
                             </div>
                             <div class="order-item-details">
                                 <h4 class="order-item-title">${item.name}</h4>
-                                <div class="order-item-price">KSh ${item.basePrice} × ${item.quantity} = KSh ${itemTotal.toFixed(2)}</div>
+                                <div class="order-item-price">KSh ${item.basePrice} � ${item.quantity} = KSh ${itemTotal.toFixed(2)}</div>
                                 <div class="order-item-options">
                                     ${item.selectedColor ? `<span>Color: ${item.selectedColor}</span>` : ''}
                                     ${item.selectedMaterial ? `<span>Material: ${item.selectedMaterial}</span>` : ''}
@@ -2341,68 +2030,6 @@
                 
                 imageModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            }
-            
-            function openProductDetail(product) {
-                currentProduct = product;
-                
-                // Update product details
-                productDetailTitle.textContent = product.name;
-                productDetailName.textContent = product.name;
-                productDetailPrice.textContent = `KSh ${product.basePrice}`;
-                
-                // Set description and features
-                if (productDetails[product.id]) {
-                    productDetailDescription.textContent = productDetails[product.id].description;
-                    
-                    // Clear and add features
-                    productDetailFeatures.innerHTML = '';
-                    productDetails[product.id].features.forEach(feature => {
-                        const li = document.createElement('li');
-                        li.textContent = feature;
-                        productDetailFeatures.appendChild(li);
-                    });
-                } else {
-                    productDetailDescription.textContent = product.description || 'No description available.';
-                    productDetailFeatures.innerHTML = '<li>No features listed.</li>';
-                }
-                
-                // Set images
-                productDetailImages.innerHTML = '';
-                if (productImages[product.id]) {
-                    productImages[product.id].forEach((imgSrc, index) => {
-                        productDetailImages.innerHTML += `
-                            <div class="swiper-slide">
-                                <img src="${imgSrc}" alt="${product.name} ${index + 1}">
-                            </div>
-                        `;
-                    });
-                } else {
-                    productDetailImages.innerHTML = `
-                        <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="${product.name}">
-                        </div>
-                    `;
-                }
-                
-                // Initialize or reinitialize the swiper
-                if (productDetailSwiper) {
-                    productDetailSwiper.destroy();
-                }
-                
-                productDetailSwiper = new Swiper('.productDetailSwiper', {
-                    loop: true,
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                });
-                
-                openProductDetailModal();
             }
             
             // Category filter functionality
@@ -2755,7 +2382,7 @@
                             `;
                         }
                         
-                        // Updated button text to "View Details"
+                        // Updated button text to "Add To Cart"
                         productCard.innerHTML = imageSliderHTML + `
                             <div class="product-content">
                                 <h3 class="product-title">${product.name}</h3>
@@ -2765,8 +2392,8 @@
                                     ${product.availableColors ? `<span><i class="fas fa-palette"></i> ${product.availableColors.split(',').length} colors</span>` : ''}
                                 </div>
                                 <div class="product-footer">
-                                    <button class="view-details-btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.basePrice}" data-product-desc="${product.description}">
-                                        <i class="fas fa-info-circle"></i> View Details
+                                    <button class="add-to-cart-btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.basePrice}" data-product-desc="${product.description}">
+                                        <i class="fas fa-shopping-cart"></i> Add To Cart
                                     </button>
                                 </div>
                             </div>
@@ -2791,16 +2418,16 @@
                         });
                     });
                     
-                    // Add event listeners to View Details buttons
-                    document.querySelectorAll('.view-details-btn').forEach(button => {
+                    // Add event listeners to Add To Cart buttons
+                    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
                         button.addEventListener('click', function() {
                             const productId = this.getAttribute('data-product-id');
                             const productName = this.getAttribute('data-product-name');
                             const productPrice = this.getAttribute('data-product-price');
                             const productDesc = this.getAttribute('data-product-desc');
                             
-                            // Open product detail modal
-                            openProductDetail({
+                            // Show customization options in a modal
+                            showCustomizationModal({
                                 id: productId,
                                 name: productName,
                                 basePrice: productPrice,
@@ -2815,15 +2442,6 @@
                 }
             }
             
-            // Add to cart from product detail modal
-            addToCartFromDetail.addEventListener('click', function() {
-                if (!currentProduct) return;
-                
-                // Show customization options in a modal
-                showCustomizationModal(currentProduct);
-                closeProductDetailModal();
-            });
-            
             function showCustomizationModal(product) {
                 currentProduct = product;
                 
@@ -2831,17 +2449,24 @@
                 customizationProductName.textContent = product.name;
                 customizationProductPrice.textContent = `KSh ${product.basePrice}`;
                 
-                // Show loading state
-                customizationLoading.style.display = 'flex';
-                customizationFooter.style.display = 'none';
-                customizationContent.innerHTML = '';
-                customizationContent.appendChild(customizationLoading);
+                // Clear previous options
+                colorOptionsContainer.innerHTML = '';
+                materialOptionsContainer.innerHTML = '';
+                typeOptionsContainer.innerHTML = '';
                 
-                // Open the modal
-                openCustomizationModal();
+                // Reset quantity
+                customQuantity.value = 1;
+                
+                // Hide option groups initially
+                document.getElementById('colorOptions').style.display = 'none';
+                document.getElementById('materialOptions').style.display = 'none';
+                document.getElementById('typeOptions').style.display = 'none';
                 
                 // Load product details to get customization options
                 loadCustomizationOptions(product.id);
+                
+                // Open the modal
+                openCustomizationModal();
             }
             
             async function loadCustomizationOptions(productId) {
@@ -2858,33 +2483,13 @@
                         throw new Error(product.message || 'Failed to load product details');
                     }
                     
-                    // Hide loading state and show options
-                    customizationLoading.style.display = 'none';
-                    customizationFooter.style.display = 'flex';
-                    
-                    // Create options HTML
-                    let optionsHTML = '';
-                    
-                    // Add quantity option
-                    optionsHTML += `
-                        <div class="option-group">
-                            <span class="option-title">Quantity</span>
-                            <input type="number" id="customQuantity" value="1" min="1" class="form-control" style="max-width: 100px;">
-                        </div>
-                    `;
-                    
                     // Add color options
                     if (product.availableColors) {
-                        optionsHTML += `
-                            <div id="colorOptions" class="option-group">
-                                <span class="option-title">Color</span>
-                                <div class="option-items" id="colorOptionsContainer">
-                        `;
-                        
+                        document.getElementById('colorOptions').style.display = 'block';
                         const colors = product.availableColors.split(',');
                         colors.forEach(color => {
                             const trimmedColor = color.trim();
-                            optionsHTML += `
+                            colorOptionsContainer.innerHTML += `
                                 <div class="option-item color-option">
                                     <input type="radio" id="color-${trimmedColor}" name="selectedColor" value="${trimmedColor}" required>
                                     <label for="color-${trimmedColor}" style="background-color: ${getColorCode(trimmedColor)};" title="${trimmedColor}"></label>
@@ -2892,31 +2497,19 @@
                             `;
                         });
                         
-                        optionsHTML += `
-                                </div>
-                            </div>
-                        `;
-                        
                         // Select first color by default
-                        setTimeout(() => {
-                            if (colors.length > 0) {
-                                document.getElementById(`color-${colors[0].trim()}`).checked = true;
-                            }
-                        }, 100);
+                        if (colors.length > 0) {
+                            document.getElementById(`color-${colors[0].trim()}`).checked = true;
+                        }
                     }
                     
                     // Add material options
                     if (product.availableMaterials) {
-                        optionsHTML += `
-                            <div id="materialOptions" class="option-group">
-                                <span class="option-title">Material</span>
-                                <div class="option-items" id="materialOptionsContainer">
-                        `;
-                        
+                        document.getElementById('materialOptions').style.display = 'block';
                         const materials = product.availableMaterials.split(',');
                         materials.forEach(material => {
                             const trimmedMaterial = material.trim();
-                            optionsHTML += `
+                            materialOptionsContainer.innerHTML += `
                                 <div class="option-item">
                                     <input type="radio" id="material-${trimmedMaterial}" name="selectedMaterial" value="${trimmedMaterial}" required>
                                     <label for="material-${trimmedMaterial}">${trimmedMaterial}</label>
@@ -2924,31 +2517,19 @@
                             `;
                         });
                         
-                        optionsHTML += `
-                                </div>
-                            </div>
-                        `;
-                        
                         // Select first material by default
-                        setTimeout(() => {
-                            if (materials.length > 0) {
-                                document.getElementById(`material-${materials[0].trim()}`).checked = true;
-                            }
-                        }, 100);
+                        if (materials.length > 0) {
+                            document.getElementById(`material-${materials[0].trim()}`).checked = true;
+                        }
                     }
                     
                     // Add type options
                     if (product.availableTypes) {
-                        optionsHTML += `
-                            <div id="typeOptions" class="option-group">
-                                <span class="option-title">Type</span>
-                                <div class="option-items" id="typeOptionsContainer">
-                        `;
-                        
+                        document.getElementById('typeOptions').style.display = 'block';
                         const types = product.availableTypes.split(',');
                         types.forEach(type => {
                             const trimmedType = type.trim();
-                            optionsHTML += `
+                            typeOptionsContainer.innerHTML += `
                                 <div class="option-item">
                                     <input type="radio" id="type-${trimmedType}" name="selectedType" value="${trimmedType}" required>
                                     <label for="type-${trimmedType}">${trimmedType}</label>
@@ -2956,45 +2537,26 @@
                             `;
                         });
                         
-                        optionsHTML += `
-                                </div>
-                            </div>
-                        `;
-                        
                         // Select first type by default
-                        setTimeout(() => {
-                            if (types.length > 0) {
-                                document.getElementById(`type-${types[0].trim()}`).checked = true;
-                            }
-                        }, 100);
+                        if (types.length > 0) {
+                            document.getElementById(`type-${types[0].trim()}`).checked = true;
+                        }
                     }
-                    
-                    customizationContent.innerHTML = optionsHTML;
                     
                 } catch (error) {
                     console.error('Error loading customization options:', error);
                     // If options fail to load, still allow adding to cart with default values
-                    customizationContent.innerHTML = `
-                        <div class="option-group">
-                            <span class="option-title">Quantity</span>
-                            <input type="number" id="customQuantity" value="1" min="1" class="form-control" style="max-width: 100px;">
-                        </div>
-                        <div class="option-group">
-                            <p>Error loading options. Please try again.</p>
-                        </div>
-                    `;
-                    customizationLoading.style.display = 'none';
-                    customizationFooter.style.display = 'flex';
+                    document.getElementById('colorOptions').innerHTML = '<p>Error loading options. Please try again.</p>';
                 }
             }
             
-            // Add to cart from customization modal - FIXED
+            // Add to cart from customization modal
             addToCartCustomBtn.addEventListener('click', function() {
                 if (!currentProduct) return;
                 
                 // Get selected options
                 const selectedOptions = {
-                    quantity: parseInt(document.getElementById('customQuantity').value) || 1,
+                    quantity: parseInt(customQuantity.value) || 1,
                     color: document.querySelector('input[name="selectedColor"]:checked')?.value || 'Default',
                     material: document.querySelector('input[name="selectedMaterial"]:checked')?.value || 'Default',
                     type: document.querySelector('input[name="selectedType"]:checked')?.value || 'Default'
@@ -3077,10 +2639,6 @@
                     localStorage.removeItem('workfit_cart');
                     updateCartUI();
                     
-                    // Scroll to show the success message
-                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    
-                    // Close modal after 3 seconds
                     setTimeout(() => {
                         closeModal();
                         successMessage.style.display = 'none';
@@ -3089,7 +2647,7 @@
                 } catch (error) {
                     errorText.textContent = 'Failed to submit order. Please try again.';
                     errorMessage.style.display = 'flex';
-                    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } finally {
                     submitOrderBtn.disabled = false;
                     submitOrderBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Complete Order';
