@@ -430,12 +430,17 @@
       position: relative;
       width: 100%;
       background: #000;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
     }
 
-    .video-player {
+    .youtube-video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
-      display: block;
+      height: 100%;
+      border: none;
     }
 
     .video-controls {
@@ -448,6 +453,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 2;
     }
 
     .video-title {
@@ -973,7 +979,7 @@
     <!-- Event Post -->
     <div class="post" data-post-id="1">
       <div class="post-header">
-        <img src="https://i.postimg.cc/sDgK4tXV/20250912-1145-Fitness-Enthusiast-Jumping-simple-compose-01k4yhh3gzensvgyqfyf80wrf3.png" alt="WorkFit Events" class="post-avatar">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Events" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Events</div>
           <div class="post-time">Nov 1, 2025 · Nairobi Jaffery's Sports Club</div>
@@ -1014,7 +1020,7 @@
       <div class="post-header">
         <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Trainer Sarah" class="post-avatar">
         <div class="post-user-info">
-          <div class="post-username">Sarah Johnson · Certified Trainer</div>
+          <div class="post-username">Sarah Johnson · Trainer</div>
           <div class="post-time">2 hours ago · 2.4K views</div>
         </div>
         <button class="post-more">
@@ -1022,11 +1028,15 @@
         </button>
       </div>
       <div class="video-container">
-        <video class="video-player" loop muted playsinline poster="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-doing-squats-with-a-barbell-39855-large.mp4" type="video/mp4">
-        </video>
+        <iframe 
+          class="youtube-video"
+          src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
         <div class="video-controls">
-          <h4 class="video-title">15-Minute HIIT Full Body</h4>
+          <h4 class="video-title">15-Minute Full Body HIIT Workout</h4>
           <button class="play-btn">
             <i class="fas fa-play"></i>
           </button>
@@ -1059,10 +1069,10 @@
     <!-- November Challenge Post -->
     <div class="post" data-post-id="3">
       <div class="post-header">
-        <img src="https://i.postimg.cc/sDgK4tXV/20250912-1145-Fitness-Enthusiast-Jumping-simple-compose-01k4yhh3gzensvgyqfyf80wrf3.png" alt="WorkFit Challenges" class="post-avatar">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Challenges" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Challenges</div>
-          <div class="post-time">Just now · 128 members joined</div>
+          <div class="post-time">Starting Nov 1 · <span id="challengeParticipants">20</span> members joined</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1076,12 +1086,12 @@
         <div class="progress-container">
           <div class="progress-header">
             <span>Challenge Progress</span>
-            <span>42%</span>
+            <span id="readingChallengeProgress">0%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: 42%"></div>
+            <div class="progress-fill" id="readingChallengeFill" style="width: 0%"></div>
           </div>
-          <p>128 of 300 spots filled</p>
+          <p id="readingChallengeText">Challenge starts November 1st!</p>
         </div>
 
         <div class="post-tags">
@@ -1112,7 +1122,7 @@
         <img src="https://i.postimg.cc/Jhs3Xybh/Whats-App-Image-2022-10-10-at-12-33-57.jpg" alt="Nutrition Expert" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">Moses Mugera · Trainer</div>
-          <div class="post-time">5 hours ago · 356 participants</div>
+          <div class="post-time">Starting Nov 1 · <span id="sugarChallengeParticipants">356</span> participants</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1126,13 +1136,13 @@
         
         <div class="progress-container">
           <div class="progress-header">
-            <span>Community Progress</span>
-            <span>65%</span>
+            <span>Challenge Progress</span>
+            <span id="sugarChallengeProgress">0%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: 65%"></div>
+            <div class="progress-fill" id="sugarChallengeFill" style="width: 0%"></div>
           </div>
-          <p>356 participants tracking their progress</p>
+          <p id="sugarChallengeText">Challenge starts November 1st!</p>
         </div>
 
         <div class="post-tags">
@@ -1406,6 +1416,84 @@ function initializeHeroCarousel() {
   }
 }
 
+// November Challenge Progress Logic
+function initializeNovemberChallenges() {
+  const now = new Date();
+  const novemberStart = new Date(now.getFullYear(), 10, 1); // November 1st (month is 0-indexed)
+  const novemberEnd = new Date(now.getFullYear(), 10, 30); // November 30th
+  
+  // Check if we're in November
+  if (now >= novemberStart && now <= novemberEnd) {
+    // Calculate progress based on current day of November
+    const currentDay = now.getDate();
+    const progressPercentage = Math.min(Math.round((currentDay / 30) * 100), 100);
+    
+    // Update 5AM Club Reading Challenge
+    const readingProgress = document.getElementById('readingChallengeProgress');
+    const readingFill = document.getElementById('readingChallengeFill');
+    const readingText = document.getElementById('readingChallengeText');
+    
+    if (readingProgress && readingFill && readingText) {
+      readingProgress.textContent = `${progressPercentage}%`;
+      readingFill.style.width = `${progressPercentage}%`;
+      readingText.textContent = `Day ${currentDay} of 30 - Keep going!`;
+    }
+    
+    // Update No Sugar November Challenge
+    const sugarProgress = document.getElementById('sugarChallengeProgress');
+    const sugarFill = document.getElementById('sugarChallengeFill');
+    const sugarText = document.getElementById('sugarChallengeText');
+    
+    if (sugarProgress && sugarFill && sugarText) {
+      sugarProgress.textContent = `${progressPercentage}%`;
+      sugarFill.style.width = `${progressPercentage}%`;
+      sugarText.textContent = `Day ${currentDay} of 30 - Stay strong!`;
+    }
+    
+    // Update participant counts (simulate growth)
+    const challengeParticipants = document.getElementById('challengeParticipants');
+    const sugarChallengeParticipants = document.getElementById('sugarChallengeParticipants');
+    
+    if (challengeParticipants) {
+      const baseParticipants = 128;
+      const growth = Math.floor(currentDay * 2.5);
+      challengeParticipants.textContent = (baseParticipants + growth).toLocaleString();
+    }
+    
+    if (sugarChallengeParticipants) {
+      const baseParticipants = 356;
+      const growth = Math.floor(currentDay * 3.2);
+      sugarChallengeParticipants.textContent = (baseParticipants + growth).toLocaleString();
+    }
+  } else if (now < novemberStart) {
+    // Before November - show countdown
+    const daysUntilNovember = Math.ceil((novemberStart - now) / (1000 * 60 * 60 * 24));
+    
+    const readingText = document.getElementById('readingChallengeText');
+    const sugarText = document.getElementById('sugarChallengeText');
+    
+    if (readingText) {
+      readingText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
+    }
+    
+    if (sugarText) {
+      sugarText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
+    }
+  } else {
+    // After November - show completion
+    const readingText = document.getElementById('readingChallengeText');
+    const sugarText = document.getElementById('sugarChallengeText');
+    
+    if (readingText) {
+      readingText.textContent = 'Challenge completed! Stay tuned for December challenges.';
+    }
+    
+    if (sugarText) {
+      sugarText.textContent = 'Challenge completed! Stay tuned for December challenges.';
+    }
+  }
+}
+
 // Social Media Interactions
 function initializeSocialInteractions() {
   // Save/Bookmark functionality
@@ -1491,22 +1579,29 @@ function initializeSocialInteractions() {
     });
   });
   
-  // Video play buttons
+  // Video play buttons for YouTube videos
   const playButtons = document.querySelectorAll('.play-btn');
   
   playButtons.forEach(button => {
     button.addEventListener('click', function() {
       const videoContainer = this.closest('.video-container');
-      const videoPlayer = videoContainer.querySelector('.video-player');
+      const youtubeIframe = videoContainer.querySelector('.youtube-video');
       const icon = this.querySelector('i');
       
-      if (videoPlayer.paused) {
-        videoPlayer.play();
+      // Get current src
+      const currentSrc = youtubeIframe.src;
+      
+      if (currentSrc.includes('autoplay=0')) {
+        // Switch to autoplay version
+        const newSrc = currentSrc.replace('autoplay=0', 'autoplay=1');
+        youtubeIframe.src = newSrc;
         icon.classList.remove('fa-play');
         icon.classList.add('fa-pause');
         showNotification('Video playing...');
       } else {
-        videoPlayer.pause();
+        // Switch to paused version
+        const newSrc = currentSrc.replace('autoplay=1', 'autoplay=0');
+        youtubeIframe.src = newSrc;
         icon.classList.remove('fa-pause');
         icon.classList.add('fa-play');
         showNotification('Video paused');
@@ -1695,29 +1790,34 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
-// Auto-play videos on scroll
+// Auto-play YouTube videos on scroll
 function initializeVideoAutoPlay() {
   const videoPosts = document.querySelectorAll('.video-container');
   
   // Create Intersection Observer to detect when videos are in view
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      const video = entry.target.querySelector('.video-player');
+      const youtubeIframe = entry.target.querySelector('.youtube-video');
       const playButton = entry.target.querySelector('.play-btn i');
       
       if (entry.isIntersecting) {
-        // Video is in view - play it
-        video.play().then(() => {
+        // Video is in view - switch to autoplay version
+        const currentSrc = youtubeIframe.src;
+        if (currentSrc.includes('autoplay=0')) {
+          const newSrc = currentSrc.replace('autoplay=0', 'autoplay=1');
+          youtubeIframe.src = newSrc;
           playButton.classList.remove('fa-play');
           playButton.classList.add('fa-pause');
-        }).catch(error => {
-          console.log('Auto-play was prevented:', error);
-        });
+        }
       } else {
-        // Video is out of view - pause it
-        video.pause();
-        playButton.classList.remove('fa-pause');
-        playButton.classList.add('fa-play');
+        // Video is out of view - switch to paused version
+        const currentSrc = youtubeIframe.src;
+        if (currentSrc.includes('autoplay=1')) {
+          const newSrc = currentSrc.replace('autoplay=1', 'autoplay=0');
+          youtubeIframe.src = newSrc;
+          playButton.classList.remove('fa-pause');
+          playButton.classList.add('fa-play');
+        }
       }
     });
   }, {
@@ -1747,6 +1847,7 @@ function initializeApp() {
   initializeTheme();
   initializeMobileMenu();
   initializeHeroCarousel();
+  initializeNovemberChallenges();
   initializeSocialInteractions();
   initializeBlogModal();
   initializeGoogleFormModal();
