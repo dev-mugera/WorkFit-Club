@@ -295,281 +295,138 @@
       transform: scale(1.2);
     }
 
-    /* Upcoming Events Section */
-    .events {
-      padding: 2rem 1rem;
-      max-width: 1200px;
+    /* Social Media Style Posts */
+    .social-feed {
+      max-width: 600px;
       margin: 0 auto;
+      padding: 1rem;
     }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: var(--navy);
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .events-carousel {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-
-    .events-track {
-      display: flex;
-      transition: transform 0.5s ease;
-      gap: 1rem;
-      padding: 0.5rem;
-    }
-
-    .event-slide {
-      flex: 0 0 calc(33.333% - 1rem);
-      min-width: 280px;
-    }
-
-    .event-card {
-      background: var(--card-bg);
+    .post {
+      background-color: var(--bg-primary);
       border-radius: 12px;
+      box-shadow: 0 2px 10px var(--shadow-color);
+      margin-bottom: 1.5rem;
       overflow: hidden;
-      box-shadow: 0 4px 6px var(--shadow-color);
       transition: transform 0.3s ease;
+    }
+
+    .post:hover {
+      transform: translateY(-3px);
+    }
+
+    .post-header {
       display: flex;
-      flex-direction: column;
-      height: 100%;
-      cursor: pointer;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
     }
 
-    .event-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .event-img-container {
-      height: 140px;
-      overflow: hidden;
-    }
-
-    .event-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .event-card:hover .event-img {
-      transform: scale(1.05);
-    }
-
-    .event-content {
-      padding: 1.2rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .event-date {
-      color: var(--gold);
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      font-size: 0.85rem;
-    }
-
-    .event-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--navy);
-      line-height: 1.3;
-    }
-
-    .event-location {
-      color: var(--gray);
-      font-size: 0.8rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .event-description {
-      margin-bottom: 1rem;
-      color: var(--text-secondary);
-      flex: 1;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .view-details-btn {
-      display: inline-block;
-      background: var(--navy);
-      color: var(--white);
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.3s;
-      align-self: flex-start;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      font-size: 0.85rem;
-    }
-
-    .view-details-btn:hover {
-      background: var(--navy-light);
-    }
-
-    .carousel-controls {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .carousel-btn {
-      background: var(--navy);
-      color: white;
-      border: none;
+    .post-avatar {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .carousel-btn:hover {
-      background: var(--navy-light);
-      transform: scale(1.1);
-    }
-
-    .carousel-btn:disabled {
-      background: var(--gray);
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Latest Blog Section */
-    .blogs {
-      background-color: var(--bg-primary);
-      padding: 2rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .blogs-carousel {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-
-    .blogs-track {
-      display: flex;
-      transition: transform 0.5s ease;
-      gap: 1rem;
-      padding: 0.5rem;
-    }
-
-    .blog-slide {
-      flex: 0 0 calc(33.333% - 1rem);
-      min-width: 280px;
-    }
-
-    .blog-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px var(--shadow-color);
-      transition: transform 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      cursor: pointer;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .blog-img-container {
-      height: 140px;
-      overflow: hidden;
-    }
-
-    .blog-img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      margin-right: 0.8rem;
     }
 
-    .blog-card:hover .blog-img {
-      transform: scale(1.05);
-    }
-
-    .blog-content {
-      padding: 1.2rem;
+    .post-user-info {
       flex: 1;
-      display: flex;
-      flex-direction: column;
     }
 
-    .blog-category {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      margin-bottom: 0.6rem;
+    .post-username {
       font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
     }
 
-    .blog-title {
-      font-size: 1.1rem;
+    .post-time {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .post-more {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--gray);
+      cursor: pointer;
+      padding: 0.2rem;
+    }
+
+    .post-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    .post-content {
+      padding: 1rem;
+    }
+
+    .post-title {
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
       color: var(--navy);
-      line-height: 1.3;
     }
 
-    .blog-date {
-      color: var(--gray);
-      font-size: 0.8rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .blog-excerpt {
-      margin-bottom: 1rem;
+    .post-text {
       color: var(--text-secondary);
-      flex: 1;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      margin-bottom: 1rem;
+      line-height: 1.5;
     }
 
-    .read-more-btn {
-      display: inline-block;
-      background: var(--navy);
-      color: var(--white);
-      padding: 0.6rem 1.2rem;
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-tag {
+      background-color: var(--navy-light);
+      color: white;
+      padding: 0.3rem 0.7rem;
       border-radius: 20px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.3s;
-      align-self: flex-start;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 500;
     }
 
-    .read-more-btn:hover {
-      background: var(--navy-light);
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .post-action {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .post-action:hover {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .post-action.liked {
+      color: var(--accent);
+    }
+
+    .post-action i {
+      font-size: 1.1rem;
+    }
+
+    .post-action-count {
+      font-size: 0.9rem;
     }
 
     /* Detail Modals */
@@ -738,99 +595,6 @@
       height: 100%;
     }
 
-    /* Testimonials Section */
-    .testimonials {
-      background-color: var(--bg-primary);
-      padding: 3rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .testimonials-container {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-    }
-
-    .testimonials-track {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-
-    .testimonial-slide {
-      flex: 0 0 100%;
-      padding: 0.8rem;
-      box-sizing: border-box;
-    }
-
-    .testimonial-card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      padding: 1.2rem;
-      box-shadow: 0 4px 6px var(--shadow-color);
-      text-align: center;
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .testimonial-quote {
-      font-size: 1.3rem;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-    }
-
-    .testimonial-text {
-      font-style: italic;
-      margin-bottom: 1.2rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-    }
-
-    .testimonial-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .testimonial-author-info h4 {
-      color: var(--navy);
-      margin-bottom: 0.2rem;
-    }
-
-    .testimonial-author-info p {
-      color: var(--gray);
-      font-size: 0.85rem;
-    }
-
-    .testimonial-indicators {
-      display: flex;
-      justify-content: center;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
-    }
-
-    .testimonial-indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: var(--border-color);
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .testimonial-indicator.active {
-      background-color: var(--navy);
-    }
-
     /* CTA Section */
     .cta {
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -911,16 +675,24 @@
         font-size: 1rem;
       }
 
-      .section-title {
-        font-size: 1.5rem;
+      .social-feed {
+        padding: 0.5rem;
       }
 
-      .testimonial-card {
-        padding: 1rem;
+      .post {
+        margin-bottom: 1rem;
       }
-      
-      .testimonial-text {
-        font-size: 0.85rem;
+
+      .post-header {
+        padding: 0.8rem;
+      }
+
+      .post-content {
+        padding: 0.8rem;
+      }
+
+      .post-actions {
+        padding: 0.5rem 0.8rem;
       }
 
       body {
@@ -936,27 +708,6 @@
         width: 100%;
         max-width: 250px;
         justify-content: center;
-      }
-
-      .event-slide,
-      .blog-slide {
-        flex: 0 0 calc(100% - 1rem);
-      }
-
-      .carousel-controls {
-        display: none;
-      }
-
-      .events-track,
-      .blogs-track {
-        overflow-x: auto;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
-
-      .events-track::-webkit-scrollbar,
-      .blogs-track::-webkit-scrollbar {
-        display: none;
       }
 
       .modal-actions {
@@ -1023,7 +774,7 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
             <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>
+            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
           </svg>
         </button>
       </div>
@@ -1107,139 +858,173 @@
     </div>
   </section>
 
-  <!-- Upcoming Events Section -->
-  <section class="events">
-    <h2 class="section-title">Upcoming Events</h2>
-    <div class="events-carousel">
-      <div class="events-track" id="eventsTrack">
-        <!-- Event 1 -->
-        <div class="event-slide">
-          <div class="event-card" data-event-id="1">
-            <div class="event-img-container">
-              <img src="https://i.postimg.cc/prGQXpbX/FUN-3.png" alt="WorkFit Fun Run" class="event-img">
-            </div>
-            <div class="event-content">
-              <p class="event-date">Nov 1, 2025</p>
-              <h3 class="event-title">WorkFit Fun Run</h3>
-              <p class="event-location">Nairobi Jaffery's SportsClub</p>
-              <p class="event-description">Join us for a scenic 10K fun run through the Nairobi Jaffery's Sports Club. Perfect for all fitness levels.</p>
-              <button class="view-details-btn" data-event-id="1">View Details</button>
-            </div>
-          </div>
+  <!-- Social Media Style Feed -->
+  <section class="social-feed">
+    <!-- Event Post -->
+    <div class="post" data-post-id="1">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="WorkFit" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Events</div>
+          <div class="post-time">Nov 1, 2025 · Nairobi Jaffery's Sports Club</div>
         </div>
-        
-        <!-- Event 2 - COMMENTED OUT -->
-        <!--
-        <div class="event-slide">
-          <div class="event-card" data-event-id="2">
-            <div class="event-img-container">
-              <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Tournament" class="event-img">
-            </div>
-            <div class="event-content">
-              <p class="event-date">Nov 22, 2025</p>
-              <h3 class="event-title">3x3 Basketball Tournament</h3>
-              <p class="event-location">Riruta Court</p>
-              <p class="event-description">Compete in our friendly 3x3 basketball tournament. All skill levels welcome. Prizes for winners and best team spirit!</p>
-              <button class="view-details-btn" data-event-id="2">View Details</button>
-            </div>
-          </div>
-        </div>
-        -->
-        
-        <!-- Event 3 - COMMENTED OUT -->
-        <!--
-        <div class="event-slide">
-          <div class="event-card" data-event-id="3">
-            <div class="event-img-container">
-              <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Challenge" class="event-img">
-            </div>
-            <div class="event-content">
-              <p class="event-date">Dec 05, 2025</p>
-              <h3 class="event-title">Cycling Challenge</h3>
-              <p class="event-location">Karura Forest</p>
-              <p class="event-description">Explore the beautiful trails of Karura Forest in our cycling challenge. Routes available for beginners and experienced cyclists.</p>
-              <button class="view-details-btn" data-event-id="3">View Details</button>
-            </div>
-          </div>
-        </div>
-        -->
-      </div>
-      <div class="carousel-controls">
-        <button class="carousel-btn" id="eventsPrevBtn" disabled>
-          <i class="fas fa-chevron-left"></i>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
         </button>
-        <button class="carousel-btn" id="eventsNextBtn">
-          <i class="fas fa-chevron-right"></i>
+      </div>
+      <img src="https://i.postimg.cc/prGQXpbX/FUN-3.png" alt="WorkFit Fun Run" class="post-image">
+      <div class="post-content">
+        <h3 class="post-title">WorkFit Fun Run</h3>
+        <p class="post-text">Join us for a scenic 10K fun run through the Nairobi Jaffery's Sports Club. Perfect for all fitness levels. Registration is now open!</p>
+        <div class="post-tags">
+          <span class="post-tag">#Running</span>
+          <span class="post-tag">#Fitness</span>
+          <span class="post-tag">#Community</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action like-btn" data-post-id="1">
+          <i class="far fa-heart"></i>
+          <span class="post-action-count">24</span>
+        </button>
+        <button class="post-action comment-btn" data-post-id="1">
+          <i class="far fa-comment"></i>
+          <span class="post-action-count">8</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="1">
+          <i class="far fa-share-square"></i>
+          <span class="post-action-count">5</span>
+        </button>
+        <button class="post-action register-btn" data-post-id="1">
+          <i class="fas fa-ticket-alt"></i>
+          <span>Register</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Blog Post 1 -->
+    <div class="post" data-post-id="2">
+      <div class="post-header">
+        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">Sarah Johnson</div>
+          <div class="post-time">October 12, 2025 · Nutrition Expert</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nutrition Tips" class="post-image">
+      <div class="post-content">
+        <h3 class="post-title">5 Nutrition Tips for Better Workouts</h3>
+        <p class="post-text">Discover how proper nutrition can enhance your workout performance and recovery. Learn about pre and post-workout meals that fuel your fitness journey.</p>
+        <div class="post-tags">
+          <span class="post-tag">#Nutrition</span>
+          <span class="post-tag">#Fitness</span>
+          <span class="post-tag">#Health</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action like-btn" data-post-id="2">
+          <i class="far fa-heart"></i>
+          <span class="post-action-count">42</span>
+        </button>
+        <button class="post-action comment-btn" data-post-id="2">
+          <i class="far fa-comment"></i>
+          <span class="post-action-count">15</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="2">
+          <i class="far fa-share-square"></i>
+          <span class="post-action-count">9</span>
+        </button>
+        <button class="post-action read-btn" data-post-id="2">
+          <i class="fas fa-book-open"></i>
+          <span>Read More</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Testimonial Post -->
+    <div class="post" data-post-id="3">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="Annita Kirwa" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">Annita Kirwa</div>
+          <div class="post-time">October 8, 2025 · Fitness Club Member</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="post-content">
+        <h3 class="post-title">My WorkFit Journey</h3>
+        <p class="post-text">"Every session reminds me that growth takes consistency, not perfection. I am getting stronger, disciplined and present - not just during the workout, but in every part of my life. Thank you WorkFit!"</p>
+        <div class="post-tags">
+          <span class="post-tag">#Testimonial</span>
+          <span class="post-tag">#FitnessJourney</span>
+          <span class="post-tag">#Community</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action like-btn" data-post-id="3">
+          <i class="far fa-heart"></i>
+          <span class="post-action-count">36</span>
+        </button>
+        <button class="post-action comment-btn" data-post-id="3">
+          <i class="far fa-comment"></i>
+          <span class="post-action-count">12</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="3">
+          <i class="far fa-share-square"></i>
+          <span class="post-action-count">7</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Blog Post 2 -->
+    <div class="post" data-post-id="4">
+      <div class="post-header">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="James Mwangi" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">James Mwangi</div>
+          <div class="post-time">October 5, 2025 · Basketball Coach</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Drills" class="post-image">
+      <div class="post-content">
+        <h3 class="post-title">Essential Drills to Improve Your Basketball Skills</h3>
+        <p class="post-text">Master these fundamental basketball drills to enhance your shooting, dribbling, and defensive skills. Perfect for players of all levels.</p>
+        <div class="post-tags">
+          <span class="post-tag">#Basketball</span>
+          <span class="post-tag">#Training</span>
+          <span class="post-tag">#Sports</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action like-btn" data-post-id="4">
+          <i class="far fa-heart"></i>
+          <span class="post-action-count">28</span>
+        </button>
+        <button class="post-action comment-btn" data-post-id="4">
+          <i class="far fa-comment"></i>
+          <span class="post-action-count">11</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="4">
+          <i class="far fa-share-square"></i>
+          <span class="post-action-count">6</span>
+        </button>
+        <button class="post-action read-btn" data-post-id="4">
+          <i class="fas fa-book-open"></i>
+          <span>Read More</span>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Latest Blog Section -->
-  <section class="blogs">
-    <h2 class="section-title">Latest From Our Blog</h2>
-    <div class="blogs-carousel">
-      <div class="blogs-track" id="blogsTrack">
-        <!-- Blog 1 -->
-        <div class="blog-slide">
-          <div class="blog-card" data-blog-id="1">
-            <div class="blog-img-container">
-              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nutrition Tips" class="blog-img">
-            </div>
-            <div class="blog-content">
-              <span class="blog-category">Nutrition</span>
-              <h3 class="blog-title">5 Nutrition Tips for Better Workouts</h3>
-              <p class="blog-date">October 12, 2025</p>
-              <p class="blog-excerpt">Discover how proper nutrition can enhance your workout performance and recovery. Learn about pre and post-workout meals that fuel your fitness journey.</p>
-              <button class="read-more-btn" data-blog-id="1">Read More</button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Blog 2 -->
-        <div class="blog-slide">
-          <div class="blog-card" data-blog-id="2">
-            <div class="blog-img-container">
-              <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Drills" class="blog-img">
-            </div>
-            <div class="blog-content">
-              <span class="blog-category">Basketball</span>
-              <h3 class="blog-title">Essential Drills to Improve Your Basketball Skills</h3>
-              <p class="blog-date">October 5, 2025</p>
-              <p class="blog-excerpt">Master these fundamental basketball drills to enhance your shooting, dribbling, and defensive skills. Perfect for players of all levels.</p>
-              <button class="read-more-btn" data-blog-id="2">Read More</button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Blog 3 -->
-        <div class="blog-slide">
-          <div class="blog-card" data-blog-id="3">
-            <div class="blog-img-container">
-              <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cycling Gear" class="blog-img">
-            </div>
-            <div class="blog-content">
-              <span class="blog-category">Cycling</span>
-              <h3 class="blog-title">Essential Cycling Gear for Beginners</h3>
-              <p class="blog-date">September 28, 2025</p>
-              <p class="blog-excerpt">Get started with cycling confidently with our guide to essential gear. From helmets to proper attire, we've got you covered for your first ride.</p>
-              <button class="read-more-btn" data-blog-id="3">Read More</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-controls">
-        <button class="carousel-btn" id="blogsPrevBtn" disabled>
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="carousel-btn" id="blogsNextBtn">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Event Detail Modals -->
+  <!-- Event Detail Modal -->
   <div class="modal" id="eventModal">
     <div class="modal-content">
       <button class="modal-close" id="eventModalClose">&times;</button>
@@ -1262,7 +1047,7 @@
     </div>
   </div>
 
-  <!-- Blog Detail Modals -->
+  <!-- Blog Detail Modal -->
   <div class="modal" id="blogModal">
     <div class="modal-content">
       <button class="modal-close" id="blogModalClose">&times;</button>
@@ -1295,71 +1080,6 @@
       <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
   </div>
-
-  <!-- Testimonials Section -->
-  <section class="testimonials" id="testimonials">
-    <h2 class="section-title">What Our Members Say</h2>
-    <div class="testimonials-container">
-      <div class="testimonials-track" id="testimonialsTrack">
-        <div class="testimonial-slide">
-          <div class="testimonial-card">
-            <div class="testimonial-quote">
-              <i class="fas fa-quote-left"></i>
-            </div>
-            <p class="testimonial-text">
-              "Every session reminds me that growth takes consistency, not perfection. I am getting stronger, discipline and present-not just during the workout, but in every part of my life. Thank you WorkFit!"
-            </p>
-            <div class="testimonial-author">
-              <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="Annita Kirwa" class="testimonial-avatar">
-              <div class="testimonial-author-info">
-                <h4>Annita Kirwa</h4>
-                <p>Fitness Club Member</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="testimonial-slide">
-          <div class="testimonial-card">
-            <div class="testimonial-quote">
-              <i class="fas fa-quote-left"></i>
-            </div>
-            <p class="testimonial-text">
-              "The basketball club helped me improve my skills while having fun. I've made great friends and found a healthy outlet for stress after work."
-            </p>
-            <div class="testimonial-author">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="James Mwangi" class="testimonial-avatar">
-              <div class="testimonial-author-info">
-                <h4>James Mwangi</h4>
-                <p>Basketball Club Member</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="testimonial-slide">
-          <div class="testimonial-card">
-            <div class="testimonial-quote">
-              <i class="fas fa-quote-left"></i>
-            </div>
-            <p class="testimonial-text">
-              "As a beginner cyclist, I was nervous about joining, but the cycling club welcomed me with open arms. The group rides are challenging but always enjoyable."
-            </p>
-            <div class="testimonial-author">
-              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson" class="testimonial-avatar">
-              <div class="testimonial-author-info">
-                <h4>Sarah Johnson</h4>
-                <p>Cycling Club Member</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-indicators" id="testimonialIndicators">
-        <!-- Indicators will be added by JavaScript -->
-      </div>
-    </div>
-  </section>
 
   <!-- CTA Section -->
   <section class="cta">
@@ -1539,106 +1259,80 @@ function initializeHeroCarousel() {
   }
 }
 
-// Events Carousel Functionality
-function initializeEventsCarousel() {
-  const eventsTrack = document.getElementById('eventsTrack');
-  const eventSlides = eventsTrack ? eventsTrack.querySelectorAll('.event-slide') : [];
-  const eventsPrevBtn = document.getElementById('eventsPrevBtn');
-  const eventsNextBtn = document.getElementById('eventsNextBtn');
+// Social Media Posts Functionality
+function initializeSocialPosts() {
+  const likeButtons = document.querySelectorAll('.like-btn');
+  const registerButtons = document.querySelectorAll('.register-btn');
+  const readButtons = document.querySelectorAll('.read-btn');
+  const shareButtons = document.querySelectorAll('.share-btn');
   
-  if (eventSlides.length > 0 && eventsTrack) {
-    let currentEvent = 0;
-    const slidesPerView = window.innerWidth < 768 ? 1 : 3;
-    const maxSlide = eventSlides.length - slidesPerView;
-    
-    function updateCarousel() {
-      eventsTrack.style.transform = `translateX(-${currentEvent * (100 / slidesPerView)}%)`;
+  // Like button functionality
+  likeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      const heartIcon = this.querySelector('i');
+      const countElement = this.querySelector('.post-action-count');
+      let count = parseInt(countElement.textContent);
       
-      // Update button states
-      eventsPrevBtn.disabled = currentEvent === 0;
-      eventsNextBtn.disabled = currentEvent >= maxSlide;
-    }
-    
-    function nextEvent() {
-      if (currentEvent < maxSlide) {
-        currentEvent++;
-        updateCarousel();
+      if (this.classList.contains('liked')) {
+        this.classList.remove('liked');
+        heartIcon.classList.remove('fas');
+        heartIcon.classList.add('far');
+        count--;
+      } else {
+        this.classList.add('liked');
+        heartIcon.classList.remove('far');
+        heartIcon.classList.add('fas');
+        count++;
       }
-    }
-    
-    function prevEvent() {
-      if (currentEvent > 0) {
-        currentEvent--;
-        updateCarousel();
-      }
-    }
-    
-    // Event listeners for buttons
-    if (eventsNextBtn) {
-      eventsNextBtn.addEventListener('click', nextEvent);
-    }
-    
-    if (eventsPrevBtn) {
-      eventsPrevBtn.addEventListener('click', prevEvent);
-    }
-    
-    // Initialize
-    updateCarousel();
-  }
-}
-
-// Blogs Carousel Functionality
-function initializeBlogsCarousel() {
-  const blogsTrack = document.getElementById('blogsTrack');
-  const blogSlides = blogsTrack ? blogsTrack.querySelectorAll('.blog-slide') : [];
-  const blogsPrevBtn = document.getElementById('blogsPrevBtn');
-  const blogsNextBtn = document.getElementById('blogsNextBtn');
+      
+      countElement.textContent = count;
+    });
+  });
   
-  if (blogSlides.length > 0 && blogsTrack) {
-    let currentBlog = 0;
-    const slidesPerView = window.innerWidth < 768 ? 1 : 3;
-    const maxSlide = blogSlides.length - slidesPerView;
-    
-    function updateCarousel() {
-      blogsTrack.style.transform = `translateX(-${currentBlog * (100 / slidesPerView)}%)`;
+  // Register button functionality
+  registerButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      openGoogleForm();
+    });
+  });
+  
+  // Read more button functionality
+  readButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      openBlogModal(postId);
+    });
+  });
+  
+  // Share button functionality
+  shareButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      const post = document.querySelector(`[data-post-id="${postId}"]`);
+      const title = post.querySelector('.post-title').textContent;
+      const text = `Check out this post from WorkFit: ${title}`;
+      const url = window.location.href;
       
-      // Update button states
-      blogsPrevBtn.disabled = currentBlog === 0;
-      blogsNextBtn.disabled = currentBlog >= maxSlide;
-    }
-    
-    function nextBlog() {
-      if (currentBlog < maxSlide) {
-        currentBlog++;
-        updateCarousel();
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: text,
+          url: url
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Post link copied to clipboard!');
+        });
       }
-    }
-    
-    function prevBlog() {
-      if (currentBlog > 0) {
-        currentBlog--;
-        updateCarousel();
-      }
-    }
-    
-    // Event listeners for buttons
-    if (blogsNextBtn) {
-      blogsNextBtn.addEventListener('click', nextBlog);
-    }
-    
-    if (blogsPrevBtn) {
-      blogsPrevBtn.addEventListener('click', prevBlog);
-    }
-    
-    // Initialize
-    updateCarousel();
-  }
+    });
+  });
 }
 
 // Event Detail Modal Functionality
 function initializeEventModals() {
-  const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
-  const eventCards = document.querySelectorAll('.event-card');
   const eventModal = document.getElementById('eventModal');
   const eventModalClose = document.getElementById('eventModalClose');
   const eventModalImg = document.getElementById('eventModalImg');
@@ -1657,44 +1351,8 @@ function initializeEventModals() {
       location: "Nairobi Jaffery's Sports Club",
       image: "https://i.postimg.cc/prGQXpbX/FUN-3.png",
       description: "Join us for a scenic 10K fun run through the Nairobi Jaffery's Sports Club. This event is perfect for all fitness levels. Whether you're a seasoned runner or just starting out, you'll enjoy the beautiful scenery and supportive community. Registration is required, so sign up early!"
-    },
-    2: {
-      title: "3x3 Basketball Tournament",
-      date: "November 22, 2025",
-      time: "2:00 PM - 6:00 PM",
-      location: "Riruta Basketball Court",
-      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Compete in our friendly 3x3 basketball tournament. All skill levels are welcome to participate in this exciting event. Teams will be formed on-site, so you can come alone or with friends.<br><br>Prizes will be awarded to the winning team and for best team spirit. Refreshments will be provided, and there will be music and entertainment throughout the event. Don't miss this opportunity to showcase your skills and have fun with fellow basketball enthusiasts!"
-    },
-    3: {
-      title: "Cycling Challenge",
-      date: "December 5, 2025",
-      time: "8:00 AM - 12:00 PM",
-      location: "Karura Forest",
-      image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Explore the beautiful trails of Karura Forest in our cycling challenge. We'll have routes available for both beginners and experienced cyclists, so everyone can participate at their own pace.<br><br>The event will include guided group rides, safety briefings, and mechanical support. Helmets are mandatory, and we recommend bringing your own water and snacks. This is a great opportunity to discover new cycling routes and connect with fellow cycling enthusiasts in the WorkFit community."
     }
   };
-  
-  // Open event modal when card is clicked
-  eventCards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // Don't open modal if the click was on the button
-      if (e.target.classList.contains('view-details-btn')) return;
-      
-      const eventId = card.dataset.eventId;
-      openEventModal(eventId);
-    });
-  });
-  
-  // Open event modal when view details button is clicked
-  viewDetailsBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const eventId = btn.dataset.eventId;
-      openEventModal(eventId);
-    });
-  });
   
   function openEventModal(eventId) {
     const event = eventData[eventId];
@@ -1761,12 +1419,13 @@ function initializeEventModals() {
       }
     });
   }
+  
+  // Make openEventModal function globally accessible
+  window.openEventModal = openEventModal;
 }
 
 // Blog Detail Modal Functionality
 function initializeBlogModals() {
-  const readMoreBtns = document.querySelectorAll('.read-more-btn');
-  const blogCards = document.querySelectorAll('.blog-card');
   const blogModal = document.getElementById('blogModal');
   const blogModalClose = document.getElementById('blogModalClose');
   const blogModalImg = document.getElementById('blogModalImg');
@@ -1778,7 +1437,7 @@ function initializeBlogModals() {
   
   // Blog data
   const blogData = {
-    1: {
+    2: {
       title: "5 Nutrition Tips for Better Workouts",
       category: "Nutrition",
       date: "October 12, 2025",
@@ -1786,43 +1445,15 @@ function initializeBlogModals() {
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       description: "Proper nutrition is essential for maximizing your workout performance and recovery. Here are five key tips to help you fuel your fitness journey:<br><br>1. <strong>Time Your Meals:</strong> Eat a balanced meal 2-3 hours before your workout and refuel within 30 minutes after exercising.<br><br>2. <strong>Stay Hydrated:</strong> Drink water throughout the day and consider electrolyte replacement during intense workouts.<br><br>3. <strong>Balance Macronutrients:</strong> Include a mix of carbohydrates, protein, and healthy fats in your diet.<br><br>4. <strong>Choose Whole Foods:</strong> Opt for nutrient-dense foods over processed options.<br><br>5. <strong>Listen to Your Body:</strong> Pay attention to how different foods affect your energy levels and performance."
     },
-    2: {
+    4: {
       title: "Essential Drills to Improve Your Basketball Skills",
       category: "Basketball",
       date: "October 5, 2025",
       author: "James Mwangi",
       image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       description: "Whether you're a beginner or an experienced player, these fundamental basketball drills will help enhance your shooting, dribbling, and defensive skills:<br><br><strong>Shooting Drills:</strong><br>- Form shooting: Focus on proper technique close to the basket<br>- Spot shooting: Practice from different positions on the court<br>- Free throws: Develop consistency from the line<br><br><strong>Dribbling Drills:</strong><br>- Stationary dribbling: Work on ball control with both hands<br>- Cone drills: Improve agility and ball handling<br>- Two-ball dribbling: Enhance coordination<br><br><strong>Defensive Drills:</strong><br>- Defensive slides: Work on lateral movement and stance<br>- Closeout drills: Practice contesting shots effectively<br>- Shell drill: Learn team defensive principles"
-    },
-    3: {
-      title: "Essential Cycling Gear for Beginners",
-      category: "Cycling",
-      date: "September 28, 2025",
-      author: "Michael Chen",
-      image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Getting started with cycling can be overwhelming with all the gear options available. Here's a guide to the essential equipment you'll need for a safe and enjoyable riding experience:<br><br><strong>Safety First:</strong><br>- Helmet: Non-negotiable for head protection<br>- Lights: Front and rear lights for visibility<br>- Reflective gear: Especially important for low-light conditions<br><br><strong>Comfort & Performance:</strong><br>- Padded shorts: Reduce discomfort on longer rides<br>- Cycling jersey: Moisture-wicking and breathable<br>- Gloves: Improve grip and protect hands<br><br><strong>Tools & Maintenance:</strong><br>- Multi-tool: For on-the-go adjustments and repairs<br>- Spare tube and pump: Essential for fixing flats<br>- Bike lock: Protect your investment when parked<br><br>Remember, you don't need the most expensive gear to get started. Focus on quality essentials that fit well and meet safety standards."
     }
   };
-  
-  // Open blog modal when card is clicked
-  blogCards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // Don't open modal if the click was on the button
-      if (e.target.classList.contains('read-more-btn')) return;
-      
-      const blogId = card.dataset.blogId;
-      openBlogModal(blogId);
-    });
-  });
-  
-  // Open blog modal when read more button is clicked
-  readMoreBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const blogId = btn.dataset.blogId;
-      openBlogModal(blogId);
-    });
-  });
   
   function openBlogModal(blogId) {
     const blog = blogData[blogId];
@@ -1888,6 +1519,9 @@ function initializeBlogModals() {
       }
     });
   }
+  
+  // Make openBlogModal function globally accessible
+  window.openBlogModal = openBlogModal;
 }
 
 // Google Form Modal Functionality
@@ -1921,67 +1555,6 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
-// Testimonials Carousel Functionality
-function initializeTestimonialsCarousel() {
-  const testimonialsTrack = document.getElementById('testimonialsTrack');
-  const testimonialSlides = testimonialsTrack ? testimonialsTrack.querySelectorAll('.testimonial-slide') : [];
-  const testimonialIndicators = document.getElementById('testimonialIndicators');
-  
-  if (testimonialSlides.length > 0 && testimonialsTrack && testimonialIndicators) {
-    let currentTestimonial = 0;
-    let testimonialInterval = null;
-    
-    // Create indicators
-    testimonialSlides.forEach((_, index) => {
-      const indicator = document.createElement('div');
-      indicator.classList.add('testimonial-indicator');
-      if (index === 0) indicator.classList.add('active');
-      indicator.addEventListener('click', () => {
-        goToTestimonial(index);
-      });
-      testimonialIndicators.appendChild(indicator);
-    });
-    
-    function goToTestimonial(index) {
-      currentTestimonial = index;
-      testimonialsTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
-      
-      // Update active indicator
-      document.querySelectorAll('.testimonial-indicator').forEach((indicator, i) => {
-        if (i === currentTestimonial) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
-      
-      // Reset auto-slide timer
-      resetTestimonialInterval();
-    }
-    
-    function nextTestimonial() {
-      currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
-      goToTestimonial(currentTestimonial);
-    }
-    
-    function startTestimonialInterval() {
-      testimonialInterval = setInterval(nextTestimonial, 5000);
-    }
-    
-    function resetTestimonialInterval() {
-      clearInterval(testimonialInterval);
-      startTestimonialInterval();
-    }
-    
-    // Pause on hover
-    testimonialsTrack.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
-    testimonialsTrack.addEventListener('mouseleave', startTestimonialInterval);
-    
-    // Initialize
-    startTestimonialInterval();
-  }
-}
-
 // Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
   if (!localStorage.getItem('theme')) {
@@ -1991,12 +1564,6 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
   }
 });
 
-// Handle window resize for carousels
-function handleResize() {
-  initializeEventsCarousel();
-  initializeBlogsCarousel();
-}
-
 // Main initialization function
 function initializeApp() {
   console.log('Initializing WorkFit Landing Page...');
@@ -2005,15 +1572,10 @@ function initializeApp() {
   initializeTheme();
   initializeMobileMenu();
   initializeHeroCarousel();
-  initializeEventsCarousel();
-  initializeBlogsCarousel();
+  initializeSocialPosts();
   initializeEventModals();
   initializeBlogModals();
   initializeGoogleFormModal();
-  initializeTestimonialsCarousel();
-  
-  // Add resize listener
-  window.addEventListener('resize', handleResize);
   
   console.log('WorkFit Landing Page initialized successfully');
 }
