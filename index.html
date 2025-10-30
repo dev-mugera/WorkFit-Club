@@ -295,7 +295,7 @@
       transform: scale(1.2);
     }
 
-    /* Social Media Style Posts */
+    /* Social Media Style Feed */
     .social-feed {
       max-width: 600px;
       margin: 0 auto;
@@ -417,10 +417,6 @@
       color: var(--text-primary);
     }
 
-    .post-action.liked {
-      color: var(--accent);
-    }
-
     .post-action i {
       font-size: 1.1rem;
     }
@@ -429,170 +425,116 @@
       font-size: 0.9rem;
     }
 
-    /* Detail Modals */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: var(--bg-primary);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 600px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 10px 30px var(--shadow-color);
+    /* Video Posts */
+    .video-container {
       position: relative;
+      width: 100%;
+      background: #000;
     }
 
-    .modal-close {
+    .video-player {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .video-controls {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      z-index: 10;
-      transition: all 0.3s;
-    }
-
-    .modal-close:hover {
-      background: var(--white);
-      transform: scale(1.1);
-    }
-
-    .modal-img-container {
-      height: 200px;
-      overflow: hidden;
-    }
-
-    .modal-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .modal-body {
-      padding: 1.5rem;
-    }
-
-    .modal-title {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--navy);
-    }
-
-    .modal-meta {
-      color: var(--gray);
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-
-    .modal-description {
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 1rem;
-    }
-
-    /* Google Form Modal */
-    .google-form-modal {
-      display: none;
-      position: fixed;
-      top: 0;
+      bottom: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      z-index: 1001;
-      justify-content: center;
-      align-items: center;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
       padding: 1rem;
-    }
-
-    .google-form-modal.active {
-      display: flex;
-    }
-
-    .google-form-container {
-      background: var(--bg-primary);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 800px;
-      height: 90vh;
-      overflow: hidden;
-      box-shadow: 0 10px 30px var(--shadow-color);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .google-form-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .google-form-title {
-      font-size: 1.3rem;
-      color: var(--navy);
+    .video-title {
+      color: white;
+      font-weight: 600;
       margin: 0;
     }
 
-    .google-form-close {
+    .play-btn {
       background: var(--gold);
       color: var(--navy);
       border: none;
-      width: 35px;
-      height: 35px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      transition: all 0.3s;
+      cursor: pointer;
+      font-size: 1.2rem;
     }
 
-    .google-form-close:hover {
-      background: var(--white);
-      transform: scale(1.1);
+    /* Challenge Posts */
+    .challenge-badge {
+      background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
+      color: var(--navy);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 1rem;
     }
 
-    .google-form-frame {
-      flex: 1;
-      border: none;
-      width: 100%;
+    .progress-container {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
       height: 100%;
+      background: var(--gold);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    /* Interactive Actions */
+    .post-action.save-btn.saved i {
+      color: var(--gold);
+    }
+
+    .post-action.join-btn.joined {
+      background: var(--navy);
+      color: white;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: var(--navy);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      transform: translateX(100%);
+    }
+
+    .notification.show {
+      transform: translateX(0);
     }
 
     /* CTA Section */
@@ -601,6 +543,8 @@
       color: white;
       padding: 3rem 1rem;
       text-align: center;
+      margin: 2rem 1rem;
+      border-radius: 20px;
     }
 
     .cta-content {
@@ -708,14 +652,6 @@
         width: 100%;
         max-width: 250px;
         justify-content: center;
-      }
-
-      .modal-actions {
-        flex-direction: column;
-      }
-
-      .google-form-container {
-        height: 95vh;
       }
     }
 
@@ -863,7 +799,7 @@
     <!-- Event Post -->
     <div class="post" data-post-id="1">
       <div class="post-header">
-        <img src="https://i.postimg.cc/sDgK4tXV/20250912-1145-Fitness-Enthusiast-Jumping-simple-compose-01k4yhh3gzensvgyqfyf80wrf3.png" alt="WorkFit" class="post-avatar">
+        <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="WorkFit Events" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Events</div>
           <div class="post-time">Nov 1, 2025 · Nairobi Jaffery's Sports Club</div>
@@ -874,120 +810,184 @@
       </div>
       <img src="https://i.postimg.cc/prGQXpbX/FUN-3.png" alt="WorkFit Fun Run" class="post-image">
       <div class="post-content">
-        <h3 class="post-title">WorkFit Fun Run</h3>
-        <p class="post-text">Join us for a scenic 10K fun run through the Nairobi Jaffery's Sports Club. Perfect for all fitness levels. Registration is now open!</p>
+        <h3 class="post-title">WorkFit Fun Run - November 1st</h3>
+        <p class="post-text">Join us for a scenic 10K fun run through the Nairobi Jaffery's Sports Club. Perfect for all fitness levels! 🏃‍♂️✨</p>
+        <p class="post-text">Registration includes: Race bib, finisher medal, refreshments, and post-run stretching session.</p>
         <div class="post-tags">
           <span class="post-tag">#Running</span>
-          <span class="post-tag">#Fitness</span>
           <span class="post-tag">#Community</span>
+          <span class="post-tag">#Fitness</span>
         </div>
       </div>
       <div class="post-actions">
-        <button class="post-action like-btn" data-post-id="1">
-          <i class="far fa-heart"></i>
-          <span class="post-action-count">24</span>
-        </button>
-        <button class="post-action comment-btn" data-post-id="1">
-          <i class="far fa-comment"></i>
-          <span class="post-action-count">8</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="1">
-          <i class="far fa-share-square"></i>
-          <span class="post-action-count">5</span>
+        <button class="post-action save-btn" data-post-id="1">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
         </button>
         <button class="post-action register-btn" data-post-id="1">
           <i class="fas fa-ticket-alt"></i>
-          <span>Register</span>
+          <span class="post-action-count">Register</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="1">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
         </button>
       </div>
     </div>
 
-    <!-- Blog Post 1 -->
+    <!-- Video Workout Post -->
     <div class="post" data-post-id="2">
       <div class="post-header">
-        <img src="https://i.postimg.cc/5tg6gkjt/20250917-1209-Outdoor-Fitness-Enthusiasts-simple-compose-01k5bey8x1ff2sdbrwczrh69wx.png" alt="Sarah Johnson" class="post-avatar">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Trainer Sarah" class="post-avatar">
         <div class="post-user-info">
-          <div class="post-username">Sarah Johnson</div>
-          <div class="post-time">October 12, 2025 · Nutrition Expert</div>
+          <div class="post-username">Sarah Johnson · Certified Trainer</div>
+          <div class="post-time">2 hours ago · 2.4K views</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nutrition Tips" class="post-image">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="HIIT Workout" class="video-player">
+        <div class="video-controls">
+          <h4 class="video-title">15-Minute HIIT Full Body</h4>
+          <button class="play-btn">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+      </div>
       <div class="post-content">
-        <h3 class="post-title">5 Nutrition Tips for Better Workouts</h3>
-        <p class="post-text">Discover how proper nutrition can enhance your workout performance and recovery. Learn about pre and post-workout meals that fuel your fitness journey.</p>
+        <p class="post-text">No equipment needed! Perfect for busy schedules. Follow along and let me know how you feel in the comments! 💪</p>
         <div class="post-tags">
-          <span class="post-tag">#Nutrition</span>
+          <span class="post-tag">#HIIT</span>
+          <span class="post-tag">#HomeWorkout</span>
           <span class="post-tag">#Fitness</span>
-          <span class="post-tag">#Health</span>
         </div>
       </div>
       <div class="post-actions">
-        <button class="post-action like-btn" data-post-id="2">
-          <i class="far fa-heart"></i>
-          <span class="post-action-count">42</span>
+        <button class="post-action save-btn" data-post-id="2">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
         </button>
-        <button class="post-action comment-btn" data-post-id="2">
-          <i class="far fa-comment"></i>
-          <span class="post-action-count">15</span>
+        <button class="post-action try-workout-btn" data-post-id="2">
+          <i class="fas fa-play-circle"></i>
+          <span class="post-action-count">Try Workout</span>
         </button>
         <button class="post-action share-btn" data-post-id="2">
-          <i class="far fa-share-square"></i>
-          <span class="post-action-count">9</span>
-        </button>
-        <button class="post-action read-btn" data-post-id="2">
-          <i class="fas fa-book-open"></i>
-          <span>Read More</span>
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
         </button>
       </div>
     </div>
 
-    <!-- Testimonial Post -->
+    <!-- November Challenge Post -->
     <div class="post" data-post-id="3">
       <div class="post-header">
-        <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="Annita Kirwa" class="post-avatar">
+        <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="WorkFit Challenges" class="post-avatar">
         <div class="post-user-info">
-          <div class="post-username">Annita Kirwa</div>
-          <div class="post-time">October 8, 2025 · Fitness Club Member</div>
+          <div class="post-username">WorkFit Challenges</div>
+          <div class="post-time">Just now · 128 members joined</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
       <div class="post-content">
-        <h3 class="post-title">My WorkFit Journey</h3>
-        <p class="post-text">"Every session reminds me that growth takes consistency, not perfection. I am getting stronger, disciplined and present - not just during the workout, but in every part of my life. Thank you WorkFit!"</p>
+        <div class="challenge-badge">NOVEMBER CHALLENGE</div>
+        <h3 class="post-title">The 5AM Club Reading Challenge</h3>
+        <p class="post-text">Transform your mornings with Robin Sharma's "The 5AM Club"! Join our community reading challenge and implement life-changing morning routines. 📚✨</p>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>Challenge Progress</span>
+            <span>42%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 42%"></div>
+          </div>
+          <p>128 of 300 spots filled</p>
+        </div>
+
         <div class="post-tags">
-          <span class="post-tag">#Testimonial</span>
-          <span class="post-tag">#FitnessJourney</span>
-          <span class="post-tag">#Community</span>
+          <span class="post-tag">#5AMClub</span>
+          <span class="post-tag">#ReadingChallenge</span>
+          <span class="post-tag">#PersonalGrowth</span>
         </div>
       </div>
       <div class="post-actions">
-        <button class="post-action like-btn" data-post-id="3">
-          <i class="far fa-heart"></i>
-          <span class="post-action-count">36</span>
+        <button class="post-action save-btn" data-post-id="3">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
         </button>
-        <button class="post-action comment-btn" data-post-id="3">
-          <i class="far fa-comment"></i>
-          <span class="post-action-count">12</span>
+        <button class="post-action join-btn" data-post-id="3">
+          <i class="fas fa-user-plus"></i>
+          <span class="post-action-count">Join Challenge</span>
         </button>
         <button class="post-action share-btn" data-post-id="3">
-          <i class="far fa-share-square"></i>
-          <span class="post-action-count">7</span>
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
         </button>
       </div>
     </div>
 
-    <!-- Blog Post 2 -->
+    <!-- No Sugar November Post -->
     <div class="post" data-post-id="4">
+      <div class="post-header">
+        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Nutrition Expert" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">Maria Rodriguez · Nutritionist</div>
+          <div class="post-time">5 hours ago · 356 participants</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Healthy Food" class="post-image">
+      <div class="post-content">
+        <div class="challenge-badge">HEALTH CHALLENGE</div>
+        <h3 class="post-title">No Sugar November Challenge</h3>
+        <p class="post-text">Reset your taste buds and improve your health! Join our 30-day no added sugar challenge with daily tips, recipes, and community support. 🍎🚫</p>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>Community Progress</span>
+            <span>65%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 65%"></div>
+          </div>
+          <p>356 participants tracking their progress</p>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#NoSugarNovember</span>
+          <span class="post-tag">#HealthyEating</span>
+          <span class="post-tag">#Wellness</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="4">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action join-btn" data-post-id="4">
+          <i class="fas fa-user-plus"></i>
+          <span class="post-action-count">Join Challenge</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="4">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Blog Post -->
+    <div class="post" data-post-id="5">
       <div class="post-header">
         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="James Mwangi" class="post-avatar">
         <div class="post-user-info">
-          <div class="post-username">James Mwangi</div>
-          <div class="post-time">October 5, 2025 · Basketball Coach</div>
+          <div class="post-username">James Mwangi · Basketball Coach</div>
+          <div class="post-time">Yesterday · 8 min read</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -996,7 +996,7 @@
       <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Drills" class="post-image">
       <div class="post-content">
         <h3 class="post-title">Essential Drills to Improve Your Basketball Skills</h3>
-        <p class="post-text">Master these fundamental basketball drills to enhance your shooting, dribbling, and defensive skills. Perfect for players of all levels.</p>
+        <p class="post-text">Master these fundamental basketball drills to enhance your shooting, dribbling, and defensive skills. Perfect for players of all levels looking to take their game to the next level! 🏀</p>
         <div class="post-tags">
           <span class="post-tag">#Basketball</span>
           <span class="post-tag">#Training</span>
@@ -1004,94 +1004,33 @@
         </div>
       </div>
       <div class="post-actions">
-        <button class="post-action like-btn" data-post-id="4">
-          <i class="far fa-heart"></i>
-          <span class="post-action-count">28</span>
+        <button class="post-action save-btn" data-post-id="5">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
         </button>
-        <button class="post-action comment-btn" data-post-id="4">
-          <i class="far fa-comment"></i>
-          <span class="post-action-count">11</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="4">
-          <i class="far fa-share-square"></i>
-          <span class="post-action-count">6</span>
-        </button>
-        <button class="post-action read-btn" data-post-id="4">
+        <button class="post-action read-btn" data-post-id="5">
           <i class="fas fa-book-open"></i>
-          <span>Read More</span>
+          <span class="post-action-count">Read More</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="5">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Event Detail Modal -->
-  <div class="modal" id="eventModal">
-    <div class="modal-content">
-      <button class="modal-close" id="eventModalClose">&times;</button>
-      <div class="modal-img-container">
-        <img id="eventModalImg" src="" alt="Event Image" class="modal-img">
-      </div>
-      <div class="modal-body">
-        <h2 id="eventModalTitle" class="modal-title">Event Title</h2>
-        <div id="eventModalMeta" class="modal-meta"></div>
-        <div id="eventModalDescription" class="modal-description"></div>
-        <div class="modal-actions">
-          <button class="btn-primary" id="eventRegisterBtn">
-            <i class="fas fa-ticket-alt"></i> Register Now
-          </button>
-          <button class="btn-secondary" id="eventShareBtn">
-            <i class="fas fa-share-alt"></i> Share Event
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Blog Detail Modal -->
-  <div class="modal" id="blogModal">
-    <div class="modal-content">
-      <button class="modal-close" id="blogModalClose">&times;</button>
-      <div class="modal-img-container">
-        <img id="blogModalImg" src="" alt="Blog Image" class="modal-img">
-      </div>
-      <div class="modal-body">
-        <h2 id="blogModalTitle" class="modal-title">Blog Title</h2>
-        <div id="blogModalMeta" class="modal-meta"></div>
-        <div id="blogModalDescription" class="modal-description"></div>
-        <div class="modal-actions">
-          <button class="btn-primary" id="blogReadBtn">
-            <i class="fas fa-book-open"></i> Continue Reading
-          </button>
-          <button class="btn-secondary" id="blogShareBtn">
-            <i class="fas fa-share-alt"></i> Share Article
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Google Form Modal -->
-  <div class="google-form-modal" id="googleFormModal">
-    <div class="google-form-container">
-      <div class="google-form-header">
-        <h3 class="google-form-title">Register for Event</h3>
-        <button class="google-form-close" id="googleFormClose">&times;</button>
-      </div>
-      <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-    </div>
-  </div>
-
   <!-- CTA Section -->
   <section class="cta">
     <div class="cta-content">
-      <h2>Ready to Start Your Fitness Journey?</h2>
-      <p>Choose the club that matches your interests and join our supportive community today.</p>
+      <h2>Ready to Join Our Fitness Community?</h2>
+      <p>Connect with like-minded fitness enthusiasts and transform your health journey together.</p>
       <div class="hero-buttons">
         <a href="plans-wpa.html" class="btn-primary">
-          <i class="fas fa-running"></i> Explore Membership Options
+          <i class="fas fa-running"></i> Explore Membership
         </a>
         <a href="contact.wpa.html" class="btn-secondary">
-          <i class="fas fa-question-circle"></i> Have Questions?
+          <i class="fas fa-question-circle"></i> Get More Info
         </a>
       </div>
     </div>
@@ -1146,8 +1085,6 @@ function initializeTheme() {
       htmlElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
-      
-      console.log('Theme changed to:', newTheme);
     });
   }
 }
@@ -1259,274 +1196,201 @@ function initializeHeroCarousel() {
   }
 }
 
-// Social Media Posts Functionality
-function initializeSocialPosts() {
-  const likeButtons = document.querySelectorAll('.like-btn');
-  const registerButtons = document.querySelectorAll('.register-btn');
-  const readButtons = document.querySelectorAll('.read-btn');
-  const shareButtons = document.querySelectorAll('.share-btn');
+// Social Media Interactions
+function initializeSocialInteractions() {
+  // Save/Bookmark functionality
+  const saveButtons = document.querySelectorAll('.save-btn');
   
-  // Like button functionality
-  likeButtons.forEach(button => {
+  saveButtons.forEach(button => {
     button.addEventListener('click', function() {
       const postId = this.dataset.postId;
-      const heartIcon = this.querySelector('i');
-      const countElement = this.querySelector('.post-action-count');
-      let count = parseInt(countElement.textContent);
+      const icon = this.querySelector('i');
       
-      if (this.classList.contains('liked')) {
-        this.classList.remove('liked');
-        heartIcon.classList.remove('fas');
-        heartIcon.classList.add('far');
-        count--;
+      if (icon.classList.contains('far')) {
+        // Save item
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        this.classList.add('saved');
+        this.querySelector('.post-action-count').textContent = 'Saved';
+        saveItem(postId);
+        showNotification('Post saved to your collection');
       } else {
-        this.classList.add('liked');
-        heartIcon.classList.remove('far');
-        heartIcon.classList.add('fas');
-        count++;
+        // Unsave item
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        this.classList.remove('saved');
+        this.querySelector('.post-action-count').textContent = 'Save';
+        unsaveItem(postId);
+        showNotification('Post removed from your collection');
       }
-      
-      countElement.textContent = count;
     });
   });
   
-  // Register button functionality
+  // Register for events
+  const registerButtons = document.querySelectorAll('.register-btn');
+  
   registerButtons.forEach(button => {
     button.addEventListener('click', function() {
       const postId = this.dataset.postId;
-      openGoogleForm();
+      showNotification('Opening event registration...');
+      // In a real implementation, this would open a registration form
+      setTimeout(() => {
+        window.openGoogleForm();
+      }, 1000);
     });
   });
   
-  // Read more button functionality
+  // Join challenges
+  const joinButtons = document.querySelectorAll('.join-btn');
+  
+  joinButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      if (this.classList.contains('joined')) {
+        this.classList.remove('joined');
+        this.querySelector('.post-action-count').textContent = 'Join Challenge';
+        showNotification('Left the challenge');
+      } else {
+        this.classList.add('joined');
+        this.querySelector('.post-action-count').textContent = 'Joined';
+        showNotification('Successfully joined the challenge!');
+        
+        // Update progress bar for challenge posts
+        const post = this.closest('.post');
+        const progressFill = post.querySelector('.progress-fill');
+        if (progressFill) {
+          const currentWidth = parseInt(progressFill.style.width);
+          if (currentWidth < 100) {
+            const newWidth = Math.min(currentWidth + 10, 100);
+            progressFill.style.width = `${newWidth}%`;
+            
+            // Update percentage text
+            const progressHeader = post.querySelector('.progress-header span:last-child');
+            if (progressHeader) {
+              progressHeader.textContent = `${newWidth}%`;
+            }
+          }
+        }
+      }
+    });
+  });
+  
+  // Try workout
+  const tryWorkoutButtons = document.querySelectorAll('.try-workout-btn');
+  
+  tryWorkoutButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      showNotification('Starting workout... Get ready!');
+      // In a real implementation, this would open the video player
+      setTimeout(() => {
+        alert('Workout video would play here. In a real implementation, this would open a full-screen video player.');
+      }, 500);
+    });
+  });
+  
+  // Read more
+  const readButtons = document.querySelectorAll('.read-btn');
+  
   readButtons.forEach(button => {
     button.addEventListener('click', function() {
       const postId = this.dataset.postId;
-      openBlogModal(postId);
+      showNotification('Opening full article...');
+      // In a real implementation, this would navigate to the full article
+      setTimeout(() => {
+        alert('Full blog article would display here. In a real implementation, this would navigate to the article page.');
+      }, 500);
     });
   });
   
-  // Share button functionality
+  // Share buttons
+  const shareButtons = document.querySelectorAll('.share-btn');
+  
   shareButtons.forEach(button => {
     button.addEventListener('click', function() {
       const postId = this.dataset.postId;
-      const post = document.querySelector(`[data-post-id="${postId}"]`);
-      const title = post.querySelector('.post-title').textContent;
-      const text = `Check out this post from WorkFit: ${title}`;
-      const url = window.location.href;
-      
       if (navigator.share) {
         navigator.share({
-          title: title,
-          text: text,
-          url: url
+          title: 'WorkFit Post',
+          text: 'Check out this post from WorkFit!',
+          url: window.location.href,
         });
       } else {
-        // Fallback for browsers that don't support Web Share API
-        navigator.clipboard.writeText(url).then(() => {
-          alert('Post link copied to clipboard!');
-        });
+        showNotification('Share link copied to clipboard!');
+        // Fallback: Copy to clipboard
+        navigator.clipboard.writeText(window.location.href);
       }
     });
   });
-}
-
-// Event Detail Modal Functionality
-function initializeEventModals() {
-  const eventModal = document.getElementById('eventModal');
-  const eventModalClose = document.getElementById('eventModalClose');
-  const eventModalImg = document.getElementById('eventModalImg');
-  const eventModalTitle = document.getElementById('eventModalTitle');
-  const eventModalMeta = document.getElementById('eventModalMeta');
-  const eventModalDescription = document.getElementById('eventModalDescription');
-  const eventRegisterBtn = document.getElementById('eventRegisterBtn');
-  const eventShareBtn = document.getElementById('eventShareBtn');
   
-  // Event data
-  const eventData = {
-    1: {
-      title: "WorkFit Fun Run",
-      date: "November 1st, 2025",
-      time: "9:00 AM - 11:00 AM",
-      location: "Nairobi Jaffery's Sports Club",
-      image: "https://i.postimg.cc/prGQXpbX/FUN-3.png",
-      description: "Join us for a scenic 10K fun run through the Nairobi Jaffery's Sports Club. This event is perfect for all fitness levels. Whether you're a seasoned runner or just starting out, you'll enjoy the beautiful scenery and supportive community. Registration is required, so sign up early!"
+  // Video play buttons
+  const playButtons = document.querySelectorAll('.play-btn');
+  
+  playButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const videoContainer = this.closest('.video-container');
+      const videoPlayer = videoContainer.querySelector('.video-player');
+      
+      showNotification('Playing workout video...');
+      // In a real implementation, this would play the actual video
+      setTimeout(() => {
+        alert('Workout video would play here. In a real implementation, this would trigger video playback.');
+      }, 300);
+    });
+  });
+  
+  function saveItem(postId) {
+    let savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
+    if (!savedItems.includes(postId)) {
+      savedItems.push(postId);
+      localStorage.setItem('savedItems', JSON.stringify(savedItems));
     }
-  };
+  }
   
-  function openEventModal(eventId) {
-    const event = eventData[eventId];
+  function unsaveItem(postId) {
+    let savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
+    savedItems = savedItems.filter(id => id !== postId);
+    localStorage.setItem('savedItems', JSON.stringify(savedItems));
+  }
+  
+  function showNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
     
-    if (event) {
-      eventModalImg.src = event.image;
-      eventModalImg.alt = event.title;
-      eventModalTitle.textContent = event.title;
-      eventModalMeta.innerHTML = `
-        <p><strong>Date:</strong> ${event.date}</p>
-        <p><strong>Time:</strong> ${event.time}</p>
-        <p><strong>Location:</strong> ${event.location}</p>
-      `;
-      eventModalDescription.innerHTML = event.description;
-      
-      eventModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-  
-  // Close event modal
-  if (eventModalClose) {
-    eventModalClose.addEventListener('click', () => {
-      eventModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    });
-  }
-  
-  // Close modal when clicking outside
-  eventModal.addEventListener('click', (e) => {
-    if (e.target === eventModal) {
-      eventModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-  });
-  
-  // Register button functionality
-  if (eventRegisterBtn) {
-    eventRegisterBtn.addEventListener('click', () => {
-      // Close event modal and open Google Form
-      eventModal.classList.remove('active');
-      openGoogleForm();
-    });
-  }
-  
-  // Share button functionality
-  if (eventShareBtn) {
-    eventShareBtn.addEventListener('click', () => {
-      const title = eventModalTitle.textContent;
-      const text = `Check out this event: ${title}`;
-      const url = window.location.href;
-      
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: text,
-          url: url
-        });
-      } else {
-        // Fallback for browsers that don't support Web Share API
-        navigator.clipboard.writeText(url).then(() => {
-          alert('Event link copied to clipboard!');
-        });
-      }
-    });
-  }
-  
-  // Make openEventModal function globally accessible
-  window.openEventModal = openEventModal;
-}
-
-// Blog Detail Modal Functionality
-function initializeBlogModals() {
-  const blogModal = document.getElementById('blogModal');
-  const blogModalClose = document.getElementById('blogModalClose');
-  const blogModalImg = document.getElementById('blogModalImg');
-  const blogModalTitle = document.getElementById('blogModalTitle');
-  const blogModalMeta = document.getElementById('blogModalMeta');
-  const blogModalDescription = document.getElementById('blogModalDescription');
-  const blogReadBtn = document.getElementById('blogReadBtn');
-  const blogShareBtn = document.getElementById('blogShareBtn');
-  
-  // Blog data
-  const blogData = {
-    2: {
-      title: "5 Nutrition Tips for Better Workouts",
-      category: "Nutrition",
-      date: "October 12, 2025",
-      author: "Sarah Johnson",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Proper nutrition is essential for maximizing your workout performance and recovery. Here are five key tips to help you fuel your fitness journey:<br><br>1. <strong>Time Your Meals:</strong> Eat a balanced meal 2-3 hours before your workout and refuel within 30 minutes after exercising.<br><br>2. <strong>Stay Hydrated:</strong> Drink water throughout the day and consider electrolyte replacement during intense workouts.<br><br>3. <strong>Balance Macronutrients:</strong> Include a mix of carbohydrates, protein, and healthy fats in your diet.<br><br>4. <strong>Choose Whole Foods:</strong> Opt for nutrient-dense foods over processed options.<br><br>5. <strong>Listen to Your Body:</strong> Pay attention to how different foods affect your energy levels and performance."
-    },
-    4: {
-      title: "Essential Drills to Improve Your Basketball Skills",
-      category: "Basketball",
-      date: "October 5, 2025",
-      author: "James Mwangi",
-      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Whether you're a beginner or an experienced player, these fundamental basketball drills will help enhance your shooting, dribbling, and defensive skills:<br><br><strong>Shooting Drills:</strong><br>- Form shooting: Focus on proper technique close to the basket<br>- Spot shooting: Practice from different positions on the court<br>- Free throws: Develop consistency from the line<br><br><strong>Dribbling Drills:</strong><br>- Stationary dribbling: Work on ball control with both hands<br>- Cone drills: Improve agility and ball handling<br>- Two-ball dribbling: Enhance coordination<br><br><strong>Defensive Drills:</strong><br>- Defensive slides: Work on lateral movement and stance<br>- Closeout drills: Practice contesting shots effectively<br>- Shell drill: Learn team defensive principles"
-    }
-  };
-  
-  function openBlogModal(blogId) {
-    const blog = blogData[blogId];
+    // Animate in
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 100);
     
-    if (blog) {
-      blogModalImg.src = blog.image;
-      blogModalImg.alt = blog.title;
-      blogModalTitle.textContent = blog.title;
-      blogModalMeta.innerHTML = `
-        <p><strong>Category:</strong> ${blog.category}</p>
-        <p><strong>Date:</strong> ${blog.date}</p>
-        <p><strong>Author:</strong> ${blog.author}</p>
-      `;
-      blogModalDescription.innerHTML = blog.description;
-      
-      blogModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+    // Animate out and remove
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
   }
-  
-  // Close blog modal
-  if (blogModalClose) {
-    blogModalClose.addEventListener('click', () => {
-      blogModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    });
-  }
-  
-  // Close modal when clicking outside
-  blogModal.addEventListener('click', (e) => {
-    if (e.target === blogModal) {
-      blogModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-  });
-  
-  // Read more button functionality
-  if (blogReadBtn) {
-    blogReadBtn.addEventListener('click', () => {
-      alert('Full blog article would open here!');
-      // In a real implementation, this would navigate to the full blog post
-    });
-  }
-  
-  // Share button functionality
-  if (blogShareBtn) {
-    blogShareBtn.addEventListener('click', () => {
-      const title = blogModalTitle.textContent;
-      const text = `Check out this blog post: ${title}`;
-      const url = window.location.href;
-      
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: text,
-          url: url
-        });
-      } else {
-        // Fallback for browsers that don't support Web Share API
-        navigator.clipboard.writeText(url).then(() => {
-          alert('Blog link copied to clipboard!');
-        });
-      }
-    });
-  }
-  
-  // Make openBlogModal function globally accessible
-  window.openBlogModal = openBlogModal;
 }
 
 // Google Form Modal Functionality
 function initializeGoogleFormModal() {
-  const googleFormModal = document.getElementById('googleFormModal');
+  const googleFormModal = document.createElement('div');
+  googleFormModal.className = 'google-form-modal';
+  googleFormModal.id = 'googleFormModal';
+  googleFormModal.innerHTML = `
+    <div class="google-form-container">
+      <div class="google-form-header">
+        <h3 class="google-form-title">Register for Event</h3>
+        <button class="google-form-close" id="googleFormClose">&times;</button>
+      </div>
+      <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+  `;
+  document.body.appendChild(googleFormModal);
+  
   const googleFormClose = document.getElementById('googleFormClose');
   
   function openGoogleForm() {
@@ -1555,6 +1419,25 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
+// Auto-play videos on scroll (simulated)
+function initializeVideoAutoPlay() {
+  // In a real implementation, this would handle actual video elements
+  // For this demo, we'll simulate the behavior with scroll events
+  let videoPlayed = false;
+  
+  window.addEventListener('scroll', function() {
+    const videoPosts = document.querySelectorAll('.post[data-post-id="2"]');
+    if (videoPosts.length > 0 && !videoPlayed) {
+      const videoPost = videoPosts[0];
+      const rect = videoPost.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+        videoPlayed = true;
+        showNotification('Workout videos ready! Scroll to watch.');
+      }
+    }
+  });
+}
+
 // Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
   if (!localStorage.getItem('theme')) {
@@ -1566,18 +1449,17 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
 
 // Main initialization function
 function initializeApp() {
-  console.log('Initializing WorkFit Landing Page...');
+  console.log('Initializing WorkFit Social Platform...');
   
   // Initialize all components
   initializeTheme();
   initializeMobileMenu();
   initializeHeroCarousel();
-  initializeSocialPosts();
-  initializeEventModals();
-  initializeBlogModals();
+  initializeSocialInteractions();
   initializeGoogleFormModal();
+  initializeVideoAutoPlay();
   
-  console.log('WorkFit Landing Page initialized successfully');
+  console.log('WorkFit Social Platform initialized successfully');
 }
 
 // Start the app when DOM is loaded
