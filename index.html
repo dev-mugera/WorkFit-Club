@@ -67,7 +67,7 @@
       padding-bottom: 4rem;
     }
 
-    /* Navigation */
+    /* Social Platform Header */
     header {
       background-color: var(--bg-primary);
       box-shadow: 0 2px 10px var(--shadow-color);
@@ -76,14 +76,13 @@
       z-index: 100;
     }
 
-    nav {
+    .social-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem;
+      padding: 0.8rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
-      position: relative;
     }
 
     .logo {
@@ -91,13 +90,13 @@
       width: auto;
     }
 
-    .nav-links {
+    .social-nav {
       display: flex;
       gap: 1rem;
       align-items: center;
     }
 
-    .nav-links a {
+    .social-nav a {
       color: var(--text-primary);
       text-decoration: none;
       font-weight: 600;
@@ -106,8 +105,48 @@
       padding: 0.5rem;
     }
 
-    .nav-links a:hover {
+    .social-nav a:hover {
       color: var(--gold);
+    }
+
+    .social-nav-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-nav-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      transition: background-color 0.3s;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    .social-nav-icon:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .mobile-menu-btn {
@@ -143,156 +182,6 @@
       width: 20px;
       height: 20px;
       fill: var(--text-primary);
-    }
-
-    /* Hero Section with Carousel */
-    .hero {
-      position: relative;
-      height: 60vh;
-      min-height: 400px;
-      overflow: hidden;
-      border-radius: 0 0 20px 20px;
-      margin: 0 1rem;
-    }
-
-    .hero-carousel {
-      position: relative;
-      height: 100%;
-      width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .hero-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-      padding: 2rem;
-    }
-
-    .hero-slide.active {
-      opacity: 1;
-    }
-
-    .hero-slide-content {
-      max-width: 800px;
-      text-align: center;
-      color: white;
-      z-index: 2;
-    }
-
-    .hero-slide h1 {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-    }
-
-    .hero-slide p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    }
-
-    .hero-slide-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      z-index: 1;
-    }
-
-    .hero-slide-bg::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(0,31,63,0.8) 0%, rgba(0,51,102,0.7) 100%);
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
-      padding: 1rem 2rem;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-    }
-
-    .hero-indicators {
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      z-index: 3;
-    }
-
-    .hero-indicator {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .hero-indicator.active {
-      background-color: var(--gold);
-      transform: scale(1.2);
     }
 
     /* Social Media Style Feed */
@@ -513,6 +402,59 @@
       border-radius: 4px;
       transition: width 0.5s ease;
     }
+
+    /* Attendance Tracker Post */
+    .attendance-tracker {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .attendance-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .attendance-icon {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+
+    .attendance-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .attendance-description {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .attendance-btn {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .attendance-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
     /* Celebration Post Styles */
     .celebrate-btn.celebrated {
       background: var(--gold);
@@ -528,34 +470,6 @@
       font-size: 0.8rem;
       font-weight: 600;
       margin-right: 0.5rem;
-    }
-    /* Hero Celebration Styles */
-    .hero-slide-content .btn-primary.celebrate-hero-btn {
-      background: #4CAF50;
-      color: white;
-    }
-
-    .hero-slide-content .btn-primary.celebrate-hero-btn:hover {
-      background: #45a049;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-    }
-
-    /* Hero badge animations */
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    .hero-slide-content [style*="background: rgba(76, 175, 80, 0.9)"] {
-      animation: pulse 2s infinite;
     }
 
     /* Interactive Actions */
@@ -753,6 +667,38 @@
       transform: translateX(0);
     }
 
+    /* View Latest Update Button */
+    .view-latest-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      transform: translateY(100px);
+      opacity: 0;
+    }
+
+    .view-latest-btn.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .view-latest-btn:hover {
+      background: var(--navy-light);
+      transform: translateY(-2px);
+    }
+
     /* CTA Section */
     .cta {
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -779,8 +725,8 @@
       opacity: 0.9;
     }
 
-    /* Bottom Navigation */
-    .bottom-nav {
+    /* Social Platform Bottom Navigation */
+    .social-bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -793,7 +739,7 @@
       z-index: 1000;
     }
     
-    .bottom-nav-item {
+    .social-nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -806,35 +752,21 @@
       max-width: 25%;
     }
     
-    .bottom-nav-item.active {
+    .social-nav-item.active {
       color: var(--navy);
     }
     
-    .bottom-nav-icon {
+    .social-nav-icon {
       font-size: 1.1rem;
       margin-bottom: 0.1rem;
     }
     
-    .bottom-nav-label {
+    .social-nav-label {
       font-weight: 500;
     }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .hero {
-        height: 50vh;
-        min-height: 350px;
-        margin: 0 0.5rem;
-      }
-
-      .hero-slide h1 {
-        font-size: 1.8rem;
-      }
-
-      .hero-slide p {
-        font-size: 1rem;
-      }
-
       .social-feed {
         padding: 0.5rem;
       }
@@ -859,17 +791,6 @@
         font-size: 14px;
       }
 
-      .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn-primary, .btn-secondary {
-        width: 100%;
-        max-width: 250px;
-        justify-content: center;
-      }
-
       .modal-actions {
         flex-direction: column;
       }
@@ -877,14 +798,8 @@
       .google-form-container {
         height: 95vh;
       }
-    }
 
-    @media (max-width: 768px) {
-      nav {
-        padding: 0.8rem;
-      }
-
-      .nav-links {
+      .social-nav {
         display: none;
         position: fixed;
         top: 60px;
@@ -898,11 +813,11 @@
         gap: 0;
       }
 
-      .nav-links.active {
+      .social-nav.active {
         display: flex;
       }
 
-      .nav-links a {
+      .social-nav a {
         padding: 1rem;
         border-bottom: 1px solid var(--border-color);
         width: 100%;
@@ -916,237 +831,133 @@
   </style>
 </head>
 <body>
+  <!-- Social Platform Header -->
   <header>
-    <nav>
+    <div class="social-header">
       <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
       <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle navigation menu">
         <i class="fas fa-bars"></i>
       </button>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html" class="active">Home</a>
-        <a href="media-wpa.html">Media (Blogs, Videos, Gallery, Challenges)</a>
-        <a href="contact.wpa.html">Contact Us</a>
-        <a href="about-us.html">About Us</a>
-  
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
-          </svg>
-        </button>
+      <div class="social-nav" id="socialNav">
+        <a href="index.html" class="active">Feed</a>
+        <a href="media-wpa.html">Explore</a>
+        <a href="contact.wpa.html">Messages</a>
+        <a href="about-us.html">Profile</a>
+        
+        <div class="social-nav-icons">
+          <button class="social-nav-icon" aria-label="Notifications">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <button class="social-nav-icon" aria-label="Search">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="social-nav-icon" aria-label="Create Post">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </nav>
+    </div>
   </header>
-
-  <!-- Hero Section with Carousel -->
-    <!-- Hero Section with Carousel -->
-  <section class="hero">
-    <div class="hero-carousel">
-      <!-- October Plank Challenge Celebration Slide -->
-      <div class="hero-slide active">
-        <div class="hero-slide-bg" style="background-image: url('https://i.postimg.cc/pLp0rKTw/20250929-1709-Outdoor-Plank-Workout-simple-compose-01k6awvva7f2zb7zxyrvdeh2mj.png')"></div>
-        <div class="hero-slide-content">
-          <div style="background: rgba(76, 175, 80, 0.9); padding: 0.5rem 1.5rem; border-radius: 25px; margin-bottom: 1rem; display: inline-block;">
-            <i class="fas fa-trophy"></i> OCTOBER CHALLENGE COMPLETED!
-          </div>
-          <h1>60 Minutes of Planks! 🎉</h1>
-          <p>We crushed our October plank challenge with 2 minutes every day! Your core strength has reached new heights. Ready to level up in November?</p>
-          <div class="hero-buttons">
-            <button class="btn-primary celebrate-hero-btn">
-              <i class="fas fa-trophy"></i> Celebrate Achievement
-            </button>
-            <a href="#november-challenges" class="btn-secondary">
-              <i class="fas fa-arrow-right"></i> See November Challenges
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- October Mountain Climbers Celebration Slide -->
-      <div class="hero-slide">
-        <div class="hero-slide-bg" style="background-image: url('https://i.postimg.cc/3JLrjQZG/20250929-1639-Outdoor-Mountain-Climbers-simple-compose-01k6atyjrgfccs8nnj0tmtpbaf-1.png')"></div>
-        <div class="hero-slide-content">
-          <div style="background: rgba(76, 175, 80, 0.9); padding: 0.5rem 1.5rem; border-radius: 25px; margin-bottom: 1rem; display: inline-block;">
-            <i class="fas fa-trophy"></i> OCTOBER CHALLENGE COMPLETED!
-          </div>
-          <h1>3,000 Mountain Climbers! 💪</h1>
-          <p>100 mountain climbers daily for 30 days - that's incredible endurance! Your dedication to cardio and core work has been phenomenal.</p>
-          <div class="hero-buttons">
-            <button class="btn-primary celebrate-hero-btn">
-              <i class="fas fa-trophy"></i> Celebrate Achievement
-            </button>
-            <a href="challenges-wpa.html" class="btn-secondary">
-              <i class="fas fa-arrow-right"></i> See November Challenges
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- October Step-Up Celebration Slide -->
-      <div class="hero-slide">
-        <div class="hero-slide-bg" style="background-image: url('https://i.postimg.cc/HWN8HMqJ/20250915-1528-Outdoor-Fitness-Gathering-simple-compose-01k56ngycze5psvn1p8wp7sbg9.png')"></div>
-        <div class="hero-slide-content">
-          <div style="background: rgba(76, 175, 80, 0.9); padding: 0.5rem 1.5rem; border-radius: 25px; margin-bottom: 1rem; display: inline-block;">
-            <i class="fas fa-trophy"></i> OCTOBER CHALLENGE COMPLETED!
-          </div>
-          <h1>3,000 Step-Ups! 🚀</h1>
-          <p>100 step-ups every day built incredible lower body strength and endurance. Your consistency throughout October has been inspiring!</p>
-          <div class="hero-buttons">
-            <button class="btn-primary celebrate-hero-btn">
-              <i class="fas fa-trophy"></i> Celebrate Achievement
-            </button>
-            <a href="#november-challenges" class="btn-secondary">
-              <i class="fas fa-arrow-right"></i> See November Challenges
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- November 5AM Club Challenge Slide -->
-      <div class="hero-slide">
-        <div class="hero-slide-bg" style="background-image: url('https://i.postimg.cc/h418zsc7/20251031-1027-5AM-Reading-Challenge-simple-compose-01k8wjjkznecev7evkn06zw0tq.png')"></div>
-        <div class="hero-slide-content">
-          <div style="background: rgba(255, 215, 0, 0.9); padding: 0.5rem 1.5rem; border-radius: 25px; margin-bottom: 1rem; display: inline-block;">
-            <i class="fas fa-star"></i> NOVEMBER CHALLENGE
-          </div>
-          <h1>The 5AM Club Challenge 📚</h1>
-          <p>Transform your mornings with Robin Sharma's revolutionary book. Join our community reading challenge and master the art of productive early mornings.</p>
-          <div class="hero-buttons">
-            <button class="btn-primary register-btn" data-post-id="3">
-              <i class="fas fa-user-plus"></i> Join Reading Challenge
-            </button>
-            <a href="challenges-wpa.html" class="btn-secondary">
-              <i class="fas fa-question-circle"></i> Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- November No Sugar Challenge Slide -->
-      <div class="hero-slide">
-        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
-        <div class="hero-slide-content">
-          <div style="background: rgba(255, 215, 0, 0.9); padding: 0.5rem 1.5rem; border-radius: 25px; margin-bottom: 1rem; display: inline-block;">
-            <i class="fas fa-star"></i> NOVEMBER CHALLENGE
-          </div>
-          <h1>No Sugar November 🍎</h1>
-          <p>Reset your taste buds and boost your health with our 30-day no added sugar challenge. Get daily recipes, tips, and community support.</p>
-          <div class="hero-buttons">
-            <button class="btn-primary register-btn" data-post-id="4">
-              <i class="fas fa-user-plus"></i> Join Health Challenge
-            </button>
-            <a href="challenges-wpa.html" class="btn-secondary">
-              <i class="fas fa-question-circle"></i> Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- November Fitness Streak Slide -->
-      <div class="hero-slide">
-        <div class="hero-slide-bg" style="background-image: url('https://i.postimg.cc/sDgK4tXV/20250912-1145-Fitness-Enthusiast-Jumping-simple-compose-01k4yhh3gzensvgyqfyf80wrf3.png')"></div>
-        <div class="hero-slide-content">
-          <div style="background: rgba(255, 215, 0, 0.9); padding: 0.5rem 1.5rem; border-radius: 25px; margin-bottom: 1rem; display: inline-block;">
-            <i class="fas fa-star"></i> NOVEMBER CHALLENGE
-          </div>
-          <h1>30-Day Fitness Streak 🔥</h1>
-          <p>Build unstoppable momentum! Commit to moving every day in November. Any workout counts - let's build consistency together.</p>
-          <div class="hero-buttons">
-            <button class="btn-primary register-btn" data-post-id="november-streak">
-              <i class="fas fa-fire"></i> Start Your Streak
-            </button>
-            <a href="challenges-wpa.html" class="btn-secondary">
-              <i class="fas fa-question-circle"></i> Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="hero-indicators" id="heroIndicators">
-      <!-- Indicators will be added by JavaScript -->
-    </div>
-  </section>
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
-  <!-- October Challenges Completion Post -->
-  <div class="post" data-post-id="6">
-    <div class="post-header">
-      <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Team" class="post-avatar">
-      <div class="post-user-info">
-        <div class="post-username">WorkFit Club</div>
-        <div class="post-time">October 31, 2025 · Celebration Post</div>
-      </div>
-      <button class="post-more">
-        <i class="fas fa-ellipsis-h"></i>
-      </button>
-    </div>
-    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="October Challenges Completed" class="post-image">
-    <div class="post-content">
-      <div class="challenge-badge" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);">OCTOBER CHALLENGES COMPLETED! 🎉</div>
-      <h3 class="post-title">We Did It! October Challenges Successfully Completed</h3>
-      <p class="post-text">Today, on October 31st, we officially completed all our October fitness challenges during our morning session! Your dedication and consistency have paid off in an incredible way.</p>
-      
-      <div class="progress-container" style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(69, 160, 73, 0.1) 100%);">
-        <div class="progress-header">
-          <span><strong>October Challenge Results</strong></span>
-          <span style="color: #4CAF50; font-weight: bold;">100%</span>
+    <!-- October Challenges Completion Post -->
+    <div class="post" data-post-id="6">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Team" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Club</div>
+          <div class="post-time">October 31, 2025 · Celebration Post</div>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
-        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
       </div>
-
-      <div style="background: var(--bg-secondary); border-radius: 10px; padding: 1rem; margin: 1rem 0;">
-        <h4 style="color: var(--navy); margin-bottom: 0.8rem;">🏆 October Achievements:</h4>
-        <div style="display: grid; gap: 0.8rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
-            <span>🥇 <strong>Plank Challenge:</strong></span>
-            <span style="color: #4CAF50; font-weight: bold;">60 MINUTES</span>
+      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="October Challenges Completed" class="post-image">
+      <div class="post-content">
+        <div class="challenge-badge" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);">OCTOBER CHALLENGES COMPLETED! 🎉</div>
+        <h3 class="post-title">We Did It! October Challenges Successfully Completed</h3>
+        <p class="post-text">Today, on October 31st, we officially completed all our October fitness challenges during our morning session! Your dedication and consistency have paid off in an incredible way.</p>
+        
+        <div class="progress-container" style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(69, 160, 73, 0.1) 100%);">
+          <div class="progress-header">
+            <span><strong>October Challenge Results</strong></span>
+            <span style="color: #4CAF50; font-weight: bold;">100%</span>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
-            <span>🥈 <strong>Mountain Climbers:</strong></span>
-            <span style="color: #4CAF50; font-weight: bold;">3,000 REPS</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
-            <span>🥉 <strong>Step-Up Exercises:</strong></span>
-            <span style="color: #4CAF50; font-weight: bold;">3,000 REPS</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
           </div>
         </div>
+
+        <div style="background: var(--bg-secondary); border-radius: 10px; padding: 1rem; margin: 1rem 0;">
+          <h4 style="color: var(--navy); margin-bottom: 0.8rem;">🏆 October Achievements:</h4>
+          <div style="display: grid; gap: 0.8rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+              <span>🥇 <strong>Plank Challenge:</strong></span>
+              <span style="color: #4CAF50; font-weight: bold;">60 MINUTES</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+              <span>🥈 <strong>Mountain Climbers:</strong></span>
+              <span style="color: #4CAF50; font-weight: bold;">3,000 REPS</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+              <span>🥉 <strong>Step-Up Exercises:</strong></span>
+              <span style="color: #4CAF50; font-weight: bold;">3,000 REPS</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="post-text">That's 2 minutes of planks, 100 mountain climbers, and 100 step-ups every single day for 30 days! Your commitment has been absolutely inspiring. 💪</p>
+        
+        <div style="background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
+          <h4 style="margin-bottom: 0.5rem;">🙌 Special Shoutout to Our Amazing Members!</h4>
+          <p style="margin: 0; font-weight: 600;">Thank you to every single member who showed up, pushed through, and kept the energy high throughout October. Your spirit and dedication made this possible!</p>
+        </div>
+
+        <p class="post-text">We're carrying this incredible momentum into November with our new challenges. The same energy, the same commitment, but even stronger together! 🔥</p>
+
+        <div class="post-tags">
+          <span class="post-tag" style="background: #4CAF50;">#OctoberSuccess</span>
+          <span class="post-tag" style="background: #4CAF50;">#ChallengeCompleted</span>
+          <span class="post-tag" style="background: #4CAF50;">#WorkFitFamily</span>
+          <span class="post-tag" style="background: #4CAF50;">#FitnessGoals</span>
+        </div>
       </div>
-
-      <p class="post-text">That's 2 minutes of planks, 100 mountain climbers, and 100 step-ups every single day for 30 days! Your commitment has been absolutely inspiring. 💪</p>
-      
-      <div style="background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
-        <h4 style="margin-bottom: 0.5rem;">🙌 Special Shoutout to Our Amazing Members!</h4>
-        <p style="margin: 0; font-weight: 600;">Thank you to every single member who showed up, pushed through, and kept the energy high throughout October. Your spirit and dedication made this possible!</p>
-      </div>
-
-      <p class="post-text">We're carrying this incredible momentum into November with our new challenges. The same energy, the same commitment, but even stronger together! 🔥</p>
-
-      <div class="post-tags">
-        <span class="post-tag" style="background: #4CAF50;">#OctoberSuccess</span>
-        <span class="post-tag" style="background: #4CAF50;">#ChallengeCompleted</span>
-        <span class="post-tag" style="background: #4CAF50;">#WorkFitFamily</span>
-        <span class="post-tag" style="background: #4CAF50;">#FitnessGoals</span>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="6">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action celebrate-btn" data-post-id="6">
+          <i class="fas fa-trophy"></i>
+          <span class="post-action-count">Celebrate</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="6">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
       </div>
     </div>
-    <div class="post-actions">
-      <button class="post-action save-btn" data-post-id="6">
-        <i class="far fa-bookmark"></i>
-        <span class="post-action-count">Save</span>
-      </button>
-      <button class="post-action celebrate-btn" data-post-id="6">
-        <i class="fas fa-trophy"></i>
-        <span class="post-action-count">Celebrate</span>
-      </button>
-      <button class="post-action share-btn" data-post-id="6">
-        <i class="fas fa-share-alt"></i>
-        <span class="post-action-count">Share</span>
+
+    <!-- Attendance Tracker Post (appears after every few posts) -->
+    <div class="attendance-tracker" id="attendanceTracker">
+      <div class="attendance-header">
+        <i class="fas fa-clipboard-check attendance-icon"></i>
+        <h3 class="attendance-title">Daily Attendance Check-in</h3>
+      </div>
+      <p class="attendance-description">Let us know you're here today! Mark your attendance to track your fitness journey and stay connected with the community.</p>
+      <button class="attendance-btn" id="attendanceBtn">
+        <i class="fas fa-check-circle"></i> Mark My Attendance
       </button>
     </div>
-  </div>
+
     <!-- Event Post -->
     <div class="post" data-post-id="1">
       <div class="post-header">
@@ -1377,6 +1188,11 @@
     </div>
   </section>
 
+  <!-- View Latest Update Button -->
+  <button class="view-latest-btn" id="viewLatestBtn">
+    <i class="fas fa-arrow-up"></i> View Latest Update
+  </button>
+
   <!-- Blog Modal -->
   <div class="modal" id="blogModal">
     <div class="modal-content">
@@ -1427,23 +1243,23 @@
     </div>
   </section>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item active">
-      <i class="fas fa-home bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Home</span>
+  <!-- Social Platform Bottom Navigation -->
+  <nav class="social-bottom-nav">
+    <a href="index.html" class="social-nav-item active">
+      <i class="fas fa-home social-nav-icon"></i>
+      <span class="social-nav-label">Feed</span>
     </a>
-    <a href="Announcements-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-bullhorn bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Updates</span>
+    <a href="Announcements-wpa.html" class="social-nav-item">
+      <i class="fas fa-search social-nav-icon"></i>
+      <span class="social-nav-label">New Updates</span>
     </a>
-    <a href="plans-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-running bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Membership</span>
+    <a href="plans-wpa.html" class="social-nav-item">
+      <i class="fas fa-plus-circle social-nav-icon"></i>
+      <span class="social-nav-label">Explore Plans</span>
     </a>
-    <a href="store-webpage.html" class="bottom-nav-item">
-      <i class="fas fa-store bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Our Store</span>
+    <a href="store-webpage.html" class="social-nav-item">
+      <i class="fas fa-search social-nav-icon"></i>
+      <span class="social-nav-label">Explore Store</span>
     </a>
   </nav>
 
@@ -1486,22 +1302,22 @@ function updateThemeIcon(theme) {
   if (theme === 'dark') {
     themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
   } else {
-    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>';
   }
 }
 
 // Mobile Menu Toggle
 function initializeMobileMenu() {
   const menuBtn = document.getElementById('menuBtn');
-  const navLinks = document.getElementById('navLinks');
+  const socialNav = document.getElementById('socialNav');
   
-  if (menuBtn && navLinks) {
+  if (menuBtn && socialNav) {
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      navLinks.classList.toggle('active');
+      socialNav.classList.toggle('active');
       
       const icon = menuBtn.querySelector('i');
-      if (navLinks.classList.contains('active')) {
+      if (socialNav.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
       } else {
@@ -1512,8 +1328,8 @@ function initializeMobileMenu() {
     
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
+      if (!socialNav.contains(e.target) && !menuBtn.contains(e.target) && socialNav.classList.contains('active')) {
+        socialNav.classList.remove('active');
         const icon = menuBtn.querySelector('i');
         icon.classList.remove('fa-times');
         icon.classList.add('fa-bars');
@@ -1521,69 +1337,9 @@ function initializeMobileMenu() {
     });
     
     // Prevent clicks inside nav from closing it
-    navLinks.addEventListener('click', (e) => {
+    socialNav.addEventListener('click', (e) => {
       e.stopPropagation();
     });
-  }
-}
-
-// Hero Carousel Functionality
-function initializeHeroCarousel() {
-  const heroSlides = document.querySelectorAll('.hero-slide');
-  const heroIndicators = document.getElementById('heroIndicators');
-  
-  if (heroSlides.length > 0 && heroIndicators) {
-    let currentSlide = 0;
-    let heroInterval = null;
-    
-    // Create indicators
-    heroSlides.forEach((_, index) => {
-      const indicator = document.createElement('div');
-      indicator.classList.add('hero-indicator');
-      if (index === 0) indicator.classList.add('active');
-      indicator.addEventListener('click', () => {
-        goToSlide(index);
-      });
-      heroIndicators.appendChild(indicator);
-    });
-    
-    function goToSlide(index) {
-      // Remove active class from all slides and indicators
-      heroSlides.forEach(slide => slide.classList.remove('active'));
-      document.querySelectorAll('.hero-indicator').forEach(indicator => {
-        indicator.classList.remove('active');
-      });
-      
-      // Add active class to current slide and indicator
-      heroSlides[index].classList.add('active');
-      document.querySelectorAll('.hero-indicator')[index].classList.add('active');
-      
-      currentSlide = index;
-      
-      // Reset auto-slide timer
-      resetHeroInterval();
-    }
-    
-    function nextSlide() {
-      const nextIndex = (currentSlide + 1) % heroSlides.length;
-      goToSlide(nextIndex);
-    }
-    
-    function startHeroInterval() {
-      heroInterval = setInterval(nextSlide, 5000);
-    }
-    
-    function resetHeroInterval() {
-      clearInterval(heroInterval);
-      startHeroInterval();
-    }
-    
-    // Pause on hover
-    document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(heroInterval));
-    document.querySelector('.hero').addEventListener('mouseleave', startHeroInterval);
-    
-    // Initialize
-    startHeroInterval();
   }
 }
 
@@ -1619,22 +1375,6 @@ function initializeNovemberChallenges() {
       sugarProgress.textContent = `${progressPercentage}%`;
       sugarFill.style.width = `${progressPercentage}%`;
       sugarText.textContent = `Day ${currentDay} of 30 - Stay strong!`;
-    }
-    
-    // Update participant counts (simulate growth)
-    const challengeParticipants = document.getElementById('challengeParticipants');
-    const sugarChallengeParticipants = document.getElementById('sugarChallengeParticipants');
-    
-    if (challengeParticipants) {
-      const baseParticipants = 128;
-      const growth = Math.floor(currentDay * 2.5);
-      challengeParticipants.textContent = (baseParticipants + growth).toLocaleString();
-    }
-    
-    if (sugarChallengeParticipants) {
-      const baseParticipants = 356;
-      const growth = Math.floor(currentDay * 3.2);
-      sugarChallengeParticipants.textContent = (baseParticipants + growth).toLocaleString();
     }
   } else if (now < novemberStart) {
     // Before November - show countdown
@@ -1780,6 +1520,34 @@ function initializeSocialInteractions() {
     });
   });
   
+  // Celebrate button functionality
+  const celebrateButtons = document.querySelectorAll('.celebrate-btn');
+  
+  celebrateButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      const countElement = this.querySelector('.post-action-count');
+      let count = parseInt(countElement.textContent) || 0;
+      
+      count++;
+      countElement.textContent = count;
+      
+      // Add celebration effects
+      createCelebrationEffects();
+      showNotification('🎉 Woohoo! Celebrating our October success!');
+    });
+  });
+
+  // Attendance button functionality
+  const attendanceBtn = document.getElementById('attendanceBtn');
+  
+  if (attendanceBtn) {
+    attendanceBtn.addEventListener('click', function() {
+      showNotification('Opening attendance form...');
+      openGoogleForm();
+    });
+  }
+  
   function saveItem(postId) {
     let savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
     if (!savedItems.includes(postId)) {
@@ -1815,87 +1583,51 @@ function initializeSocialInteractions() {
     }, 3000);
   }
 }
-  // Celebrate button functionality
-  const celebrateButtons = document.querySelectorAll('.celebrate-btn');
-  
-  celebrateButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const postId = this.dataset.postId;
-      const countElement = this.querySelector('.post-action-count');
-      let count = parseInt(countElement.textContent) || 0;
-      
-      count++;
-      countElement.textContent = count;
-      
-      // Add celebration effects
-      createCelebrationEffects();
-      showNotification('🎉 Woohoo! Celebrating our October success!');
-    });
-  });
 
-  // Celebration effects function
-  function createCelebrationEffects() {
-    // Create confetti elements
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => {
-        const confetti = document.createElement('div');
-        confetti.innerHTML = '🎉';
-        confetti.style.cssText = `
-          position: fixed;
-          top: -50px;
-          left: ${Math.random() * 100}vw;
-          font-size: ${20 + Math.random() * 20}px;
-          z-index: 10000;
-          pointer-events: none;
-          animation: fall ${2 + Math.random() * 2}s linear forwards;
-        `;
-        
-        document.body.appendChild(confetti);
-        
-        // Remove confetti after animation
-        setTimeout(() => {
-          document.body.removeChild(confetti);
-        }, 4000);
-      }, i * 100);
-    }
-    
-    // Add CSS for falling animation
-    if (!document.querySelector('#confetti-styles')) {
-      const style = document.createElement('style');
-      style.id = 'confetti-styles';
-      style.textContent = `
-        @keyframes fall {
-          0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(100vh) rotate(360deg);
-            opacity: 0;
-          }
-        }
+// Celebration effects function
+function createCelebrationEffects() {
+  // Create confetti elements
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => {
+      const confetti = document.createElement('div');
+      confetti.innerHTML = '🎉';
+      confetti.style.cssText = `
+        position: fixed;
+        top: -50px;
+        left: ${Math.random() * 100}vw;
+        font-size: ${20 + Math.random() * 20}px;
+        z-index: 10000;
+        pointer-events: none;
+        animation: fall ${2 + Math.random() * 2}s linear forwards;
       `;
-      document.head.appendChild(style);
-    }
-  }
-  // Hero celebration buttons
-function initializeHeroCelebrations() {
-  const celebrateHeroBtns = document.querySelectorAll('.celebrate-hero-btn');
-  
-  celebrateHeroBtns.forEach(button => {
-    button.addEventListener('click', function() {
-      createCelebrationEffects();
-      showNotification('🎉 Celebrating our amazing October achievements!');
       
-      // Scroll to October completion post
+      document.body.appendChild(confetti);
+      
+      // Remove confetti after animation
       setTimeout(() => {
-        const octoberPost = document.querySelector('[data-post-id="6"]');
-        if (octoberPost) {
-          octoberPost.scrollIntoView({ behavior: 'smooth' });
+        document.body.removeChild(confetti);
+      }, 4000);
+    }, i * 100);
+  }
+  
+  // Add CSS for falling animation
+  if (!document.querySelector('#confetti-styles')) {
+    const style = document.createElement('style');
+    style.id = 'confetti-styles';
+    style.textContent = `
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
         }
-      }, 1000);
-    });
-  });
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 }
 
 // Blog Modal Functionality
@@ -2083,6 +1815,39 @@ function initializeVideoAutoPlay() {
   });
 }
 
+// View Latest Update Button
+function initializeViewLatestButton() {
+  const viewLatestBtn = document.getElementById('viewLatestBtn');
+  let scrollTimeout;
+  
+  if (viewLatestBtn) {
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', function() {
+      clearTimeout(scrollTimeout);
+      
+      // Show button when scrolled down
+      if (window.scrollY > 300) {
+        viewLatestBtn.classList.add('show');
+      } else {
+        viewLatestBtn.classList.remove('show');
+      }
+      
+      // Hide button after a moment of inactivity
+      scrollTimeout = setTimeout(() => {
+        viewLatestBtn.classList.remove('show');
+      }, 3000);
+    });
+    
+    // Scroll to top when button is clicked
+    viewLatestBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+}
+
 // Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
   if (!localStorage.getItem('theme')) {
@@ -2099,13 +1864,12 @@ function initializeApp() {
   // Initialize all components
   initializeTheme();
   initializeMobileMenu();
-  initializeHeroCarousel();
   initializeNovemberChallenges();
   initializeSocialInteractions();
   initializeBlogModal();
   initializeGoogleFormModal();
   initializeVideoAutoPlay();
-  initializeHeroCelebrations(); // Add this line
+  initializeViewLatestButton();
   
   console.log('WorkFit Social Platform initialized successfully');
 }
