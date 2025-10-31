@@ -529,6 +529,34 @@
       font-weight: 600;
       margin-right: 0.5rem;
     }
+    /* Hero Celebration Styles */
+    .hero-slide-content .btn-primary.celebrate-hero-btn {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .hero-slide-content .btn-primary.celebrate-hero-btn:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    /* Hero badge animations */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .hero-slide-content [style*="background: rgba(76, 175, 80, 0.9)"] {
+      animation: pulse 2s infinite;
+    }
 
     /* Interactive Actions */
     .post-action.save-btn.saved i {
@@ -1853,6 +1881,25 @@ function initializeSocialInteractions() {
       document.head.appendChild(style);
     }
   }
+  // Hero celebration buttons
+function initializeHeroCelebrations() {
+  const celebrateHeroBtns = document.querySelectorAll('.celebrate-hero-btn');
+  
+  celebrateHeroBtns.forEach(button => {
+    button.addEventListener('click', function() {
+      createCelebrationEffects();
+      showNotification('🎉 Celebrating our amazing October achievements!');
+      
+      // Scroll to October completion post
+      setTimeout(() => {
+        const octoberPost = document.querySelector('[data-post-id="6"]');
+        if (octoberPost) {
+          octoberPost.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 1000);
+    });
+  });
+}
 
 // Blog Modal Functionality
 function initializeBlogModal() {
@@ -2061,6 +2108,7 @@ function initializeApp() {
   initializeBlogModal();
   initializeGoogleFormModal();
   initializeVideoAutoPlay();
+  initializeHeroCelebrations(); // Add this line
   
   console.log('WorkFit Social Platform initialized successfully');
 }
