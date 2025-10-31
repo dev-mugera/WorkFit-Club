@@ -513,6 +513,22 @@
       border-radius: 4px;
       transition: width 0.5s ease;
     }
+    /* Celebration Post Styles */
+    .celebrate-btn.celebrated {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* Achievement badges */
+    .achievement-badge {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
 
     /* Interactive Actions */
     .post-action.save-btn.saved i {
@@ -976,6 +992,83 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+  <!-- October Challenges Completion Post -->
+  <div class="post" data-post-id="6">
+    <div class="post-header">
+      <img src="https://i.postimg.cc/CM8wFsCW/FB-IMG-1747755806015-Annwa.jpg" alt="WorkFit Team" class="post-avatar">
+      <div class="post-user-info">
+        <div class="post-username">WorkFit Team</div>
+        <div class="post-time">October 31, 2025 · Celebration Post</div>
+      </div>
+      <button class="post-more">
+        <i class="fas fa-ellipsis-h"></i>
+      </button>
+    </div>
+    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="October Challenges Completed" class="post-image">
+    <div class="post-content">
+      <div class="challenge-badge" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);">OCTOBER CHALLENGES COMPLETED! 🎉</div>
+      <h3 class="post-title">We Did It! October Challenges Successfully Completed</h3>
+      <p class="post-text">Today, on October 31st, we officially completed all our October fitness challenges during our morning session! Your dedication and consistency have paid off in an incredible way.</p>
+      
+      <div class="progress-container" style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(69, 160, 73, 0.1) 100%);">
+        <div class="progress-header">
+          <span><strong>October Challenge Results</strong></span>
+          <span style="color: #4CAF50; font-weight: bold;">100%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-secondary); border-radius: 10px; padding: 1rem; margin: 1rem 0;">
+        <h4 style="color: var(--navy); margin-bottom: 0.8rem;">🏆 October Achievements:</h4>
+        <div style="display: grid; gap: 0.8rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+            <span>🥇 <strong>Plank Challenge:</strong></span>
+            <span style="color: #4CAF50; font-weight: bold;">60 MINUTES</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+            <span>🥈 <strong>Mountain Climbers:</strong></span>
+            <span style="color: #4CAF50; font-weight: bold;">3,000 REPS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+            <span>🥉 <strong>Step-Up Exercises:</strong></span>
+            <span style="color: #4CAF50; font-weight: bold;">3,000 REPS</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="post-text">That's 2 minutes of planks, 100 mountain climbers, and 100 step-ups every single day for 30 days! Your commitment has been absolutely inspiring. 💪</p>
+      
+      <div style="background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
+        <h4 style="margin-bottom: 0.5rem;">🙌 Special Shoutout to Our Amazing Members!</h4>
+        <p style="margin: 0; font-weight: 600;">Thank you to every single member who showed up, pushed through, and kept the energy high throughout October. Your spirit and dedication made this possible!</p>
+      </div>
+
+      <p class="post-text">We're carrying this incredible momentum into November with our new challenges. The same energy, the same commitment, but even stronger together! 🔥</p>
+
+      <div class="post-tags">
+        <span class="post-tag" style="background: #4CAF50;">#OctoberSuccess</span>
+        <span class="post-tag" style="background: #4CAF50;">#ChallengeCompleted</span>
+        <span class="post-tag" style="background: #4CAF50;">#WorkFitFamily</span>
+        <span class="post-tag" style="background: #4CAF50;">#FitnessGoals</span>
+      </div>
+    </div>
+    <div class="post-actions">
+      <button class="post-action save-btn" data-post-id="6">
+        <i class="far fa-bookmark"></i>
+        <span class="post-action-count">Save</span>
+      </button>
+      <button class="post-action celebrate-btn" data-post-id="6">
+        <i class="fas fa-trophy"></i>
+        <span class="post-action-count">Celebrate</span>
+      </button>
+      <button class="post-action share-btn" data-post-id="6">
+        <i class="fas fa-share-alt"></i>
+        <span class="post-action-count">Share</span>
+      </button>
+    </div>
+  </div>
     <!-- Event Post -->
     <div class="post" data-post-id="1">
       <div class="post-header">
@@ -1644,6 +1737,69 @@ function initializeSocialInteractions() {
     }, 3000);
   }
 }
+  // Celebrate button functionality
+  const celebrateButtons = document.querySelectorAll('.celebrate-btn');
+  
+  celebrateButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      const countElement = this.querySelector('.post-action-count');
+      let count = parseInt(countElement.textContent) || 0;
+      
+      count++;
+      countElement.textContent = count;
+      
+      // Add celebration effects
+      createCelebrationEffects();
+      showNotification('🎉 Woohoo! Celebrating our October success!');
+    });
+  });
+
+  // Celebration effects function
+  function createCelebrationEffects() {
+    // Create confetti elements
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const confetti = document.createElement('div');
+        confetti.innerHTML = '🎉';
+        confetti.style.cssText = `
+          position: fixed;
+          top: -50px;
+          left: ${Math.random() * 100}vw;
+          font-size: ${20 + Math.random() * 20}px;
+          z-index: 10000;
+          pointer-events: none;
+          animation: fall ${2 + Math.random() * 2}s linear forwards;
+        `;
+        
+        document.body.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+          document.body.removeChild(confetti);
+        }, 4000);
+      }, i * 100);
+    }
+    
+    // Add CSS for falling animation
+    if (!document.querySelector('#confetti-styles')) {
+      const style = document.createElement('style');
+      style.id = 'confetti-styles';
+      style.textContent = `
+        @keyframes fall {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
 
 // Blog Modal Functionality
 function initializeBlogModal() {
