@@ -1095,6 +1095,167 @@
             transform: translateY(-2px);
         }
         
+        /* Order Confirmation Modal - NEW STYLING */
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 1rem;
+        }
+        
+        .confirmation-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .confirmation-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            position: relative;
+        }
+        
+        .confirmation-modal.active .confirmation-card {
+            transform: translateY(0) scale(1);
+        }
+        
+        .confirmation-header {
+            background: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%);
+            color: white;
+            padding: 2.5rem 1.5rem 1.5rem;
+            position: relative;
+        }
+        
+        .confirmation-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .confirmation-icon i {
+            font-size: 2.5rem;
+            color: var(--success);
+        }
+        
+        .confirmation-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .confirmation-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .confirmation-body {
+            padding: 2rem 1.5rem;
+        }
+        
+        .confirmation-message {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .confirmation-details {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .confirmation-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .confirmation-detail:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .confirmation-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .confirmation-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border-color);
+            transform: translateY(-2px);
+        }
+        
         /* Messages */
         .message {
             padding: 0.8rem;
@@ -1343,7 +1504,7 @@
                 gap: 0;
             }
             
-            .cart-form, .order-form, .customization-form {
+            .cart-form, .order-form, .customization-form, .confirmation-card {
                 margin: 0.5rem;
                 max-height: 80vh;
             }
@@ -1360,6 +1521,15 @@
                 padding: 0.5rem 0.8rem;
                 min-width: 70px;
                 font-size: 0.85rem;
+            }
+            
+            .confirmation-footer {
+                flex-direction: column;
+            }
+            
+            .confirmation-btn {
+                width: 100%;
+                justify-content: center;
             }
 
             /* Mobile Menu Styles */
@@ -1443,6 +1613,19 @@
             .option-items {
                 justify-content: center;
             }
+            
+            .confirmation-title {
+                font-size: 1.5rem;
+            }
+            
+            .confirmation-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .confirmation-icon i {
+                font-size: 2rem;
+            }
         }
 
         /* PWA standalone mode adjustments */
@@ -1486,7 +1669,7 @@
             </button>
             <div class="social-nav" id="socialNav">
                 <a href="index.html">Feed</a>
-                <a href="media-wpa.html">Media</a>
+                <a href="media-wpa.html">Explore</a>
                 <a href="contact.wpa.html">Contacts</a>
                 <a href="about-us.html">About</a>
                 
@@ -1734,6 +1917,45 @@
             </div>
         </div>
     </div>
+    
+    <!-- Order Confirmation Modal - NEW -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-card">
+            <div class="confirmation-header">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 class="confirmation-title">Order Confirmed!</h2>
+                <p class="confirmation-subtitle">Thank you for your purchase</p>
+            </div>
+            <div class="confirmation-body">
+                <p class="confirmation-message">Your order has been successfully placed and is being processed. You will receive a confirmation email shortly.</p>
+                
+                <div class="confirmation-details">
+                    <div class="confirmation-detail">
+                        <span class="detail-label">Order Number:</span>
+                        <span class="detail-value" id="confirmationOrderNumber">WF-2023-001</span>
+                    </div>
+                    <div class="confirmation-detail">
+                        <span class="detail-label">Total Amount:</span>
+                        <span class="detail-value" id="confirmationTotal">KSh 0.00</span>
+                    </div>
+                    <div class="confirmation-detail">
+                        <span class="detail-label">Estimated Delivery:</span>
+                        <span class="detail-value">3-5 business days</span>
+                    </div>
+                </div>
+            </div>
+            <div class="confirmation-footer">
+                <button class="confirmation-btn btn-primary" id="continueShoppingBtn">
+                    <i class="fas fa-shopping-bag"></i> Continue Shopping
+                </button>
+                <button class="confirmation-btn btn-secondary" id="viewOrderBtn">
+                    <i class="fas fa-eye"></i> View Order Details
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Social Platform Bottom Navigation -->
     <nav class="social-bottom-nav">
@@ -1866,6 +2088,7 @@
             const imageModal = document.getElementById('imageModal');
             const cartModal = document.getElementById('cartModal');
             const customizationModal = document.getElementById('customizationModal');
+            const confirmationModal = document.getElementById('confirmationModal');
             const closeModalBtn = document.getElementById('closeModal');
             const closeImageModalBtn = document.getElementById('closeImageModal');
             const closeCartBtn = document.getElementById('closeCart');
@@ -1892,6 +2115,10 @@
             const materialOptionsContainer = document.getElementById('materialOptionsContainer');
             const typeOptionsContainer = document.getElementById('typeOptionsContainer');
             const customQuantity = document.getElementById('customQuantity');
+            const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+            const viewOrderBtn = document.getElementById('viewOrderBtn');
+            const confirmationOrderNumber = document.getElementById('confirmationOrderNumber');
+            const confirmationTotal = document.getElementById('confirmationTotal');
             
             // Cart items storage
             let cartItems = JSON.parse(localStorage.getItem('workfit_cart')) || [];
@@ -1971,6 +2198,12 @@
                 }
             });
             
+            confirmationModal.addEventListener('click', function(e) {
+                if (e.target === confirmationModal) {
+                    closeConfirmationModal();
+                }
+            });
+            
             function closeModal() {
                 modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -1986,6 +2219,11 @@
                 document.body.style.overflow = 'auto';
             }
             
+            function closeConfirmationModal() {
+                confirmationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
             function openModal() {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -1995,6 +2233,11 @@
             
             function openCustomizationModal() {
                 customizationModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function openConfirmationModal() {
+                confirmationModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
             
@@ -2672,17 +2915,25 @@
                     
                     // Since we're using no-cors mode, we can't access the response directly
                     // So we'll assume success if we get this far
-                    successMessage.style.display = 'flex';
+                    
+                    // Calculate total for confirmation
+                    const total = cartItems.reduce((sum, item) => sum + (item.basePrice * item.quantity), 0);
+                    
+                    // Generate order number
+                    const orderNumber = 'WF-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+                    
+                    // Update confirmation modal with order details
+                    confirmationOrderNumber.textContent = orderNumber;
+                    confirmationTotal.textContent = `KSh ${total.toFixed(2)}`;
+                    
+                    // Close order modal and open confirmation modal
+                    closeModal();
+                    openConfirmationModal();
                     
                     // Clear cart
                     cartItems = [];
                     localStorage.removeItem('workfit_cart');
                     updateCartUI();
-                    
-                    setTimeout(() => {
-                        closeModal();
-                        successMessage.style.display = 'none';
-                    }, 3000);
                     
                 } catch (error) {
                     errorText.textContent = 'Failed to submit order. Please try again.';
@@ -2692,6 +2943,17 @@
                     submitOrderBtn.disabled = false;
                     submitOrderBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Complete Order';
                 }
+            });
+            
+            // Confirmation modal button handlers
+            continueShoppingBtn.addEventListener('click', function() {
+                closeConfirmationModal();
+            });
+            
+            viewOrderBtn.addEventListener('click', function() {
+                closeConfirmationModal();
+                // In a real implementation, this would navigate to an order details page
+                showNotification('Order details would be displayed here in a real implementation');
             });
             
             function showError(message) {
