@@ -323,6 +323,71 @@
       border-left: 4px solid var(--gold);
     }
 
+    /* Celebration Banner */
+    .celebration-banner {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .celebration-banner h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .celebration-banner p {
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .celebration-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .celebration-stat {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1rem;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .celebration-stat-number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .celebration-stat-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
     /* Current Challenges */
     .current-challenges {
       display: grid;
@@ -337,6 +402,7 @@
       transition: var(--transition);
       box-shadow: var(--shadow-sm);
       cursor: pointer;
+      position: relative;
     }
 
     .challenge-card:hover {
@@ -426,6 +492,21 @@
     .challenge-link:hover {
       color: var(--navy-dark);
       gap: 0.7rem;
+    }
+
+    /* Completed Challenge Badge */
+    .completed-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #4CAF50;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     /* Previous Challenges */
@@ -811,6 +892,10 @@
       .challenge-details-title {
         font-size: 1.5rem;
       }
+
+      .celebration-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 480px) {
@@ -837,6 +922,10 @@
         flex: 1;
         min-width: 70px;
         padding: 0.8rem 0.4rem;
+      }
+
+      .celebration-stats {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -877,26 +966,50 @@
   </header>
 
   <div class="container">
+    <!-- Celebration Banner -->
+    <div class="celebration-banner">
+      <h2><i class="fas fa-trophy"></i> October Challenges Completed! 🎉</h2>
+      <p>We successfully completed all October challenges on October 31st! Thank you to all members who kept the spirit high. Let's carry this energy into November!</p>
+      <div class="celebration-stats">
+        <div class="celebration-stat">
+          <span class="celebration-stat-number">60 min</span>
+          <span class="celebration-stat-label">Plank Time</span>
+        </div>
+        <div class="celebration-stat">
+          <span class="celebration-stat-number">3,000</span>
+          <span class="celebration-stat-label">Mountain Climbers</span>
+        </div>
+        <div class="celebration-stat">
+          <span class="celebration-stat-number">3,000</span>
+          <span class="celebration-stat-label">Step-Ups</span>
+        </div>
+        <div class="celebration-stat">
+          <span class="celebration-stat-number">100%</span>
+          <span class="celebration-stat-label">Goals Achieved</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-slides">
-        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
           <div class="slide-overlay"></div>
           <div class="slide-content">
-            <h1 class="slide-title">October Challenges</h1>
-            <p class="slide-text">Join our community challenges and push your limits together</p>
+            <h1 class="slide-title">November Challenges Are Here! 📚</h1>
+            <p class="slide-text">Transform your mornings and health with our exciting November challenges. Join the 5AM Club and No Sugar November!</p>
             <div class="slide-stats">
               <div class="stat">
-                <span class="stat-number">3,000</span>
-                <span class="stat-label">Mountain Climbers</span>
+                <span class="stat-number">5AM</span>
+                <span class="stat-label">Morning Club</span>
               </div>
               <div class="stat">
-                <span class="stat-number">60</span>
-                <span class="stat-label">Minutes Plank</span>
+                <span class="stat-number">30</span>
+                <span class="stat-label">Days Sugar Free</span>
               </div>
               <div class="stat">
-                <span class="stat-number">3,000</span>
-                <span class="stat-label">Daily Steps</span>
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Community Support</span>
               </div>
             </div>
           </div>
@@ -907,12 +1020,100 @@
     <!-- Current Challenges Section -->
     <section class="page-section">
       <div class="section-header">
-        <h2 class="section-title">Current Challenges</h2>
+        <h2 class="section-title">November Challenges</h2>
       </div>
       
       <div class="current-challenges">
         <!-- Challenge 1 -->
+        <div class="challenge-card" data-challenge-id="5am-club">
+          <div class="challenge-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+          <div class="challenge-content">
+            <div class="challenge-meta">
+              <span class="challenge-category">Personal Growth</span>
+              <span>Nov 2025</span>
+            </div>
+            <h3 class="challenge-title">The 5AM Club Reading Challenge</h3>
+            <p class="challenge-description">Transform your mornings with Robin Sharma's "The 5AM Club". Join our community reading challenge and implement life-changing morning routines.</p>
+            <div class="challenge-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-text">
+                <span>Starts Nov 1</span>
+                <span>0% Complete</span>
+              </div>
+            </div>
+            <a href="#" class="challenge-link view-challenge-details">
+              Join Challenge
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Challenge 2 -->
+        <div class="challenge-card" data-challenge-id="no-sugar">
+          <div class="challenge-image" style="background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+          <div class="challenge-content">
+            <div class="challenge-meta">
+              <span class="challenge-category">Health & Wellness</span>
+              <span>Nov 2025</span>
+            </div>
+            <h3 class="challenge-title">No Sugar November Challenge</h3>
+            <p class="challenge-description">Reset your taste buds and improve your health! Join our 30-day no added sugar challenge with daily tips, recipes, and community support.</p>
+            <div class="challenge-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-text">
+                <span>Starts Nov 1</span>
+                <span>0% Complete</span>
+              </div>
+            </div>
+            <a href="#" class="challenge-link view-challenge-details">
+              Join Challenge
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Challenge 3 -->
+        <div class="challenge-card" data-challenge-id="fitness-streak">
+          <div class="challenge-image" style="background-image: url('https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+          <div class="challenge-content">
+            <div class="challenge-meta">
+              <span class="challenge-category">Fitness</span>
+              <span>Nov 2025</span>
+            </div>
+            <h3 class="challenge-title">30-Day Fitness Streak Challenge</h3>
+            <p class="challenge-description">Build unstoppable momentum! Commit to moving every day in November. Any workout counts - let's build consistency together.</p>
+            <div class="challenge-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-text">
+                <span>Starts Nov 1</span>
+                <span>0% Complete</span>
+              </div>
+            </div>
+            <a href="#" class="challenge-link view-challenge-details">
+              Start Streak
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- October Challenges Completion Section -->
+    <section class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">October Challenges - Completed! 🎉</h2>
+      </div>
+      
+      <div class="current-challenges">
+        <!-- Completed Challenge 1 -->
         <div class="challenge-card" data-challenge-id="mountain-climbers">
+          <div class="completed-badge">COMPLETED</div>
           <div class="challenge-image" style="background-image: url('https://i.postimg.cc/3JLrjQZG/20250929-1639-Outdoor-Mountain-Climbers-simple-compose-01k6atyjrgfccs8nnj0tmtpbaf-1.png')"></div>
           <div class="challenge-content">
             <div class="challenge-meta">
@@ -920,25 +1121,26 @@
               <span>Oct 2025</span>
             </div>
             <h3 class="challenge-title">Mountain Climbers Challenge</h3>
-            <p class="challenge-description">Join our team challenge to complete 3,000 mountain climbers this month! Track your progress and cheer on your teammates.</p>
+            <p class="challenge-description">Successfully completed 3,000 mountain climbers! That's 100 reps daily for 30 days. Amazing endurance and dedication from our community!</p>
             <div class="challenge-progress">
               <div class="progress-bar">
-                <div class="progress-fill" style="width: 45%"></div>
+                <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
               </div>
               <div class="progress-text">
-                <span>1,350 reps</span>
-                <span>45% Complete</span>
+                <span>3,000 reps</span>
+                <span>100% Complete</span>
               </div>
             </div>
             <a href="#" class="challenge-link view-challenge-details">
-              View Details
-              <i class="fas fa-arrow-right"></i>
+              View Achievement
+              <i class="fas fa-trophy"></i>
             </a>
           </div>
         </div>
         
-        <!-- Challenge 2 -->
+        <!-- Completed Challenge 2 -->
         <div class="challenge-card" data-challenge-id="plank-hold">
+          <div class="completed-badge">COMPLETED</div>
           <div class="challenge-image" style="background-image: url('https://i.postimg.cc/pLp0rKTw/20250929-1709-Outdoor-Plank-Workout-simple-compose-01k6awvva7f2zb7zxyrvdeh2mj.png')"></div>
           <div class="challenge-content">
             <div class="challenge-meta">
@@ -946,25 +1148,26 @@
               <span>Oct 2025</span>
             </div>
             <h3 class="challenge-title">Plank Hold Challenge</h3>
-            <p class="challenge-description">Hold a plank for a total of 60 minutes this month. Log your time daily and see your core strength soar!</p>
+            <p class="challenge-description">Incredible achievement! 60 minutes of total plank time completed. Your core strength has reached new heights through consistent daily effort.</p>
             <div class="challenge-progress">
               <div class="progress-bar">
-                <div class="progress-fill" style="width: 30%"></div>
+                <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
               </div>
               <div class="progress-text">
-                <span>18 min</span>
-                <span>30% Complete</span>
+                <span>60 min</span>
+                <span>100% Complete</span>
               </div>
             </div>
             <a href="#" class="challenge-link view-challenge-details">
-              View Details
-              <i class="fas fa-arrow-right"></i>
+              View Achievement
+              <i class="fas fa-trophy"></i>
             </a>
           </div>
         </div>
         
-        <!-- Challenge 3 -->
+        <!-- Completed Challenge 3 -->
         <div class="challenge-card" data-challenge-id="step-challenge">
+          <div class="completed-badge">COMPLETED</div>
           <div class="challenge-image" style="background-image: url('https://i.postimg.cc/HWN8HMqJ/20250915-1528-Outdoor-Fitness-Gathering-simple-compose-01k56ngycze5psvn1p8wp7sbg9.png')"></div>
           <div class="challenge-content">
             <div class="challenge-meta">
@@ -972,19 +1175,19 @@
               <span>Oct 2025</span>
             </div>
             <h3 class="challenge-title">Step Up Challenge</h3>
-            <p class="challenge-description">This challenge requires you to do a total of 3,000 steps. You can achieve this by incorporating other workout activities.</p>
+            <p class="challenge-description">3,000 step-ups successfully completed! Fantastic work incorporating daily movement and building sustainable fitness habits together.</p>
             <div class="challenge-progress">
               <div class="progress-bar">
-                <div class="progress-fill" style="width: 60%"></div>
+                <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
               </div>
               <div class="progress-text">
-                <span>1,800 steps</span>
-                <span>60% Complete</span>
+                <span>3,000 steps</span>
+                <span>100% Complete</span>
               </div>
             </div>
             <a href="#" class="challenge-link view-challenge-details">
-              View Details
-              <i class="fas fa-arrow-right"></i>
+              View Achievement
+              <i class="fas fa-trophy"></i>
             </a>
           </div>
         </div>
@@ -1050,7 +1253,7 @@
     <!-- Furnace Performance Section -->
     <section class="page-section">
       <div class="section-header">
-        <h2 class="section-title">Furnace Team Performance</h2>
+        <h2 class="section-title">October Furnace Team Performance</h2>
       </div>
       <div class="furnace-performance">
         <table class="performance-table">
@@ -1068,40 +1271,40 @@
             <tr>
               <td><span class="furnace-rank">1</span></td>
               <td>Uthiru Warriors</td>
-              <td>1,250/1,500</td>
-              <td>45/60 min</td>
-              <td>2,800/3,000</td>
+              <td>3,000/3,000 ✅</td>
+              <td>60/60 min ✅</td>
+              <td>3,000/3,000 ✅</td>
               <td>
                 <div class="progress-bar">
-                  <div class="progress-fill" style="width: 85%"></div>
+                  <div class="progress-fill" style="width: 100%; background: #4CAF50;"></div>
                 </div>
-                <span>85%</span>
+                <span>100%</span>
               </td>
             </tr>
             <tr>
               <td><span class="furnace-rank">2</span></td>
               <td>Wangige Titans</td>
-              <td>1,100/1,500</td>
-              <td>42/60 min</td>
-              <td>2,600/3,000</td>
+              <td>2,950/3,000 ✅</td>
+              <td>58/60 min ✅</td>
+              <td>2,980/3,000 ✅</td>
               <td>
                 <div class="progress-bar">
-                  <div class="progress-fill" style="width: 78%"></div>
+                  <div class="progress-fill" style="width: 98%"></div>
                 </div>
-                <span>78%</span>
+                <span>98%</span>
               </td>
             </tr>
             <tr>
               <td><span class="furnace-rank">3</span></td>
               <td>Kikuyu Sparks</td>
-              <td>950/1,500</td>
-              <td>38/60 min</td>
-              <td>2,400/3,000</td>
+              <td>2,850/3,000 ✅</td>
+              <td>55/60 min ✅</td>
+              <td>2,900/3,000 ✅</td>
               <td>
                 <div class="progress-bar">
-                  <div class="progress-fill" style="width: 70%"></div>
+                  <div class="progress-fill" style="width: 95%"></div>
                 </div>
-                <span>70%</span>
+                <span>95%</span>
               </td>
             </tr>
           </tbody>
@@ -1110,87 +1313,80 @@
     </section>
 
     <!-- Challenge Detail Modals -->
-    <!-- Mountain Climbers Modal -->
-    <div class="challenge-modal" id="mountain-climbers-modal">
+    <!-- November 5AM Club Modal -->
+    <div class="challenge-modal" id="5am-club-modal">
       <div class="challenge-modal-content">
         <button class="challenge-modal-close">&times;</button>
-        <img src="https://i.postimg.cc/3JLrjQZG/20250929-1639-Outdoor-Mountain-Climbers-simple-compose-01k6atyjrgfccs8nnj0tmtpbaf-1.png" alt="Mountain Climbers Challenge" class="challenge-detail-image">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="5AM Club Challenge" class="challenge-detail-image">
         <div class="challenge-details">
           <div class="challenge-details-header">
-            <h2 class="challenge-details-title">Mountain Climbers Challenge</h2>
+            <h2 class="challenge-details-title">The 5AM Club Reading Challenge</h2>
             <div class="challenge-details-meta">
               <div class="challenge-details-date">
                 <i class="fas fa-calendar-alt"></i>
-                <span>October 1-31, 2025</span>
+                <span>November 1-30, 2025</span>
               </div>
               <div class="challenge-details-target">
                 <i class="fas fa-bullseye"></i>
-                <span>3,000 reps per team</span>
+                <span>Complete "The 5AM Club" book</span>
               </div>
             </div>
           </div>
           <p class="challenge-details-description">
-            Mountain climbers are a dynamic full-body exercise that targets your core, shoulders, and legs while providing cardiovascular benefits. This challenge will help improve your endurance, core strength, and overall fitness level.
+            Transform your life by mastering the art of early rising and productive mornings. Join our community reading challenge of Robin Sharma's revolutionary book "The 5AM Club" and implement the 20/20/20 formula for maximum productivity.
           </p>
           
           <div class="challenge-details-info">
             <h3>Challenge Details</h3>
             <ul>
-              <li><strong>Target:</strong> 3,000 mountain climbers per furnace team</li>
-              <li><strong>Duration:</strong> Entire month of October</li>
-              <li><strong>Tracking:</strong> Log your daily reps in the WorkFit app</li>
-              <li><strong>Team Goal:</strong> Complete 100 reps per team member daily</li>
-              <li><strong>Rewards:</strong> Top performing furnace gets featured in newsletter</li>
+              <li><strong>Target:</strong> Read "The 5AM Club" and implement the principles</li>
+              <li><strong>Duration:</strong> Entire month of November</li>
+              <li><strong>Daily Commitment:</strong> 20 minutes movement, 20 minutes reflection, 20 minutes growth</li>
+              <li><strong>Community:</strong> Daily check-ins and weekly discussion groups</li>
+              <li><strong>Rewards:</strong> Certificate of completion and productivity toolkit</li>
             </ul>
           </div>
           
           <div class="activity-tutorial">
             <div class="tutorial-content">
-              <h3>How to Do Mountain Climbers</h3>
+              <h3>The 20/20/20 Formula</h3>
               <div class="tutorial-steps">
                 <div class="tutorial-step">
                   <div class="step-number">1</div>
                   <div class="step-content">
-                    <h4>Starting Position</h4>
-                    <p>Begin in a high plank position with hands under shoulders and body straight.</p>
+                    <h4>5:00-5:20 AM: Move</h4>
+                    <p>20 minutes of intense exercise to boost energy and vitality.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">2</div>
                   <div class="step-content">
-                    <h4>Engage Core</h4>
-                    <p>Keep your core tight throughout to maintain proper form.</p>
+                    <h4>5:20-5:40 AM: Reflect</h4>
+                    <p>20 minutes of meditation, journaling, or visualization.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">3</div>
                   <div class="step-content">
-                    <h4>Alternate Legs</h4>
-                    <p>Drive one knee toward chest, then quickly switch in a running motion.</p>
-                  </div>
-                </div>
-                <div class="tutorial-step">
-                  <div class="step-number">4</div>
-                  <div class="step-content">
-                    <h4>Maintain Pace</h4>
-                    <p>Breathe steadily and maintain a controlled, consistent pace.</p>
+                    <h4>5:40-6:00 AM: Grow</h4>
+                    <p>20 minutes of learning through reading, podcasts, or skill development.</p>
                   </div>
                 </div>
               </div>
               
-              <h3>Common Mistakes to Avoid</h3>
+              <h3>Benefits of Joining</h3>
               <ul>
-                <li>Allowing hips to sag or rise too high</li>
-                <li>Placing hands too far forward</li>
-                <li>Holding your breath during the exercise</li>
-                <li>Moving too quickly before mastering form</li>
+                <li>Increased productivity and focus throughout the day</li>
+                <li>Better mental clarity and reduced stress</li>
+                <li>Time for personal growth before daily responsibilities</li>
+                <li>Community accountability and support</li>
               </ul>
             </div>
             
             <div class="tutorial-video">
-              <h3>Recommended Tutorial</h3>
+              <h3>Robin Sharma's Introduction</h3>
               <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/cnyTQDSE884" title="Mountain Climbers Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/8jPQjJBbC_4" title="5AM Club Introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
           </div>
@@ -1198,87 +1394,87 @@
       </div>
     </div>
 
-    <!-- Plank Hold Modal -->
-    <div class="challenge-modal" id="plank-hold-modal">
+    <!-- November No Sugar Modal -->
+    <div class="challenge-modal" id="no-sugar-modal">
       <div class="challenge-modal-content">
         <button class="challenge-modal-close">&times;</button>
-        <img src="https://i.postimg.cc/pLp0rKTw/20250929-1709-Outdoor-Plank-Workout-simple-compose-01k6awvva7f2zb7zxyrvdeh2mj.png" alt="Plank Hold Challenge" class="challenge-detail-image">
+        <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="No Sugar November Challenge" class="challenge-detail-image">
         <div class="challenge-details">
           <div class="challenge-details-header">
-            <h2 class="challenge-details-title">Plank Hold Challenge</h2>
+            <h2 class="challenge-details-title">No Sugar November Challenge</h2>
             <div class="challenge-details-meta">
               <div class="challenge-details-date">
                 <i class="fas fa-calendar-alt"></i>
-                <span>October 1-31, 2025</span>
+                <span>November 1-30, 2025</span>
               </div>
               <div class="challenge-details-target">
                 <i class="fas fa-bullseye"></i>
-                <span>60 minutes total per team</span>
+                <span>30 days without added sugar</span>
               </div>
             </div>
           </div>
           <p class="challenge-details-description">
-            The plank is one of the most effective core exercises that also engages your shoulders, back, and glutes. This challenge will help build incredible core strength and stability.
+            Reset your taste buds, improve your health, and break free from sugar addiction. This 30-day challenge will help you eliminate added sugars from your diet while providing daily support, recipes, and community encouragement.
           </p>
           
           <div class="challenge-details-info">
             <h3>Challenge Details</h3>
             <ul>
-              <li><strong>Target:</strong> 60 minutes of total plank time per furnace team</li>
-              <li><strong>Duration:</strong> Entire month of October</li>
-              <li><strong>Tracking:</strong> Log your daily plank time in the WorkFit app</li>
-              <li><strong>Team Goal:</strong> Complete 2 minutes per team member daily</li>
-              <li><strong>Rewards:</strong> Special core strength badge for all participants</li>
+              <li><strong>Target:</strong> 30 days without added sugars</li>
+              <li><strong>Duration:</strong> Entire month of November</li>
+              <li><strong>Allowed:</strong> Natural sugars from whole fruits</li>
+              <li><strong>Support:</strong> Daily recipes, meal plans, and community chat</li>
+              <li><strong>Rewards:</strong> Healthier eating habits and improved energy levels</li>
             </ul>
           </div>
           
           <div class="activity-tutorial">
             <div class="tutorial-content">
-              <h3>How to Do Planks Correctly</h3>
+              <h3>Getting Started Guide</h3>
               <div class="tutorial-steps">
                 <div class="tutorial-step">
                   <div class="step-number">1</div>
                   <div class="step-content">
-                    <h4>Forearm Position</h4>
-                    <p>Place forearms on ground with elbows aligned below shoulders.</p>
+                    <h4>Kitchen Cleanout</h4>
+                    <p>Remove all sugary snacks, drinks, and processed foods from your home.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">2</div>
                   <div class="step-content">
-                    <h4>Body Alignment</h4>
-                    <p>Keep your body in a straight line from head to heels.</p>
+                    <h4>Meal Planning</h4>
+                    <p>Plan your meals for the week to avoid impulsive sugary choices.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">3</div>
                   <div class="step-content">
-                    <h4>Engage Muscles</h4>
-                    <p>Tighten your core and glutes to prevent hips from sagging.</p>
+                    <h4>Healthy Alternatives</h4>
+                    <p>Stock up on fruits, nuts, and healthy snacks for cravings.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">4</div>
                   <div class="step-content">
-                    <h4>Breathing</h4>
-                    <p>Breathe deeply and steadily throughout the hold.</p>
+                    <h4>Stay Hydrated</h4>
+                    <p>Drink plenty of water to help manage cravings and stay full.</p>
                   </div>
                 </div>
               </div>
               
-              <h3>Common Mistakes to Avoid</h3>
+              <h3>Common Sugar Sources to Avoid</h3>
               <ul>
-                <li>Letting hips sag toward the floor</li>
-                <li>Raising hips too high</li>
-                <li>Looking up instead of down at hands</li>
-                <li>Holding your breath during the exercise</li>
+                <li>Sodas, juices, and sweetened beverages</li>
+                <li>Candy, cookies, and baked goods</li>
+                <li>Processed foods and sauces</li>
+                <li>Breakfast cereals and flavored yogurts</li>
               </ul>
             </div>
             
             <div class="tutorial-video">
-              <h3>Recommended Tutorial</h3>
+              <h3>Sugar-Free Cooking Tips</h3>
               <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/BQu26ABuVS0" title="Plank Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/SlWjYKwJm-0" title="Sugar-Free Cooking" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
           </div>
@@ -1286,87 +1482,87 @@
       </div>
     </div>
 
-    <!-- Step Challenge Modal -->
-    <div class="challenge-modal" id="step-challenge-modal">
+    <!-- November Fitness Streak Modal -->
+    <div class="challenge-modal" id="fitness-streak-modal">
       <div class="challenge-modal-content">
         <button class="challenge-modal-close">&times;</button>
-        <img src="https://i.postimg.cc/HWN8HMqJ/20250915-1528-Outdoor-Fitness-Gathering-simple-compose-01k56ngycze5psvn1p8wp7sbg9.png" alt="Step Challenge" class="challenge-detail-image">
+        <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fitness Streak Challenge" class="challenge-detail-image">
         <div class="challenge-details">
           <div class="challenge-details-header">
-            <h2 class="challenge-details-title">Step Up Challenge</h2>
+            <h2 class="challenge-details-title">30-Day Fitness Streak Challenge</h2>
             <div class="challenge-details-meta">
               <div class="challenge-details-date">
                 <i class="fas fa-calendar-alt"></i>
-                <span>October 1-31, 2025</span>
+                <span>November 1-30, 2025</span>
               </div>
               <div class="challenge-details-target">
                 <i class="fas fa-bullseye"></i>
-                <span>3,000 steps daily per team</span>
+                <span>30 consecutive days of activity</span>
               </div>
             </div>
           </div>
           <p class="challenge-details-description">
-            This step challenge encourages consistent daily movement and can be achieved through various activities like walking, running, or other cardio exercises. It's perfect for building sustainable fitness habits.
+            Build unstoppable momentum and make fitness a non-negotiable part of your daily routine. This challenge focuses on consistency - any movement counts! From intense workouts to gentle walks, the goal is to move every single day.
           </p>
           
           <div class="challenge-details-info">
             <h3>Challenge Details</h3>
             <ul>
-              <li><strong>Target:</strong> 3,000 steps daily per furnace team</li>
-              <li><strong>Duration:</strong> Entire month of October</li>
-              <li><strong>Tracking:</strong> Use fitness tracker or smartphone step counter</li>
-              <li><strong>Team Goal:</strong> Complete 100 steps per team member daily</li>
-              <li><strong>Rewards:</strong> Most consistent team wins a group fitness session</li>
+              <li><strong>Target:</strong> 30 consecutive days of physical activity</li>
+              <li><strong>Duration:</strong> Entire month of November</li>
+              <li><strong>Minimum:</strong> 15 minutes of intentional movement daily</li>
+              <li><strong>Variety:</strong> Mix of strength, cardio, flexibility, and active recovery</li>
+              <li><strong>Rewards:</strong> Streak badges and consistency certificate</li>
             </ul>
           </div>
           
           <div class="activity-tutorial">
             <div class="tutorial-content">
-              <h3>How to Maximize Your Steps</h3>
+              <h3>Building Your Streak</h3>
               <div class="tutorial-steps">
                 <div class="tutorial-step">
                   <div class="step-number">1</div>
                   <div class="step-content">
-                    <h4>Daily Walking</h4>
-                    <p>Take brisk walks during breaks or after meals.</p>
+                    <h4>Set a Schedule</h4>
+                    <p>Plan your workout time in advance to make it non-negotiable.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">2</div>
                   <div class="step-content">
-                    <h4>Use Stairs</h4>
-                    <p>Opt for stairs instead of elevators when possible.</p>
+                    <h4>Mix It Up</h4>
+                    <p>Alternate between different types of workouts to prevent boredom.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">3</div>
                   <div class="step-content">
-                    <h4>Park Further</h4>
-                    <p>Park farther from destinations to add extra steps.</p>
+                    <h4>Active Recovery</h4>
+                    <p>Include light activities like walking or stretching on rest days.</p>
                   </div>
                 </div>
                 <div class="tutorial-step">
                   <div class="step-number">4</div>
                   <div class="step-content">
-                    <h4>Walking Meetings</h4>
-                    <p>Take walking meetings when possible.</p>
+                    <h4>Track Progress</h4>
+                    <p>Use the WorkFit app to log your daily activity and maintain motivation.</p>
                   </div>
                 </div>
               </div>
               
-              <h3>Tips for Success</h3>
+              <h3>Activity Ideas for Busy Days</h3>
               <ul>
-                <li>Break steps into smaller chunks throughout the day</li>
-                <li>Set reminders to get up and move every hour</li>
-                <li>Combine steps with other daily activities</li>
-                <li>Track progress using fitness apps or devices</li>
+                <li>15-minute bodyweight workout</li>
+                <li>Brisk walk during lunch break</li>
+                <li>Evening stretching or yoga session</li>
+                <li>Active house cleaning or gardening</li>
               </ul>
             </div>
             
             <div class="tutorial-video">
-              <h3>Step Counting Tips</h3>
+              <h3>Quick 15-Minute Workout</h3>
               <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/UPS9rLIj4cA" title="Step Counting Tips" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/UBMk30rjy0o" title="Quick Workout" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
           </div>
