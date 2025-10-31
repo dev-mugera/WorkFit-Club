@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Updates - WorkFit</title>
+  <title>Session Management - WorkFit</title>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
   
   <!-- PWA Meta Tags -->
@@ -80,7 +80,7 @@
       padding-bottom: 4rem;
     }
 
-    /* Navigation */
+    /* Social Platform Header */
     header {
       background-color: var(--bg-primary);
       box-shadow: 0 2px 10px var(--shadow-color);
@@ -89,14 +89,13 @@
       z-index: 100;
     }
 
-    nav {
+    .social-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem;
+      padding: 0.8rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
-      position: relative;
     }
 
     .logo {
@@ -104,13 +103,13 @@
       width: auto;
     }
 
-    .nav-links {
+    .social-nav {
       display: flex;
       gap: 1rem;
       align-items: center;
     }
 
-    .nav-links a {
+    .social-nav a {
       color: var(--text-primary);
       text-decoration: none;
       font-weight: 600;
@@ -119,8 +118,48 @@
       padding: 0.5rem;
     }
 
-    .nav-links a:hover {
+    .social-nav a:hover {
       color: var(--gold);
+    }
+
+    .social-nav-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-nav-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      transition: background-color 0.3s;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    .social-nav-icon:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .mobile-menu-btn {
@@ -180,8 +219,8 @@
       margin: 0 auto;
     }
 
-    /* Updates Container */
-    .updates-container {
+    /* Session Management Container */
+    .session-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 1rem 2rem;
@@ -197,266 +236,253 @@
       border-left: 3px solid var(--gold);
     }
 
-    /* Filter Tabs */
-    .filter-tabs {
-      display: flex;
-      gap: 0.8rem;
+    /* Premium Booking Section */
+    .premium-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .premium-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--gold);
+    }
+
+    .premium-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .premium-description {
       margin-bottom: 1.5rem;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-    }
-
-    .filter-tab {
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 0.85rem;
-      white-space: nowrap;
-      font-weight: 500;
-    }
-
-    .filter-tab:hover {
-      background: var(--navy-light);
-      color: white;
-      border-color: var(--navy-light);
-    }
-
-    .filter-tab.active {
-      background: var(--navy);
-      color: white;
-      border-color: var(--navy);
-    }
-
-    /* Announcement Cards */
-    .announcement-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px var(--shadow-color);
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .announcement-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px var(--shadow-color);
-    }
-
-    .announcement-card.urgent {
-      border-left: 4px solid var(--accent);
-    }
-
-    .announcement-card.important {
-      border-left: 4px solid var(--gold);
-    }
-
-    .announcement-card.info {
-      border-left: 4px solid var(--navy-light);
-    }
-
-    .announcement-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .announcement-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.8rem;
-      color: var(--navy);
-      font-weight: 600;
-    }
-
-    .announcement-meta {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .announcement-category {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .announcement-date {
-      color: var(--gray);
-      font-size: 0.85rem;
-    }
-
-    .announcement-priority {
-      display: inline-block;
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .announcement-priority.urgent {
-      background: var(--accent);
-      color: white;
-    }
-
-    .announcement-priority.important {
-      background: var(--gold);
-      color: var(--navy);
-    }
-
-    .announcement-priority.info {
-      background: var(--navy-light);
-      color: white;
-    }
-
-    .announcement-body {
-      padding: 1.5rem;
-    }
-
-    .announcement-content {
-      margin-bottom: 1.2rem;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    .announcement-image {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 1.2rem;
-      max-height: 200px;
-      object-fit: cover;
-    }
-
-    /* Hero Slideshow */
-    .hero-slideshow {
-      position: relative;
-      height: 200px;
-      overflow: hidden;
-      border-radius: 12px;
-      margin: 0 1rem 1.5rem 1rem;
-    }
-
-    .slides-container {
-      height: 100%;
-      position: relative;
-    }
-
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.5rem;
-      color: white;
-      background-size: cover;
-      background-position: center;
-      border-radius: 12px;
-    }
-
-    .slide.active {
-      opacity: 1;
-    }
-
-    .slide-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
-      z-index: 1;
-      border-radius: 12px;
-    }
-
-    .slide-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .slide-badge {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.4rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.8rem;
-      margin-bottom: 0.8rem;
-      font-weight: 600;
-    }
-
-    .slide-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    .slide-description {
-      font-size: 0.9rem;
       opacity: 0.9;
     }
 
-    .slide-indicators {
-      position: absolute;
-      bottom: 1rem;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
       gap: 0.5rem;
-      z-index: 3;
+      text-decoration: none;
     }
 
-    .slide-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: rgba(255,255,255,0.5);
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    /* Weekly Schedule */
+    .weekly-schedule {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px var(--shadow-color);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .schedule-header {
+      background: var(--navy);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .schedule-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .schedule-week {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .schedule-body {
+      padding: 1.5rem;
+    }
+
+    .schedule-day {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .schedule-day:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .day-name {
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 1.1rem;
+    }
+
+    .day-date {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .day-sessions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .session-slot {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 1rem;
+      border-left: 4px solid var(--gold);
+    }
+
+    .session-time {
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .session-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .session-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .session-detail i {
+      width: 16px;
+      color: var(--navy);
+    }
+
+    .attendance-btn {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .attendance-btn:hover {
+      background: var(--navy-light);
+      transform: translateY(-2px);
+    }
+
+    /* Google Form Modal */
+    .google-form-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .google-form-modal.active {
+      display: flex;
+    }
+
+    .google-form-container {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .google-form-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .google-form-title {
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .google-form-close {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
       transition: all 0.3s;
     }
 
-    .slide-indicator.active {
-      background-color: white;
-      transform: scale(1.2);
+    .google-form-close:hover {
+      background: var(--white);
+      transform: scale(1.1);
     }
 
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1.5rem;
-      color: var(--gray);
+    .google-form-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
     }
 
-    .empty-state i {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--border-color);
-    }
-
-    .empty-state h3 {
-      margin-bottom: 0.5rem;
-      color: var(--text-secondary);
-      font-size: 1.2rem;
-    }
-
-    .empty-state p {
-      font-size: 0.95rem;
-    }
-
-    /* Bottom Navigation */
-    .bottom-nav {
+    /* Social Platform Bottom Navigation */
+    .social-bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -469,7 +495,7 @@
       z-index: 1000;
     }
     
-    .bottom-nav-item {
+    .social-nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -482,22 +508,22 @@
       max-width: 25%;
     }
     
-    .bottom-nav-item.active {
+    .social-nav-item.active {
       color: var(--navy);
     }
     
-    .bottom-nav-icon {
+    .social-nav-icon {
       font-size: 1.1rem;
       margin-bottom: 0.1rem;
     }
     
-    .bottom-nav-label {
+    .social-nav-label {
       font-weight: 500;
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .nav-links {
+      .social-nav {
         display: none;
         position: fixed;
         top: 60px;
@@ -511,11 +537,11 @@
         gap: 0;
       }
 
-      .nav-links.active {
+      .social-nav.active {
         display: flex;
       }
 
-      .nav-links a {
+      .social-nav a {
         padding: 1rem;
         border-bottom: 1px solid var(--border-color);
         width: 100%;
@@ -534,44 +560,30 @@
         font-size: 1.5rem;
       }
 
-      .updates-container {
+      .session-container {
         padding: 0 0.8rem 2rem;
       }
 
-      .hero-slideshow {
-        height: 180px;
-        margin: 0 0.8rem 1.2rem 0.8rem;
+      .premium-section {
+        padding: 1.5rem;
       }
 
-      .filter-tabs {
-        gap: 0.6rem;
+      .day-sessions {
+        grid-template-columns: 1fr;
       }
 
-      .filter-tab {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+      .google-form-container {
+        height: 95vh;
       }
     }
 
     @media (max-width: 480px) {
-      .hero-slideshow {
-        height: 160px;
+      .premium-title {
+        font-size: 1.3rem;
       }
 
-      .slide {
+      .schedule-body {
         padding: 1rem;
-      }
-
-      .slide-title {
-        font-size: 1.1rem;
-      }
-
-      .announcement-header {
-        padding: 1.2rem;
-      }
-
-      .announcement-body {
-        padding: 1.2rem;
       }
     }
 
@@ -589,208 +601,158 @@
   </style>
 </head>
 <body>
+  <!-- Social Platform Header -->
   <header>
-    <nav>
+    <div class="social-header">
       <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
-      <button class="mobile-menu-btn" id="menuBtn">
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle navigation menu">
         <i class="fas fa-bars"></i>
       </button>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="Blogs.html">Blogs</a>
-        <a href="media-wpa.html">Tutorials</a>
-        <a href="contact.wpa.html">Contact Us</a>
-        <a href="about-us.html">About Us</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
-          </svg>
-        </button>
+      <div class="social-nav" id="socialNav">
+        <a href="index.html">Feed</a>
+        <a href="media-wpa.html">Explore</a>
+        <a href="contact.wpa.html">Messages</a>
+        <a href="about-us.html">Profile</a>
+        
+        <div class="social-nav-icons">
+          <button class="social-nav-icon" aria-label="Notifications">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <button class="social-nav-icon" aria-label="Search">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="social-nav-icon" aria-label="Create Post">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </nav>
+    </div>
   </header>
 
   <!-- Page Header -->
   <section class="page-header">
-    <h1>Latest Updates</h1>
-    <p>Stay informed with the latest news, events, and announcements from WorkFit</p>
+    <h1>Session Management</h1>
+    <p>View schedules and manage your fitness sessions</p>
   </section>
 
-  <!-- Hero Slideshow -->
-  <div class="hero-slideshow">
-    <div class="slides-container" id="slidesContainer">
-      <!-- Slide 1 -->
-      <div class="slide active" style="background-image: url('https://i.postimg.cc/prGQXpbX/FUN-3.png')">
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <span class="slide-badge">Event Update</span>
-          <h3 class="slide-title">The Fun Run is On!!</h3>
-          <p class="slide-description">Scheduled for Nov 1st</p>
-        </div>
-      </div>
-      
-      <!-- Slide 2 -->
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')">
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <span class="slide-badge">New Challenge</span>
-          <h3 class="slide-title">October Fitness Challenges Are Live!</h3>
-          <p class="slide-description">Join now and track your progress</p>
-        </div>
-      </div>
-      
-      <!-- Slide 3 -->
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1340&q=80')">
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <span class="slide-badge">New Location</span>
-          <h3 class="slide-title">Welcome Uthiru Furnace!</h3>
-          <p class="slide-description">Opened on July 7th</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="slide-indicators" id="slideIndicators">
-      <!-- Indicators will be added by JavaScript -->
-    </div>
-  </div>
-
-  <!-- Updates Container -->
-  <div class="updates-container">
-    <h2 class="section-title">All Updates</h2>
-    
-    <div class="filter-tabs">
-      <button class="filter-tab active" data-filter="all">All Updates</button>
-      <button class="filter-tab" data-filter="urgent">Urgent</button>
-      <button class="filter-tab" data-filter="important">Important</button>
-      <button class="filter-tab" data-filter="events">Events</button>
-      <button class="filter-tab" data-filter="challenges">Challenges</button>
+  <!-- Session Management Container -->
+  <div class="session-container">
+    <!-- Premium Booking Section -->
+    <div class="premium-section">
+      <i class="fas fa-crown premium-icon"></i>
+      <h2 class="premium-title">Premium Member Booking</h2>
+      <p class="premium-description">As a premium member, you can book customized sessions tailored to your fitness goals and schedule.</p>
+      <button class="btn btn-primary" id="premiumBookingBtn">
+        <i class="fas fa-calendar-plus"></i> Book Custom Session
+      </button>
     </div>
 
-    <!-- Announcements List -->
-    <div id="announcementsList">
-      <!-- Urgent Announcement -->
-      <div class="announcement-card urgent" data-category="urgent" data-priority="urgent">
-        <div class="announcement-header">
-          <h3 class="announcement-title">🚨 Membership Information</h3>
-          <div class="announcement-meta">
-            <span class="announcement-category">Important</span>
-            <span class="announcement-date">Oct 25, 2025</span>
-            <span class="announcement-priority urgent">Urgent</span>
-          </div>
-        </div>
-        <div class="announcement-body">
-          <div class="announcement-content">
-            <p>We have updated our WorkFit membership terms to have you better served. This update allows us to easily track your fitness progress on a monthly basis.</p>
-            <p>All members are encouraged to update their details via the membership section, to keep working out together with us. Membership updates shall be done after every 3 months or less to keep accurate fitness records of your membership</p>
-          </div>
-        </div>
+    <!-- Weekly Schedule Section -->
+    <h2 class="section-title">Weekly Schedule for Basic Members</h2>
+    <div class="weekly-schedule">
+      <div class="schedule-header">
+        <h3 class="schedule-title">WorkFit Daily Schedule</h3>
+        <p class="schedule-week">Week Beginning October 31, 2025</p>
       </div>
+      <div class="schedule-body">
+        <!-- Monday -->
+        <div class="schedule-day">
+          <div class="day-header">
+            <h4 class="day-name">Monday</h4>
+            <span class="day-date">Oct 31</span>
+          </div>
+          <div class="day-sessions">
+            <div class="session-slot">
+              <div class="session-time">Morning Session</div>
+              <div class="session-details">
+                <div class="session-detail">
+                  <i class="fas fa-clock"></i>
+                  <span>5:45 AM - 6:45 AM</span>
+                </div>
+                <div class="session-detail">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>All Furnaces</span>
+                </div>
+                <div class="session-detail">
+                  <i class="fas fa-dumbbell"></i>
+                  <span>Cardio & Core Workout</span>
+                </div>
+            
+              </div>
+              <button class="attendance-btn" data-session="monday-morning">
+                <i class="fas fa-clipboard-check"></i> Mark Attendance
+              </button>
+            </div>
+            <div class="session-slot">
+              <div class="session-time">Evening Session</div>
+              <div class="session-details">
+                <div class="session-detail">
+                  <i class="fas fa-clock"></i>
+                  <span>5:30 PM - 6:45 PM</span>
+                </div>
+                <div class="session-detail">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>All Furnaces</span>
+                </div>
+                <div class="session-detail">
+                  <i class="fas fa-dumbbell"></i>
+                  <span>Strength Training</span>
+                </div>
+              </div>
+              <button class="attendance-btn" data-session="monday-evening">
+                <i class="fas fa-clipboard-check"></i> Mark Attendance
+              </button>
+            </div>
+          </div>
+        </div>
 
-      <!-- Important Announcement -->
-      <div class="announcement-card important" data-category="challenges" data-priority="important">
-        <div class="announcement-header">
-          <h3 class="announcement-title">🏆 October Fitness Challenges Are Live!</h3>
-          <div class="announcement-meta">
-            <span class="announcement-category">Monthly Challenge</span>
-            <span class="announcement-date">Oct 1, 2025</span>
-            <span class="announcement-priority important">Important</span>
-          </div>
-        </div>
-        <div class="announcement-body">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="October Challenges" class="announcement-image">
-          <div class="announcement-content">
-            <p>Get ready to push your limits this October! We've launched three exciting challenges:</p>
-            <ul>
-              <li><strong>Mountain Climbers Challenge:</strong> 3,000 reps this month</li>
-              <li><strong>Plank Hold Challenge:</strong> 60 minutes total plank time</li>
-              <li><strong>Step Up Challenge:</strong> 3,000 steps collectively</li>
-            </ul>
-            <p>Track your progress and compete for the top spots on our leaderboard! Perfect for team building and individual growth.</p>
-          </div>
-        </div>
+       
+  <!-- Google Form Modal for Premium Booking -->
+  <div class="google-form-modal" id="premiumBookingModal">
+    <div class="google-form-container">
+      <div class="google-form-header">
+        <h3 class="google-form-title">Premium Member Booking</h3>
+        <button class="google-form-close" id="premiumBookingClose">&times;</button>
       </div>
-
-      <!-- Information Announcement -->
-      <div class="announcement-card info" data-category="general" data-priority="info">
-        <div class="announcement-header">
-          <h3 class="announcement-title">📢 Updated Session Schedule</h3>
-          <div class="announcement-meta">
-            <span class="announcement-category">Schedule Update</span>
-            <span class="announcement-date">Oct 25, 2025</span>
-            <span class="announcement-priority info">Information</span>
-          </div>
-        </div>
-        <div class="announcement-body">
-          <div class="announcement-content">
-            <p>Starting November 1st, we're making adjustments to our session schedule to better serve our growing community:</p>
-            <p><strong>New Morning Sessions:</strong></p>
-            <ul>
-              <li>Uthiru Furnace: 5:30 AM - 6:45 AM (Mon - Fri)</li>
-              <li>Wangige Furnace: 5:30 AM - 6:45 AM (Mon - Fri)</li>
-              <li>Weekend Bootcamp: 7:00 AM - 8:30 AM (Saturdays)</li>
-            </ul>
-            <p><strong>New Evening Option:</strong></p>
-            <ul>
-              <li>Uthiru Furnace: 5:30 PM - 6:45 PM ( Mon - Fri)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- New Furnace Announcement -->
-     <!-- <div class="announcement-card info" data-category="general" data-priority="info">
-        <div class="announcement-header">
-          <h3 class="announcement-title">🎉 Welcome Wangige Furnace!</h3>
-          <div class="announcement-meta">
-            <span class="announcement-category">New Location</span>
-            <span class="announcement-date">Sep 15, 2025</span>
-            <span class="announcement-priority info">Information</span>
-          </div>
-        </div>
-        <div class="announcement-body">
-          <img src="https://alaninkenya.org/wordpress/wp-content/uploads/2011/12/swing_ride_uthiru.jpg" alt="Wangige Furnace" class="announcement-image">
-          <div class="announcement-content">
-            <p>We're excited to announce the opening of our newest WorkFit location in Wangige! This expansion brings our proven fitness programs to more communities.</p>
-            <p><strong>Location Details:</strong></p>
-            <ul>
-              <li>Address: Wangige Roundabout Area</li>
-              <li>Opening Date: November 3, 2025</li>
-              <li>Session Times: Tuesdays, Thursdays, Saturdays (5:00 AM - 6:30 AM)</li>
-            </ul>
-            <p>Join us in welcoming our newest fitness community!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
-
-    <!-- Empty State (hidden by default) -->
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <i class="fas fa-bell-slash"></i>
-      <h3>No Updates Found</h3>
-      <p>There are no updates matching your current filter.</p>
+      <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item">
-      <i class="fas fa-home bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Home</span>
+  <!-- Google Form Modal for Basic Attendance -->
+  <div class="google-form-modal" id="attendanceModal">
+    <div class="google-form-container">
+      <div class="google-form-header">
+        <h3 class="google-form-title">Mark Your Attendance</h3>
+        <button class="google-form-close" id="attendanceClose">&times;</button>
+      </div>
+      <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1RAXLb_ilqOmTgraaSN6LqmegRDefM6q0AxMa_nzPRzU/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Social Platform Bottom Navigation -->
+  <nav class="social-bottom-nav">
+    <a href="index.html" class="social-nav-item">
+      <i class="fas fa-home social-nav-icon"></i>
+      <span class="social-nav-label">Feed</span>
     </a>
-    <a href="Announcements-wpa.html" class="bottom-nav-item active">
-      <i class="fas fa-bullhorn bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Updates</span>
+    <a href="Announcements-wpa.html" class="social-nav-item active">
+      <i class="fas fa-calendar-alt social-nav-icon"></i>
+      <span class="social-nav-label">Sessions</span>
     </a>
-    <a href="plans-wpa.html" class="bottom-nav-item">
-      <i class="fas fa-running bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Membership</span>
+    <a href="plans-wpa.html" class="social-nav-item">
+      <i class="fas fa-running social-nav-icon"></i>
+      <span class="social-nav-label">Membership</span>
     </a>
-    <a href="store-webpage.html" class="bottom-nav-item">
-      <i class="fas fa-store bottom-nav-icon"></i>
-      <span class="bottom-nav-label">Our Store</span>
+    <a href="store-webpage.html" class="social-nav-item">
+      <i class="fas fa-store social-nav-icon"></i>
+      <span class="social-nav-label">Store</span>
     </a>
   </nav>
 
@@ -844,15 +806,15 @@
 
     // Mobile Menu Toggle
     const menuBtn = document.getElementById('menuBtn');
-    const navLinks = document.getElementById('navLinks');
+    const socialNav = document.getElementById('socialNav');
     
-    if (menuBtn && navLinks) {
+    if (menuBtn && socialNav) {
       menuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        navLinks.classList.toggle('active');
+        socialNav.classList.toggle('active');
         
         const icon = menuBtn.querySelector('i');
-        if (navLinks.classList.contains('active')) {
+        if (socialNav.classList.contains('active')) {
           icon.classList.remove('fa-bars');
           icon.classList.add('fa-times');
         } else {
@@ -863,8 +825,8 @@
       
       // Close menu when clicking outside
       document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
+        if (!socialNav.contains(e.target) && !menuBtn.contains(e.target) && socialNav.classList.contains('active')) {
+          socialNav.classList.remove('active');
           const icon = menuBtn.querySelector('i');
           icon.classList.remove('fa-times');
           icon.classList.add('fa-bars');
@@ -872,107 +834,95 @@
       });
       
       // Prevent clicks inside nav from closing it
-      navLinks.addEventListener('click', (e) => {
+      socialNav.addEventListener('click', (e) => {
         e.stopPropagation();
       });
     }
 
-    // Hero Slideshow Functionality
-    const slidesContainer = document.getElementById('slidesContainer');
-    const slides = document.querySelectorAll('.slide');
-    const slideIndicators = document.getElementById('slideIndicators');
-    let currentSlide = 0;
-    let slideInterval;
-
-    // Create indicators
-    slides.forEach((_, index) => {
-      const indicator = document.createElement('div');
-      indicator.classList.add('slide-indicator');
-      if (index === 0) indicator.classList.add('active');
-      indicator.addEventListener('click', () => {
-        goToSlide(index);
-      });
-      slideIndicators.appendChild(indicator);
-    });
-
-    function goToSlide(index) {
-      // Update slides
-      slides.forEach(slide => slide.classList.remove('active'));
-      slides[index].classList.add('active');
-      
-      // Update indicators
-      document.querySelectorAll('.slide-indicator').forEach((indicator, i) => {
-        if (i === index) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
-      
-      currentSlide = index;
-      
-      // Reset auto-slide timer
-      resetSlideInterval();
-    }
-
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      goToSlide(currentSlide);
-    }
-
-    function startSlideInterval() {
-      slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    }
-
-    function resetSlideInterval() {
-      clearInterval(slideInterval);
-      startSlideInterval();
-    }
-
-    // Pause on hover/touch
-    slidesContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    slidesContainer.addEventListener('mouseleave', startSlideInterval);
-    slidesContainer.addEventListener('touchstart', () => clearInterval(slideInterval));
-    slidesContainer.addEventListener('touchend', startSlideInterval);
-
-    // Announcement Filtering
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    const announcements = document.querySelectorAll('.announcement-card');
-    const emptyState = document.getElementById('emptyState');
+    // Google Form Modal Functionality
+    const premiumBookingModal = document.getElementById('premiumBookingModal');
+    const premiumBookingBtn = document.getElementById('premiumBookingBtn');
+    const premiumBookingClose = document.getElementById('premiumBookingClose');
     
-    filterTabs.forEach(tab => {
-      tab.addEventListener('click', function() {
-        const filter = this.dataset.filter;
-        
-        // Update active tab
-        filterTabs.forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Filter announcements
-        let visibleCount = 0;
-        announcements.forEach(announcement => {
-          const category = announcement.dataset.category;
-          const priority = announcement.dataset.priority;
-          
-          if (filter === 'all' || category === filter || priority === filter) {
-            announcement.style.display = 'block';
-            visibleCount++;
-          } else {
-            announcement.style.display = 'none';
-          }
-        });
-        
-        // Show empty state if no announcements match the filter
-        if (visibleCount === 0) {
-          emptyState.style.display = 'block';
-        } else {
-          emptyState.style.display = 'none';
-        }
+    const attendanceModal = document.getElementById('attendanceModal');
+    const attendanceBtns = document.querySelectorAll('.attendance-btn');
+    const attendanceClose = document.getElementById('attendanceClose');
+
+    // Premium Booking Modal
+    if (premiumBookingBtn) {
+      premiumBookingBtn.addEventListener('click', function() {
+        openPremiumBookingModal();
+      });
+    }
+
+    function openPremiumBookingModal() {
+      premiumBookingModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePremiumBookingModal() {
+      premiumBookingModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    if (premiumBookingClose) {
+      premiumBookingClose.addEventListener('click', closePremiumBookingModal);
+    }
+
+    // Close modal when clicking outside
+    premiumBookingModal.addEventListener('click', (e) => {
+      if (e.target === premiumBookingModal) {
+        closePremiumBookingModal();
+      }
+    });
+
+    // Attendance Modal
+    attendanceBtns.forEach(button => {
+      button.addEventListener('click', function() {
+        const session = this.dataset.session;
+        openAttendanceModal(session);
       });
     });
 
-    // Initialize
-    startSlideInterval();
+    function openAttendanceModal(session) {
+      // Set the correct form URL for basic members
+      const attendanceFrame = attendanceModal.querySelector('.google-form-frame');
+      attendanceFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSd9B0fwIXK5iJzjtC9Af2NBmFxcK1dXA-jGArG7KFp4Bz0P1g/viewform?usp=header';
+      
+      attendanceModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAttendanceModal() {
+      attendanceModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    if (attendanceClose) {
+      attendanceClose.addEventListener('click', closeAttendanceModal);
+    }
+
+    // Close modal when clicking outside
+    attendanceModal.addEventListener('click', (e) => {
+      if (e.target === attendanceModal) {
+        closeAttendanceModal();
+      }
+    });
+
+    // Set correct form URLs
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set premium booking form URL
+      const premiumFrame = document.querySelector('#premiumBookingModal .google-form-frame');
+      if (premiumFrame) {
+        premiumFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSe-0CIrcjwYWR94fwK0z4_AnTA1xNmvH83pxVvGi2I2o9Mn2Q/viewform?usp=header';
+      }
+      
+      // Set basic attendance form URL
+      const attendanceFrame = document.querySelector('#attendanceModal .google-form-frame');
+      if (attendanceFrame) {
+        attendanceFrame.src = 'https://docs.google.com/forms/d/e/1FAIpQLSd9B0fwIXK5iJzjtC9Af2NBmFxcK1dXA-jGArG7KFp4Bz0P1g/viewform?usp=header';
+      }
+    });
   </script>
 </body>
 </html>

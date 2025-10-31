@@ -537,8 +537,8 @@
             color: white;
         }
 
-        /* Bottom Navigation */
-        .bottom-nav {
+       /* Social Platform Bottom Navigation */
+        .social-bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -551,7 +551,7 @@
             z-index: 1000;
         }
 
-        .bottom-nav-item {
+        .social-nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -564,16 +564,16 @@
             max-width: 25%;
         }
 
-        .bottom-nav-item.active {
+        .social-nav-item.active {
             color: var(--navy);
         }
 
-        .bottom-nav-icon {
+        .social-nav-icon {
             font-size: 1.1rem;
             margin-bottom: 0.1rem;
         }
 
-        .bottom-nav-label {
+        .social-nav-label {
             font-weight: 500;
         }
 
@@ -1838,23 +1838,23 @@
     </div>
 
     <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-        <a href="index.html" class="bottom-nav-item">
-            <i class="fas fa-home bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Home</span>
-        </a>
-        <a href="Announcements-wpa.html" class="bottom-nav-item">
-            <i class="fas fa-bullhorn bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Updates</span>
-        </a>
-        <a href="plans-wpa.html" class="bottom-nav-item active">
-            <i class="fas fa-running bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Membership</span>
-        </a>
-        <a href="store-webpage.html" class="bottom-nav-item">
-            <i class="fas fa-store bottom-nav-icon"></i>
-            <span class="bottom-nav-store">Our Store</span>
-        </a>
+    <nav class="social-bottom-nav">
+    <a href="index.html" class="social-nav-item">
+      <i class="fas fa-home social-nav-icon"></i>
+      <span class="social-nav-label">Feed</span>
+    </a>
+    <a href="Announcements-wpa.html" class="social-nav-item active">
+      <i class="fas fa-calendar-alt social-nav-icon"></i>
+      <span class="social-nav-label">Sessions</span>
+    </a>
+    <a href="plans-wpa.html" class="social-nav-item">
+      <i class="fas fa-running social-nav-icon"></i>
+      <span class="social-nav-label">Membership</span>
+    </a>
+    <a href="store-webpage.html" class="social-nav-item">
+      <i class="fas fa-store social-nav-icon"></i>
+      <span class="social-nav-label">Store</span>
+    </a>
     </nav>
 
     <script>
