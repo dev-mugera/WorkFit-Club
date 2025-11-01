@@ -80,7 +80,7 @@
             padding-bottom: 4rem;
         }
 
-        /* Navigation */
+        /* Social Platform Header */
         header {
             background-color: var(--bg-primary);
             box-shadow: 0 2px 10px var(--shadow-color);
@@ -89,14 +89,13 @@
             z-index: 100;
         }
 
-        nav {
+        .social-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
+            padding: 0.8rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
         }
 
         .logo {
@@ -104,13 +103,13 @@
             width: auto;
         }
 
-        .nav-links {
+        .social-nav {
             display: flex;
             gap: 1rem;
             align-items: center;
         }
 
-        .nav-links a {
+        .social-nav a {
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
@@ -119,8 +118,33 @@
             padding: 0.5rem;
         }
 
-        .nav-links a:hover {
+        .social-nav a:hover {
             color: var(--gold);
+        }
+
+        .social-nav-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-nav-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            transition: background-color 0.3s;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .social-nav-icon:hover {
+            background-color: rgba(0,0,0,0.1);
         }
 
         .mobile-menu-btn {
@@ -362,44 +386,6 @@
             font-size: 0.9rem;
         }
 
-        /* Membership Plans Overview */
-        .plans-overview {
-            background: var(--navy);
-            color: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .plans-overview h2 {
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .plan-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .plan-feature {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .plan-feature i {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .plan-feature h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
         /* CTA Section */
         .cta-section {
             text-align: center;
@@ -455,8 +441,8 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Bottom Navigation */
-        .bottom-nav {
+        /* Social Platform Bottom Navigation */
+        .social-bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -468,8 +454,8 @@
             padding: 0.4rem 0;
             z-index: 1000;
         }
-
-        .bottom-nav-item {
+        
+        .social-nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -481,23 +467,23 @@
             flex: 1;
             max-width: 25%;
         }
-
-        .bottom-nav-item.active {
+        
+        .social-nav-item.active {
             color: var(--navy);
         }
-
-        .bottom-nav-icon {
+        
+        .social-nav-icon {
             font-size: 1.1rem;
             margin-bottom: 0.1rem;
         }
-
-        .bottom-nav-label {
+        
+        .social-nav-label {
             font-weight: 500;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
+            .social-nav {
                 display: none;
                 position: fixed;
                 top: 60px;
@@ -511,11 +497,11 @@
                 gap: 0;
             }
 
-            .nav-links.active {
+            .social-nav.active {
                 display: flex;
             }
 
-            .nav-links a {
+            .social-nav a {
                 padding: 1rem;
                 border-bottom: 1px solid var(--border-color);
                 width: 100%;
@@ -557,8 +543,7 @@
             }
 
             .mission-vision-grid,
-            .values-grid,
-            .plan-features {
+            .values-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -577,25 +562,29 @@
     </style>
 </head>
 <body>
+    <!-- Social Platform Header -->
     <header>
-        <nav>
+        <div class="social-header">
             <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
-            <button class="mobile-menu-btn" id="menuBtn">
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="media-wpa.html">Tutorials</a>
-                <a href="contact.wpa.html">Contact Us</a>
-                <a href="About.html" class="active">About Us</a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>
-                    </svg>
-                </button>
+            <div class="social-nav" id="socialNav">
+                <a href="index.html">Feed</a>
+                <a href="media-wpa.html">Media</a>
+                <a href="contact.wpa.html">Contacts</a>
+                <a href="about-us.html" class="active">About</a>
+                
+                <div class="social-nav-icons">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Page Header -->
@@ -721,23 +710,23 @@
         </section>
     </div>
 
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-        <a href="index.html" class="bottom-nav-item">
-            <i class="fas fa-home bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Home</span>
+    <!-- Social Platform Bottom Navigation -->
+    <nav class="social-bottom-nav">
+        <a href="index.html" class="social-nav-item">
+            <i class="fas fa-home social-nav-icon"></i>
+            <span class="social-nav-label">Feed</span>
         </a>
-        <a href="Announcements-wpa.html" class="bottom-nav-item">
-            <i class="fas fa-bullhorn bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Updates</span>
+        <a href="Announcements-wpa.html" class="social-nav-item active">
+            <i class="fas fa-calendar-alt social-nav-icon"></i>
+            <span class="social-nav-label">Sessions</span>
         </a>
-        <a href="plans-wpa.html" class="bottom-nav-item">
-            <i class="fas fa-running bottom-nav-icon"></i>
-            <span class="bottom-nav-label">Membership</span>
+        <a href="plans-wpa.html" class="social-nav-item">
+            <i class="fas fa-running social-nav-icon"></i>
+            <span class="social-nav-label">Membership</span>
         </a>
-        <a href="store-webpage.html" class="bottom-nav-item">
-            <i class="fas fa-store bottom-nav-icon"></i>
-            <span class="bottom-nav-store">our Store</span>
+        <a href="store-webpage.html" class="social-nav-item">
+            <i class="fas fa-store social-nav-icon"></i>
+            <span class="social-nav-label">Store</span>
         </a>
     </nav>
 
@@ -746,40 +735,81 @@
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const htmlElement = document.documentElement;
-        
-        // Check for saved theme preference or use system preference
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        // Set initial theme
-        if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        } else if (systemPrefersDark) {
-            htmlElement.setAttribute('data-theme', 'dark');
-            updateThemeIcon('dark');
-        }
-        
-        // Theme toggle functionality
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        function initializeTheme() {
+            // Check for saved theme preference or use system preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-        
+            // Set initial theme
+            if (savedTheme) {
+                htmlElement.setAttribute('data-theme', savedTheme);
+                updateThemeIcon(savedTheme);
+            } else if (systemPrefersDark) {
+                htmlElement.setAttribute('data-theme', 'dark');
+                updateThemeIcon('dark');
+            }
+            
+            // Theme toggle functionality
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const currentTheme = htmlElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    
+                    htmlElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeIcon(newTheme);
+                });
+            }
+        }
+
         function updateThemeIcon(theme) {
             if (!themeIcon) return;
             
             if (theme === 'dark') {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>';
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>';
             } else {
-                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4 4-1.79-4-4-4z"/>';
+                themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4 1.79 4-4-1.79-4-4-4z"/>';
             }
         }
-        
+
+        // Mobile Menu Toggle
+        function initializeMobileMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            const socialNav = document.getElementById('socialNav');
+            
+            if (menuBtn && socialNav) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    socialNav.classList.toggle('active');
+                    
+                    const icon = menuBtn.querySelector('i');
+                    if (socialNav.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!socialNav.contains(e.target) && !menuBtn.contains(e.target) && socialNav.classList.contains('active')) {
+                        socialNav.classList.remove('active');
+                        const icon = menuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+                
+                // Prevent clicks inside nav from closing it
+                socialNav.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+        }
+
         // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             if (!localStorage.getItem('theme')) {
@@ -788,41 +818,6 @@
                 updateThemeIcon(newTheme);
             }
         });
-
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (menuBtn && navLinks) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                navLinks.classList.toggle('active');
-                
-                const icon = menuBtn.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!navLinks.contains(e.target) && !menuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    const icon = menuBtn.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-            
-            // Prevent clicks inside nav from closing it
-            navLinks.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        }
 
         // Add scroll animations for cards
         window.addEventListener('scroll', function() {
@@ -852,6 +847,20 @@
                 window.dispatchEvent(new Event('scroll'));
             }, 100);
         });
+
+        // Main initialization function
+        function initializeApp() {
+            console.log('Initializing WorkFit About Page...');
+            
+            // Initialize all components
+            initializeTheme();
+            initializeMobileMenu();
+            
+            console.log('WorkFit About Page initialized successfully');
+        }
+
+        // Start the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
 </body>
 </html>
