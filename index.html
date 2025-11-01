@@ -738,6 +738,63 @@
       opacity: 0.9;
     }
 
+    .hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: var(--navy);
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+
     /* Social Platform Bottom Navigation */
     .social-bottom-nav {
       position: fixed;
@@ -871,6 +928,72 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+        <!-- Day 1 Mobility Session Post -->
+    <div class="post" data-post-id="day1mobility">
+      <div class="post-header">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Trainer Sarah" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">Sarah Johnson · Trainer</div>
+          <div class="post-time">15-Min · Day 1 of 30-Day Fitness Streak</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="video-container">
+        <iframe 
+          class="youtube-video"
+          src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <div class="video-controls">
+          <h4 class="video-title">15-Minute Mobility Flow for Day 1</h4>
+          <div>
+            <button class="play-btn">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="mute-btn">
+              <i class="fas fa-volume-up"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="post-content">
+        <div class="challenge-badge">DAY 1: MOBILITY FOCUS</div>
+        <h3 class="post-title">Full Body Mobility Flow</h3>
+        <p class="post-text">Kickstart your 30-day fitness streak with this gentle 15-minute mobility session. Perfect for warming up your joints and improving flexibility. Great for all fitness levels! 🧘‍♀️</p>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>Challenge Progress</span>
+            <span id="fitnessChallengeProgress">3%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="fitnessChallengeFill" style="width: 3%"></div>
+          </div>
+          <p id="fitnessChallengeText">Day 1 of 30 - Let's get started!</p>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#Mobility</span>
+          <span class="post-tag">#Day1Challenge</span>
+          <span class="post-tag">#Flexibility</span>
+          <span class="post-tag">#30DayStreak</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="day1mobility">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="day1mobility">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
+      </div>
+    </div>
     <!-- No Sugar November Post -->
     <div class="post" data-post-id="4">
       <div class="post-header">
@@ -968,13 +1091,12 @@
       </div>
     </div>
 
-    <!-- Converted Hero Content: November 5AM Club Challenge -->
     <div class="post" data-post-id="9">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Team" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club</div>
-          <div class="post-time">Ongoing · New Challenge</div>
+          <div class="post-time">Started Nov 1 · New Challenge</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
