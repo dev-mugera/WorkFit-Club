@@ -871,6 +871,57 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+    <!-- 30-Day Fitness Streak Challenge Post -->
+    <div class="post" data-post-id="30daystreak">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Challenges" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Challenges</div>
+          <div class="post-time">Started Nov 1 · Ongoing</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="30-Day Fitness Streak Challenge" class="post-image">
+      <div class="post-content">
+        <div class="challenge-badge">30-DAY FITNESS CHALLENGE</div>
+        <h3 class="post-title">30-Day Fitness Streak Challenge</h3>
+        <p class="post-text">Join our 30-day fitness streak challenge and build a consistent workout habit! Complete at least 30 minutes of activity every day and track your progress. Stay motivated with daily reminders and community support! 💪</p>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>Challenge Progress</span>
+            <span id="fitnessChallengeProgress">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="fitnessChallengeFill" style="width: 0%"></div>
+          </div>
+          <p id="fitnessChallengeText">Challenge started November 1st!</p>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#30DayChallenge</span>
+          <span class="post-tag">#FitnessStreak</span>
+          <span class="post-tag">#WorkoutEveryday</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="30daystreak">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action register-btn" data-post-id="30daystreak">
+          <i class="fas fa-user-plus"></i>
+          <span class="post-action-count">Join Challenge</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="30daystreak">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
+      </div>
+    </div>
+
     <!-- No Sugar November Post -->
     <div class="post" data-post-id="4">
       <div class="post-header">
@@ -936,7 +987,7 @@
       <div class="video-container">
         <iframe 
           class="youtube-video"
-          src="https://www.youtube.com/embed/nmQSaH87j4w?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
+          src="https://www.youtube.com/embed/nmQSaH87j4w?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -945,6 +996,9 @@
             <h4 class="video-title">No Sugar November Challenge</h4>
           <button class="play-btn">
             <i class="fas fa-play"></i>
+          </button>
+          <button class="mute-btn">
+            <i class="fas fa-volume-up"></i>
           </button>
         </div>
       </div>
@@ -980,7 +1034,7 @@
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
-      <img src="https://i.postimg.cc/h418zsc7/20251031-1027-5AM-Reading-Challenge-simple-compose-01k8wjjkznecev7evkn06zw0tq.png" alt="5AM Club Challenge" class="post-image">
+      <img src="https://i.postimg.cc/h418zsc7/20251031_1027_5AM-Reading-Challenge-simple-compose-01k8wjjkznecev7evkn06zw0tq.png" alt="5AM Club Challenge" class="post-image">
       <div class="post-content">
         <div class="challenge-badge">NOVEMBER CHALLENGE</div>
         <h3 class="post-title">The 5AM Club Challenge 📚</h3>
@@ -1024,7 +1078,7 @@
       <div class="video-container">
         <iframe 
           class="youtube-video"
-          src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
+          src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -1033,6 +1087,9 @@
           <h4 class="video-title">15-Minute Full Body HIIT Workout</h4>
           <button class="play-btn">
             <i class="fas fa-play"></i>
+          </button>
+          <button class="mute-btn">
+            <i class="fas fa-volume-up"></i>
           </button>
         </div>
       </div>
@@ -1336,12 +1393,24 @@ function initializeNovemberChallenges() {
       sugarFill.style.width = `${progressPercentage}%`;
       sugarText.textContent = `Day ${currentDay} of 30 - Stay strong!`;
     }
+    
+    // Update 30-Day Fitness Streak Challenge
+    const fitnessProgress = document.getElementById('fitnessChallengeProgress');
+    const fitnessFill = document.getElementById('fitnessChallengeFill');
+    const fitnessText = document.getElementById('fitnessChallengeText');
+    
+    if (fitnessProgress && fitnessFill && fitnessText) {
+      fitnessProgress.textContent = `${progressPercentage}%`;
+      fitnessFill.style.width = `${progressPercentage}%`;
+      fitnessText.textContent = `Day ${currentDay} of 30 - Keep up the great work!`;
+    }
   } else if (now < novemberStart) {
     // Before November - show countdown
     const daysUntilNovember = Math.ceil((novemberStart - now) / (1000 * 60 * 60 * 24));
     
     const readingText = document.getElementById('readingChallengeText');
     const sugarText = document.getElementById('sugarChallengeText');
+    const fitnessText = document.getElementById('fitnessChallengeText');
     
     if (readingText) {
       readingText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
@@ -1350,10 +1419,15 @@ function initializeNovemberChallenges() {
     if (sugarText) {
       sugarText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
     }
+    
+    if (fitnessText) {
+      fitnessText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
+    }
   } else {
     // After November - show completion
     const readingText = document.getElementById('readingChallengeText');
     const sugarText = document.getElementById('sugarChallengeText');
+    const fitnessText = document.getElementById('fitnessChallengeText');
     
     if (readingText) {
       readingText.textContent = 'Challenge completed! Stay tuned for December challenges.';
@@ -1361,6 +1435,10 @@ function initializeNovemberChallenges() {
     
     if (sugarText) {
       sugarText.textContent = 'Challenge completed! Stay tuned for December challenges.';
+    }
+    
+    if (fitnessText) {
+      fitnessText.textContent = 'Challenge completed! Stay tuned for December challenges.';
     }
   }
 }
@@ -1476,6 +1554,36 @@ function initializeSocialInteractions() {
         icon.classList.remove('fa-pause');
         icon.classList.add('fa-play');
         showNotification('Video paused');
+      }
+    });
+  });
+  
+  // Mute buttons for YouTube videos
+  const muteButtons = document.querySelectorAll('.mute-btn');
+  
+  muteButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const videoContainer = this.closest('.video-container');
+      const youtubeIframe = videoContainer.querySelector('.youtube-video');
+      const icon = this.querySelector('i');
+      
+      // Get current src
+      const currentSrc = youtubeIframe.src;
+      
+      if (currentSrc.includes('mute=0')) {
+        // Switch to muted version
+        const newSrc = currentSrc.replace('mute=0', 'mute=1');
+        youtubeIframe.src = newSrc;
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+        showNotification('Video muted');
+      } else {
+        // Switch to unmuted version
+        const newSrc = currentSrc.replace('mute=1', 'mute=0');
+        youtubeIframe.src = newSrc;
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+        showNotification('Video unmuted');
       }
     });
   });
@@ -1735,7 +1843,7 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
-// Auto-play YouTube videos on scroll
+// Auto-play YouTube videos on scroll with audio
 function initializeVideoAutoPlay() {
   const videoPosts = document.querySelectorAll('.video-container');
   
@@ -1744,9 +1852,10 @@ function initializeVideoAutoPlay() {
     entries.forEach(entry => {
       const youtubeIframe = entry.target.querySelector('.youtube-video');
       const playButton = entry.target.querySelector('.play-btn i');
+      const muteButton = entry.target.querySelector('.mute-btn i');
       
       if (entry.isIntersecting) {
-        // Video is in view - switch to autoplay version
+        // Video is in view - switch to autoplay version with audio
         const currentSrc = youtubeIframe.src;
         if (currentSrc.includes('autoplay=0')) {
           const newSrc = currentSrc.replace('autoplay=0', 'autoplay=1');
