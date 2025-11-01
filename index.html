@@ -314,22 +314,79 @@
       font-size: 0.9rem;
     }
 
-    /* Video Posts */
+    /* Custom Video Player Styles */
     .video-container {
       position: relative;
       width: 100%;
       background: #000;
       height: 0;
       padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 1rem;
     }
 
-    .youtube-video {
+    .workfit-video {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      background: #000;
+      border-radius: 8px;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,31,63,0.7) 0%, rgba(255,215,0,0.3) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      transition: opacity 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .video-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .video-play-btn {
+      background: var(--gold);
+      color: var(--navy);
       border: none;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .video-play-btn:hover {
+      transform: scale(1.1);
+      background: #ffed4e;
+    }
+
+    .video-title-overlay {
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      max-width: 80%;
     }
 
     .video-controls {
@@ -337,32 +394,126 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
       padding: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .video-container:hover .video-controls {
+      opacity: 1;
+    }
+
+    .video-controls.visible {
+      opacity: 1;
+    }
+
+    .video-progress {
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      margin: 0 1rem;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .video-progress-filled {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      width: 0%;
+    }
+
+    .video-time {
+      color: white;
+      font-size: 0.8rem;
+      min-width: 100px;
+      text-align: center;
+    }
+
+    .control-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .control-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .volume-slider {
+      width: 80px;
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .volume-level {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      width: 100%;
+    }
+
+    .workfit-watermark {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,31,63,0.8);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
       z-index: 2;
     }
 
-    .video-title {
+    .video-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: white;
-      font-weight: 600;
-      margin: 0;
+      z-index: 1;
     }
 
-    .play-btn {
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
+    .loading-spinner {
       width: 40px;
       height: 40px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid var(--gold);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.2rem;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     /* Challenge Posts */
@@ -739,61 +890,74 @@
     }
 
     .hero-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-.btn-primary, .btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.8rem 1.5rem;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-}
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
 
-.btn-primary {
-  background: var(--gold);
-  color: var(--navy);
-}
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-}
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
 
-.btn-secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-}
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
 
-.btn-secondary:hover {
-  background: white;
-  color: var(--navy);
-  transform: translateY(-2px);
-}
+    .btn-secondary:hover {
+      background: white;
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
 
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
+    /* Mobile responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
 
-  .btn-primary, .btn-secondary {
-    width: 100%;
-    max-width: 250px;
-    justify-content: center;
-  }
-}
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+      }
+
+      .video-controls {
+        padding: 0.5rem;
+      }
+
+      .video-time {
+        min-width: 80px;
+        font-size: 0.7rem;
+      }
+
+      .volume-slider {
+        width: 60px;
+      }
+    }
 
     /* Social Platform Bottom Navigation */
     .social-bottom-nav {
@@ -918,7 +1082,7 @@
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
               <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+              <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>
             </svg>
           </button>
         </div>
@@ -929,12 +1093,12 @@
   <!-- Social Media Style Feed -->
   <section class="social-feed">
     <!-- Meeting Time Update Post -->
-    <div class="post" data-post-id="meeting-time-update">
+    <div class="post" data-post-id="meeting-time-update" data-timestamp="">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Admin" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club · Announcement</div>
-          <div class="post-time">Just now · Important Update</div>
+          <div class="post-time" id="meeting-time-timestamp">Just now</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -978,42 +1142,64 @@
           <i class="far fa-bookmark"></i>
           <span class="post-action-count">Save</span>
         </button>
+        <button class="post-action confirm-btn" data-post-id="meeting-time-update">
+          <i class="fas fa-check-circle"></i>
+          <span class="post-action-count">Confirm</span>
+        </button>
         <button class="post-action share-btn" data-post-id="meeting-time-update">
           <i class="fas fa-share-alt"></i>
           <span class="post-action-count">Share</span>
         </button>
       </div>
     </div>
+
     <!-- Day 1 Mobility Session Post -->
-    <div class="post" data-post-id="day1mobility">
+    <div class="post" data-post-id="day1mobility" data-timestamp="2025-11-02T08:00:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
         <div class="post-user-info">
-          <div class="post-username">WorkFit Club ·  Challenges</div>
-          <div class="post-time">15-Min · Day 2 of 30-Day Fitness Streak</div>
+          <div class="post-username">WorkFit Club · Challenges</div>
+          <div class="post-time">2 days ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
       <div class="video-container">
-        <iframe 
-          class="youtube-video"
-          src="https://www.youtube.com/embed/VWj8ZxCxrYk?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
-          frameborder="0"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+        <video class="workfit-video" poster="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" muted playsinline preload="metadata">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-man-doing-warm-up-exercises-43507-large.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="workfit-watermark">WorkFit Exclusive</div>
+        <div class="video-overlay">
+          <button class="video-play-btn">
+            <i class="fas fa-play"></i>
+          </button>
+          <div class="video-title-overlay">15-Minute Cardio for Day 2</div>
+        </div>
         <div class="video-controls">
-          <h4 class="video-title">15-Minute Cardio for Day 2</h4>
-          <div>
-            <button class="play-btn">
-              <i class="fas fa-play"></i>
-            </button>
-            <button class="mute-btn">
+          <button class="control-btn play-pause-btn">
+            <i class="fas fa-play"></i>
+          </button>
+          <div class="video-progress">
+            <div class="video-progress-filled"></div>
+          </div>
+          <div class="video-time">0:00 / 0:00</div>
+          <div class="volume-control">
+            <button class="control-btn volume-btn">
               <i class="fas fa-volume-up"></i>
             </button>
+            <div class="volume-slider">
+              <div class="volume-level" style="width: 100%"></div>
+            </div>
           </div>
+          <button class="control-btn fullscreen-btn">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+        <div class="video-loading" style="display: none;">
+          <div class="loading-spinner"></div>
+          <div>Loading WorkFit content...</div>
         </div>
       </div>
       <div class="post-content">
@@ -1024,18 +1210,18 @@
         <div class="progress-container">
           <div class="progress-header">
             <span>Challenge Progress</span>
-            <span id="fitnessChallengeProgress">3%</span>
+            <span id="fitnessChallengeProgress">7%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" id="fitnessChallengeFill" style="width: 3%"></div>
+            <div class="progress-fill" id="fitnessChallengeFill" style="width: 7%"></div>
           </div>
           <p id="fitnessChallengeText">Day 2 of 30 - Keep Pushing!</p>
         </div>
 
         <div class="post-tags">
           <span class="post-tag">#Cardio</span>
-          <span class="post-tag">#Day1Challenge</span>
           <span class="post-tag">#30DayStreak</span>
+          <span class="post-tag">#NovemberChallenge</span>
         </div>
       </div>
       <div class="post-actions">
@@ -1055,12 +1241,12 @@
     </div>
 
     <!-- How to Avoid Sugar Blog Post -->
-    <div class="post" data-post-id="6">
+    <div class="post" data-post-id="6" data-timestamp="2025-11-01T14:30:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Nutrition Expert" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club · Nutrition</div>
-          <div class="post-time">Yesterday · 6 min read</div>
+          <div class="post-time">3 days ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1093,12 +1279,12 @@
     </div>
     
     <!-- No Sugar November Post -->
-    <div class="post" data-post-id="4">
+    <div class="post" data-post-id="4" data-timestamp="2025-10-31T16:45:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/Jhs3Xybh/Whats-App-Image-2022-10-10-at-12-33-57.jpg" alt="Nutrition Expert" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">Moses Mugera · Trainer</div>
-          <div class="post-time">Ongoing</div>
+          <div class="post-time">4 days ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1106,19 +1292,19 @@
       </div>
       <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Healthy Food" class="post-image">
       <div class="post-content">
-        <div class="challenge-badge">HEALTH CHALLENGE</div>
+        <div class="challenge-badge">NOVEMBER CHALLENGE</div>
         <h3 class="post-title">No Sugar November Challenge</h3>
         <p class="post-text">Reset your taste buds and improve your health! Join our 30-day no added sugar challenge with daily tips, recipes, and community support. 🍎🚫</p>
         
         <div class="progress-container">
           <div class="progress-header">
             <span>Challenge Progress</span>
-            <span id="sugarChallengeProgress">0%</span>
+            <span id="sugarChallengeProgress">7%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" id="sugarChallengeFill" style="width: 0%"></div>
+            <div class="progress-fill" id="sugarChallengeFill" style="width: 7%"></div>
           </div>
-          <p id="sugarChallengeText">Challenge starts November 1st!</p>
+          <p id="sugarChallengeText">Day 2 of 30 - Stay strong!</p>
         </div>
 
         <div class="post-tags">
@@ -1143,30 +1329,52 @@
       </div>
     </div>
 
-    <div class="post" data-post-id="2">
+    <div class="post" data-post-id="2" data-timestamp="2025-10-30T11:20:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club · Nutrition</div>
-          <div class="post-time">5-Min ·</div>
+          <div class="post-time">5 days ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
       <div class="video-container">
-        <iframe 
-          class="youtube-video"
-          src="https://www.youtube.com/embed/nmQSaH87j4w?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
-          frameborder="0"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <div class="video-controls">
-            <h4 class="video-title">No Sugar November Challenge</h4>
-          <button class="play-btn">
+        <video class="workfit-video" poster="https://i.postimg.cc/jSDhCgTv/20251101-0908-Leaving-Sugar-Behind-simple-compose-01k8z0ea00fnqad1f2yvr8gv81.png" muted playsinline preload="metadata">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-female-athlete-training-in-the-gym-43506-large.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="workfit-watermark">WorkFit Exclusive</div>
+        <div class="video-overlay">
+          <button class="video-play-btn">
             <i class="fas fa-play"></i>
           </button>
+          <div class="video-title-overlay">No Sugar November Challenge</div>
+        </div>
+        <div class="video-controls">
+          <button class="control-btn play-pause-btn">
+            <i class="fas fa-play"></i>
+          </button>
+          <div class="video-progress">
+            <div class="video-progress-filled"></div>
+          </div>
+          <div class="video-time">0:00 / 0:00</div>
+          <div class="volume-control">
+            <button class="control-btn volume-btn">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <div class="volume-slider">
+              <div class="volume-level" style="width: 100%"></div>
+            </div>
+          </div>
+          <button class="control-btn fullscreen-btn">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+        <div class="video-loading" style="display: none;">
+          <div class="loading-spinner"></div>
+          <div>Loading WorkFit content...</div>
         </div>
       </div>
       <div class="post-content">
@@ -1189,12 +1397,12 @@
       </div>
     </div>
 
-    <div class="post" data-post-id="9">
+    <div class="post" data-post-id="9" data-timestamp="2025-10-29T09:15:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Team" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club · Challenges</div>
-          <div class="post-time">Started Nov 1 · New Challenge</div>
+          <div class="post-time">6 days ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1205,6 +1413,18 @@
         <div class="challenge-badge">NOVEMBER CHALLENGE</div>
         <h3 class="post-title">The 5AM Club Challenge 📚</h3>
         <p class="post-text">Transform your mornings with Robin Sharma's revolutionary book. Join our community reading challenge and master the art of productive early mornings.</p>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>Challenge Progress</span>
+            <span id="readingChallengeProgress">7%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="readingChallengeFill" style="width: 7%"></div>
+          </div>
+          <p id="readingChallengeText">Day 2 of 30 - Keep going!</p>
+        </div>
+
         <div class="post-tags">
           <span class="post-tag">#5AMClub</span>
           <span class="post-tag">#ReadingChallenge</span>
@@ -1228,30 +1448,52 @@
     </div>
 
     <!-- Video Workout Post -->
-    <div class="post" data-post-id="2">
+    <div class="post" data-post-id="2" data-timestamp="2025-10-28T14:30:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club · Tutorials</div>
-          <div class="post-time">15-Min ·</div>
+          <div class="post-time">1 week ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
       <div class="video-container">
-        <iframe 
-          class="youtube-video"
-          src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
-          frameborder="0"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <div class="video-controls">
-          <h4 class="video-title">15-Minute Full Body HIIT Workout</h4>
-          <button class="play-btn">
+        <video class="workfit-video" poster="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" muted playsinline preload="metadata">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-training-with-kettlebells-43505-large.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="workfit-watermark">WorkFit Exclusive</div>
+        <div class="video-overlay">
+          <button class="video-play-btn">
             <i class="fas fa-play"></i>
           </button>
+          <div class="video-title-overlay">15-Minute Full Body HIIT Workout</div>
+        </div>
+        <div class="video-controls">
+          <button class="control-btn play-pause-btn">
+            <i class="fas fa-play"></i>
+          </button>
+          <div class="video-progress">
+            <div class="video-progress-filled"></div>
+          </div>
+          <div class="video-time">0:00 / 0:00</div>
+          <div class="volume-control">
+            <button class="control-btn volume-btn">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <div class="volume-slider">
+              <div class="volume-level" style="width: 100%"></div>
+            </div>
+          </div>
+          <button class="control-btn fullscreen-btn">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+        <div class="video-loading" style="display: none;">
+          <div class="loading-spinner"></div>
+          <div>Loading WorkFit content...</div>
         </div>
       </div>
       <div class="post-content">
@@ -1275,12 +1517,12 @@
     </div>
 
     <!-- November Challenge Post -->
-    <div class="post" data-post-id="3">
+    <div class="post" data-post-id="3" data-timestamp="2025-10-27T10:00:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Challenges" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">WorkFit Club · Challenges</div>
-          <div class="post-time">Starting Nov 1 </div>
+          <div class="post-time">1 week ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1294,12 +1536,12 @@
         <div class="progress-container">
           <div class="progress-header">
             <span>Challenge Progress</span>
-            <span id="readingChallengeProgress">0%</span>
+            <span id="readingChallengeProgress2">7%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" id="readingChallengeFill" style="width: 0%"></div>
+            <div class="progress-fill" id="readingChallengeFill2" style="width: 7%"></div>
           </div>
-          <p id="readingChallengeText">Challenge starts November 1st!</p>
+          <p id="readingChallengeText2">Day 2 of 30 - Keep going!</p>
         </div>
 
         <div class="post-tags">
@@ -1324,12 +1566,12 @@
       </div>
     </div>
     <!-- Blog Post -->
-    <div class="post" data-post-id="5">
+    <div class="post" data-post-id="5" data-timestamp="2025-10-26T16:20:00Z">
       <div class="post-header">
         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="James Mwangi" class="post-avatar">
         <div class="post-user-info">
           <div class="post-username">James Mwangi · Basketball Coach</div>
-          <div class="post-time">Yesterday · 8 min read</div>
+          <div class="post-time">1 week ago</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
@@ -1474,9 +1716,9 @@ function updateThemeIcon(theme) {
   if (!themeIcon) return;
   
   if (theme === 'dark') {
-    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
   } else {
-    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>';
+    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
   }
 }
 
@@ -1517,66 +1759,263 @@ function initializeMobileMenu() {
   }
 }
 
-// November Challenge Progress Logic
+// November Challenge Progress Logic - UPDATED FOR DAY 2
 function initializeNovemberChallenges() {
   const now = new Date();
   const novemberStart = new Date(now.getFullYear(), 10, 1); // November 1st (month is 0-indexed)
   const novemberEnd = new Date(now.getFullYear(), 10, 30); // November 30th
   
-  // Check if we're in November
-  if (now >= novemberStart && now <= novemberEnd) {
-    // Calculate progress based on current day of November
-    const currentDay = now.getDate();
-    const progressPercentage = Math.min(Math.round((currentDay / 30) * 100), 100);
+  // Calculate current day of November (Day 2)
+  const currentDay = 2; // Hardcoded to Day 2 as per request
+  const progressPercentage = Math.min(Math.round((currentDay / 30) * 100), 100);
+  
+  // Update all November challenges
+  const challengeElements = [
+    { progress: 'fitnessChallengeProgress', fill: 'fitnessChallengeFill', text: 'fitnessChallengeText' },
+    { progress: 'sugarChallengeProgress', fill: 'sugarChallengeFill', text: 'sugarChallengeText' },
+    { progress: 'readingChallengeProgress', fill: 'readingChallengeFill', text: 'readingChallengeText' },
+    { progress: 'readingChallengeProgress2', fill: 'readingChallengeFill2', text: 'readingChallengeText2' }
+  ];
+  
+  challengeElements.forEach(challenge => {
+    const progressElement = document.getElementById(challenge.progress);
+    const fillElement = document.getElementById(challenge.fill);
+    const textElement = document.getElementById(challenge.text);
     
-    // Update 5AM Club Reading Challenge
-    const readingProgress = document.getElementById('readingChallengeProgress');
-    const readingFill = document.getElementById('readingChallengeFill');
-    const readingText = document.getElementById('readingChallengeText');
+    if (progressElement && fillElement && textElement) {
+      progressElement.textContent = `${progressPercentage}%`;
+      fillElement.style.width = `${progressPercentage}%`;
+      textElement.textContent = `Day ${currentDay} of 30 - Keep going!`;
+    }
+  });
+}
+
+// Custom Video Player Functionality - FIXED
+function initializeCustomVideoPlayer() {
+  const videoContainers = document.querySelectorAll('.video-container');
+  
+  videoContainers.forEach(container => {
+    const video = container.querySelector('.workfit-video');
+    const overlay = container.querySelector('.video-overlay');
+    const playBtnOverlay = container.querySelector('.video-play-btn');
+    const playPauseBtn = container.querySelector('.play-pause-btn');
+    const progress = container.querySelector('.video-progress');
+    const progressFilled = container.querySelector('.video-progress-filled');
+    const timeDisplay = container.querySelector('.video-time');
+    const volumeBtn = container.querySelector('.volume-btn');
+    const volumeSlider = container.querySelector('.volume-slider');
+    const volumeLevel = container.querySelector('.volume-level');
+    const fullscreenBtn = container.querySelector('.fullscreen-btn');
+    const loadingIndicator = container.querySelector('.video-loading');
+    const controls = container.querySelector('.video-controls');
     
-    if (readingProgress && readingFill && readingText) {
-      readingProgress.textContent = `${progressPercentage}%`;
-      readingFill.style.width = `${progressPercentage}%`;
-      readingText.textContent = `Day ${currentDay} of 30 - Keep going!`;
+    let isDragging = false;
+    
+    // Format time function
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
     
-    // Update No Sugar November Challenge
-    const sugarProgress = document.getElementById('sugarChallengeProgress');
-    const sugarFill = document.getElementById('sugarChallengeFill');
-    const sugarText = document.getElementById('sugarChallengeText');
-    
-    if (sugarProgress && sugarFill && sugarText) {
-      sugarProgress.textContent = `${progressPercentage}%`;
-      sugarFill.style.width = `${progressPercentage}%`;
-      sugarText.textContent = `Day ${currentDay} of 30 - Stay strong!`;
-    }
-  } else if (now < novemberStart) {
-    // Before November - show countdown
-    const daysUntilNovember = Math.ceil((novemberStart - now) / (1000 * 60 * 60 * 24));
-    
-    const readingText = document.getElementById('readingChallengeText');
-    const sugarText = document.getElementById('sugarChallengeText');
-    
-    if (readingText) {
-      readingText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
+    // Update progress bar
+    function updateProgress() {
+      if (video.duration) {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFilled.style.width = `${percent}%`;
+        timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+      }
     }
     
-    if (sugarText) {
-      sugarText.textContent = `Starting in ${daysUntilNovember} day${daysUntilNovember !== 1 ? 's' : ''}!`;
+    // Toggle play/pause
+    function togglePlay() {
+      if (video.paused) {
+        video.play().then(() => {
+          playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          playBtnOverlay.innerHTML = '<i class="fas fa-pause"></i>';
+          overlay.classList.add('hidden');
+          controls.classList.add('visible');
+        }).catch(e => {
+          console.log('Play failed:', e);
+          // If autoplay is blocked, show the overlay and let user click to play
+          overlay.classList.remove('hidden');
+        });
+      } else {
+        video.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        playBtnOverlay.innerHTML = '<i class="fas fa-play"></i>';
+        overlay.classList.remove('hidden');
+      }
     }
-  } else {
-    // After November - show completion
-    const readingText = document.getElementById('readingChallengeText');
-    const sugarText = document.getElementById('sugarChallengeText');
     
-    if (readingText) {
-      readingText.textContent = 'Challenge completed! Stay tuned for December challenges.';
+    // Set volume
+    function setVolume(e) {
+      const rect = volumeSlider.getBoundingClientRect();
+      const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1);
+      video.volume = percent;
+      volumeLevel.style.width = `${percent * 100}%`;
+      
+      // Update volume icon
+      if (percent === 0) {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else if (percent < 0.5) {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+      } else {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
     }
     
-    if (sugarText) {
-      sugarText.textContent = 'Challenge completed! Stay tuned for December challenges.';
+    // Toggle fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        container.requestFullscreen().catch(err => {
+          console.log(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+        fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+      } else {
+        document.exitFullscreen();
+        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+      }
     }
-  }
+    
+    // Seek video
+    function seek(e) {
+      const rect = progress.getBoundingClientRect();
+      const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1);
+      video.currentTime = percent * video.duration;
+    }
+    
+    // Event listeners
+    if (video) {
+      // Video events
+      video.addEventListener('loadeddata', () => {
+        loadingIndicator.style.display = 'none';
+        if (video.duration) {
+          timeDisplay.textContent = `0:00 / ${formatTime(video.duration)}`;
+        }
+      });
+      
+      video.addEventListener('waiting', () => {
+        loadingIndicator.style.display = 'block';
+      });
+      
+      video.addEventListener('canplay', () => {
+        loadingIndicator.style.display = 'none';
+      });
+      
+      video.addEventListener('timeupdate', updateProgress);
+      
+      video.addEventListener('ended', () => {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        playBtnOverlay.innerHTML = '<i class="fas fa-play"></i>';
+        overlay.classList.remove('hidden');
+      });
+      
+      // Play buttons
+      if (playBtnOverlay) playBtnOverlay.addEventListener('click', togglePlay);
+      if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlay);
+      
+      // Progress bar
+      if (progress) {
+        progress.addEventListener('click', seek);
+        
+        progress.addEventListener('mousedown', () => {
+          isDragging = true;
+        });
+        
+        document.addEventListener('mouseup', () => {
+          isDragging = false;
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+          if (isDragging) {
+            seek(e);
+          }
+        });
+      }
+      
+      // Volume controls
+      if (volumeSlider) {
+        volumeSlider.addEventListener('click', setVolume);
+        
+        volumeBtn.addEventListener('click', () => {
+          if (video.volume > 0) {
+            video.volume = 0;
+            volumeLevel.style.width = '0%';
+            volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+          } else {
+            video.volume = 1;
+            volumeLevel.style.width = '100%';
+            volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+          }
+        });
+      }
+      
+      // Fullscreen
+      if (fullscreenBtn) fullscreenBtn.addEventListener('click', toggleFullscreen);
+      
+      // Click on video to play/pause
+      video.addEventListener('click', togglePlay);
+      
+      // Show controls on hover
+      container.addEventListener('mouseenter', () => {
+        controls.classList.add('visible');
+      });
+      
+      container.addEventListener('mouseleave', () => {
+        if (!video.paused) {
+          setTimeout(() => {
+            controls.classList.remove('visible');
+          }, 2000);
+        }
+      });
+    }
+  });
+}
+
+// Twitter-style Video Autoplay on Scroll - FIXED
+function initializeScrollAutoplay() {
+  const videos = document.querySelectorAll('.workfit-video');
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.6 // Play when 60% of video is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      const container = video.closest('.video-container');
+      const overlay = container.querySelector('.video-overlay');
+      const playBtn = container.querySelector('.play-pause-btn');
+      
+      if (entry.isIntersecting) {
+        // Video is in view - play it
+        if (video.paused) {
+          video.play().then(() => {
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            overlay.classList.add('hidden');
+          }).catch(e => {
+            console.log('Autoplay prevented:', e);
+            // If autoplay fails, ensure overlay is visible
+            overlay.classList.remove('hidden');
+          });
+        }
+      } else {
+        // Video is out of view - pause it
+        if (!video.paused) {
+          video.pause();
+          playBtn.innerHTML = '<i class="fas fa-play"></i>';
+          overlay.classList.remove('hidden');
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Observe all videos
+  videos.forEach(video => {
+    observer.observe(video);
+  });
 }
 
 // Social Media Interactions
@@ -1620,6 +2059,18 @@ function initializeSocialInteractions() {
     });
   });
   
+  // Confirm button for meeting time update
+  const confirmButtons = document.querySelectorAll('.confirm-btn');
+  
+  confirmButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      this.innerHTML = '<i class="fas fa-check"></i> Confirmed';
+      this.style.background = 'var(--success)';
+      this.style.color = 'white';
+      showNotification('Schedule update confirmed!');
+    });
+  });
 
   // Read more - opens blog modal
   const readButtons = document.querySelectorAll('.read-btn');
@@ -1647,36 +2098,6 @@ function initializeSocialInteractions() {
         showNotification('Share link copied to clipboard!');
         // Fallback: Copy to clipboard
         navigator.clipboard.writeText(window.location.href);
-      }
-    });
-  });
-  
-  // Video play buttons for YouTube videos
-  const playButtons = document.querySelectorAll('.play-btn');
-  
-  playButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const videoContainer = this.closest('.video-container');
-      const youtubeIframe = videoContainer.querySelector('.youtube-video');
-      const icon = this.querySelector('i');
-      
-      // Get current src
-      const currentSrc = youtubeIframe.src;
-      
-      if (currentSrc.includes('autoplay=0')) {
-        // Switch to autoplay version
-        const newSrc = currentSrc.replace('autoplay=0', 'autoplay=1');
-        youtubeIframe.src = newSrc;
-        icon.classList.remove('fa-play');
-        icon.classList.add('fa-pause');
-        showNotification('Video playing...');
-      } else {
-        // Switch to paused version
-        const newSrc = currentSrc.replace('autoplay=1', 'autoplay=0');
-        youtubeIframe.src = newSrc;
-        icon.classList.remove('fa-pause');
-        icon.classList.add('fa-play');
-        showNotification('Video paused');
       }
     });
   });
@@ -1878,9 +2299,7 @@ function initializeBlogModal() {
         <p>Remember, the goal isn't to eliminate all sugar but to be mindful of added sugars and make healthier choices most of the time. Small, consistent changes lead to lasting results.</p>
       `
     }
-      };
-
-    
+  };
   
   function openBlogModal(blogId) {
     const blog = blogData[blogId];
@@ -1979,10 +2398,64 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
-// Auto-play YouTube videos on scroll - DISABLED
-function initializeVideoAutoPlay() {
-  // This function is intentionally left empty to disable autoplay on scroll
-  console.log('Video autoplay on scroll is disabled');
+// Automatic Timestamp Updates
+function initializeTimestampUpdates() {
+  // Set creation timestamp for new posts
+  const newPosts = document.querySelectorAll('[data-timestamp=""]');
+  const now = new Date();
+  
+  newPosts.forEach(post => {
+    post.setAttribute('data-timestamp', now.toISOString());
+    const timestampElement = post.querySelector('.post-time');
+    if (timestampElement) {
+      timestampElement.textContent = 'Just now';
+    }
+  });
+  
+  // Update all post timestamps every minute
+  setInterval(updateAllTimestamps, 60000);
+  
+  // Initial update
+  updateAllTimestamps();
+}
+
+function updateAllTimestamps() {
+  const posts = document.querySelectorAll('[data-timestamp]');
+  const now = new Date();
+  
+  posts.forEach(post => {
+    const timestamp = post.getAttribute('data-timestamp');
+    if (!timestamp) return;
+    
+    const postTime = new Date(timestamp);
+    const timeDiff = now - postTime;
+    const timestampElement = post.querySelector('.post-time');
+    
+    if (!timestampElement) return;
+    
+    const timeText = formatTimeDifference(timeDiff);
+    timestampElement.textContent = timeText;
+  });
+}
+
+function formatTimeDifference(timeDiff) {
+  const seconds = Math.floor(timeDiff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  
+  if (weeks > 0) {
+    return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+  } else if (days > 0) {
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  } else if (hours > 0) {
+    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+  } else {
+    return 'Just now';
+  }
 }
 
 // View Latest Update Button
@@ -2034,11 +2507,13 @@ function initializeApp() {
   // Initialize all components
   initializeTheme();
   initializeMobileMenu();
-  initializeNovemberChallenges();
+  initializeNovemberChallenges(); // Updated for Day 2
+  initializeCustomVideoPlayer(); // Fixed video player
+  initializeScrollAutoplay(); // Twitter-style autoplay
   initializeSocialInteractions();
   initializeBlogModal();
   initializeGoogleFormModal();
-  initializeVideoAutoPlay(); // This function is now empty to disable autoplay
+  initializeTimestampUpdates();
   initializeViewLatestButton();
   
   console.log('WorkFit Social Platform initialized successfully');
