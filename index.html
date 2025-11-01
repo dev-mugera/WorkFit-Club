@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#001f3f">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* All your existing CSS remains the same */
     :root {
       --navy: #001f3f;
       --navy-light: #003366;
@@ -28,7 +29,6 @@
       --success: #4CAF50;
       --error: #f44336;
     }
-
     /* Dark mode variables */
     [data-theme="dark"] {
       --navy: #0a2e57;
@@ -928,7 +928,7 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
-        <!-- Day 1 Mobility Session Post -->
+    <!-- Day 1 Mobility Session Post -->
     <div class="post" data-post-id="day1mobility">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
@@ -945,7 +945,7 @@
           class="youtube-video"
           src="https://www.youtube.com/embed/T0MS4lmilBU?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
         <div class="video-controls">
@@ -999,7 +999,7 @@
       </div>
     </div>
 
-        <!-- How to Avoid Sugar Blog Post -->
+    <!-- How to Avoid Sugar Blog Post -->
     <div class="post" data-post-id="6">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Nutrition Expert" class="post-avatar">
@@ -1036,6 +1036,7 @@
         </button>
       </div>
     </div>
+    
     <!-- No Sugar November Post -->
     <div class="post" data-post-id="4">
       <div class="post-header">
@@ -1103,7 +1104,7 @@
           class="youtube-video"
           src="https://www.youtube.com/embed/nmQSaH87j4w?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
         <div class="video-controls">
@@ -1171,7 +1172,6 @@
       </div>
     </div>
 
-
     <!-- Video Workout Post -->
     <div class="post" data-post-id="2">
       <div class="post-header">
@@ -1189,7 +1189,7 @@
           class="youtube-video"
           src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=1&enablejsapi=1"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
         <div class="video-controls">
@@ -1924,44 +1924,10 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
-// Auto-play YouTube videos on scroll
+// Auto-play YouTube videos on scroll - DISABLED
 function initializeVideoAutoPlay() {
-  const videoPosts = document.querySelectorAll('.video-container');
-  
-  // Create Intersection Observer to detect when videos are in view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const youtubeIframe = entry.target.querySelector('.youtube-video');
-      const playButton = entry.target.querySelector('.play-btn i');
-      
-      if (entry.isIntersecting) {
-        // Video is in view - switch to autoplay version
-        const currentSrc = youtubeIframe.src;
-        if (currentSrc.includes('autoplay=0')) {
-          const newSrc = currentSrc.replace('autoplay=0', 'autoplay=1');
-          youtubeIframe.src = newSrc;
-          playButton.classList.remove('fa-play');
-          playButton.classList.add('fa-pause');
-        }
-      } else {
-        // Video is out of view - switch to paused version
-        const currentSrc = youtubeIframe.src;
-        if (currentSrc.includes('autoplay=1')) {
-          const newSrc = currentSrc.replace('autoplay=1', 'autoplay=0');
-          youtubeIframe.src = newSrc;
-          playButton.classList.remove('fa-pause');
-          playButton.classList.add('fa-play');
-        }
-      }
-    });
-  }, {
-    threshold: 0.7 // Trigger when 70% of the video is visible
-  });
-  
-  // Observe each video container
-  videoPosts.forEach(container => {
-    observer.observe(container);
-  });
+  // This function is intentionally left empty to disable autoplay on scroll
+  console.log('Video autoplay on scroll is disabled');
 }
 
 // View Latest Update Button
@@ -2017,7 +1983,7 @@ function initializeApp() {
   initializeSocialInteractions();
   initializeBlogModal();
   initializeGoogleFormModal();
-  initializeVideoAutoPlay();
+  initializeVideoAutoPlay(); // This function is now empty to disable autoplay
   initializeViewLatestButton();
   
   console.log('WorkFit Social Platform initialized successfully');
