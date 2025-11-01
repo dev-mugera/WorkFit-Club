@@ -351,7 +351,7 @@
       margin: 0;
     }
 
-    .play-btn {
+    .play-btn, .mute-btn {
       background: var(--gold);
       color: var(--navy);
       border: none;
@@ -738,6 +738,49 @@
       opacity: 0.9;
     }
 
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
+
     /* Social Platform Bottom Navigation */
     .social-bottom-nav {
       position: fixed;
@@ -840,6 +883,17 @@
       .mobile-menu-btn {
         display: block;
       }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -871,6 +925,62 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+    <!-- Day 1 Mobility Session Post -->
+    <div class="post" data-post-id="day1mobility">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Club </div>
+          <div class="post-time">15-Min · Day 1 of 30-Day Fitness Streak</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="video-container">
+        <iframe 
+          class="youtube-video"
+          src="https://www.youtube.com/watch?v=T0MS4lmilBU"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <div class="video-controls">
+          <h4 class="video-title">12-Minute Mobility Flow for Day 1</h4>
+          <div>
+            <button class="play-btn">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="mute-btn">
+              <i class="fas fa-volume-up"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="post-content">
+        <div class="challenge-badge">DAY 1: MOBILITY FOCUS</div>
+        <h3 class="post-title">Full Body Mobility Flow</h3>
+        <p class="post-text">Boost flexibility, perfect your posture, and supercharge your workouts — mobility moves that transform how you move and feel! 🧘‍♀️🔥</p>
+        
+        <div class="post-tags">
+          <span class="post-tag">#Mobility</span>
+          <span class="post-tag">#Day1Challenge</span>
+          <span class="post-tag">#Flexibility</span>
+          <span class="post-tag">#30DayStreak</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="day1mobility">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="day1mobility">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
+      </div>
+    </div>
+
     <!-- 30-Day Fitness Streak Challenge Post -->
     <div class="post" data-post-id="30daystreak">
       <div class="post-header">
@@ -973,49 +1083,38 @@
       </div>
     </div>
 
-    <div class="post" data-post-id="2">
+    <!-- How to Avoid Sugar Blog Post -->
+    <div class="post" data-post-id="6">
       <div class="post-header">
-        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Trainer Sarah" class="post-avatar">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Nutrition Team" class="post-avatar">
         <div class="post-user-info">
-          <div class="post-username">WorkFit Nutrition </div>
-          <div class="post-time">5-Min ·</div>
+          <div class="post-username">WorkFit Club · Nutrition</div>
+          <div class="post-time">Nov 1 · 6 min read</div>
         </div>
         <button class="post-more">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
-      <div class="video-container">
-        <iframe 
-          class="youtube-video"
-          src="https://www.youtube.com/embed/nmQSaH87j4w?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <div class="video-controls">
-            <h4 class="video-title">No Sugar November Challenge</h4>
-          <button class="play-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <button class="mute-btn">
-            <i class="fas fa-volume-up"></i>
-          </button>
-        </div>
-      </div>
+      <img src="https://i.postimg.cc/jSDhCgTv/20251101-0908-Leaving-Sugar-Behind-simple-compose-01k8z0ea00fnqad1f2yvr8gv81.png" alt="Avoiding Sugar" class="post-image">
       <div class="post-content">
-        <p class="post-text">The mind believes, the body achieves.💪</p>
+        <h3 class="post-title">How to Avoid Sugar: Practical Tips for a Healthier Lifestyle</h3>
+        <p class="post-text">Sugar is everywhere in our modern diet, but reducing your intake can have profound health benefits. Learn practical strategies to cut back on sugar without feeling deprived. 🍏</p>
         <div class="post-tags">
-          <span class="post-tag">#NoSugar</span>
-          <span class="post-tag">#NovemberChallenge</span>
-          <span class="post-tag">#Fitness</span>
+          <span class="post-tag">#Nutrition</span>
+          <span class="post-tag">#SugarFree</span>
+          <span class="post-tag">#HealthyLiving</span>
         </div>
       </div>
       <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="2">
+        <button class="post-action save-btn" data-post-id="6">
           <i class="far fa-bookmark"></i>
           <span class="post-action-count">Save</span>
         </button>
-        <button class="post-action share-btn" data-post-id="2">
+        <button class="post-action read-btn" data-post-id="6">
+          <i class="fas fa-book-open"></i>
+          <span class="post-action-count">Read More</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="6">
           <i class="fas fa-share-alt"></i>
           <span class="post-action-count">Share</span>
         </button>
@@ -1055,62 +1154,6 @@
           <span class="post-action-count">Join Challenge</span>
         </button>
         <button class="post-action share-btn" data-post-id="9">
-          <i class="fas fa-share-alt"></i>
-          <span class="post-action-count">Share</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Event Post -->
-
-    <!-- Video Workout Post -->
-    <div class="post" data-post-id="2">
-      <div class="post-header">
-        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Trainer Sarah" class="post-avatar">
-        <div class="post-user-info">
-          <div class="post-username">Sarah Johnson · Trainer</div>
-          <div class="post-time">15-Min ·</div>
-        </div>
-        <button class="post-more">
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
-      <div class="video-container">
-        <iframe 
-          class="youtube-video"
-          src="https://www.youtube.com/embed/UBMk30rjy0o?rel=0&modestbranding=1&autoplay=0&mute=0&enablejsapi=1"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <div class="video-controls">
-          <h4 class="video-title">15-Minute Full Body HIIT Workout</h4>
-          <button class="play-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <button class="mute-btn">
-            <i class="fas fa-volume-up"></i>
-          </button>
-        </div>
-      </div>
-      <div class="post-content">
-        <p class="post-text">No equipment needed! Perfect for busy schedules.💪</p>
-        <div class="post-tags">
-          <span class="post-tag">#HIIT</span>
-          <span class="post-tag">#HomeWorkout</span>
-          <span class="post-tag">#Fitness</span>
-        </div>
-      </div>
-      <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="2">
-          <i class="far fa-bookmark"></i>
-          <span class="post-action-count">Save</span>
-        </button>
-        <button class="post-action try-workout-btn" data-post-id="2">
-          <i class="fas fa-play-circle"></i>
-          <span class="post-action-count">Try Workout</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="2">
           <i class="fas fa-share-alt"></i>
           <span class="post-action-count">Share</span>
         </button>
@@ -1166,6 +1209,7 @@
         </button>
       </div>
     </div>
+    
     <!-- Blog Post -->
     <div class="post" data-post-id="5">
       <div class="post-header">
@@ -1742,6 +1786,47 @@ function initializeBlogModal() {
         </ul>
         
         <p>Remember to practice consistently and focus on proper form rather than speed. Quality repetitions will lead to better results than rushed, sloppy ones.</p>
+      `
+    },
+    6: {
+      title: "How to Avoid Sugar: Practical Tips for a Healthier Lifestyle",
+      category: "Nutrition",
+      date: "November 01, 2025",
+      author: "Nutrition Team",
+      image: "https://i.postimg.cc/RFhCzHKn/20251101-0908-Leaving-Sugar-Behind-simple-compose-01k8z0e9zsf7xabfbqsazvykc1.png",
+      description: `
+        <p>Sugar is hidden in many foods we consume daily, and reducing your intake can significantly improve your health. Here are practical strategies to help you cut back on sugar without feeling deprived.</p>
+        
+        <h4>1. Read Food Labels Carefully</h4>
+        <p>Sugar goes by many names: sucrose, high-fructose corn syrup, agave nectar, maltose, dextrose, rice syrup, and more. Be aware of these hidden sugars in processed foods.</p>
+        
+        <h4>2. Choose Whole Foods</h4>
+        <p>Focus on eating whole, unprocessed foods like fruits, vegetables, lean proteins, and whole grains. These foods naturally contain less added sugar.</p>
+        
+        <h4>3. Healthy Sugar Alternatives</h4>
+        <ul>
+          <li>Use fresh or frozen fruits to sweeten oatmeal, yogurt, or smoothies</li>
+          <li>Try spices like cinnamon, nutmeg, or vanilla extract to add flavor without sugar</li>
+          <li>Consider natural sweeteners like stevia or monk fruit in moderation</li>
+        </ul>
+        
+        <h4>4. Manage Sugar Cravings</h4>
+        <ul>
+          <li>Stay hydrated - sometimes thirst is mistaken for sugar cravings</li>
+          <li>Eat balanced meals with protein, healthy fats, and fiber</li>
+          <li>Get enough sleep to regulate hunger hormones</li>
+          <li>When cravings hit, try going for a walk or drinking herbal tea</li>
+        </ul>
+        
+        <h4>5. Smart Swaps</h4>
+        <ul>
+          <li>Instead of soda → Sparkling water with a splash of fruit juice</li>
+          <li>Instead of candy → Fresh fruit or a small handful of nuts</li>
+          <li>Instead of sweetened yogurt → Plain Greek yogurt with berries</li>
+          <li>Instead of sugary cereals → Oatmeal with cinnamon and banana</li>
+        </ul>
+        
+        <p>Remember, the goal isn't to eliminate all sugar but to be mindful of added sugars and make healthier choices most of the time. Small, consistent changes lead to lasting results.</p>
       `
     }
   };
