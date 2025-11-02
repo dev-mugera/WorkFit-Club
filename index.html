@@ -1702,7 +1702,6 @@
 // YouTube API integration
 let youtubeAPIReady = false;
 const youtubePlayers = new Map();
-let scrollObserver;
 
 // Load YouTube API
 function loadYouTubeAPI() {
@@ -1841,7 +1840,7 @@ function createYouTubePlayer(iframeId, videoId, container) {
   const player = new YT.Player(iframeId, {
     videoId: videoId,
     playerVars: {
-      'autoplay': 0,
+      'autoplay': 0, // Autoplay disabled
       'controls': 0, // Hide YouTube's native controls
       'disablekb': 1,
       'enablejsapi': 1,
@@ -2018,65 +2017,13 @@ function setupYouTubeControls(player, container) {
   });
 }
 
-// Twitter-style Video Autoplay on Scroll for YouTube
-function initializeScrollAutoplay() {
-  const videoContainers = document.querySelectorAll('.video-container[data-video-id]');
-  
-  // Clean up existing observer if any
-  if (scrollObserver) {
-    videoContainers.forEach(container => {
-      scrollObserver.unobserve(container);
-    });
-  }
-  
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: [0.4, 0.6] // Trigger when 40% and 60% of video is visible
-  };
-
-  scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const container = entry.target;
-      const videoId = container.getAttribute('data-video-id');
-      const player = youtubePlayers.get(videoId);
-      
-      if (player && player.getPlayerState) {
-        if (entry.isIntersecting) {
-          // Video is in view - play it
-          if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
-            player.playVideo().catch(error => {
-              console.log('Autoplay prevented:', error);
-              // If autoplay is blocked, show the play button
-              const overlay = container.querySelector('.video-overlay');
-              if (overlay) overlay.classList.remove('hidden');
-            });
-          }
-        } else {
-          // Video is out of view - pause it
-          if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-            player.pauseVideo();
-          }
-        }
-      }
-    });
-  }, observerOptions);
-
-  // Observe all video containers
-  videoContainers.forEach(container => {
-    scrollObserver.observe(container);
-  });
-}
+// REMOVED: Twitter-style Video Autoplay on Scroll for YouTube
+// Videos will no longer autoplay when scrolled into view
 
 // YouTube API callback
 function onYouTubeIframeAPIReady() {
   youtubeAPIReady = true;
   initializeYouTubePlayers();
-  
-  // Initialize scroll autoplay after a short delay to ensure players are ready
-  setTimeout(() => {
-    initializeScrollAutoplay();
-  }, 1000);
 }
 
 // Social Media Interactions
@@ -2115,8 +2062,16 @@ function initializeSocialInteractions() {
   registerButtons.forEach(button => {
     button.addEventListener('click', function() {
       const postId = this.dataset.postId;
-      showNotification('Opening registration form...');
-      openGoogleForm();
+      const challengeNames = {
+        'day2cardio': 'Cardio Challenge',
+        '4': 'No Sugar November Challenge',
+        '9': '5AM Club Reading Challenge',
+        '3': 'November Reading Challenge'
+      };
+      
+      const challengeName = challengeNames[postId] || 'Challenge';
+      showNotification(`Opening registration form for ${challengeName}...`);
+      openJoinForm(challengeName);
     });
   });
   
@@ -2199,14 +2154,13 @@ function initializeSocialInteractions() {
   }
 }
 
-// Initialize Tracking Buttons in Post Actions
+// Initialize Tracking Buttons in Post Actions - FIXED VERSION
 function initializeTrackingButtons() {
   const trackButtons = document.querySelectorAll('.post-action.track-btn');
   
   trackButtons.forEach(button => {
     button.addEventListener('click', function() {
       const challenge = this.dataset.challenge;
-      const postId = this.dataset.postId;
       
       const challengeNames = {
         'schedule-update': 'Schedule Update',
@@ -2221,7 +2175,7 @@ function initializeTrackingButtons() {
       const challengeName = challengeNames[challenge] || 'Challenge';
       
       showNotification(`Opening progress tracker for ${challengeName}...`);
-      openTrackingForm(challenge);
+      openTrackingForm(challengeName);
     });
   });
 }
@@ -2427,41 +2381,35 @@ function initializeBlogModal() {
   window.openBlogModal = openBlogModal;
 }
 
-// Google Form Modal Functionality
+// Google Form Modal Functionality - FIXED VERSION
 function initializeGoogleFormModal() {
   const googleFormModal = document.getElementById('googleFormModal');
   const googleFormClose = document.getElementById('googleFormClose');
-  const googleFormFrame = document.querySelector('.google-form-frame');
-  
-  // Set the tracking form URL
-  if (googleFormFrame) {
-    googleFormFrame.src = "https://forms.gle/n1xtokbga51UdvJo9";
-  }
+  const googleFormFrame = document.getElementById('googleFormFrame');
+  const googleFormTitle = document.getElementById('googleFormTitle');
   
   function openGoogleForm() {
     googleFormModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
   
-  function openTrackingForm(challengeType) {
-    // Store the challenge type for reference
-    sessionStorage.setItem('currentChallenge', challengeType);
+  function openJoinForm(challengeName) {
+    // Set the join form URL
+    googleFormFrame.src = "https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true";
     
-    // Update the form title based on challenge type
-    const formTitle = document.querySelector('.google-form-title');
-    const challengeNames = {
-      'schedule-update': 'Schedule Update Confirmation',
-      'cardio-challenge': 'Cardio Challenge Progress Tracking',
-      'no-sugar-challenge': 'No Sugar Challenge Progress Tracking', 
-      'no-sugar-november': 'No Sugar November Challenge Tracking',
-      'hiit-challenge': 'HIIT Workout Progress Tracking',
-      '5am-club': '5AM Club Reading Challenge Tracking',
-      'november-reading': 'November Reading Challenge Tracking'
-    };
+    // Update the title
+    googleFormTitle.textContent = `Join ${challengeName}`;
     
-    if (formTitle) {
-      formTitle.textContent = challengeNames[challengeType] || 'Challenge Progress Tracking';
-    }
+    // Open the modal
+    openGoogleForm();
+  }
+  
+  function openTrackingForm(challengeName) {
+    // Set the tracking form URL
+    googleFormFrame.src = "https://docs.google.com/forms/d/e/1FAIpQLSdDpic_EOUBtLty_cSe07tYGhyGNzDM24np9vuDrtwHEgYKRA/viewform?embedded=true";
+    
+    // Update the title
+    googleFormTitle.textContent = `Track ${challengeName} Progress`;
     
     // Open the modal
     openGoogleForm();
@@ -2470,6 +2418,8 @@ function initializeGoogleFormModal() {
   function closeGoogleForm() {
     googleFormModal.classList.remove('active');
     document.body.style.overflow = 'auto';
+    // Clear the iframe src when closing to prevent multiple forms loading
+    googleFormFrame.src = '';
   }
   
   // Close Google Form
@@ -2486,6 +2436,7 @@ function initializeGoogleFormModal() {
   
   // Make functions globally accessible
   window.openGoogleForm = openGoogleForm;
+  window.openJoinForm = openJoinForm;
   window.openTrackingForm = openTrackingForm;
 }
 
