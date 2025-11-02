@@ -860,6 +860,74 @@
       .post-action.track-btn i {
         color: var(--gold);
       }
+      /* Call to Action */
+      .call-to-action, .membership-cta {
+        background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+      }
+
+      .call-to-action p, .membership-cta p {
+        margin: 0;
+        text-align: center;
+      }
+
+      /* Benefits List */
+      .benefits-list {
+        margin: 1.5rem 0;
+      }
+
+      .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .benefit-item:last-child {
+        border-bottom: none;
+      }
+
+      .benefit-item i {
+        color: var(--gold);
+        font-size: 1.5rem;
+        margin-top: 0.2rem;
+        min-width: 30px;
+      }
+
+      .benefit-item h4 {
+        margin-bottom: 0.3rem;
+        color: var(--navy);
+      }
+
+      .benefit-item p {
+        font-size: 0.9rem;
+        color: var(--gray);
+        margin: 0;
+      }
+
+      /* Special Buttons */
+      .register-all-btn, .join-club-btn {
+        background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
+        color: var(--navy);
+        font-weight: 600;
+      }
+
+      .register-all-btn:hover, .join-club-btn:hover {
+        background: linear-gradient(135deg, #ffed4e 0%, var(--gold) 100%);
+      }
+
+      .learn-more-btn {
+        background: var(--navy-light);
+        color: white;
+      }
+
+      .learn-more-btn:hover {
+        background: var(--navy);
+      }
     }
   </style>
 </head>
@@ -891,6 +959,82 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+    <!-- Club Membership Promotion Post -->
+    <div class="post" data-post-id="club-promotion" data-timestamp="">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Club" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Club · Community</div>
+          <div class="post-time">Just now</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="WorkFit Community" class="post-image">
+      <div class="post-content">
+        <div class="challenge-badge">JOIN OUR COMMUNITY</div>
+        <h3 class="post-title">Become Part of the WorkFit Family! 🏋️‍♂️</h3>
+        <p class="post-text">Ready to take your fitness journey to the next level? Join our amazing community of fitness enthusiasts, athletes, and wellness seekers!</p>
+        
+        <div class="benefits-list">
+          <div class="benefit-item">
+            <i class="fas fa-users"></i>
+            <div>
+              <h4>Supportive Community</h4>
+              <p>Connect with like-minded people who motivate and inspire each other</p>
+            </div>
+          </div>
+          
+          <div class="benefit-item">
+            <i class="fas fa-dumbbell"></i>
+            <div>
+              <h4>Expert Guidance</h4>
+              <p>Access to certified trainers and personalized workout plans</p>
+            </div>
+          </div>
+          
+          <div class="benefit-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <h4>Regular Sessions</h4>
+              <p>Morning (5:45 AM) and Evening (5:30 PM) group workouts</p>
+            </div>
+          </div>
+          
+          <div class="benefit-item">
+            <i class="fas fa-trophy"></i>
+            <div>
+              <h4>Exclusive Challenges</h4>
+              <p>Participate in monthly challenges with amazing rewards</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="membership-cta">
+          <p><strong>Check out our membership section to learn more and join us!!.</p>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#JoinWorkFit</span>
+          <span class="post-tag">#FitnessCommunity</span>
+          <span class="post-tag">#GroupWorkouts</span>
+          <span class="post-tag">#TransformWithUs</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="club-promotion">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+
+        
+        <button class="post-action share-btn" data-post-id="club-promotion">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
+      </div>
+    </div>
     <!-- November Challenges Overview Post -->
     <div class="post" data-post-id="challenges-overview" data-timestamp="">
       <div class="post-header">
