@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#001f3f">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* All your existing CSS remains the same */
+    /* CSS optimized for performance */
     :root {
       --navy: #001f3f;
       --navy-light: #003366;
@@ -29,7 +29,7 @@
       --success: #4CAF50;
       --error: #f44336;
     }
-    /* Dark mode variables */
+
     [data-theme="dark"] {
       --navy: #0a2e57;
       --navy-light: #1a3e67;
@@ -67,7 +67,7 @@
       padding-bottom: 4rem;
     }
 
-    /* Social Platform Header */
+    /* Header styles */
     header {
       background-color: var(--bg-primary);
       box-shadow: 0 2px 10px var(--shadow-color);
@@ -114,7 +114,7 @@
       gap: 1rem;
     }
 
-    .social-nav-icon {
+    .social-nav-icon, .theme-toggle {
       background: none;
       border: none;
       cursor: pointer;
@@ -130,7 +130,7 @@
       position: relative;
     }
 
-    .social-nav-icon:hover {
+    .social-nav-icon:hover, .theme-toggle:hover {
       background-color: rgba(0,0,0,0.1);
     }
 
@@ -160,31 +160,13 @@
       z-index: 101;
     }
 
-    .theme-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 35px;
-      height: 35px;
-      transition: background-color 0.3s;
-    }
-
-    .theme-toggle:hover {
-      background-color: rgba(0,0,0,0.1);
-    }
-
     .theme-toggle svg {
       width: 20px;
       height: 20px;
       fill: var(--text-primary);
     }
 
-    /* Social Media Style Feed */
+    /* Social Feed */
     .social-feed {
       max-width: 600px;
       margin: 0 auto;
@@ -314,13 +296,13 @@
       font-size: 0.9rem;
     }
 
-    /* Custom YouTube Video Player Styles */
+    /* Video Container */
     .video-container {
       position: relative;
       width: 100%;
       background: #000;
       height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%;
       overflow: hidden;
       border-radius: 8px;
       margin-bottom: 1rem;
@@ -387,96 +369,6 @@
       text-align: center;
       text-shadow: 0 2px 4px rgba(0,0,0,0.5);
       max-width: 80%;
-    }
-
-    .video-controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 3;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      border-radius: 0 0 8px 8px;
-    }
-
-    .video-container:hover .video-controls {
-      opacity: 1;
-    }
-
-    .video-controls.visible {
-      opacity: 1;
-    }
-
-    .video-progress {
-      flex: 1;
-      height: 4px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 2px;
-      margin: 0 1rem;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .video-progress-filled {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background: var(--gold);
-      border-radius: 2px;
-      width: 0%;
-    }
-
-    .video-time {
-      color: white;
-      font-size: 0.8rem;
-      min-width: 100px;
-      text-align: center;
-    }
-
-    .control-btn {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 4px;
-      transition: background-color 0.2s;
-    }
-
-    .control-btn:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .volume-slider {
-      width: 80px;
-      height: 4px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 2px;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .volume-level {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background: var(--gold);
-      border-radius: 2px;
-      width: 100%;
     }
 
     .workfit-watermark {
@@ -552,98 +444,6 @@
       background: var(--gold);
       border-radius: 4px;
       transition: width 0.5s ease;
-    }
-
-    /* Attendance Tracker Post */
-    .attendance-post {
-      background-color: var(--bg-primary);
-      border-radius: 12px;
-      box-shadow: 0 2px 10px var(--shadow-color);
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      border-left: 4px solid var(--gold);
-    }
-
-    .attendance-post:hover {
-      transform: translateY(-3px);
-    }
-
-    .attendance-header {
-      display: flex;
-      align-items: center;
-      padding: 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .attendance-icon {
-      font-size: 1.2rem;
-      margin-right: 0.8rem;
-      color: var(--gold);
-    }
-
-    .attendance-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--navy);
-    }
-
-    .attendance-content {
-      padding: 1rem;
-    }
-
-    .attendance-description {
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-
-    .attendance-btn {
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .attendance-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Celebration Post Styles */
-    .celebrate-btn.celebrated {
-      background: var(--gold);
-      color: var(--navy);
-    }
-
-    /* Achievement badges */
-    .achievement-badge {
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-right: 0.5rem;
-    }
-
-    /* Interactive Actions */
-    .post-action.save-btn.saved i {
-      color: var(--gold);
-    }
-
-    .post-action.join-btn.joined {
-      background: var(--navy);
-      color: white;
     }
 
     /* Modals */
@@ -932,33 +732,6 @@
       transform: translateY(-2px);
     }
 
-    /* Mobile responsive adjustments */
-    @media (max-width: 768px) {
-      .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn-primary, .btn-secondary {
-        width: 100%;
-        max-width: 250px;
-        justify-content: center;
-      }
-
-      .video-controls {
-        padding: 0.5rem;
-      }
-
-      .video-time {
-        min-width: 80px;
-        font-size: 0.7rem;
-      }
-
-      .volume-slider {
-        width: 60px;
-      }
-    }
-
     /* Social Platform Bottom Navigation */
     .social-bottom-nav {
       position: fixed;
@@ -1001,6 +774,17 @@
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+      }
+
       .social-feed {
         padding: 0.5rem;
       }
@@ -1061,22 +845,22 @@
       .mobile-menu-btn {
         display: block;
       }
-      /* Tracking Button in Post Actions */
+      
       .post-action.track-btn {
-          background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
-          color: white;
+        background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+        color: white;
       }
 
       .post-action.track-btn:hover {
-          background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-          color: white;
-          transform: translateY(-2px);
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+        color: white;
+        transform: translateY(-2px);
       }
 
       .post-action.track-btn i {
-          color: var(--gold);
+        color: var(--gold);
       }
-          }
+    }
   </style>
 </head>
 <body>
@@ -1189,26 +973,6 @@
           </button>
           <div class="video-title-overlay">15-Minute Cardio for Day 2</div>
         </div>
-        <div class="video-controls">
-          <button class="control-btn play-pause-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <div class="video-progress">
-            <div class="video-progress-filled"></div>
-          </div>
-          <div class="video-time">0:00 / 0:00</div>
-          <div class="volume-control">
-            <button class="control-btn volume-btn">
-              <i class="fas fa-volume-up"></i>
-            </button>
-            <div class="volume-slider">
-              <div class="volume-level" style="width: 100%"></div>
-            </div>
-          </div>
-          <button class="control-btn fullscreen-btn">
-            <i class="fas fa-expand"></i>
-          </button>
-        </div>
         <div class="video-loading">
           <div class="loading-spinner"></div>
           <div>Loading WorkFit content...</div>
@@ -1277,26 +1041,6 @@
           </button>
           <div class="video-title-overlay">No Sugar November Challenge Tips</div>
         </div>
-        <div class="video-controls">
-          <button class="control-btn play-pause-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <div class="video-progress">
-            <div class="video-progress-filled"></div>
-          </div>
-          <div class="video-time">0:00 / 0:00</div>
-          <div class="volume-control">
-            <button class="control-btn volume-btn">
-              <i class="fas fa-volume-up"></i>
-            </button>
-            <div class="volume-slider">
-              <div class="volume-level" style="width: 100%"></div>
-            </div>
-          </div>
-          <button class="control-btn fullscreen-btn">
-            <i class="fas fa-expand"></i>
-          </button>
-        </div>
         <div class="video-loading">
           <div class="loading-spinner"></div>
           <div>Loading WorkFit content...</div>
@@ -1346,26 +1090,6 @@
             <i class="fas fa-play"></i>
           </button>
           <div class="video-title-overlay">15-Minute Full Body HIIT Workout</div>
-        </div>
-        <div class="video-controls">
-          <button class="control-btn play-pause-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <div class="video-progress">
-            <div class="video-progress-filled"></div>
-          </div>
-          <div class="video-time">0:00 / 0:00</div>
-          <div class="volume-control">
-            <button class="control-btn volume-btn">
-              <i class="fas fa-volume-up"></i>
-            </button>
-            <div class="volume-slider">
-              <div class="volume-level" style="width: 100%"></div>
-            </div>
-          </div>
-          <button class="control-btn fullscreen-btn">
-            <i class="fas fa-expand"></i>
-          </button>
         </div>
         <div class="video-loading">
           <div class="loading-spinner"></div>
@@ -1699,6 +1423,8 @@
   </nav>
 
 <script>
+// Optimized JavaScript for WorkFit Social Platform
+
 // YouTube API integration
 let youtubeAPIReady = false;
 const youtubePlayers = new Map();
@@ -1792,11 +1518,6 @@ function initializeMobileMenu() {
 
 // November Challenge Progress Logic - UPDATED FOR DAY 2
 function initializeNovemberChallenges() {
-  const now = new Date();
-  const novemberStart = new Date(now.getFullYear(), 10, 1); // November 1st (month is 0-indexed)
-  const novemberEnd = new Date(now.getFullYear(), 10, 30); // November 30th
-  
-  // Calculate current day of November (Day 2)
   const currentDay = 2; // Hardcoded to Day 2 as per request
   const progressPercentage = Math.min(Math.round((currentDay / 30) * 100), 100);
   
@@ -1840,11 +1561,11 @@ function createYouTubePlayer(iframeId, videoId, container) {
   const player = new YT.Player(iframeId, {
     videoId: videoId,
     playerVars: {
-      'autoplay': 0, // Autoplay disabled
-      'controls': 0, // Hide YouTube's native controls
-      'disablekb': 1,
+      'autoplay': 0,
+      'controls': 1, // Use YouTube's native controls for simplicity
+      'disablekb': 0,
       'enablejsapi': 1,
-      'fs': 0, // Disable fullscreen button (we'll use our own)
+      'fs': 1,
       'iv_load_policy': 3,
       'modestbranding': 1,
       'playsinline': 1,
@@ -1862,163 +1583,33 @@ function createYouTubePlayer(iframeId, videoId, container) {
 function onYouTubePlayerReady(event, container) {
   const player = event.target;
   const loadingIndicator = container.querySelector('.video-loading');
+  const overlay = container.querySelector('.video-overlay');
   
   // Hide loading indicator
   if (loadingIndicator) {
     loadingIndicator.style.display = 'none';
   }
   
-  // Setup custom controls
-  setupYouTubeControls(player, container);
+  // Setup play button
+  const playBtn = container.querySelector('.video-play-btn');
+  if (playBtn) {
+    playBtn.addEventListener('click', () => {
+      player.playVideo();
+      if (overlay) overlay.classList.add('hidden');
+    });
+  }
 }
 
 function onYouTubePlayerStateChange(event, container) {
   const player = event.target;
-  const playPauseBtn = container.querySelector('.play-pause-btn');
   const overlay = container.querySelector('.video-overlay');
   
   if (event.data === YT.PlayerState.PLAYING) {
-    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
     if (overlay) overlay.classList.add('hidden');
-  } else if (event.data === YT.PlayerState.PAUSED) {
-    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
   } else if (event.data === YT.PlayerState.ENDED) {
-    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
     if (overlay) overlay.classList.remove('hidden');
   }
 }
-
-function setupYouTubeControls(player, container) {
-  const playPauseBtn = container.querySelector('.play-pause-btn');
-  const playBtnOverlay = container.querySelector('.video-play-btn');
-  const progress = container.querySelector('.video-progress');
-  const progressFilled = container.querySelector('.video-progress-filled');
-  const timeDisplay = container.querySelector('.video-time');
-  const volumeBtn = container.querySelector('.volume-btn');
-  const volumeSlider = container.querySelector('.volume-slider');
-  const volumeLevel = container.querySelector('.volume-level');
-  const fullscreenBtn = container.querySelector('.fullscreen-btn');
-  const overlay = container.querySelector('.video-overlay');
-  const controls = container.querySelector('.video-controls');
-  
-  // Format time function
-  function formatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  }
-  
-  // Update progress bar
-  function updateProgress() {
-    if (player && player.getDuration) {
-      const currentTime = player.getCurrentTime();
-      const duration = player.getDuration();
-      const percent = (currentTime / duration) * 100;
-      
-      if (progressFilled) progressFilled.style.width = `${percent}%`;
-      if (timeDisplay) timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
-    }
-  }
-  
-  // Progress update interval
-  let progressInterval;
-  
-  // Toggle play/pause
-  function togglePlay() {
-    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-      player.pauseVideo();
-      clearInterval(progressInterval);
-    } else {
-      player.playVideo();
-      // Start progress updates when playing
-      progressInterval = setInterval(updateProgress, 1000);
-    }
-  }
-  
-  // Set volume
-  function setVolume(e) {
-    const rect = volumeSlider.getBoundingClientRect();
-    const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1);
-    player.setVolume(percent * 100);
-    volumeLevel.style.width = `${percent * 100}%`;
-    
-    // Update volume icon
-    if (percent === 0) {
-      volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-    } else if (percent < 0.5) {
-      volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
-    } else {
-      volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-    }
-  }
-  
-  // Seek video
-  function seek(e) {
-    const rect = progress.getBoundingClientRect();
-    const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1);
-    const duration = player.getDuration();
-    player.seekTo(duration * percent, true);
-  }
-  
-  // Event listeners
-  if (playBtnOverlay) playBtnOverlay.addEventListener('click', togglePlay);
-  if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlay);
-  
-  if (progress) {
-    progress.addEventListener('click', seek);
-  }
-  
-  if (volumeSlider) {
-    volumeSlider.addEventListener('click', setVolume);
-    
-    volumeBtn.addEventListener('click', () => {
-      const currentVolume = player.getVolume();
-      if (currentVolume > 0) {
-        player.setVolume(0);
-        volumeLevel.style.width = '0%';
-        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      } else {
-        player.setVolume(100);
-        volumeLevel.style.width = '100%';
-        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-      }
-    });
-  }
-  
-  if (fullscreenBtn) {
-    fullscreenBtn.addEventListener('click', () => {
-      const iframe = container.querySelector('.youtube-iframe');
-      if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-      } else if (iframe.webkitRequestFullscreen) {
-        iframe.webkitRequestFullscreen();
-      } else if (iframe.msRequestFullscreen) {
-        iframe.msRequestFullscreen();
-      }
-    });
-  }
-  
-  // Click on overlay to play
-  if (overlay) {
-    overlay.addEventListener('click', togglePlay);
-  }
-  
-  // Show controls on hover
-  container.addEventListener('mouseenter', () => {
-    controls.classList.add('visible');
-  });
-  
-  container.addEventListener('mouseleave', () => {
-    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-      setTimeout(() => {
-        controls.classList.remove('visible');
-      }, 2000);
-    }
-  });
-}
-
-// REMOVED: Twitter-style Video Autoplay on Scroll for YouTube
-// Videos will no longer autoplay when scrolled into view
 
 // YouTube API callback
 function onYouTubeIframeAPIReady() {
@@ -2154,7 +1745,7 @@ function initializeSocialInteractions() {
   }
 }
 
-// Initialize Tracking Buttons in Post Actions - FIXED VERSION
+// Initialize Tracking Buttons in Post Actions
 function initializeTrackingButtons() {
   const trackButtons = document.querySelectorAll('.post-action.track-btn');
   
@@ -2178,52 +1769,6 @@ function initializeTrackingButtons() {
       openTrackingForm(challengeName);
     });
   });
-}
-
-// Celebration effects function
-function createCelebrationEffects() {
-  // Create confetti elements
-  for (let i = 0; i < 20; i++) {
-    setTimeout(() => {
-      const confetti = document.createElement('div');
-      confetti.innerHTML = '🎉';
-      confetti.style.cssText = `
-        position: fixed;
-        top: -50px;
-        left: ${Math.random() * 100}vw;
-        font-size: ${20 + Math.random() * 20}px;
-        z-index: 10000;
-        pointer-events: none;
-        animation: fall ${2 + Math.random() * 2}s linear forwards;
-      `;
-      
-      document.body.appendChild(confetti);
-      
-      // Remove confetti after animation
-      setTimeout(() => {
-        document.body.removeChild(confetti);
-      }, 4000);
-    }, i * 100);
-  }
-  
-  // Add CSS for falling animation
-  if (!document.querySelector('#confetti-styles')) {
-    const style = document.createElement('style');
-    style.id = 'confetti-styles';
-    style.textContent = `
-      @keyframes fall {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(100vh) rotate(360deg);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
 }
 
 // Blog Modal Functionality
@@ -2381,12 +1926,12 @@ function initializeBlogModal() {
   window.openBlogModal = openBlogModal;
 }
 
-// Google Form Modal Functionality - FIXED VERSION
+// Google Form Modal Functionality
 function initializeGoogleFormModal() {
   const googleFormModal = document.getElementById('googleFormModal');
   const googleFormClose = document.getElementById('googleFormClose');
-  const googleFormFrame = document.getElementById('googleFormFrame');
-  const googleFormTitle = document.getElementById('googleFormTitle');
+  const googleFormFrame = document.querySelector('.google-form-frame');
+  const googleFormTitle = document.querySelector('.google-form-title');
   
   function openGoogleForm() {
     googleFormModal.classList.add('active');
@@ -2440,7 +1985,7 @@ function initializeGoogleFormModal() {
   window.openTrackingForm = openTrackingForm;
 }
 
-// Fixed: Automatic Timestamp Updates with Persistent Storage
+// Timestamp Updates
 function initializeTimestampUpdates() {
   // Check if we need to set initial timestamps
   const newPosts = document.querySelectorAll('[data-timestamp=""]');
