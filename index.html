@@ -1061,7 +1061,22 @@
       .mobile-menu-btn {
         display: block;
       }
-    }
+      /* Tracking Button in Post Actions */
+      .post-action.track-btn {
+          background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+          color: white;
+      }
+
+      .post-action.track-btn:hover {
+          background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+          color: white;
+          transform: translateY(-2px);
+      }
+
+      .post-action.track-btn i {
+          color: var(--gold);
+      }
+          }
   </style>
 </head>
 <body>
@@ -1230,6 +1245,10 @@
           <i class="fas fa-user-plus"></i>
           <span class="post-action-count">Join Challenge</span>
         </button>
+        <button class="post-action track-btn" data-post-id="day2cardio" data-challenge="cardio-challenge">
+          <i class="fas fa-running"></i>
+          <span class="post-action-count">Track</span>
+        </button>
         <button class="post-action share-btn" data-post-id="day2cardio">
           <i class="fas fa-share-alt"></i>
           <span class="post-action-count">Share</span>
@@ -1295,6 +1314,10 @@
         <button class="post-action save-btn" data-post-id="nosugar-video">
           <i class="far fa-bookmark"></i>
           <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action track-btn" data-post-id="nosugar-video" data-challenge="no-sugar-challenge">
+          <i class="fas fa-apple-alt"></i>
+          <span class="post-action-count">Track</span>
         </button>
         <button class="post-action share-btn" data-post-id="nosugar-video">
           <i class="fas fa-share-alt"></i>
@@ -1550,6 +1573,10 @@
         <button class="post-action register-btn" data-post-id="3">
           <i class="fas fa-user-plus"></i>
           <span class="post-action-count">Join Challenge</span>
+        </button>
+        <button class="post-action track-btn" data-post-id="9" data-challenge="5am-club">
+          <i class="fas fa-book-reader"></i>
+          <span class="post-action-count">Track</span>
         </button>
         <button class="post-action share-btn" data-post-id="3">
           <i class="fas fa-share-alt"></i>
@@ -2136,34 +2163,6 @@ function initializeSocialInteractions() {
     });
   });
   
-  // Celebrate button functionality
-  const celebrateButtons = document.querySelectorAll('.celebrate-btn');
-  
-  celebrateButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const postId = this.dataset.postId;
-      const countElement = this.querySelector('.post-action-count');
-      let count = parseInt(countElement.textContent) || 0;
-      
-      count++;
-      countElement.textContent = count;
-      
-      // Add celebration effects
-      createCelebrationEffects();
-      showNotification('🎉 Woohoo! Celebrating our October success!');
-    });
-  });
-
-  // Attendance button functionality
-  const attendanceBtn = document.getElementById('attendanceBtn');
-  
-  if (attendanceBtn) {
-    attendanceBtn.addEventListener('click', function() {
-      showNotification('Opening attendance form...');
-      openGoogleForm();
-    });
-  }
-  
   function saveItem(postId) {
     let savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
     if (!savedItems.includes(postId)) {
@@ -2198,6 +2197,33 @@ function initializeSocialInteractions() {
       }, 300);
     }, 3000);
   }
+}
+
+// Initialize Tracking Buttons in Post Actions
+function initializeTrackingButtons() {
+  const trackButtons = document.querySelectorAll('.post-action.track-btn');
+  
+  trackButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const challenge = this.dataset.challenge;
+      const postId = this.dataset.postId;
+      
+      const challengeNames = {
+        'schedule-update': 'Schedule Update',
+        'cardio-challenge': 'Cardio Challenge',
+        'no-sugar-challenge': 'No Sugar Challenge', 
+        'no-sugar-november': 'No Sugar November Challenge',
+        'hiit-challenge': 'HIIT Workout Challenge',
+        '5am-club': '5AM Club Reading Challenge',
+        'november-reading': 'November Reading Challenge'
+      };
+      
+      const challengeName = challengeNames[challenge] || 'Challenge';
+      
+      showNotification(`Opening progress tracker for ${challengeName}...`);
+      openTrackingForm(challenge);
+    });
+  });
 }
 
 // Celebration effects function
@@ -2405,10 +2431,40 @@ function initializeBlogModal() {
 function initializeGoogleFormModal() {
   const googleFormModal = document.getElementById('googleFormModal');
   const googleFormClose = document.getElementById('googleFormClose');
+  const googleFormFrame = document.querySelector('.google-form-frame');
+  
+  // Set the tracking form URL
+  if (googleFormFrame) {
+    googleFormFrame.src = "https://forms.gle/n1xtokbga51UdvJo9";
+  }
   
   function openGoogleForm() {
     googleFormModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+  }
+  
+  function openTrackingForm(challengeType) {
+    // Store the challenge type for reference
+    sessionStorage.setItem('currentChallenge', challengeType);
+    
+    // Update the form title based on challenge type
+    const formTitle = document.querySelector('.google-form-title');
+    const challengeNames = {
+      'schedule-update': 'Schedule Update Confirmation',
+      'cardio-challenge': 'Cardio Challenge Progress Tracking',
+      'no-sugar-challenge': 'No Sugar Challenge Progress Tracking', 
+      'no-sugar-november': 'No Sugar November Challenge Tracking',
+      'hiit-challenge': 'HIIT Workout Progress Tracking',
+      '5am-club': '5AM Club Reading Challenge Tracking',
+      'november-reading': 'November Reading Challenge Tracking'
+    };
+    
+    if (formTitle) {
+      formTitle.textContent = challengeNames[challengeType] || 'Challenge Progress Tracking';
+    }
+    
+    // Open the modal
+    openGoogleForm();
   }
   
   function closeGoogleForm() {
@@ -2428,8 +2484,9 @@ function initializeGoogleFormModal() {
     }
   });
   
-  // Make openGoogleForm function globally accessible
+  // Make functions globally accessible
   window.openGoogleForm = openGoogleForm;
+  window.openTrackingForm = openTrackingForm;
 }
 
 // Fixed: Automatic Timestamp Updates with Persistent Storage
@@ -2550,13 +2607,14 @@ function initializeApp() {
   // Initialize all components
   initializeTheme();
   initializeMobileMenu();
-  initializeNovemberChallenges(); // Updated for Day 2
-  loadYouTubeAPI(); // Load YouTube API
+  initializeNovemberChallenges();
+  loadYouTubeAPI();
   initializeSocialInteractions();
   initializeBlogModal();
   initializeGoogleFormModal();
-  initializeTimestampUpdates(); // Fixed timestamp initialization
+  initializeTimestampUpdates();
   initializeViewLatestButton();
+  initializeTrackingButtons();
   
   console.log('WorkFit Social Platform initialized successfully');
 }
