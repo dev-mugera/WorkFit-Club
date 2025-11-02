@@ -1675,6 +1675,7 @@
 // YouTube API integration
 let youtubeAPIReady = false;
 const youtubePlayers = new Map();
+let scrollObserver;
 
 // Load YouTube API
 function loadYouTubeAPI() {
@@ -1900,6 +1901,7 @@ function setupYouTubeControls(player, container) {
   function togglePlay() {
     if (player.getPlayerState() === YT.PlayerState.PLAYING) {
       player.pauseVideo();
+      clearInterval(progressInterval);
     } else {
       player.playVideo();
       // Start progress updates when playing
@@ -1992,13 +1994,21 @@ function setupYouTubeControls(player, container) {
 // Twitter-style Video Autoplay on Scroll for YouTube
 function initializeScrollAutoplay() {
   const videoContainers = document.querySelectorAll('.video-container[data-video-id]');
+  
+  // Clean up existing observer if any
+  if (scrollObserver) {
+    videoContainers.forEach(container => {
+      scrollObserver.unobserve(container);
+    });
+  }
+  
   const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.6
+    threshold: [0.4, 0.6] // Trigger when 40% and 60% of video is visible
   };
 
-  const observer = new IntersectionObserver((entries) => {
+  scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const container = entry.target;
       const videoId = container.getAttribute('data-video-id');
@@ -2008,7 +2018,12 @@ function initializeScrollAutoplay() {
         if (entry.isIntersecting) {
           // Video is in view - play it
           if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
-            player.playVideo();
+            player.playVideo().catch(error => {
+              console.log('Autoplay prevented:', error);
+              // If autoplay is blocked, show the play button
+              const overlay = container.querySelector('.video-overlay');
+              if (overlay) overlay.classList.remove('hidden');
+            });
           }
         } else {
           // Video is out of view - pause it
@@ -2022,7 +2037,7 @@ function initializeScrollAutoplay() {
 
   // Observe all video containers
   videoContainers.forEach(container => {
-    observer.observe(container);
+    scrollObserver.observe(container);
   });
 }
 
@@ -2030,6 +2045,11 @@ function initializeScrollAutoplay() {
 function onYouTubeIframeAPIReady() {
   youtubeAPIReady = true;
   initializeYouTubePlayers();
+  
+  // Initialize scroll autoplay after a short delay to ensure players are ready
+  setTimeout(() => {
+    initializeScrollAutoplay();
+  }, 1000);
 }
 
 // Social Media Interactions
@@ -2412,17 +2432,26 @@ function initializeGoogleFormModal() {
   window.openGoogleForm = openGoogleForm;
 }
 
-// Automatic Timestamp Updates
+// Fixed: Automatic Timestamp Updates with Persistent Storage
 function initializeTimestampUpdates() {
-  // Set creation timestamp for new posts
+  // Check if we need to set initial timestamps
   const newPosts = document.querySelectorAll('[data-timestamp=""]');
-  const now = new Date();
   
   newPosts.forEach(post => {
-    post.setAttribute('data-timestamp', now.toISOString());
-    const timestampElement = post.querySelector('.post-time');
-    if (timestampElement) {
-      timestampElement.textContent = 'Just now';
+    const postId = post.getAttribute('data-post-id');
+    
+    // Try to get timestamp from localStorage first
+    const storedTimestamp = localStorage.getItem(`post-timestamp-${postId}`);
+    
+    if (storedTimestamp) {
+      // Use stored timestamp
+      post.setAttribute('data-timestamp', storedTimestamp);
+    } else {
+      // Set new timestamp and store it
+      const now = new Date();
+      const timestamp = now.toISOString();
+      post.setAttribute('data-timestamp', timestamp);
+      localStorage.setItem(`post-timestamp-${postId}`, timestamp);
     }
   });
   
@@ -2526,7 +2555,7 @@ function initializeApp() {
   initializeSocialInteractions();
   initializeBlogModal();
   initializeGoogleFormModal();
-  initializeTimestampUpdates();
+  initializeTimestampUpdates(); // Fixed timestamp initialization
   initializeViewLatestButton();
   
   console.log('WorkFit Social Platform initialized successfully');
