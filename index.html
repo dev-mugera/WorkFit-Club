@@ -1134,6 +1134,153 @@
         border-radius: 3px;
         transition: width 0.5s ease;
       }
+      /* Trivia Specific Styles */
+      .trivia-container {
+        margin: 1.5rem 0;
+      }
+
+      .trivia-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stat {
+        text-align: center;
+        padding: 1rem;
+        background: var(--bg-secondary);
+        border-radius: 10px;
+        border: 2px solid var(--border-color);
+      }
+
+      .stat-value {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--gold);
+        margin-bottom: 0.3rem;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: var(--gray);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .answers-container {
+        display: grid;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .answer-option {
+        padding: 1rem 1.2rem;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .answer-option:hover {
+        background: var(--navy-light);
+        color: white;
+        border-color: var(--navy-light);
+        transform: translateY(-2px);
+      }
+
+      .answer-option.correct {
+        background: var(--success);
+        color: white;
+        border-color: var(--success);
+      }
+
+      .answer-option.incorrect {
+        background: var(--error);
+        color: white;
+        border-color: var(--error);
+        opacity: 0.7;
+      }
+
+      .answer-option.disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .trivia-feedback {
+        background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .feedback-content {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      .next-trivia-btn {
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .next-trivia-btn:hover {
+        background: #ffed4e;
+        transform: translateY(-2px);
+      }
+
+      .trivia-tip {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+        border-left: 4px solid var(--gold);
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .trivia-tip i {
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+
+      /* Animation for correct answers */
+      @keyframes celebrate {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+
+      .celebrate {
+        animation: celebrate 0.6s ease;
+      }
+
+      /* Progress animation */
+      @keyframes progressPulse {
+        0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+      }
+
+      .stat.pulse {
+        animation: progressPulse 2s infinite;
+      }
+
     }
   </style>
 </head>
@@ -1165,6 +1312,77 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+    <!-- Daily Fitness Trivia Post -->
+    <div class="post" data-post-id="daily-trivia" data-timestamp="">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Trivia" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Club · Daily Trivia</div>
+          <div class="post-time" id="trivia-date">Today</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="post-content">
+        <div class="challenge-badge">DAILY FITNESS TRIVIA 🧠</div>
+        <h3 class="post-title" id="trivia-question">Loading today's question...</h3>
+        
+        <div class="trivia-container">
+          <div class="trivia-stats">
+            <div class="stat">
+              <span class="stat-value" id="streak-count">0</span>
+              <span class="stat-label">Day Streak</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="correct-count">0</span>
+              <span class="stat-label">Correct Answers</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="trivia-points">0</span>
+              <span class="stat-label">Points</span>
+            </div>
+          </div>
+
+          <div class="answers-container" id="answers-container">
+            <!-- Answers will be populated by JavaScript -->
+          </div>
+
+          <div class="trivia-feedback" id="trivia-feedback">
+            <div class="feedback-content" id="feedback-content"></div>
+            <button class="next-trivia-btn" id="next-trivia-btn" style="display: none;">
+              <i class="fas fa-forward"></i> Next Question
+            </button>
+          </div>
+
+          <div class="trivia-tip">
+            <i class="fas fa-lightbulb"></i>
+            <span>Complete daily trivia to earn points and unlock achievements!</span>
+          </div>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#DailyTrivia</span>
+          <span class="post-tag">#FitnessFacts</span>
+          <span class="post-tag">#LearnAndGrow</span>
+          <span class="post-tag">#WorkFitBrain</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="daily-trivia">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action share-trivia-btn" data-post-id="daily-trivia">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share Trivia</span>
+        </button>
+        <button class="post-action leaderboard-btn" data-post-id="daily-trivia">
+          <i class="fas fa-trophy"></i>
+          <span class="post-action-count">Leaderboard</span>
+        </button>
+      </div>
+    </div>
     <!-- Club Membership Promotion Post -->
     <div class="post" data-post-id="club-promotion" data-timestamp="">
       <div class="post-header">
@@ -2521,6 +2739,307 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
     htmlElement.setAttribute('data-theme', newTheme);
     updateThemeIcon(newTheme);
   }
+});
+
+// Daily Fitness Trivia System
+class DailyFitnessTrivia {
+    constructor() {
+        this.currentQuestion = null;
+        this.userStats = this.loadStats();
+        this.questions = this.getFitnessQuestions();
+        this.initializeTrivia();
+    }
+
+    loadStats() {
+        const saved = localStorage.getItem('workfit-trivia-stats');
+        if (saved) {
+            return JSON.parse(saved);
+        }
+        return {
+            streak: 0,
+            correctAnswers: 0,
+            totalAnswers: 0,
+            points: 0,
+            lastPlayed: null,
+            achievements: []
+        };
+    }
+
+    saveStats() {
+        localStorage.setItem('workfit-trivia-stats', JSON.stringify(this.userStats));
+    }
+
+    getFitnessQuestions() {
+        return [
+            {
+                question: "How many minutes of moderate exercise per day does WHO recommend for adults?",
+                answers: [
+                    { text: "15 minutes", correct: false },
+                    { text: "30 minutes", correct: true },
+                    { text: "60 minutes", correct: false },
+                    { text: "90 minutes", correct: false }
+                ],
+                explanation: "The World Health Organization recommends at least 150 minutes of moderate-intensity exercise per week, which averages to about 30 minutes daily.",
+                category: "Exercise Guidelines"
+            },
+            {
+                question: "Which macronutrient is most important for muscle recovery after workouts?",
+                answers: [
+                    { text: "Carbohydrates", correct: false },
+                    { text: "Fats", correct: false },
+                    { text: "Protein", correct: true },
+                    { text: "Vitamins", correct: false }
+                ],
+                explanation: "Protein provides amino acids that help repair and rebuild muscle tissue damaged during exercise.",
+                category: "Nutrition"
+            },
+            {
+                question: "What is the ideal heart rate zone for fat burning during cardio?",
+                answers: [
+                    { text: "50-60% of max heart rate", correct: false },
+                    { text: "60-70% of max heart rate", correct: true },
+                    { text: "70-80% of max heart rate", correct: false },
+                    { text: "80-90% of max heart rate", correct: false }
+                ],
+                explanation: "The 60-70% zone is often called the 'fat burning zone' where your body uses fat as its primary fuel source.",
+                category: "Cardio"
+            },
+            {
+                question: "How much water should you drink during intense exercise?",
+                answers: [
+                    { text: "4-6 ounces every 15-20 minutes", correct: true },
+                    { text: "Only when thirsty", correct: false },
+                    { text: "1 liter per hour", correct: false },
+                    { text: "No need for extra water", correct: false }
+                ],
+                explanation: "For intense exercise, aim for 4-6 ounces of water every 15-20 minutes to maintain hydration.",
+                category: "Hydration"
+            },
+            {
+                question: "What's the recommended daily step count for general health?",
+                answers: [
+                    { text: "5,000 steps", correct: false },
+                    { text: "7,500 steps", correct: false },
+                    { text: "10,000 steps", correct: true },
+                    { text: "15,000 steps", correct: false }
+                ],
+                explanation: "While individual needs vary, 10,000 steps is a commonly recommended daily target for maintaining good health.",
+                category: "Daily Activity"
+            },
+            {
+                question: "Which type of stretching is best BEFORE a workout?",
+                answers: [
+                    { text: "Static stretching", correct: false },
+                    { text: "Dynamic stretching", correct: true },
+                    { text: "PNF stretching", correct: false },
+                    { text: "Ballistic stretching", correct: false }
+                ],
+                explanation: "Dynamic stretching (moving stretches) is ideal before workouts as it warms up muscles, while static stretching is better for post-workout.",
+                category: "Warm-up"
+            },
+            {
+                question: "How long does it take to form a new fitness habit?",
+                answers: [
+                    { text: "21 days", correct: false },
+                    { text: "66 days", correct: true },
+                    { text: "90 days", correct: false },
+                    { text: "120 days", correct: false }
+                ],
+                explanation: "Research shows it takes an average of 66 days to form a new habit, though this can vary from 18 to 254 days depending on the person and behavior.",
+                category: "Habit Formation"
+            }
+        ];
+    }
+
+    getTodaysQuestion() {
+        // Use date to determine which question to show (cycles through questions)
+        const today = new Date().toDateString();
+        const questionIndex = this.hashString(today) % this.questions.length;
+        return this.questions[questionIndex];
+    }
+
+    hashString(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = ((hash << 5) - hash) + str.charCodeAt(i);
+            hash |= 0; // Convert to 32bit integer
+        }
+        return Math.abs(hash);
+    }
+
+    initializeTrivia() {
+        this.currentQuestion = this.getTodaysQuestion();
+        this.updateDisplay();
+        this.checkDailyReset();
+    }
+
+    checkDailyReset() {
+        const today = new Date().toDateString();
+        if (this.userStats.lastPlayed !== today) {
+            // New day - check if streak continues
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (this.userStats.lastPlayed === yesterday.toDateString()) {
+                this.userStats.streak++;
+            } else if (this.userStats.lastPlayed !== today) {
+                this.userStats.streak = 0; // Streak broken
+            }
+            this.userStats.lastPlayed = today;
+            this.saveStats();
+        }
+    }
+
+    updateDisplay() {
+        // Update question
+        document.getElementById('trivia-question').textContent = this.currentQuestion.question;
+        
+        // Update stats
+        document.getElementById('streak-count').textContent = this.userStats.streak;
+        document.getElementById('correct-count').textContent = this.userStats.correctAnswers;
+        document.getElementById('trivia-points').textContent = this.userStats.points;
+        
+        // Update date
+        document.getElementById('trivia-date').textContent = 'Today';
+        
+        // Create answer buttons
+        this.createAnswerButtons();
+        
+        // Reset feedback
+        document.getElementById('trivia-feedback').style.display = 'none';
+    }
+
+    createAnswerButtons() {
+        const container = document.getElementById('answers-container');
+        container.innerHTML = '';
+        
+        this.currentQuestion.answers.forEach((answer, index) => {
+            const button = document.createElement('button');
+            button.className = 'answer-option';
+            button.innerHTML = `
+                <span class="answer-letter">${String.fromCharCode(65 + index)}.</span>
+                <span class="answer-text">${answer.text}</span>
+            `;
+            button.addEventListener('click', () => this.handleAnswer(answer, button));
+            container.appendChild(button);
+        });
+    }
+
+    handleAnswer(selectedAnswer, button) {
+        // Disable all buttons
+        document.querySelectorAll('.answer-option').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.style.pointerEvents = 'none';
+        });
+
+        // Show correct/incorrect styling
+        document.querySelectorAll('.answer-option').forEach(btn => {
+            const answerText = btn.querySelector('.answer-text').textContent;
+            const correctAnswer = this.currentQuestion.answers.find(a => a.correct);
+            
+            if (answerText === correctAnswer.text) {
+                btn.classList.add('correct');
+            } else if (btn === button && !selectedAnswer.correct) {
+                btn.classList.add('incorrect');
+            }
+        });
+
+        // Update stats and show feedback
+        this.userStats.totalAnswers++;
+        
+        if (selectedAnswer.correct) {
+            this.userStats.correctAnswers++;
+            this.userStats.points += 10;
+            button.classList.add('celebrate');
+            this.showFeedback(true);
+        } else {
+            this.showFeedback(false);
+        }
+
+        this.saveStats();
+        this.updateDisplay(); // Update stats display
+    }
+
+    showFeedback(isCorrect) {
+        const feedback = document.getElementById('trivia-feedback');
+        const content = document.getElementById('feedback-content');
+        const nextBtn = document.getElementById('next-trivia-btn');
+        
+        feedback.style.display = 'block';
+        
+        if (isCorrect) {
+            content.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎉</div>
+                <strong>Correct!</strong>
+                <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+                    ${this.currentQuestion.explanation}
+                </div>
+                <div style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8;">
+                    Category: ${this.currentQuestion.category}
+                </div>
+            `;
+        } else {
+            const correctAnswer = this.currentQuestion.answers.find(a => a.correct);
+            content.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">💡</div>
+                <strong>Not quite!</strong>
+                <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+                    The correct answer was: <strong>${correctAnswer.text}</strong>
+                </div>
+                <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+                    ${this.currentQuestion.explanation}
+                </div>
+                <div style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8;">
+                    Category: ${this.currentQuestion.category}
+                </div>
+            `;
+        }
+
+        // For daily trivia, we don't need next button since it's one question per day
+        nextBtn.style.display = 'none';
+    }
+
+    shareTrivia() {
+        const message = `I just scored ${this.userStats.points} points in WorkFit Daily Trivia! 🧠💪 Can you beat my streak of ${this.userStats.streak} days?`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'WorkFit Trivia Challenge',
+                text: message,
+                url: window.location.href
+            });
+        } else {
+            navigator.clipboard.writeText(message);
+            alert('Trivia challenge copied to clipboard! Share it with your friends!');
+        }
+    }
+
+    showLeaderboard() {
+        alert(`Your Trivia Stats:\n\n🔥 Streak: ${this.userStats.streak} days\n✅ Correct Answers: ${this.userStats.correctAnswers}\n⭐ Points: ${this.userStats.points}\n\nKeep going!`);
+    }
+}
+
+// Initialize trivia when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const trivia = new DailyFitnessTrivia();
+    
+    // Add event listeners for post action buttons
+    document.querySelector('.share-trivia-btn').addEventListener('click', () => trivia.shareTrivia());
+    document.querySelector('.leaderboard-btn').addEventListener('click', () => trivia.showLeaderboard());
+    
+    // Save button functionality
+    document.querySelector('.save-btn').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        if (icon.classList.contains('far')) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+            this.querySelector('.post-action-count').textContent = 'Saved';
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            this.querySelector('.post-action-count').textContent = 'Save';
+        }
+    });
 });
 
 // Main initialization function
