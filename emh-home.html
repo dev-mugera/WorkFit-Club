@@ -8,19 +8,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
+      --primary-color: #001f3f;
+      --secondary-color: #003366;
+      --accent-color: #FFD700;
+      --dark-bg: #0a192f;
+      --medium-bg: #172a45;
+      --light-bg: #243b55;
+      --text-primary: #e6f1ff;
+      --text-secondary: #a8b2d1;
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+      --gradient-primary: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+      --gradient-bg: linear-gradient(135deg, #0a192f 0%, #172a45 100%);
       --navy: #001f3f;
       --navy-light: #003366;
-      --navy-dark: #001a33;
       --gold: #FFD700;
-      --gold-light: #FFED4E;
-      --white: #FFFFFF;
-      --light-gray: #f8f9fa;
-      --medium-gray: #e9ecef;
-      --dark-gray: #6c757d;
-      --text-primary: #212529;
-      --text-secondary: #495057;
-      --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      --gradient-primary: linear-gradient(135deg, #001f3f 0%, #003366 100%);
     }
 
     * {
@@ -35,7 +37,7 @@
     }
 
     body {
-      background-color: var(--light-gray);
+      background: var(--gradient-bg);
       color: var(--text-primary);
       line-height: 1.5;
       min-height: 100vh;
@@ -46,10 +48,11 @@
 
     /* Header Styles */
     header {
-      background: var(--gradient-primary);
+      background: var(--medium-bg);
       color: white;
       padding: 0.8rem 1.5rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .header-container {
@@ -69,12 +72,12 @@
     .logo-icon {
       width: 42px;
       height: 42px;
-      background: var(--gold);
+      background: var(--accent-color);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--navy);
+      color: var(--primary-color);
       font-weight: bold;
       font-size: 1.3rem;
     }
@@ -82,10 +85,7 @@
     .logo-text {
       font-size: 1.5rem;
       font-weight: 700;
-    }
-
-    .logo-text span {
-      color: var(--gold);
+      color: var(--accent-color);
     }
 
     /* Main Content */
@@ -98,18 +98,19 @@
     }
 
     .welcome-section {
-      background: white;
+      background: var(--medium-bg);
       border-radius: 12px;
       padding: 2rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .welcome-title {
       font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 0.4rem;
-      color: var(--navy);
+      color: var(--accent-color);
     }
 
     .welcome-subtitle {
@@ -122,7 +123,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: var(--dark-gray);
+      color: var(--text-secondary);
       font-size: 0.9rem;
     }
 
@@ -135,30 +136,33 @@
     }
 
     .stat-card {
-      background: white;
+      background: var(--medium-bg);
       border-radius: 10px;
       padding: 1.2rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      transition: transform 0.3s;
+      transition: all 0.3s;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .stat-card:hover {
       transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     }
 
     .stat-icon {
       width: 50px;
       height: 50px;
       border-radius: 10px;
-      background: var(--gradient-primary);
+      background: rgba(255, 215, 0, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: var(--accent-color);
       font-size: 1.3rem;
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
 
     .stat-content {
@@ -168,12 +172,12 @@
     .stat-value {
       font-size: 1.7rem;
       font-weight: 700;
-      color: var(--navy);
+      color: var(--text-primary);
       line-height: 1;
     }
 
     .stat-label {
-      color: var(--dark-gray);
+      color: var(--text-secondary);
       font-size: 0.85rem;
     }
 
@@ -186,7 +190,7 @@
       font-size: 1.3rem;
       font-weight: 600;
       margin-bottom: 1.2rem;
-      color: var(--navy);
+      color: var(--accent-color);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -194,25 +198,26 @@
 
     .modules-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.2rem;
     }
 
     .module-card {
-      background: white;
+      background: var(--medium-bg);
       border-radius: 10px;
       padding: 1.5rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       transition: all 0.3s;
-      border-left: 4px solid var(--gold);
+      border-left: 4px solid var(--accent-color);
       display: flex;
       flex-direction: column;
       height: 100%;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .module-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     }
 
     .module-header {
@@ -226,18 +231,19 @@
       width: 45px;
       height: 45px;
       border-radius: 8px;
-      background: var(--gradient-primary);
+      background: rgba(255, 215, 0, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: var(--accent-color);
       font-size: 1.1rem;
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
 
     .module-title {
       font-size: 1.2rem;
       font-weight: 600;
-      color: var(--navy);
+      color: var(--text-primary);
     }
 
     .module-description {
@@ -267,31 +273,34 @@
     }
 
     .btn-primary {
-      background: var(--navy);
-      color: white;
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--accent-color);
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
 
     .btn-primary:hover {
-      background: var(--navy-light);
+      background: rgba(255, 215, 0, 0.2);
       transform: translateY(-2px);
     }
 
     .btn-secondary {
-      background: var(--medium-gray);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .btn-secondary:hover {
-      background: #dee2e6;
+      background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
     }
 
     /* System Updates */
     .updates-section {
-      background: white;
+      background: var(--medium-bg);
       border-radius: 10px;
       padding: 1.5rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .updates-list {
@@ -303,7 +312,7 @@
       align-items: flex-start;
       gap: 0.8rem;
       padding: 0.8rem 0;
-      border-bottom: 1px solid var(--medium-gray);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .update-item:last-child {
@@ -314,13 +323,14 @@
       width: 36px;
       height: 36px;
       border-radius: 8px;
-      background: var(--light-gray);
+      background: rgba(255, 215, 0, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--navy);
+      color: var(--accent-color);
       flex-shrink: 0;
       margin-top: 0.2rem;
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
 
     .update-content {
@@ -331,27 +341,30 @@
       font-weight: 500;
       margin-bottom: 0.2rem;
       font-size: 0.9rem;
+      color: var(--text-primary);
     }
 
     .update-time {
       font-size: 0.75rem;
-      color: var(--dark-gray);
+      color: var(--text-secondary);
     }
 
     .update-important {
-      background: #fff3cd;
-      border-left: 3px solid #ffc107;
+      background: rgba(255, 193, 7, 0.1);
+      border-left: 3px solid var(--warning-color);
       padding: 0.8rem;
       border-radius: 4px;
       margin-top: 0.5rem;
+      color: var(--text-primary);
     }
 
     /* Footer */
     footer {
-      background: var(--navy-dark);
-      color: white;
+      background: var(--medium-bg);
+      color: var(--text-secondary);
       padding: 1rem 1.5rem;
       margin-top: auto;
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
 
     .footer-container {
@@ -368,14 +381,14 @@
     }
 
     .footer-links a {
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.3s;
       font-size: 0.85rem;
     }
 
     .footer-links a:hover {
-      color: var(--gold);
+      color: var(--accent-color);
     }
 
     /* Responsive Styles */
@@ -496,45 +509,26 @@
       </div>
     </div>
 
-    <!-- System Modules -->
+    <!-- Core System Modules -->
     <section class="modules-section">
       <h2 class="section-title">
         <i class="fas fa-th-large"></i>
-        System Modules
+        Core Management Modules
       </h2>
       <div class="modules-grid">
+        <!-- Session Management -->
         <div class="module-card">
           <div class="module-header">
             <div class="module-icon">
-              <i class="fas fa-users"></i>
+              <i class="fas fa-calendar-alt"></i>
             </div>
-            <h3 class="module-title">Member Management</h3>
+            <h3 class="module-title">Session Management</h3>
           </div>
-          <p class="module-description">Manage member profiles, track progress, and handle memberships with our comprehensive tools.</p>
+          <p class="module-description">Schedule and manage fitness sessions, track attendance, assign coaches, and monitor session performance metrics.</p>
           <div class="module-actions">
-            <a href="emh.html" class="btn btn-primary">
+            <a href="emh.html?section=sports-activities" class="btn btn-primary">
               <i class="fas fa-external-link-alt"></i>
-              Manage Members
-            </a>
-            <a href="emh.html?section=member-profiles" class="btn btn-secondary">
-              <i class="fas fa-user-plus"></i>
-              Add Member
-            </a>
-          </div>
-        </div>
-
-        <div class="module-card">
-          <div class="module-header">
-            <div class="module-icon">
-              <i class="fas fa-dumbbell"></i>
-            </div>
-            <h3 class="module-title">Fitness Programs</h3>
-          </div>
-          <p class="module-description">Manage sports activities, fitness programs, running and cycling clubs with scheduling tools.</p>
-          <div class="module-actions">
-            <a href="emh.html" class="btn btn-primary">
-              <i class="fas fa-external-link-alt"></i>
-              Manage Programs
+              Manage Sessions
             </a>
             <a href="emh.html?section=sports-activities&tool=session-planning" class="btn btn-secondary">
               <i class="fas fa-calendar-plus"></i>
@@ -543,14 +537,15 @@
           </div>
         </div>
 
+        <!-- Store Management -->
         <div class="module-card">
           <div class="module-header">
             <div class="module-icon">
               <i class="fas fa-store"></i>
             </div>
-            <h3 class="module-title">WorkFit Store</h3>
+            <h3 class="module-title">Store Management</h3>
           </div>
-          <p class="module-description">Manage all store operations, inventory, and product sales.</p>
+          <p class="module-description">Manage inventory, track sales, process orders, and monitor store performance with comprehensive retail tools.</p>
           <div class="module-actions">
             <a href="emh.html?section=inventory-management" class="btn btn-primary">
               <i class="fas fa-external-link-alt"></i>
@@ -563,35 +558,15 @@
           </div>
         </div>
 
-        <!-- Additional Modules -->
-        <div class="module-card">
-          <div class="module-header">
-            <div class="module-icon">
-              <i class="fas fa-building"></i>
-            </div>
-            <h3 class="module-title">Facility Management</h3>
-          </div>
-          <p class="module-description">Manage facility bookings, equipment, and maintenance schedules.</p>
-          <div class="module-actions">
-            <a href="emh.html?section=facility-booking" class="btn btn-primary">
-              <i class="fas fa-external-link-alt"></i>
-              Book Facility
-            </a>
-            <a href="emh.html?section=equipment-management" class="btn btn-secondary">
-              <i class="fas fa-tools"></i>
-              Equipment
-            </a>
-          </div>
-        </div>
-
+        <!-- Financial Management -->
         <div class="module-card">
           <div class="module-header">
             <div class="module-icon">
               <i class="fas fa-chart-line"></i>
             </div>
-            <h3 class="module-title">Financial Reports</h3>
+            <h3 class="module-title">Financial Management</h3>
           </div>
-          <p class="module-description">Track payments, revenue, expenses and generate financial reports.</p>
+          <p class="module-description">Track payments, generate revenue reports, manage expenses, and analyze financial performance across all operations.</p>
           <div class="module-actions">
             <a href="emh.html?section=membership-payments" class="btn btn-primary">
               <i class="fas fa-external-link-alt"></i>
@@ -604,22 +579,23 @@
           </div>
         </div>
 
+        <!-- Admin & System -->
         <div class="module-card">
           <div class="module-header">
             <div class="module-icon">
-              <i class="fas fa-comments"></i>
+              <i class="fas fa-cogs"></i>
             </div>
-            <h3 class="module-title">Communications</h3>
+            <h3 class="module-title">System Administration</h3>
           </div>
-          <p class="module-description">Send announcements, manage events, and collect member feedback.</p>
+          <p class="module-description">Access system settings, user management, configuration tools, and administrative controls for the entire platform.</p>
           <div class="module-actions">
-            <a href="emh.html?section=announcements" class="btn btn-primary">
+            <a href="emh.html?section=system-admin" class="btn btn-primary">
               <i class="fas fa-external-link-alt"></i>
-              Announcements
+              Admin Console
             </a>
-            <a href="emh.html?section=event-management" class="btn btn-secondary">
-              <i class="fas fa-calendar-alt"></i>
-              Events
+            <a href="emh.html?section=user-management" class="btn btn-secondary">
+              <i class="fas fa-users-cog"></i>
+              User Management
             </a>
           </div>
         </div>
