@@ -178,6 +178,18 @@
       border-radius: 50%;
     }
 
+    .external-link {
+      position: relative;
+    }
+
+    .external-link::after {
+      content: "↗";
+      position: absolute;
+      right: 20px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
     /* Main content area */
     .main-content {
       flex: 1;
@@ -503,6 +515,63 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
+    /* Admin External Page Styles */
+    .admin-external-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--dark-bg);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+    }
+
+    .admin-external-page.active {
+      display: flex;
+    }
+
+    .admin-header {
+      background: var(--medium-bg);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .admin-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .admin-iframe {
+      flex: 1;
+      border: none;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .close-admin {
+      background: rgba(255, 0, 0, 0.1);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .close-admin:hover {
+      background: rgba(255, 0, 0, 0.2);
+    }
+
     /* Footer */
     footer {
       background: var(--medium-bg);
@@ -545,6 +614,10 @@
       }
       
       .auth-section .auth-button span {
+        display: none;
+      }
+      
+      .external-link::after {
         display: none;
       }
     }
@@ -794,17 +867,17 @@
           </div>
           <ul class="nav-submenu">
             <li>
-              <a href="#" class="nav-link" data-section="system-admin" data-admin-url="https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec">
+              <a href="#" class="nav-link external-link" data-section="system-admin" data-external-url="https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec">
                 <span>System Administration</span>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link" data-section="user-management">
+              <a href="#" class="nav-link external-link" data-section="user-management" data-external-url="https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit">
                 <span>User Management</span>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link" data-section="settings">
+              <a href="#" class="nav-link external-link" data-section="settings" data-external-url="https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit">
                 <span>System Settings</span>
               </a>
             </li>
@@ -912,6 +985,36 @@
       </main>
 
       <footer>Powered by WorkFit Management System &copy; 2025</footer>
+    </div>
+  </div>
+
+  <!-- Admin External Page Overlay -->
+  <div class="admin-external-page" id="adminExternalPage">
+    <div class="admin-header">
+      <div class="header-left">
+        <div>
+          <h1 class="module-title">
+            <span class="module-icon">
+              <i class="fas fa-cogs"></i>
+            </span>
+            <span id="adminPageTitle">System Administration</span>
+          </h1>
+          <div class="breadcrumb">
+            <a href="#" id="adminBreadcrumbHome">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="#" id="adminBreadcrumbSection">Admin</a>
+            <span class="breadcrumb-separator">/</span>
+            <span id="adminBreadcrumbModule">System Administration</span>
+          </div>
+        </div>
+      </div>
+      <button class="close-admin" id="closeAdminPage">
+        <i class="fas fa-times"></i>
+        <span>Close Admin</span>
+      </button>
+    </div>
+    <div class="admin-content">
+      <iframe class="admin-iframe" id="adminIframe" loading="lazy" title="Admin Console"></iframe>
     </div>
   </div>
 
@@ -1325,6 +1428,15 @@
     const homeTab = document.getElementById("homeTab");
     const workspaceTab = document.getElementById("workspaceTab");
     const adminTab = document.getElementById("adminTab");
+    
+    // Admin external page elements
+    const adminExternalPage = document.getElementById("adminExternalPage");
+    const adminIframe = document.getElementById("adminIframe");
+    const adminPageTitle = document.getElementById("adminPageTitle");
+    const adminBreadcrumbSection = document.getElementById("adminBreadcrumbSection");
+    const adminBreadcrumbModule = document.getElementById("adminBreadcrumbModule");
+    const adminBreadcrumbHome = document.getElementById("adminBreadcrumbHome");
+    const closeAdminPage = document.getElementById("closeAdminPage");
 
     // App state
     let isAuthenticated = false;
@@ -1360,7 +1472,13 @@
       navLinks.forEach(link => {
         link.addEventListener("click", function(e) {
           e.preventDefault();
-          handleNavLinkClick(this);
+          const externalUrl = this.dataset.externalUrl;
+          if (externalUrl) {
+            // Open external admin page
+            openAdminExternalPage(this);
+          } else {
+            handleNavLinkClick(this);
+          }
         });
       });
 
@@ -1410,12 +1528,55 @@
       adminTab.addEventListener("click", function(e) {
         e.preventDefault();
         setActiveTab('admin');
-        // Load the admin section
+        // Open the first admin section in external page
         const adminLink = document.querySelector('[data-section="system-admin"]');
         if (adminLink) {
-          handleNavLinkClick(adminLink);
+          openAdminExternalPage(adminLink);
         }
       });
+
+      // Admin external page close button
+      closeAdminPage.addEventListener("click", function() {
+        closeAdminExternalPage();
+        // Switch back to workspace tab when closing admin
+        setActiveTab('workspace');
+      });
+    }
+
+    // Open admin external page
+    function openAdminExternalPage(link) {
+      const section = link.dataset.section;
+      const data = moduleData[section];
+      const externalUrl = link.dataset.externalUrl;
+      
+      if (!data || !externalUrl) {
+        console.error("No data or URL found for admin section:", section);
+        return;
+      }
+      
+      // Update admin page title and breadcrumb
+      adminPageTitle.textContent = data.title;
+      adminBreadcrumbSection.textContent = data.section;
+      adminBreadcrumbModule.textContent = data.title;
+      
+      // Load the external URL in admin iframe
+      adminIframe.src = externalUrl;
+      
+      // Show the admin external page
+      adminExternalPage.classList.add('active');
+      
+      // Update active states in sidebar
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+      
+      // Update active tab
+      setActiveTab('admin');
+    }
+
+    // Close admin external page
+    function closeAdminExternalPage() {
+      adminExternalPage.classList.remove('active');
+      adminIframe.src = '';
     }
 
     // Set active tab
@@ -1541,22 +1702,13 @@
       // Update tools dropdown
       updateToolsMenu(data.tools);
       
-      // Check if this is an admin section with a direct URL
-      const adminUrl = link.dataset.adminUrl;
-      if (adminUrl) {
-        // Load the admin URL directly
-        loadAdminContent(adminUrl);
-      } else if (data.tools.length > 0) {
-        // Load the first tool's content by default
+      // Load the first tool's content by default
+      if (data.tools.length > 0) {
         loadToolContent(data.tools[0].sheetUrl);
       }
       
-      // Update active tab based on section
-      if (data.isAdmin) {
-        setActiveTab('admin');
-      } else {
-        setActiveTab('workspace');
-      }
+      // Update active tab
+      setActiveTab('workspace');
     }
 
     // Update the module icon
@@ -1671,17 +1823,6 @@
         iframeOverlay.classList.add('hidden');
       } else {
         showPlaceholderContent("No content configured for this tool");
-      }
-    }
-
-    // Load admin content
-    function loadAdminContent(url) {
-      if (url && url.includes('script.google.com')) {
-        // Load the Google Apps Script web app
-        iframe.src = url;
-        iframeOverlay.classList.add('hidden');
-      } else {
-        showPlaceholderContent("Admin content not available");
       }
     }
 
