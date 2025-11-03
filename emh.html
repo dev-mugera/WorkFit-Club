@@ -360,45 +360,43 @@
       display: block;
     }
 
-    .user-profile {
+    /* Auth Section */
+    .auth-section {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 12px;
-      border-radius: 8px;
+    }
+
+    .auth-button {
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--accent-color);
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .user-profile:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--gradient-primary);
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .user-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .user-name {
+      gap: 8px;
+      transition: all 0.2s;
       font-size: 0.9rem;
-      font-weight: 500;
     }
 
-    .user-role {
-      font-size: 0.75rem;
+    .auth-button:hover {
+      background: rgba(255, 215, 0, 0.2);
+    }
+
+    .auth-status {
+      font-size: 0.8rem;
       color: var(--text-secondary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .auth-status.authenticated {
+      color: var(--success-color);
+      background: rgba(76, 175, 80, 0.1);
     }
 
     /* Content area */
@@ -416,6 +414,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
     iframe {
@@ -426,6 +425,82 @@
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       background-color: #fff;
+    }
+
+    .iframe-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 25, 47, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      z-index: 10;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .iframe-overlay.hidden {
+      display: none;
+    }
+
+    .auth-prompt {
+      background: var(--medium-bg);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .auth-prompt h3 {
+      margin-top: 0;
+      color: var(--accent-color);
+    }
+
+    .auth-prompt p {
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+    }
+
+    .auth-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background: #ffed4a;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     /* Footer */
@@ -469,7 +544,7 @@
         transform: translate(-50%, -50%);
       }
       
-      .user-info {
+      .auth-section .auth-button span {
         display: none;
       }
     }
@@ -541,7 +616,7 @@
         order: 2;
       }
       
-      .user-profile {
+      .auth-section {
         order: 1;
       }
       
@@ -569,6 +644,10 @@
       
       .menu-button span {
         display: none;
+      }
+      
+      .auth-actions {
+        flex-direction: column;
       }
     }
   </style>
@@ -706,6 +785,31 @@
             </li>
           </ul>
         </li>
+        
+        <!-- Admin Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-cogs"></i>
+            <span>Admin</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="system-admin" data-admin-url="https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec">
+                <span>System Administration</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="user-management">
+                <span>User Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="settings">
+                <span>System Settings</span>
+              </a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
 
@@ -722,7 +826,7 @@
               <span id="moduleTitleText">Sports Activities</span>
             </h1>
             <div class="breadcrumb" id="breadcrumb">
-              <a href="emh-home.html">Home</a>
+              <a href="#" id="breadcrumbHome">Home</a>
               <span class="breadcrumb-separator">/</span>
               <a href="#" id="breadcrumbSection">Fitness Programs</a>
               <span class="breadcrumb-separator">/</span>
@@ -733,19 +837,28 @@
 
         <div class="header-controls">
           <div class="nav-tabs">
-            <a href="emh-home.html" class="nav-tab" data-tab="home">
+            <a href="#" class="nav-tab" data-tab="home" id="homeTab">
               <i class="fas fa-home"></i>
               <span>Home</span>
             </a>
-            <a href="#" class="nav-tab active" data-tab="workspace">
+            <a href="#" class="nav-tab active" data-tab="workspace" id="workspaceTab">
               <i class="fas fa-desktop"></i>
               <span>Workspace</span>
             </a>
-            <a href="admin.html" class="nav-tab" data-tab="admin">
+            <a href="#" class="nav-tab" data-tab="admin" id="adminTab">
               <i class="fas fa-cog"></i>
               <span>Admin</span>
             </a>
           </div>
+
+          <div class="auth-section">
+            <div class="auth-status" id="authStatus">Not Signed In</div>
+            <button class="auth-button" id="signInButton">
+              <i class="fas fa-sign-in-alt"></i>
+              <span>Sign In</span>
+            </button>
+          </div>
+
           <div class="dropdown" id="dropdown">
             <button class="menu-button" id="menuToggle">
               <i class="fas fa-tools"></i>
@@ -779,6 +892,21 @@
 
       <main>
         <div class="iframe-container">
+          <div class="iframe-overlay" id="iframeOverlay">
+            <div class="auth-prompt">
+              <h3>Authentication Required</h3>
+              <p>To access Google Sheets content, you need to sign in with your Google account. This will allow you to view and edit the sheets directly within the application.</p>
+              <div class="auth-actions">
+                <button class="btn btn-primary" id="overlaySignInButton">
+                  <i class="fas fa-sign-in-alt"></i>
+                  Sign In with Google
+                </button>
+                <button class="btn btn-secondary" id="continueWithoutAuth">
+                  Continue Without Signing In
+                </button>
+              </div>
+            </div>
+          </div>
           <iframe id="iframe" loading="lazy" title="WorkFit Management Content"></iframe>
         </div>
       </main>
@@ -847,60 +975,6 @@
             name: "Class Capacity", 
             link: "class-capacity",
             sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_CLASS_CAPACITY_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "running-club": {
-        title: "Running Club",
-        icon: "fa-running",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Training Schedules", 
-            link: "training-schedules",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_TRAINING_SCHEDULES_SHEET_ID/edit" 
-          },
-          { 
-            name: "Race Events", 
-            link: "race-events",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_RACE_EVENTS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Performance Tracking", 
-            link: "performance-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_PERFORMANCE_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Group Runs", 
-            link: "group-runs",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_GROUP_RUNS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "cycling-club": {
-        title: "Cycling Club",
-        icon: "fa-bicycle",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Ride Planning", 
-            link: "ride-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_RIDE_PLANNING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Route Management", 
-            link: "route-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_ROUTE_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Safety Protocols", 
-            link: "safety-protocols",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_SAFETY_PROTOCOLS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Equipment Maintenance", 
-            link: "equipment-maintenance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_EQUIPMENT_MAINTENANCE_SHEET_ID/edit" 
           }
         ]
       },
@@ -1175,6 +1249,57 @@
             sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" 
           }
         ]
+      },
+      
+      // Admin Section
+      "system-admin": {
+        title: "System Administration",
+        icon: "fa-cogs",
+        section: "Admin",
+        tools: [
+          { 
+            name: "Admin Console", 
+            link: "admin-console",
+            sheetUrl: "https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec" 
+          }
+        ],
+        isAdmin: true
+      },
+      "user-management": {
+        title: "User Management",
+        icon: "fa-users-cog",
+        section: "Admin",
+        tools: [
+          { 
+            name: "User Accounts", 
+            link: "user-accounts",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Permissions", 
+            link: "permissions",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_PERMISSIONS_SHEET_ID/edit" 
+          }
+        ],
+        isAdmin: true
+      },
+      "settings": {
+        title: "System Settings",
+        icon: "fa-sliders-h",
+        section: "Admin",
+        tools: [
+          { 
+            name: "Configuration", 
+            link: "configuration",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit" 
+          },
+          { 
+            name: "Backup & Restore", 
+            link: "backup-restore",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_BACKUP_SHEET_ID/edit" 
+          }
+        ],
+        isAdmin: true
       }
     };
 
@@ -1188,9 +1313,22 @@
     const breadcrumb = document.getElementById("breadcrumb");
     const breadcrumbSection = document.getElementById("breadcrumbSection");
     const breadcrumbModule = document.getElementById("breadcrumbModule");
+    const breadcrumbHome = document.getElementById("breadcrumbHome");
     const navSections = document.querySelectorAll(".nav-section");
     const navLinks = document.querySelectorAll(".nav-link");
     const navTabs = document.querySelectorAll(".nav-tab");
+    const authStatus = document.getElementById("authStatus");
+    const signInButton = document.getElementById("signInButton");
+    const overlaySignInButton = document.getElementById("overlaySignInButton");
+    const continueWithoutAuth = document.getElementById("continueWithoutAuth");
+    const iframeOverlay = document.getElementById("iframeOverlay");
+    const homeTab = document.getElementById("homeTab");
+    const workspaceTab = document.getElementById("workspaceTab");
+    const adminTab = document.getElementById("adminTab");
+
+    // App state
+    let isAuthenticated = false;
+    let currentSection = null;
 
     // Initialize the application
     function initApp() {
@@ -1199,6 +1337,9 @@
       
       // Set workspace tab as active since this is the workspace page
       setActiveTab('workspace');
+      
+      // Check if user was previously authenticated
+      checkAuthStatus();
     }
 
     // Set up all event listeners
@@ -1241,6 +1382,40 @@
       document.addEventListener("click", function() {
         dropdown.classList.remove("open");
       });
+
+      // Auth buttons
+      signInButton.addEventListener("click", handleSignIn);
+      overlaySignInButton.addEventListener("click", handleSignIn);
+      continueWithoutAuth.addEventListener("click", handleContinueWithoutAuth);
+
+      // Tab clicks
+      homeTab.addEventListener("click", function(e) {
+        e.preventDefault();
+        setActiveTab('home');
+        showHomeContent();
+      });
+      
+      workspaceTab.addEventListener("click", function(e) {
+        e.preventDefault();
+        setActiveTab('workspace');
+        // Reload the current workspace section
+        if (currentSection) {
+          const activeLink = document.querySelector(`[data-section="${currentSection}"]`);
+          if (activeLink) {
+            handleNavLinkClick(activeLink);
+          }
+        }
+      });
+      
+      adminTab.addEventListener("click", function(e) {
+        e.preventDefault();
+        setActiveTab('admin');
+        // Load the admin section
+        const adminLink = document.querySelector('[data-section="system-admin"]');
+        if (adminLink) {
+          handleNavLinkClick(adminLink);
+        }
+      });
     }
 
     // Set active tab
@@ -1254,6 +1429,91 @@
       });
     }
 
+    // Show home content
+    function showHomeContent() {
+      moduleTitle.textContent = "WorkFit Dashboard";
+      updateModuleIcon('fa-home');
+      updateBreadcrumb('Home', 'Dashboard');
+      
+      // Show a welcome message in the iframe
+      iframe.srcdoc = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+              font-family: Arial, sans-serif;
+              color: #333;
+              background: #f9f9f9;
+              text-align: center;
+            }
+            .content {
+              max-width: 600px;
+              padding: 40px;
+            }
+            h1 {
+              color: #001f3f;
+              margin-bottom: 20px;
+            }
+            p {
+              line-height: 1.6;
+              margin-bottom: 20px;
+            }
+            .features {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 15px;
+              justify-content: center;
+              margin-top: 30px;
+            }
+            .feature {
+              background: white;
+              padding: 15px;
+              border-radius: 8px;
+              box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+              width: 150px;
+            }
+            .feature i {
+              font-size: 2rem;
+              color: #FFD700;
+              margin-bottom: 10px;
+            }
+          </style>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        </head>
+        <body>
+          <div class="content">
+            <h1>Welcome to WorkFit Management Hub</h1>
+            <p>Your centralized platform for managing all aspects of your fitness facility. Access member data, program schedules, financial reports, and more from one convenient location.</p>
+            
+            <div class="features">
+              <div class="feature">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Programs</h3>
+              </div>
+              <div class="feature">
+                <i class="fas fa-users"></i>
+                <h3>Members</h3>
+              </div>
+              <div class="feature">
+                <i class="fas fa-building"></i>
+                <h3>Facilities</h3>
+              </div>
+              <div class="feature">
+                <i class="fas fa-chart-line"></i>
+                <h3>Financials</h3>
+              </div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+    }
+
     // Handle navigation link clicks
     function handleNavLinkClick(link) {
       // Update active states
@@ -1262,6 +1522,7 @@
       
       // Update content
       const section = link.dataset.section;
+      currentSection = section;
       const data = moduleData[section];
       
       if (!data) {
@@ -1280,9 +1541,21 @@
       // Update tools dropdown
       updateToolsMenu(data.tools);
       
-      // Load the first tool's content by default
-      if (data.tools.length > 0) {
+      // Check if this is an admin section with a direct URL
+      const adminUrl = link.dataset.adminUrl;
+      if (adminUrl) {
+        // Load the admin URL directly
+        loadAdminContent(adminUrl);
+      } else if (data.tools.length > 0) {
+        // Load the first tool's content by default
         loadToolContent(data.tools[0].sheetUrl);
+      }
+      
+      // Update active tab based on section
+      if (data.isAdmin) {
+        setActiveTab('admin');
+      } else {
+        setActiveTab('workspace');
       }
     }
 
@@ -1322,14 +1595,6 @@
         'Participant Progress': 'user-check',
         'Instructor Management': 'chalkboard-teacher',
         'Class Capacity': 'users',
-        'Training Schedules': 'running',
-        'Race Events': 'flag-checkered',
-        'Performance Tracking': 'chart-line',
-        'Group Runs': 'users',
-        'Ride Planning': 'route',
-        'Route Management': 'map-marked-alt',
-        'Safety Protocols': 'shield-alt',
-        'Equipment Maintenance': 'tools',
         'Member Database': 'database',
         'Health Profiles': 'heartbeat',
         'Membership Status': 'id-card',
@@ -1365,7 +1630,12 @@
         'Participant Management': 'users',
         'Survey Management': 'poll',
         'Response Tracking': 'comments',
-        'Improvement Plans': 'lightbulb'
+        'Improvement Plans': 'lightbulb',
+        'Admin Console': 'cogs',
+        'User Accounts': 'user-cog',
+        'Permissions': 'user-shield',
+        'Configuration': 'sliders-h',
+        'Backup & Restore': 'archive'
       };
       
       return iconMap[toolName] || 'cog';
@@ -1381,15 +1651,37 @@
     // Load content for a tool
     function loadToolContent(sheetUrl) {
       if (sheetUrl && sheetUrl.includes('docs.google.com')) {
+        // Show auth overlay for Google Sheets if not authenticated
+        if (!isAuthenticated && !sheetUrl.includes('script.google.com')) {
+          iframeOverlay.classList.remove('hidden');
+          return;
+        }
+        
         const sheetId = extractSheetId(sheetUrl);
         if (sheetId) {
           // Load the sheet with full toolbar
           iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
+          iframeOverlay.classList.add('hidden');
         } else {
           showPlaceholderContent("Invalid Google Sheet URL format");
         }
+      } else if (sheetUrl && sheetUrl.includes('script.google.com')) {
+        // Load Google Apps Script directly (no auth required)
+        iframe.src = sheetUrl;
+        iframeOverlay.classList.add('hidden');
       } else {
-        showPlaceholderContent("No Google Sheet configured for this tool");
+        showPlaceholderContent("No content configured for this tool");
+      }
+    }
+
+    // Load admin content
+    function loadAdminContent(url) {
+      if (url && url.includes('script.google.com')) {
+        // Load the Google Apps Script web app
+        iframe.src = url;
+        iframeOverlay.classList.add('hidden');
+      } else {
+        showPlaceholderContent("Admin content not available");
       }
     }
 
@@ -1440,6 +1732,68 @@
         </body>
         </html>
       `;
+      iframeOverlay.classList.add('hidden');
+    }
+
+    // Handle sign in
+    function handleSignIn() {
+      // In a real implementation, this would integrate with Google OAuth
+      // For this demo, we'll simulate authentication
+      isAuthenticated = true;
+      updateAuthStatus();
+      iframeOverlay.classList.add('hidden');
+      
+      // Reload the current content with authentication
+      if (currentSection) {
+        const activeLink = document.querySelector(`[data-section="${currentSection}"]`);
+        if (activeLink) {
+          handleNavLinkClick(activeLink);
+        }
+      }
+    }
+
+    // Handle continue without authentication
+    function handleContinueWithoutAuth() {
+      iframeOverlay.classList.add('hidden');
+      // Continue to load the content but user won't be able to edit
+    }
+
+    // Check authentication status
+    function checkAuthStatus() {
+      // In a real implementation, this would check for existing auth tokens
+      // For this demo, we'll just set to false
+      isAuthenticated = false;
+      updateAuthStatus();
+    }
+
+    // Update authentication status display
+    function updateAuthStatus() {
+      if (isAuthenticated) {
+        authStatus.textContent = "Signed In";
+        authStatus.classList.add("authenticated");
+        signInButton.innerHTML = '<i class="fas fa-sign-out-alt"></i><span>Sign Out</span>';
+        signInButton.removeEventListener('click', handleSignIn);
+        signInButton.addEventListener('click', handleSignOut);
+      } else {
+        authStatus.textContent = "Not Signed In";
+        authStatus.classList.remove("authenticated");
+        signInButton.innerHTML = '<i class="fas fa-sign-in-alt"></i><span>Sign In</span>';
+        signInButton.removeEventListener('click', handleSignOut);
+        signInButton.addEventListener('click', handleSignIn);
+      }
+    }
+
+    // Handle sign out
+    function handleSignOut() {
+      isAuthenticated = false;
+      updateAuthStatus();
+      // Reload the current content without authentication
+      if (currentSection) {
+        const activeLink = document.querySelector(`[data-section="${currentSection}"]`);
+        if (activeLink) {
+          handleNavLinkClick(activeLink);
+        }
+      }
     }
 
     // Helper function to extract sheet ID from URL
