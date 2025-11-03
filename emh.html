@@ -372,45 +372,6 @@
       display: block;
     }
 
-    /* Auth Section */
-    .auth-section {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .auth-button {
-      background: rgba(255, 215, 0, 0.1);
-      color: var(--accent-color);
-      padding: 8px 16px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-      font-size: 0.9rem;
-    }
-
-    .auth-button:hover {
-      background: rgba(255, 215, 0, 0.2);
-    }
-
-    .auth-status {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .auth-status.authenticated {
-      color: var(--success-color);
-      background: rgba(76, 175, 80, 0.1);
-    }
-
     /* Content area */
     main {
       flex: 1;
@@ -439,80 +400,39 @@
       background-color: #fff;
     }
 
-    .iframe-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(10, 25, 47, 0.9);
+    /* Selection Prompt */
+    .selection-prompt {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      border-radius: 8px;
-      z-index: 10;
-      padding: 20px;
+      justify-content: center;
+      height: 100%;
       text-align: center;
+      padding: 40px;
     }
 
-    .iframe-overlay.hidden {
+    .selection-prompt.hidden {
       display: none;
     }
 
-    .auth-prompt {
-      background: var(--medium-bg);
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 500px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .auth-prompt h3 {
-      margin-top: 0;
+    .prompt-icon {
+      font-size: 4rem;
       color: var(--accent-color);
-    }
-
-    .auth-prompt p {
       margin-bottom: 20px;
-      color: var(--text-secondary);
     }
 
-    .auth-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .btn {
-      padding: 10px 20px;
-      border-radius: 6px;
-      border: none;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      background: var(--accent-color);
-      color: var(--primary-color);
-    }
-
-    .btn-primary:hover {
-      background: #ffed4a;
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
+    .prompt-title {
+      font-size: 1.8rem;
       color: var(--text-primary);
+      margin-bottom: 15px;
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .prompt-message {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 30px;
     }
 
     /* Admin External Page Styles */
@@ -613,10 +533,6 @@
         transform: translate(-50%, -50%);
       }
       
-      .auth-section .auth-button span {
-        display: none;
-      }
-      
       .external-link::after {
         display: none;
       }
@@ -689,12 +605,16 @@
         order: 2;
       }
       
-      .auth-section {
-        order: 1;
-      }
-      
       .dropdown {
         order: 3;
+      }
+      
+      .prompt-title {
+        font-size: 1.5rem;
+      }
+      
+      .prompt-message {
+        font-size: 1rem;
       }
     }
 
@@ -717,10 +637,6 @@
       
       .menu-button span {
         display: none;
-      }
-      
-      .auth-actions {
-        flex-direction: column;
       }
     }
   </style>
@@ -896,14 +812,10 @@
               <span class="module-icon" id="moduleIcon">
                 <i class="fas fa-dumbbell"></i>
               </span>
-              <span id="moduleTitleText">Sports Activities</span>
+              <span id="moduleTitleText">WorkFit Workspace</span>
             </h1>
             <div class="breadcrumb" id="breadcrumb">
-              <a href="#" id="breadcrumbHome">Home</a>
-              <span class="breadcrumb-separator">/</span>
-              <a href="#" id="breadcrumbSection">Fitness Programs</a>
-              <span class="breadcrumb-separator">/</span>
-              <span id="breadcrumbModule">Sports Activities</span>
+              <span id="breadcrumbModule">Select a section to begin</span>
             </div>
           </div>
         </div>
@@ -924,40 +836,13 @@
             </a>
           </div>
 
-          <div class="auth-section">
-            <div class="auth-status" id="authStatus">Not Signed In</div>
-            <button class="auth-button" id="signInButton">
-              <i class="fas fa-sign-in-alt"></i>
-              <span>Sign In</span>
-            </button>
-          </div>
-
           <div class="dropdown" id="dropdown">
             <button class="menu-button" id="menuToggle">
               <i class="fas fa-tools"></i>
               <span>Tools</span>
             </button>
             <div class="dropdown-content" id="menuContent">
-              <a href="#" data-link="session-planning">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Session Planning</span>
-              </a>
-              <a href="#" data-link="attendance">
-                <i class="fas fa-clipboard-check"></i>
-                <span>Attendance Tracking</span>
-              </a>
-              <a href="#" data-link="coach-assignment">
-                <i class="fas fa-user-tie"></i>
-                <span>Coach Assignment</span>
-              </a>
-              <a href="#" data-link="equipment-check">
-                <i class="fas fa-dumbbell"></i>
-                <span>Equipment Check</span>
-              </a>
-              <a href="#" data-link="performance-metrics">
-                <i class="fas fa-chart-line"></i>
-                <span>Performance Metrics</span>
-              </a> 
+              <!-- Tools will be populated dynamically -->
             </div>
           </div>
         </div>
@@ -965,21 +850,18 @@
 
       <main>
         <div class="iframe-container">
-          <div class="iframe-overlay" id="iframeOverlay">
-            <div class="auth-prompt">
-              <h3>Authentication Required</h3>
-              <p>To access Google Sheets content, you need to sign in with your Google account. This will allow you to view and edit the sheets directly within the application.</p>
-              <div class="auth-actions">
-                <button class="btn btn-primary" id="overlaySignInButton">
-                  <i class="fas fa-sign-in-alt"></i>
-                  Sign In with Google
-                </button>
-                <button class="btn btn-secondary" id="continueWithoutAuth">
-                  Continue Without Signing In
-                </button>
-              </div>
+          <!-- Selection Prompt -->
+          <div class="selection-prompt" id="selectionPrompt">
+            <div class="prompt-icon">
+              <i class="fas fa-folder-open"></i>
             </div>
+            <h2 class="prompt-title">Welcome to WorkFit Workspace</h2>
+            <p class="prompt-message">
+              Select a section from the navigation menu to access management tools, reports, and analytics. 
+              Choose from Fitness Programs, Members, Facilities, Financials, Communications, or Admin sections to get started.
+            </p>
           </div>
+          
           <iframe id="iframe" loading="lazy" title="WorkFit Management Content"></iframe>
         </div>
       </main>
@@ -1000,11 +882,7 @@
             <span id="adminPageTitle">System Administration</span>
           </h1>
           <div class="breadcrumb">
-            <a href="#" id="adminBreadcrumbHome">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="#" id="adminBreadcrumbSection">Admin</a>
-            <span class="breadcrumb-separator">/</span>
-            <span id="adminBreadcrumbModule">System Administration</span>
+            <span id="adminBreadcrumbModule">Admin Console</span>
           </div>
         </div>
       </div>
@@ -1414,44 +1292,34 @@
     const moduleTitle = document.getElementById("moduleTitleText");
     const moduleIcon = document.getElementById("moduleIcon");
     const breadcrumb = document.getElementById("breadcrumb");
-    const breadcrumbSection = document.getElementById("breadcrumbSection");
     const breadcrumbModule = document.getElementById("breadcrumbModule");
-    const breadcrumbHome = document.getElementById("breadcrumbHome");
     const navSections = document.querySelectorAll(".nav-section");
     const navLinks = document.querySelectorAll(".nav-link");
     const navTabs = document.querySelectorAll(".nav-tab");
-    const authStatus = document.getElementById("authStatus");
-    const signInButton = document.getElementById("signInButton");
-    const overlaySignInButton = document.getElementById("overlaySignInButton");
-    const continueWithoutAuth = document.getElementById("continueWithoutAuth");
-    const iframeOverlay = document.getElementById("iframeOverlay");
     const homeTab = document.getElementById("homeTab");
     const workspaceTab = document.getElementById("workspaceTab");
     const adminTab = document.getElementById("adminTab");
+    const selectionPrompt = document.getElementById("selectionPrompt");
     
     // Admin external page elements
     const adminExternalPage = document.getElementById("adminExternalPage");
     const adminIframe = document.getElementById("adminIframe");
     const adminPageTitle = document.getElementById("adminPageTitle");
-    const adminBreadcrumbSection = document.getElementById("adminBreadcrumbSection");
     const adminBreadcrumbModule = document.getElementById("adminBreadcrumbModule");
-    const adminBreadcrumbHome = document.getElementById("adminBreadcrumbHome");
     const closeAdminPage = document.getElementById("closeAdminPage");
 
     // App state
-    let isAuthenticated = false;
     let currentSection = null;
 
     // Initialize the application
     function initApp() {
       setupEventListeners();
-      loadInitialSection();
       
       // Set workspace tab as active since this is the workspace page
       setActiveTab('workspace');
       
-      // Check if user was previously authenticated
-      checkAuthStatus();
+      // Show selection prompt initially
+      showSelectionPrompt();
     }
 
     // Set up all event listeners
@@ -1501,28 +1369,18 @@
         dropdown.classList.remove("open");
       });
 
-      // Auth buttons
-      signInButton.addEventListener("click", handleSignIn);
-      overlaySignInButton.addEventListener("click", handleSignIn);
-      continueWithoutAuth.addEventListener("click", handleContinueWithoutAuth);
-
       // Tab clicks
       homeTab.addEventListener("click", function(e) {
         e.preventDefault();
-        setActiveTab('home');
-        showHomeContent();
+        // Redirect to your actual homepage
+        window.location.href = "emh-home.html";
       });
       
       workspaceTab.addEventListener("click", function(e) {
         e.preventDefault();
         setActiveTab('workspace');
-        // Reload the current workspace section
-        if (currentSection) {
-          const activeLink = document.querySelector(`[data-section="${currentSection}"]`);
-          if (activeLink) {
-            handleNavLinkClick(activeLink);
-          }
-        }
+        // Show selection prompt when switching to workspace
+        showSelectionPrompt();
       });
       
       adminTab.addEventListener("click", function(e) {
@@ -1540,7 +1398,23 @@
         closeAdminExternalPage();
         // Switch back to workspace tab when closing admin
         setActiveTab('workspace');
+        showSelectionPrompt();
       });
+    }
+
+    // Show selection prompt
+    function showSelectionPrompt() {
+      selectionPrompt.classList.remove('hidden');
+      iframe.style.display = 'none';
+      moduleTitle.textContent = "WorkFit Workspace";
+      updateModuleIcon('fa-desktop');
+      breadcrumbModule.textContent = "Select a section to begin";
+    }
+
+    // Hide selection prompt
+    function hideSelectionPrompt() {
+      selectionPrompt.classList.add('hidden');
+      iframe.style.display = 'block';
     }
 
     // Open admin external page
@@ -1556,7 +1430,6 @@
       
       // Update admin page title and breadcrumb
       adminPageTitle.textContent = data.title;
-      adminBreadcrumbSection.textContent = data.section;
       adminBreadcrumbModule.textContent = data.title;
       
       // Load the external URL in admin iframe
@@ -1590,91 +1463,6 @@
       });
     }
 
-    // Show home content
-    function showHomeContent() {
-      moduleTitle.textContent = "WorkFit Dashboard";
-      updateModuleIcon('fa-home');
-      updateBreadcrumb('Home', 'Dashboard');
-      
-      // Show a welcome message in the iframe
-      iframe.srcdoc = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100%;
-              font-family: Arial, sans-serif;
-              color: #333;
-              background: #f9f9f9;
-              text-align: center;
-            }
-            .content {
-              max-width: 600px;
-              padding: 40px;
-            }
-            h1 {
-              color: #001f3f;
-              margin-bottom: 20px;
-            }
-            p {
-              line-height: 1.6;
-              margin-bottom: 20px;
-            }
-            .features {
-              display: flex;
-              flex-wrap: wrap;
-              gap: 15px;
-              justify-content: center;
-              margin-top: 30px;
-            }
-            .feature {
-              background: white;
-              padding: 15px;
-              border-radius: 8px;
-              box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-              width: 150px;
-            }
-            .feature i {
-              font-size: 2rem;
-              color: #FFD700;
-              margin-bottom: 10px;
-            }
-          </style>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        </head>
-        <body>
-          <div class="content">
-            <h1>Welcome to WorkFit Management Hub</h1>
-            <p>Your centralized platform for managing all aspects of your fitness facility. Access member data, program schedules, financial reports, and more from one convenient location.</p>
-            
-            <div class="features">
-              <div class="feature">
-                <i class="fas fa-dumbbell"></i>
-                <h3>Programs</h3>
-              </div>
-              <div class="feature">
-                <i class="fas fa-users"></i>
-                <h3>Members</h3>
-              </div>
-              <div class="feature">
-                <i class="fas fa-building"></i>
-                <h3>Facilities</h3>
-              </div>
-              <div class="feature">
-                <i class="fas fa-chart-line"></i>
-                <h3>Financials</h3>
-              </div>
-            </div>
-          </div>
-        </body>
-        </html>
-      `;
-    }
-
     // Handle navigation link clicks
     function handleNavLinkClick(link) {
       // Update active states
@@ -1697,10 +1485,13 @@
       updateModuleIcon(data.icon);
       
       // Update breadcrumb
-      updateBreadcrumb(data.section, data.title);
+      breadcrumbModule.textContent = data.title;
       
       // Update tools dropdown
       updateToolsMenu(data.tools);
+      
+      // Hide selection prompt and show iframe
+      hideSelectionPrompt();
       
       // Load the first tool's content by default
       if (data.tools.length > 0) {
@@ -1714,12 +1505,6 @@
     // Update the module icon
     function updateModuleIcon(iconClass) {
       moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
-    }
-
-    // Update breadcrumb
-    function updateBreadcrumb(section, module) {
-      breadcrumbSection.textContent = section;
-      breadcrumbModule.textContent = module;
     }
 
     // Update the tools dropdown menu
@@ -1803,24 +1588,16 @@
     // Load content for a tool
     function loadToolContent(sheetUrl) {
       if (sheetUrl && sheetUrl.includes('docs.google.com')) {
-        // Show auth overlay for Google Sheets if not authenticated
-        if (!isAuthenticated && !sheetUrl.includes('script.google.com')) {
-          iframeOverlay.classList.remove('hidden');
-          return;
-        }
-        
         const sheetId = extractSheetId(sheetUrl);
         if (sheetId) {
-          // Load the sheet with full toolbar
+          // Load the sheet with full toolbar - users can sign in directly in the iframe
           iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
-          iframeOverlay.classList.add('hidden');
         } else {
           showPlaceholderContent("Invalid Google Sheet URL format");
         }
       } else if (sheetUrl && sheetUrl.includes('script.google.com')) {
-        // Load Google Apps Script directly (no auth required)
+        // Load Google Apps Script directly
         iframe.src = sheetUrl;
-        iframeOverlay.classList.add('hidden');
       } else {
         showPlaceholderContent("No content configured for this tool");
       }
@@ -1873,68 +1650,6 @@
         </body>
         </html>
       `;
-      iframeOverlay.classList.add('hidden');
-    }
-
-    // Handle sign in
-    function handleSignIn() {
-      // In a real implementation, this would integrate with Google OAuth
-      // For this demo, we'll simulate authentication
-      isAuthenticated = true;
-      updateAuthStatus();
-      iframeOverlay.classList.add('hidden');
-      
-      // Reload the current content with authentication
-      if (currentSection) {
-        const activeLink = document.querySelector(`[data-section="${currentSection}"]`);
-        if (activeLink) {
-          handleNavLinkClick(activeLink);
-        }
-      }
-    }
-
-    // Handle continue without authentication
-    function handleContinueWithoutAuth() {
-      iframeOverlay.classList.add('hidden');
-      // Continue to load the content but user won't be able to edit
-    }
-
-    // Check authentication status
-    function checkAuthStatus() {
-      // In a real implementation, this would check for existing auth tokens
-      // For this demo, we'll just set to false
-      isAuthenticated = false;
-      updateAuthStatus();
-    }
-
-    // Update authentication status display
-    function updateAuthStatus() {
-      if (isAuthenticated) {
-        authStatus.textContent = "Signed In";
-        authStatus.classList.add("authenticated");
-        signInButton.innerHTML = '<i class="fas fa-sign-out-alt"></i><span>Sign Out</span>';
-        signInButton.removeEventListener('click', handleSignIn);
-        signInButton.addEventListener('click', handleSignOut);
-      } else {
-        authStatus.textContent = "Not Signed In";
-        authStatus.classList.remove("authenticated");
-        signInButton.innerHTML = '<i class="fas fa-sign-in-alt"></i><span>Sign In</span>';
-        signInButton.removeEventListener('click', handleSignOut);
-        signInButton.addEventListener('click', handleSignIn);
-      }
-    }
-
-    // Handle sign out
-    function handleSignOut() {
-      isAuthenticated = false;
-      updateAuthStatus();
-      // Reload the current content without authentication
-      if (currentSection) {
-        const activeLink = document.querySelector(`[data-section="${currentSection}"]`);
-        if (activeLink) {
-          handleNavLinkClick(activeLink);
-        }
-      }
     }
 
     // Helper function to extract sheet ID from URL
@@ -1945,18 +1660,6 @@
       } catch (e) {
         console.error("Error extracting sheet ID:", e);
         return null;
-      }
-    }
-
-    // Load initial section
-    function loadInitialSection() {
-      const activeLink = document.querySelector('.nav-link.active');
-      if (activeLink) {
-        handleNavLinkClick(activeLink);
-      } else if (navLinks.length > 0) {
-        // Activate first link if none is active
-        navLinks[0].classList.add("active");
-        handleNavLinkClick(navLinks[0]);
       }
     }
 
