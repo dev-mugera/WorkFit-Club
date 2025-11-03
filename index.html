@@ -446,6 +446,256 @@
       transition: width 0.5s ease;
     }
 
+    /* Trivia Specific Styles */
+    .trivia-container {
+      margin: 1.5rem 0;
+    }
+
+    .trivia-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      border: 2px solid var(--border-color);
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .answers-container {
+      display: grid;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .answer-option {
+      padding: 1rem 1.2rem;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .answer-option:hover {
+      background: var(--navy-light);
+      color: white;
+      border-color: var(--navy-light);
+      transform: translateY(-2px);
+    }
+
+    .answer-option.correct {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    .answer-option.incorrect {
+      background: var(--error);
+      color: white;
+      border-color: var(--error);
+      opacity: 0.7;
+    }
+
+    .answer-option.disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .answer-letter {
+      font-weight: bold;
+      min-width: 20px;
+    }
+
+    .trivia-feedback {
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      text-align: center;
+      display: none;
+    }
+
+    .feedback-content {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .next-trivia-btn {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .next-trivia-btn:hover {
+      background: #ffed4e;
+      transform: translateY(-2px);
+    }
+
+    .trivia-tip {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border-left: 4px solid var(--gold);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .trivia-tip i {
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    /* Animation for correct answers */
+    @keyframes celebrate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .celebrate {
+      animation: celebrate 0.6s ease;
+    }
+
+    /* Challenges Grid */
+    .challenges-grid {
+      display: grid;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .challenge-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .challenge-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .challenge-info {
+      flex: 1;
+    }
+
+    .challenge-info h4 {
+      margin-bottom: 0.3rem;
+      color: var(--navy);
+    }
+
+    .challenge-info p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .challenge-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .challenge-progress span {
+      font-size: 0.8rem;
+      color: var(--gray);
+      min-width: 60px;
+    }
+
+    /* Benefits List */
+    .benefits-list {
+      margin: 1.5rem 0;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .benefit-item:last-child {
+      border-bottom: none;
+    }
+
+    .benefit-item i {
+      color: var(--gold);
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
+      min-width: 30px;
+    }
+
+    .benefit-item h4 {
+      margin-bottom: 0.3rem;
+      color: var(--navy);
+    }
+
+    .benefit-item p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin: 0;
+    }
+
+    /* Call to Action */
+    .call-to-action, .membership-cta {
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+
+    .call-to-action p, .membership-cta p {
+      margin: 0;
+      text-align: center;
+    }
+
     /* Modals */
     .modal {
       display: none;
@@ -772,6 +1022,26 @@
       font-weight: 500;
     }
 
+    /* Special Buttons */
+    .register-all-btn, .join-club-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .register-all-btn:hover, .join-club-btn:hover {
+      background: linear-gradient(135deg, #ffed4e 0%, var(--gold) 100%);
+    }
+
+    .learn-more-btn {
+      background: var(--navy-light);
+      color: white;
+    }
+
+    .learn-more-btn:hover {
+      background: var(--navy);
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .hero-buttons {
@@ -846,441 +1116,13 @@
         display: block;
       }
       
-      .post-action.track-btn {
-        background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
-        color: white;
-      }
-
-      .post-action.track-btn:hover {
-        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-        color: white;
-        transform: translateY(-2px);
-      }
-
-      .post-action.track-btn i {
-        color: var(--gold);
-      }
-      /* Call to Action */
-      .call-to-action, .membership-cta {
-        background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
-        color: white;
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 1.5rem 0;
-      }
-
-      .call-to-action p, .membership-cta p {
-        margin: 0;
-        text-align: center;
-      }
-
-      /* Benefits List */
-      .benefits-list {
-        margin: 1.5rem 0;
-      }
-
-      .benefit-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1rem 0;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .benefit-item:last-child {
-        border-bottom: none;
-      }
-
-      .benefit-item i {
-        color: var(--gold);
-        font-size: 1.5rem;
-        margin-top: 0.2rem;
-        min-width: 30px;
-      }
-
-      .benefit-item h4 {
-        margin-bottom: 0.3rem;
-        color: var(--navy);
-      }
-
-      .benefit-item p {
-        font-size: 0.9rem;
-        color: var(--gray);
-        margin: 0;
-      }
-
-      /* Special Buttons */
-      .register-all-btn, .join-club-btn {
-        background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
-        color: var(--navy);
-        font-weight: 600;
-      }
-
-      .register-all-btn:hover, .join-club-btn:hover {
-        background: linear-gradient(135deg, #ffed4e 0%, var(--gold) 100%);
-      }
-
-      .learn-more-btn {
-        background: var(--navy-light);
-        color: white;
-      }
-
-      .learn-more-btn:hover {
-        background: var(--navy);
-      }
-      /* Post Structure */
-      .post {
-        background-color: var(--bg-primary);
-        border-radius: 12px;
-        box-shadow: 0 2px 10px var(--shadow-color);
-        margin-bottom: 1.5rem;
-        overflow: hidden;
-        transition: transform 0.3s ease;
-      }
-
-      .post:hover {
-        transform: translateY(-3px);
-      }
-
-      .post-header {
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .post-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 0.8rem;
-      }
-
-      .post-user-info {
-        flex: 1;
-      }
-
-      .post-username {
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 0.2rem;
-      }
-
-      .post-time {
-        font-size: 0.8rem;
-        color: var(--gray);
-      }
-
-      .post-more {
-        background: none;
-        border: none;
-        font-size: 1.2rem;
-        color: var(--gray);
-        cursor: pointer;
-        padding: 0.2rem;
-      }
-
-      .post-image {
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover;
-      }
-
-      .post-content {
-        padding: 1rem;
-      }
-
-      .post-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-        color: var(--navy);
-      }
-
-      .post-text {
-        color: var(--text-secondary);
-        margin-bottom: 1rem;
-        line-height: 1.5;
-      }
-
-      .post-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .post-tag {
-        background-color: var(--navy-light);
-        color: white;
-        padding: 0.3rem 0.7rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-      }
-
-      .post-actions {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 1rem;
-        border-top: 1px solid var(--border-color);
-      }
-
-      .post-action {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: none;
-        border: none;
-        color: var(--gray);
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 6px;
-        transition: all 0.2s;
-      }
-
-      .post-action:hover {
-        background-color: var(--bg-secondary);
-        color: var(--text-primary);
-      }
-
-      .post-action i {
-        font-size: 1.1rem;
-      }
-
-      .post-action-count {
-        font-size: 0.9rem;
-      }
-
-      /* Challenge Badge */
-      .challenge-badge {
-        background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
-        color: var(--navy);
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-weight: 600;
-        display: inline-block;
-        margin-bottom: 1rem;
-      }
-
-      /* Challenges Grid */
-      .challenges-grid {
-        display: grid;
-        gap: 1rem;
-        margin: 1.5rem 0;
-      }
-
-      .challenge-card {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: var(--bg-secondary);
-        border-radius: 10px;
-        border-left: 4px solid var(--gold);
-      }
-
-      .challenge-icon {
-        width: 50px;
-        height: 50px;
-        background: var(--navy);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-      }
-
-      .challenge-info {
-        flex: 1;
-      }
-
-      .challenge-info h4 {
-        margin-bottom: 0.3rem;
-        color: var(--navy);
-      }
-
-      .challenge-info p {
-        font-size: 0.9rem;
-        color: var(--gray);
-        margin-bottom: 0.5rem;
-      }
-
-      .challenge-progress {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-      }
-
-      .challenge-progress span {
-        font-size: 0.8rem;
-        color: var(--gray);
-        min-width: 60px;
-      }
-
-      /* Progress Bar */
-      .progress-bar {
-        height: 6px;
-        background: var(--border-color);
-        border-radius: 3px;
-        overflow: hidden;
-        flex: 1;
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: var(--gold);
-        border-radius: 3px;
-        transition: width 0.5s ease;
-      }
-      /* Trivia Specific Styles */
-      .trivia-container {
-        margin: 1.5rem 0;
-      }
-
       .trivia-stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-        margin-bottom: 1.5rem;
+        grid-template-columns: 1fr;
       }
-
-      .stat {
-        text-align: center;
-        padding: 1rem;
-        background: var(--bg-secondary);
-        border-radius: 10px;
-        border: 2px solid var(--border-color);
+      
+      .challenges-grid {
+        grid-template-columns: 1fr;
       }
-
-      .stat-value {
-        display: block;
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: var(--gold);
-        margin-bottom: 0.3rem;
-      }
-
-      .stat-label {
-        font-size: 0.8rem;
-        color: var(--gray);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .answers-container {
-        display: grid;
-        gap: 0.8rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .answer-option {
-        padding: 1rem 1.2rem;
-        background: var(--bg-secondary);
-        border: 2px solid var(--border-color);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: left;
-        font-size: 0.95rem;
-      }
-
-      .answer-option:hover {
-        background: var(--navy-light);
-        color: white;
-        border-color: var(--navy-light);
-        transform: translateY(-2px);
-      }
-
-      .answer-option.correct {
-        background: var(--success);
-        color: white;
-        border-color: var(--success);
-      }
-
-      .answer-option.incorrect {
-        background: var(--error);
-        color: white;
-        border-color: var(--error);
-        opacity: 0.7;
-      }
-
-      .answer-option.disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
-      }
-
-      .trivia-feedback {
-        background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
-      .feedback-content {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        line-height: 1.5;
-      }
-
-      .next-trivia-btn {
-        background: var(--gold);
-        color: var(--navy);
-        border: none;
-        padding: 0.8rem 1.5rem;
-        border-radius: 25px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .next-trivia-btn:hover {
-        background: #ffed4e;
-        transform: translateY(-2px);
-      }
-
-      .trivia-tip {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        padding: 1rem;
-        background: var(--bg-secondary);
-        border-radius: 8px;
-        border-left: 4px solid var(--gold);
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-      }
-
-      .trivia-tip i {
-        color: var(--gold);
-        font-size: 1.1rem;
-      }
-
-      /* Animation for correct answers */
-      @keyframes celebrate {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-      }
-
-      .celebrate {
-        animation: celebrate 0.6s ease;
-      }
-
-      /* Progress animation */
-      @keyframes progressPulse {
-        0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
-        70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-      }
-
-      .stat.pulse {
-        animation: progressPulse 2s infinite;
-      }
-
     }
   </style>
 </head>
@@ -1383,6 +1225,7 @@
         </button>
       </div>
     </div>
+
     <!-- Club Membership Promotion Post -->
     <div class="post" data-post-id="club-promotion" data-timestamp="">
       <div class="post-header">
@@ -1436,7 +1279,7 @@
         </div>
 
         <div class="membership-cta">
-          <p><strong>Check out our membership section to learn more and join us!!.</p>
+          <p><strong>Check out our membership section to learn more and join us!!</strong></p>
         </div>
 
         <div class="post-tags">
@@ -1451,14 +1294,13 @@
           <i class="far fa-bookmark"></i>
           <span class="post-action-count">Save</span>
         </button>
-
-        
         <button class="post-action share-btn" data-post-id="club-promotion">
           <i class="fas fa-share-alt"></i>
           <span class="post-action-count">Share</span>
         </button>
       </div>
     </div>
+
     <!-- November Challenges Overview Post -->
     <div class="post" data-post-id="challenges-overview" data-timestamp="">
       <div class="post-header">
@@ -1548,6 +1390,7 @@
         </button>
       </div>
     </div>
+
     <!-- Meeting Time Update Post -->
     <div class="post" data-post-id="meeting-time-update" data-timestamp="">
       <div class="post-header">
@@ -2161,10 +2004,17 @@ function initializeMobileMenu() {
   }
 }
 
-// November Challenge Progress Logic - UPDATED FOR DAY 2
+// November Challenge Progress Logic - UPDATED FOR AUTO-DAILY PROGRESS
 function initializeNovemberChallenges() {
-  const currentDay = 2; // Hardcoded to Day 2 as per request
+  // Get current date and calculate progress
+  const currentDate = new Date();
+  const novemberStart = new Date(currentDate.getFullYear(), 10, 1); // November 1st
+  const timeDiff = currentDate - novemberStart;
+  const currentDay = Math.max(1, Math.min(30, Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1));
+  
   const progressPercentage = Math.min(Math.round((currentDay / 30) * 100), 100);
+  
+  console.log(`Current day: ${currentDay}, Progress: ${progressPercentage}%`);
   
   // Update all November challenges
   const challengeElements = [
@@ -2741,7 +2591,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
   }
 });
 
-// Daily Fitness Trivia System
+// Daily Fitness Trivia System - UPDATED VERSION
 class DailyFitnessTrivia {
     constructor() {
         this.currentQuestion = null;
@@ -2927,13 +2777,14 @@ class DailyFitnessTrivia {
 
     handleAnswer(selectedAnswer, button) {
         // Disable all buttons
-        document.querySelectorAll('.answer-option').forEach(btn => {
+        const allButtons = document.querySelectorAll('.answer-option');
+        allButtons.forEach(btn => {
             btn.classList.add('disabled');
             btn.style.pointerEvents = 'none';
         });
 
         // Show correct/incorrect styling
-        document.querySelectorAll('.answer-option').forEach(btn => {
+        allButtons.forEach(btn => {
             const answerText = btn.querySelector('.answer-text').textContent;
             const correctAnswer = this.currentQuestion.answers.find(a => a.correct);
             
@@ -2957,13 +2808,18 @@ class DailyFitnessTrivia {
         }
 
         this.saveStats();
-        this.updateDisplay(); // Update stats display
+        this.updateStatsDisplay();
+    }
+
+    updateStatsDisplay() {
+        document.getElementById('streak-count').textContent = this.userStats.streak;
+        document.getElementById('correct-count').textContent = this.userStats.correctAnswers;
+        document.getElementById('trivia-points').textContent = this.userStats.points;
     }
 
     showFeedback(isCorrect) {
         const feedback = document.getElementById('trivia-feedback');
         const content = document.getElementById('feedback-content');
-        const nextBtn = document.getElementById('next-trivia-btn');
         
         feedback.style.display = 'block';
         
@@ -2994,9 +2850,6 @@ class DailyFitnessTrivia {
                 </div>
             `;
         }
-
-        // For daily trivia, we don't need next button since it's one question per day
-        nextBtn.style.display = 'none';
     }
 
     shareTrivia() {
@@ -3010,12 +2863,35 @@ class DailyFitnessTrivia {
             });
         } else {
             navigator.clipboard.writeText(message);
-            alert('Trivia challenge copied to clipboard! Share it with your friends!');
+            this.showNotification('Trivia challenge copied to clipboard! Share it with your friends!');
         }
     }
 
     showLeaderboard() {
-        alert(`Your Trivia Stats:\n\n🔥 Streak: ${this.userStats.streak} days\n✅ Correct Answers: ${this.userStats.correctAnswers}\n⭐ Points: ${this.userStats.points}\n\nKeep going!`);
+        this.showNotification(`Your Trivia Stats:\n\n🔥 Streak: ${this.userStats.streak} days\n✅ Correct Answers: ${this.userStats.correctAnswers}\n⭐ Points: ${this.userStats.points}\n\nKeep going!`);
+    }
+
+    showNotification(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--navy);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
     }
 }
 
@@ -3026,20 +2902,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners for post action buttons
     document.querySelector('.share-trivia-btn').addEventListener('click', () => trivia.shareTrivia());
     document.querySelector('.leaderboard-btn').addEventListener('click', () => trivia.showLeaderboard());
-    
-    // Save button functionality
-    document.querySelector('.save-btn').addEventListener('click', function() {
-        const icon = this.querySelector('i');
-        if (icon.classList.contains('far')) {
-            icon.classList.remove('far');
-            icon.classList.add('fas');
-            this.querySelector('.post-action-count').textContent = 'Saved';
-        } else {
-            icon.classList.remove('fas');
-            icon.classList.add('far');
-            this.querySelector('.post-action-count').textContent = 'Save';
-        }
-    });
 });
 
 // Main initialization function
