@@ -1665,6 +1665,48 @@
 
     // Initialize the application
     document.addEventListener('DOMContentLoaded', initApp);
+    // Add this to your workspace.html JavaScript, after the DOMContentLoaded event
+
+    // Function to get URL parameters
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        section: params.get('section'),
+        tool: params.get('tool')
+      };
+    }
+
+    // Function to handle URL parameters and navigate to specified section
+    function handleUrlParams() {
+      const { section, tool } = getUrlParams();
+      
+      if (section) {
+        // Find the navigation link for the specified section
+        const sectionLink = document.querySelector(`[data-section="${section}"]`);
+        if (sectionLink) {
+          // Click the section link to navigate to it
+          sectionLink.click();
+          
+          // If a specific tool is specified, wait for the section to load then click the tool
+          if (tool) {
+            setTimeout(() => {
+              const toolLink = document.querySelector(`[data-link="${tool}"]`);
+              if (toolLink) {
+                toolLink.click();
+              }
+            }, 500);
+          }
+        }
+      }
+    }
+
+    // Call this function when the workspace page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Your existing initialization code...
+      
+      // Then handle URL parameters
+      setTimeout(handleUrlParams, 100);
+    });
   </script>
 
 </body>
