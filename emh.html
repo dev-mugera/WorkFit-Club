@@ -188,7 +188,7 @@
       position: relative;
     }
 
-    /* Header styles */
+    /* ENHANCED HEADER STYLES */
     header {
       background: var(--medium-bg);
       color: var(--text-primary);
@@ -197,17 +197,62 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       border-bottom: 1px solid rgba(255,255,255,0.05);
       flex-shrink: 0;
       z-index: 5;
+      position: relative;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
     .module-title {
-      font-size: 1.3rem;
-      font-weight: 500;
+      font-size: 1.4rem;
+      font-weight: 600;
       color: var(--accent-color);
       margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .module-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      font-size: 1.1rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 5px;
+    }
+
+    .breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--text-primary);
+    }
+
+    .breadcrumb-separator {
+      margin: 0 8px;
+      color: var(--text-secondary);
     }
 
     .header-controls {
@@ -221,6 +266,7 @@
       background: rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       padding: 4px;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .nav-tab {
@@ -232,16 +278,24 @@
       transition: all 0.2s;
       color: var(--text-secondary);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .nav-tab.active {
       background: var(--primary-color);
       color: var(--accent-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .nav-tab:hover:not(.active) {
       background: rgba(255, 215, 0, 0.1);
       color: var(--text-primary);
+    }
+
+    .nav-tab i {
+      font-size: 0.9rem;
     }
 
     .dropdown {
@@ -251,8 +305,8 @@
     .menu-button {
       background: rgba(255, 215, 0, 0.1);
       color: var(--accent-color);
-      padding: 8px 16px;
-      border-radius: 6px;
+      padding: 10px 16px;
+      border-radius: 8px;
       border: 1px solid rgba(255, 215, 0, 0.2);
       font-weight: 500;
       cursor: pointer;
@@ -264,6 +318,7 @@
 
     .menu-button:hover {
       background: rgba(255, 215, 0, 0.2);
+      transform: translateY(-1px);
     }
 
     .dropdown-content {
@@ -273,19 +328,23 @@
       right: 0;
       min-width: 220px;
       background: var(--medium-bg);
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       z-index: 1000;
       border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
     }
 
     .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
       text-decoration: none;
       font-size: 14px;
       color: var(--text-secondary);
       border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.2s;
     }
 
     .dropdown-content a:hover {
@@ -299,6 +358,47 @@
 
     .dropdown.open .dropdown-content {
       display: block;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .user-profile:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
     }
 
     /* Content area */
@@ -369,7 +469,7 @@
         transform: translate(-50%, -50%);
       }
       
-      .nav-tabs {
+      .user-info {
         display: none;
       }
     }
@@ -422,40 +522,53 @@
       
       header {
         padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .header-left {
+        width: 100%;
+        justify-content: space-between;
       }
       
       .header-controls {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .nav-tabs {
+        order: 2;
+      }
+      
+      .user-profile {
+        order: 1;
+      }
+      
+      .dropdown {
+        order: 3;
       }
     }
 
     @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 15px;
-      }
-
       .module-title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
       }
-
-      .dropdown {
-        width: 100%;
+      
+      .breadcrumb {
+        font-size: 0.8rem;
       }
-
-      .dropdown-content {
-        left: 0;
-        right: auto;
-        width: 100%;
+      
+      .nav-tab span {
+        display: none;
       }
-
-      .menu-button {
-        width: 100%;
-        justify-content: center;
+      
+      .nav-tab {
+        padding: 8px 12px;
+      }
+      
+      .menu-button span {
+        display: none;
       }
     }
   </style>
@@ -469,7 +582,7 @@
         <div class="logo-img">WF</div>
       </div>
       
-      <div class="outlet-code">WorkFit Management Hub</div>
+      <div class="outlet-code">WorkFit Club</div>
       
       <div class="nav-spacer"></div>
       
@@ -489,16 +602,6 @@
             <li>
               <a href="#" class="nav-link" data-section="fitness-programs">
                 <span>Fitness Programs</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="running-club">
-                <span>Running Club</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="cycling-club">
-                <span>Cycling Club</span>
               </a>
             </li>
           </ul>
@@ -608,14 +711,48 @@
 
     <!-- Main Content -->
     <div class="main-content">
+      <!-- ENHANCED HEADER -->
       <header>
-        <h1 class="module-title" id="moduleTitle">Sports Activities</h1>
+        <div class="header-left">
+          <div>
+            <h1 class="module-title" id="moduleTitle">
+              <span class="module-icon" id="moduleIcon">
+                <i class="fas fa-dumbbell"></i>
+              </span>
+              <span id="moduleTitleText">Sports Activities</span>
+            </h1>
+            <div class="breadcrumb" id="breadcrumb">
+              <a href="emh-home.html">Home</a>
+              <span class="breadcrumb-separator">/</span>
+              <a href="#" id="breadcrumbSection">Fitness Programs</a>
+              <span class="breadcrumb-separator">/</span>
+              <span id="breadcrumbModule">Sports Activities</span>
+            </div>
+          </div>
+        </div>
 
         <div class="header-controls">
           <div class="nav-tabs">
-            <a href="emh-home.html" class="nav-tab" data-tab="home">Home</a>
-            <a href="#" class="nav-tab active" data-tab="workspace">Workspace</a>
-            <a href="admin.html" class="nav-tab" data-tab="admin">Admin</a>
+            <a href="emh-home.html" class="nav-tab" data-tab="home">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+            <a href="#" class="nav-tab active" data-tab="workspace">
+              <i class="fas fa-desktop"></i>
+              <span>Workspace</span>
+            </a>
+            <a href="admin.html" class="nav-tab" data-tab="admin">
+              <i class="fas fa-cog"></i>
+              <span>Admin</span>
+            </a>
+          </div>
+
+          <div class="user-profile">
+            <div class="user-avatar">JD</div>
+            <div class="user-info">
+              <div class="user-name">John Doe</div>
+              <div class="user-role">Manager</div>
+            </div>
           </div>
 
           <div class="dropdown" id="dropdown">
@@ -624,11 +761,26 @@
               <span>Tools</span>
             </button>
             <div class="dropdown-content" id="menuContent">
-              <a href="#" data-link="session-planning">Session Planning</a>
-              <a href="#" data-link="attendance">Attendance Tracking</a>
-              <a href="#" data-link="coach-assignment">Coach Assignment</a>
-              <a href="#" data-link="equipment-check">Equipment Check</a>
-              <a href="#" data-link="performance-metrics">Performance Metrics</a> 
+              <a href="#" data-link="session-planning">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Session Planning</span>
+              </a>
+              <a href="#" data-link="attendance">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Attendance Tracking</span>
+              </a>
+              <a href="#" data-link="coach-assignment">
+                <i class="fas fa-user-tie"></i>
+                <span>Coach Assignment</span>
+              </a>
+              <a href="#" data-link="equipment-check">
+                <i class="fas fa-dumbbell"></i>
+                <span>Equipment Check</span>
+              </a>
+              <a href="#" data-link="performance-metrics">
+                <i class="fas fa-chart-line"></i>
+                <span>Performance Metrics</span>
+              </a> 
             </div>
           </div>
         </div>
@@ -650,6 +802,8 @@
       // Sports Activities
       "sports-activities": {
         title: "Sports Activities",
+        icon: "fa-dumbbell",
+        section: "Fitness Programs",
         tools: [
           { 
             name: "Session Planning", 
@@ -680,6 +834,8 @@
       },
       "fitness-programs": {
         title: "Fitness Programs",
+        icon: "fa-running",
+        section: "Fitness Programs",
         tools: [
           { 
             name: "Program Scheduling", 
@@ -705,6 +861,8 @@
       },
       "running-club": {
         title: "Running Club",
+        icon: "fa-running",
+        section: "Fitness Programs",
         tools: [
           { 
             name: "Training Schedules", 
@@ -730,6 +888,8 @@
       },
       "cycling-club": {
         title: "Cycling Club",
+        icon: "fa-bicycle",
+        section: "Fitness Programs",
         tools: [
           { 
             name: "Ride Planning", 
@@ -757,6 +917,8 @@
       // Members Section
       "member-profiles": {
         title: "Member Profiles",
+        icon: "fa-user",
+        section: "Members",
         tools: [
           { 
             name: "Member Database", 
@@ -777,6 +939,8 @@
       },
       "progress-tracking": {
         title: "Progress Tracking",
+        icon: "fa-chart-line",
+        section: "Members",
         tools: [
           { 
             name: "Fitness Goals", 
@@ -797,6 +961,8 @@
       },
       "membership-management": {
         title: "Membership Management",
+        icon: "fa-id-card",
+        section: "Members",
         tools: [
           { 
             name: "Renewal Tracking", 
@@ -819,6 +985,8 @@
       // Facilities Section
       "facility-booking": {
         title: "Facility Booking",
+        icon: "fa-building",
+        section: "Facilities",
         tools: [
           { 
             name: "Booking Calendar", 
@@ -839,6 +1007,8 @@
       },
       "equipment-management": {
         title: "Equipment Management",
+        icon: "fa-dumbbell",
+        section: "Facilities",
         tools: [
           { 
             name: "Inventory Tracking", 
@@ -859,6 +1029,8 @@
       },
       "maintenance": {
         title: "Maintenance",
+        icon: "fa-tools",
+        section: "Facilities",
         tools: [
           { 
             name: "Request Tracking", 
@@ -881,6 +1053,8 @@
       // Financials
       "membership-payments": {
         title: "Membership Payments",
+        icon: "fa-money-bill-wave",
+        section: "Financials",
         tools: [
           { 
             name: "Payment Tracking", 
@@ -901,6 +1075,8 @@
       },
       "program-revenue": {
         title: "Program Revenue",
+        icon: "fa-chart-bar",
+        section: "Financials",
         tools: [
           { 
             name: "Program Pricing", 
@@ -921,6 +1097,8 @@
       },
       "expense-management": {
         title: "Expense Management",
+        icon: "fa-receipt",
+        section: "Financials",
         tools: [
           { 
             name: "Expense Tracking", 
@@ -943,6 +1121,8 @@
       // Communications
       "announcements": {
         title: "Announcements",
+        icon: "fa-bullhorn",
+        section: "Communications",
         tools: [
           { 
             name: "News Feed", 
@@ -963,6 +1143,8 @@
       },
       "event-management": {
         title: "Event Management",
+        icon: "fa-calendar-alt",
+        section: "Communications",
         tools: [
           { 
             name: "Event Calendar", 
@@ -983,6 +1165,8 @@
       },
       "feedback-system": {
         title: "Feedback System",
+        icon: "fa-comments",
+        section: "Communications",
         tools: [
           { 
             name: "Survey Management", 
@@ -1008,7 +1192,11 @@
     const dropdown = document.getElementById("dropdown");
     const menuToggle = document.getElementById("menuToggle");
     const menuContent = document.getElementById("menuContent");
-    const moduleTitle = document.getElementById("moduleTitle");
+    const moduleTitle = document.getElementById("moduleTitleText");
+    const moduleIcon = document.getElementById("moduleIcon");
+    const breadcrumb = document.getElementById("breadcrumb");
+    const breadcrumbSection = document.getElementById("breadcrumbSection");
+    const breadcrumbModule = document.getElementById("breadcrumbModule");
     const navSections = document.querySelectorAll(".nav-section");
     const navLinks = document.querySelectorAll(".nav-link");
     const navTabs = document.querySelectorAll(".nav-tab");
@@ -1092,6 +1280,12 @@
       
       moduleTitle.textContent = data.title;
       
+      // Update module icon
+      updateModuleIcon(data.icon);
+      
+      // Update breadcrumb
+      updateBreadcrumb(data.section, data.title);
+      
       // Update tools dropdown
       updateToolsMenu(data.tools);
       
@@ -1101,17 +1295,89 @@
       }
     }
 
+    // Update the module icon
+    function updateModuleIcon(iconClass) {
+      moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
+    }
+
+    // Update breadcrumb
+    function updateBreadcrumb(section, module) {
+      breadcrumbSection.textContent = section;
+      breadcrumbModule.textContent = module;
+    }
+
     // Update the tools dropdown menu
     function updateToolsMenu(tools) {
       menuContent.innerHTML = '';
       tools.forEach(tool => {
         const link = document.createElement('a');
         link.href = '#';
-        link.textContent = tool.name;
+        link.innerHTML = `<i class="fas fa-${getToolIcon(tool.name)}"></i><span>${tool.name}</span>`;
         link.dataset.link = tool.link;
         link.dataset.sheetUrl = tool.sheetUrl;
         menuContent.appendChild(link);
       });
+    }
+
+    // Helper function to get appropriate icons for tools
+    function getToolIcon(toolName) {
+      const iconMap = {
+        'Session Planning': 'calendar-alt',
+        'Attendance Tracking': 'clipboard-check',
+        'Coach Assignment': 'user-tie',
+        'Equipment Check': 'dumbbell',
+        'Performance Metrics': 'chart-line',
+        'Program Scheduling': 'calendar-plus',
+        'Participant Progress': 'user-check',
+        'Instructor Management': 'chalkboard-teacher',
+        'Class Capacity': 'users',
+        'Training Schedules': 'running',
+        'Race Events': 'flag-checkered',
+        'Performance Tracking': 'chart-line',
+        'Group Runs': 'users',
+        'Ride Planning': 'route',
+        'Route Management': 'map-marked-alt',
+        'Safety Protocols': 'shield-alt',
+        'Equipment Maintenance': 'tools',
+        'Member Database': 'database',
+        'Health Profiles': 'heartbeat',
+        'Membership Status': 'id-card',
+        'Fitness Goals': 'bullseye',
+        'Achievement Records': 'trophy',
+        'Assessment History': 'clipboard-list',
+        'Renewal Tracking': 'sync-alt',
+        'Tier Management': 'layer-group',
+        'Member Communications': 'envelope',
+        'Booking Calendar': 'calendar',
+        'Resource Allocation': 'project-diagram',
+        'Usage Analytics': 'chart-pie',
+        'Inventory Tracking': 'boxes',
+        'Maintenance Schedule': 'calendar-check',
+        'Checkout System': 'exchange-alt',
+        'Request Tracking': 'clipboard-list',
+        'Preventive Schedule': 'calendar-plus',
+        'Vendor Management': 'handshake',
+        'Payment Tracking': 'money-check',
+        'Invoice Management': 'file-invoice',
+        'Revenue Reports': 'chart-bar',
+        'Program Pricing': 'tags',
+        'Participation Revenue': 'user-plus',
+        'Revenue Analysis': 'chart-line',
+        'Expense Tracking': 'receipt',
+        'Budget Management': 'wallet',
+        'Vendor Payments': 'money-bill-wave',
+        'News Feed': 'newspaper',
+        'Priority Alerts': 'exclamation-circle',
+        'Archive': 'archive',
+        'Event Calendar': 'calendar-alt',
+        'Registration Tracking': 'clipboard-list',
+        'Participant Management': 'users',
+        'Survey Management': 'poll',
+        'Response Tracking': 'comments',
+        'Improvement Plans': 'lightbulb'
+      };
+      
+      return iconMap[toolName] || 'cog';
     }
 
     // Handle tool selection
