@@ -4,14 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WorkFit - Management Hub</title>
-  
-  <!-- Preload critical resources -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
       --primary-color: #001f3f;
@@ -31,7 +25,6 @@
       --gold: #FFD700;
     }
 
-    /* Critical CSS - Above the fold */
     body, html {
       margin: 0;
       padding: 0;
@@ -43,6 +36,7 @@
       flex-direction: column;
     }
 
+    /* Layout structure */
     .app-container {
       display: flex;
       flex: 1;
@@ -50,6 +44,7 @@
       min-height: 0;
     }
 
+    /* Side navigation */
     .sidenav {
       width: 280px;
       background: var(--medium-bg);
@@ -61,6 +56,141 @@
       z-index: 10;
     }
 
+    .nav-logo-placeholder {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .outlet-code {
+      padding: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+      color: var(--accent-color);
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-spacer {
+      height: 30px;
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 0 15px;
+      margin: 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 15px;
+    }
+
+    .nav-section-title {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: var(--accent-color);
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .nav-section-title:hover {
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .nav-section-title i {
+      margin-right: 15px;
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .nav-submenu {
+      list-style: none;
+      padding: 0;
+      margin: 5px 0 15px 0;
+      display: none;
+    }
+
+    .nav-section.active .nav-submenu {
+      display: block;
+    }
+
+    .nav-link {
+      padding: 12px 20px 12px 50px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      position: relative;
+      user-select: none;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: rgba(255, 215, 0, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--accent-color);
+      font-weight: 500;
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .nav-link.active::before {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent-color);
+      border-radius: 50%;
+    }
+
+    .external-link {
+      position: relative;
+    }
+
+    .external-link::after {
+      content: "↗";
+      position: absolute;
+      right: 20px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    /* Main content area */
     .main-content {
       flex: 1;
       display: flex;
@@ -70,6 +200,7 @@
       position: relative;
     }
 
+    /* ENHANCED HEADER STYLES */
     header {
       background: var(--medium-bg);
       color: var(--text-primary);
@@ -85,14 +216,430 @@
       position: relative;
     }
 
-    /* Defer non-critical CSS */
-    .non-critical {
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .module-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .module-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      font-size: 1.1rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 5px;
+    }
+
+    .breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--text-primary);
+    }
+
+    .breadcrumb-separator {
+      margin: 0 8px;
+      color: var(--text-secondary);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-tab {
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-tab.active {
+      background: var(--primary-color);
+      color: var(--accent-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .nav-tab:hover:not(.active) {
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--text-primary);
+    }
+
+    .nav-tab i {
+      font-size: 0.9rem;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .menu-button {
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--accent-color);
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .menu-button:hover {
+      background: rgba(255, 215, 0, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: calc(100% + 5px);
+      right: 0;
+      min-width: 220px;
+      background: var(--medium-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .dropdown-content a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 215, 0, 0.05);
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+
+    /* Content area */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .iframe-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+    }
+
+    /* Selection Prompt */
+    .selection-prompt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .selection-prompt.hidden {
       display: none;
     }
+
+    .prompt-icon {
+      font-size: 4rem;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+
+    .prompt-title {
+      font-size: 1.8rem;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+    }
+
+    .prompt-message {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    /* Admin External Page Styles */
+    .admin-external-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--dark-bg);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+    }
+
+    .admin-external-page.active {
+      display: flex;
+    }
+
+    .admin-header {
+      background: var(--medium-bg);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .admin-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .admin-iframe {
+      flex: 1;
+      border: none;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .close-admin {
+      background: rgba(255, 0, 0, 0.1);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .close-admin:hover {
+      background: rgba(255, 0, 0, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--medium-bg);
+      color: var(--text-secondary);
+      text-align: center;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      flex-shrink: 0;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .sidenav {
+        width: 80px;
+      }
+      
+      .outlet-code, .nav-section-title span, .nav-link span {
+        display: none;
+      }
+      
+      .nav-section-title {
+        justify-content: center;
+        padding: 16px 0;
+      }
+      
+      .nav-section-title i {
+        margin-right: 0;
+        font-size: 1.3rem;
+      }
+
+      .nav-link {
+        padding: 16px 0;
+        justify-content: center;
+      }
+
+      .nav-link.active::before {
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      
+      .external-link::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      
+      .sidenav {
+        width: 100%;
+        flex-direction: row;
+        height: auto;
+      }
+      
+      .nav-logo-placeholder, .outlet-code, .nav-spacer {
+        display: none;
+      }
+      
+      .nav-links {
+        display: flex;
+        overflow-x: auto;
+        padding: 0 10px;
+      }
+      
+      .nav-section {
+        margin-bottom: 0;
+        margin-right: 5px;
+        min-width: 80px;
+      }
+
+      .nav-section-title {
+        padding: 15px 10px;
+        border-radius: 0;
+        white-space: nowrap;
+      }
+
+      .nav-submenu {
+        position: absolute;
+        background: var(--medium-bg);
+        z-index: 100;
+        min-width: 200px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      }
+
+      .nav-link {
+        padding: 12px 15px;
+        white-space: nowrap;
+      }
+      
+      header {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .header-left {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .header-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .nav-tabs {
+        order: 2;
+      }
+      
+      .dropdown {
+        order: 3;
+      }
+      
+      .prompt-title {
+        font-size: 1.5rem;
+      }
+      
+      .prompt-message {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .module-title {
+        font-size: 1.2rem;
+      }
+      
+      .breadcrumb {
+        font-size: 0.8rem;
+      }
+      
+      .nav-tab span {
+        display: none;
+      }
+      
+      .nav-tab {
+        padding: 8px 12px;
+      }
+      
+      .menu-button span {
+        display: none;
+      }
+    }
   </style>
-  
-  <!-- Load non-critical CSS asynchronously -->
-  <link rel="stylesheet" href="data:text/css;base64,{BASE64_ENCODED_NON_CRITICAL_CSS}" media="print" onload="this.media='all'">
 </head>
 <body>
 
@@ -153,7 +700,105 @@
           </ul>
         </li>
         
-        <!-- Other sections remain the same but are truncated for brevity -->
+        <!-- Facilities Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-building"></i>
+            <span>Facilities</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="facility-booking">
+                <span>Facility Booking</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="equipment-management">
+                <span>Equipment Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="maintenance">
+                <span>Maintenance</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Financials Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-chart-line"></i>
+            <span>Financials</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="membership-payments">
+                <span>Membership Payments</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="program-revenue">
+                <span>Program Revenue</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="expense-management">
+                <span>Expense Management</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Communications Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="announcements">
+                <span>Announcements</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="event-management">
+                <span>Event Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="feedback-system">
+                <span>Feedback System</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Admin Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-cogs"></i>
+            <span>Admin</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link external-link" data-section="system-admin" data-external-url="https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec">
+                <span>System Administration</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link external-link" data-section="user-management" data-external-url="https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit">
+                <span>User Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link external-link" data-section="settings" data-external-url="https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit">
+                <span>System Settings</span>
+              </a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
 
@@ -177,11 +822,11 @@
 
         <div class="header-controls">
           <div class="nav-tabs">
-            <a href="emh-home.html" class="nav-tab active" data-tab="home" id="homeTab">
+            <a href="emh-home.html" class="nav-tab" data-tab="home" id="homeTab">
               <i class="fas fa-home"></i>
               <span>Home</span>
             </a>
-            <a href="#" class="nav-tab" data-tab="workspace" id="workspaceTab">
+            <a href="#" class="nav-tab active" data-tab="workspace" id="workspaceTab">
               <i class="fas fa-desktop"></i>
               <span>Workspace</span>
             </a>
@@ -217,14 +862,7 @@
             </p>
           </div>
           
-          <!-- Optimized iframe with lazy loading -->
-          <iframe 
-            id="iframe" 
-            loading="lazy" 
-            title="WorkFit Management Content"
-            data-src=""
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-          ></iframe>
+          <iframe id="iframe" loading="lazy" title="WorkFit Management Content"></iframe>
         </div>
       </main>
 
@@ -254,717 +892,496 @@
       </button>
     </div>
     <div class="admin-content">
-      <iframe 
-        class="admin-iframe" 
-        id="adminIframe" 
-        loading="lazy" 
-        title="Admin Console"
-        data-src=""
-        sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-      ></iframe>
+      <iframe class="admin-iframe" id="adminIframe" loading="lazy" title="Admin Console"></iframe>
     </div>
   </div>
 
   <script>
-    // Performance optimizations
-    (function() {
-      // Preload critical functionality
-      const moduleData = {}; // Your existing moduleData object
+    // Data for each section with sheet URLs for each tool
+    const moduleData = {
+      // Sports Activities
+      "sports-activities": {
+        title: "WorkFit Sports",
+        icon: "fa-dumbbell",
+        section: "Fitness Programs",
+        tools: [
+          { 
+            name: "Session Planning", 
+            link: "session-planning",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit" 
+          },
+          { 
+            name: "Attendance Tracking", 
+            link: "attendance",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1RysMBv_lrun6YQ2XcuHzckGq-1-6bJyCFY6WKFbjts0/edit" 
+          },
+          { 
+            name: "Coach Assignment", 
+            link: "coach-assignment",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1T6qn08TGl4Z49Noxla0e1vuBgzzNum1ZKqMYwboueQM/edit" 
+          },
+          { 
+            name: "Performance Metrics", 
+            link: "performance-metrics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1SPORTS_PERFORMANCE_METRICS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "fitness-programs": {
+        title: "WorkFit Fitness",
+        icon: "fa-running",
+        section: "Fitness Programs",
+        tools: [
+          { 
+            name: "Program Scheduling", 
+            link: "program-scheduling",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_PROGRAM_SCHEDULING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Participant Progress", 
+            link: "participant-progress",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_PARTICIPANT_PROGRESS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Instructor Management", 
+            link: "instructor-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_INSTRUCTOR_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Class Capacity", 
+            link: "class-capacity",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_CLASS_CAPACITY_SHEET_ID/edit" 
+          }
+        ]
+      },
       
-      // DOM elements cache
-      let cachedElements = {};
-      
-      // Function to get DOM elements with caching
-      function getElement(id) {
-        if (!cachedElements[id]) {
-          cachedElements[id] = document.getElementById(id);
-        }
-        return cachedElements[id];
+      // Members Section
+      "member-profiles": {
+        title: "Member Profiles",
+        icon: "fa-user",
+        section: "Members",
+        tools: [
+          { 
+            name: "Member Database", 
+            link: "member-database",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1xMnPQ-RzWT_e5Lq4cUZQTDH9_An6lol-2ju1Zqdw53w/edit" 
+          },
+          { 
+            name: "Health Profiles", 
+            link: "health-profiles",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
+          },
+          { 
+            name: "Membership Status", 
+            link: "membership-status",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "progress-tracking": {
+        title: "Progress Tracking",
+        icon: "fa-chart-line",
+        section: "Members",
+        tools: [
+          { 
+            name: "Fitness Goals", 
+            link: "fitness-goals",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_FITNESS_GOALS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Achievement Records", 
+            link: "achievement-records",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_ACHIEVEMENT_RECORDS_SHEET_ID/edit" 
+          },
+          { 
+            name: "Assessment History", 
+            link: "assessment-history",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_ASSESSMENT_HISTORY_SHEET_ID/edit" 
+          }
+        ]
+      },
+      "membership-management": {
+        title: "Membership Management",
+        icon: "fa-id-card",
+        section: "Members",
+        tools: [
+          { 
+            name: "Renewal Tracking", 
+            link: "renewal-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
+          },
+          { 
+            name: "Tier Management", 
+            link: "tier-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
+          },
+          { 
+            name: "Member Communications", 
+            link: "member-communications",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
+          }
+        ]
       }
+    };
+
+    // DOM elements
+    const iframe = document.getElementById("iframe");
+    const dropdown = document.getElementById("dropdown");
+    const menuToggle = document.getElementById("menuToggle");
+    const menuContent = document.getElementById("menuContent");
+    const moduleTitle = document.getElementById("moduleTitleText");
+    const moduleIcon = document.getElementById("moduleIcon");
+    const breadcrumb = document.getElementById("breadcrumb");
+    const breadcrumbModule = document.getElementById("breadcrumbModule");
+    const navSections = document.querySelectorAll(".nav-section");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const navTabs = document.querySelectorAll(".nav-tab");
+    const homeTab = document.getElementById("homeTab");
+    const workspaceTab = document.getElementById("workspaceTab");
+    const adminTab = document.getElementById("adminTab");
+    const selectionPrompt = document.getElementById("selectionPrompt");
+    
+    // Admin external page elements
+    const adminExternalPage = document.getElementById("adminExternalPage");
+    const adminIframe = document.getElementById("adminIframe");
+    const adminPageTitle = document.getElementById("adminPageTitle");
+    const adminBreadcrumbModule = document.getElementById("adminBreadcrumbModule");
+    const closeAdminPage = document.getElementById("closeAdminPage");
+
+    // Initialize the application
+    function initApp() {
+      console.log("Initializing WorkFit Workspace...");
+      setupEventListeners();
       
-      // Debounce function to prevent excessive iframe loading
-      function debounce(func, wait, immediate) {
-        let timeout;
-        return function executedFunction(...args) {
-          const later = () => {
-            timeout = null;
-            if (!immediate) func(...args);
-          };
-          const callNow = immediate && !timeout;
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-          if (callNow) func(...args);
-        };
-      }
+      // Set workspace tab as active since this is the workspace page
+      setActiveTab('workspace');
       
-      // Optimized iframe loading
-      function loadIframe(iframe, url) {
-        if (!url || iframe.dataset.src === url) return;
-        
-        // Show loading indicator
-        iframe.style.opacity = '0.5';
-        
-        // Use requestIdleCallback for non-critical iframe loading
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => {
-            iframe.src = url;
-            iframe.dataset.src = url;
-            setTimeout(() => {
-              iframe.style.opacity = '1';
-            }, 300);
+      // Show selection prompt initially
+      showSelectionPrompt();
+      
+      console.log("WorkFit Workspace initialized successfully");
+    }
+
+    // Set up all event listeners
+    function setupEventListeners() {
+      console.log("Setting up event listeners...");
+      
+      // Navigation section clicks
+      document.querySelectorAll(".nav-section-title").forEach(title => {
+        title.addEventListener("click", function(e) {
+          e.stopPropagation();
+          const section = this.parentElement;
+          navSections.forEach(s => {
+            if (s !== section) s.classList.remove("active");
           });
-        } else {
-          // Fallback for browsers without requestIdleCallback
-          setTimeout(() => {
-            iframe.src = url;
-            iframe.dataset.src = url;
-            setTimeout(() => {
-              iframe.style.opacity = '1';
-            }, 300);
-          }, 100);
-        }
-      }
-      
-      // Optimized event handlers
-      function setupOptimizedEventListeners() {
-        // Use event delegation for navigation links
-        document.addEventListener('click', function(e) {
-          // Handle nav section titles
-          if (e.target.closest('.nav-section-title')) {
-            e.preventDefault();
-            const section = e.target.closest('.nav-section');
-            document.querySelectorAll('.nav-section').forEach(s => {
-              if (s !== section) s.classList.remove('active');
-            });
-            section.classList.toggle('active');
-          }
-          
-          // Handle nav links
-          if (e.target.closest('.nav-link')) {
-            e.preventDefault();
-            const link = e.target.closest('.nav-link');
-            const externalUrl = link.dataset.externalUrl;
-            
-            if (externalUrl) {
-              openAdminExternalPage(link);
-            } else {
-              handleNavLinkClick(link);
-            }
-          }
-          
-          // Handle tool clicks in dropdown
-          if (e.target.closest('#menuContent a')) {
-            e.preventDefault();
-            const toolElement = e.target.closest('a');
-            handleToolClick(toolElement);
+          section.classList.toggle("active");
+        });
+      });
+
+      // Nav link clicks
+      navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          console.log("Nav link clicked:", this.dataset.section);
+          const externalUrl = this.dataset.externalUrl;
+          if (externalUrl) {
+            // Open external admin page
+            openAdminExternalPage(this);
+          } else {
+            handleNavLinkClick(this);
           }
         });
-        
-        // Debounced iframe resize handler
-        window.addEventListener('resize', debounce(function() {
-          // Handle responsive adjustments
-        }, 250));
-        
-        // Other event listeners...
-      }
-      
-      // Initialize with performance optimizations
-      function initApp() {
-        // Use requestIdleCallback for non-critical initialization
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => {
-            setupOptimizedEventListeners();
-            // Other initialization code...
-          });
-        } else {
-          // Fallback
-          setTimeout(() => {
-            setupOptimizedEventListeners();
-            // Other initialization code...
-          }, 0);
+      });
+
+      // Tool clicks
+      menuContent.addEventListener("click", function(e) {
+        if (e.target.tagName === 'A') {
+          e.preventDefault();
+          handleToolClick(e.target);
         }
-        
-        // Set workspace tab as active
+      });
+
+      // Toggle dropdown
+      menuToggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        dropdown.classList.toggle("open");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function() {
+        dropdown.classList.remove("open");
+      });
+
+      // Tab clicks
+      homeTab.addEventListener("click", function(e) {
+        e.preventDefault();
+        // Redirect to your actual homepage
+        window.location.href = "emh-home.html";
+      });
+      
+      workspaceTab.addEventListener("click", function(e) {
+        e.preventDefault();
+        setActiveTab('workspace');
+        // Show selection prompt when switching to workspace
+        showSelectionPrompt();
+      });
+      
+      adminTab.addEventListener("click", function(e) {
+        e.preventDefault();
+        setActiveTab('admin');
+        // Open the first admin section in external page
+        const adminLink = document.querySelector('[data-section="system-admin"]');
+        if (adminLink) {
+          openAdminExternalPage(adminLink);
+        }
+      });
+
+      // Admin external page close button
+      closeAdminPage.addEventListener("click", function() {
+        closeAdminExternalPage();
+        // Switch back to workspace tab when closing admin
         setActiveTab('workspace');
         showSelectionPrompt();
+      });
+      
+      console.log("Event listeners set up successfully");
+    }
+
+    // Show selection prompt
+    function showSelectionPrompt() {
+      selectionPrompt.classList.remove('hidden');
+      iframe.style.display = 'none';
+      moduleTitle.textContent = "WorkFit Workspace";
+      updateModuleIcon('fa-desktop');
+      breadcrumbModule.textContent = "Select a section to begin";
+    }
+
+    // Hide selection prompt
+    function hideSelectionPrompt() {
+      selectionPrompt.classList.add('hidden');
+      iframe.style.display = 'block';
+    }
+
+    // Open admin external page
+    function openAdminExternalPage(link) {
+      const section = link.dataset.section;
+      const data = moduleData[section];
+      const externalUrl = link.dataset.externalUrl;
+      
+      if (!data || !externalUrl) {
+        console.error("No data or URL found for admin section:", section);
+        return;
       }
       
-      // Load non-critical CSS
-      function loadNonCriticalCSS() {
-        const style = document.createElement('style');
-        style.textContent = `
-          /* Your non-critical CSS goes here */
-          .nav-logo-placeholder {
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 20px 0;
-            background: rgba(0, 0, 0, 0.1);
-          }
+      // Update admin page title and breadcrumb
+      adminPageTitle.textContent = data.title;
+      adminBreadcrumbModule.textContent = data.title;
+      
+      // Load the external URL in admin iframe
+      adminIframe.src = externalUrl;
+      
+      // Show the admin external page
+      adminExternalPage.classList.add('active');
+      
+      // Update active states in sidebar
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+      
+      // Update active tab
+      setActiveTab('admin');
+    }
 
-          .logo-img {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 1.8rem;
-            font-weight: bold;
-          }
+    // Close admin external page
+    function closeAdminExternalPage() {
+      adminExternalPage.classList.remove('active');
+      adminIframe.src = '';
+    }
 
-          .outlet-code {
-            padding: 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 20px;
-            color: var(--accent-color);
-            background: rgba(0, 0, 0, 0.1);
-          }
+    // Set active tab
+    function setActiveTab(tabName) {
+      navTabs.forEach(tab => {
+        if (tab.dataset.tab === tabName) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+    }
 
-          .nav-spacer {
-            height: 30px;
-          }
-
-          .nav-links {
-            list-style: none;
-            padding: 0 15px;
-            margin: 0;
-            flex: 1;
-            overflow-y: auto;
-          }
-
-          .nav-section {
-            margin-bottom: 15px;
-          }
-
-          .nav-section-title {
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: var(--accent-color);
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.2s;
-            user-select: none;
-          }
-
-          .nav-section-title:hover {
-            background: rgba(255, 215, 0, 0.1);
-          }
-
-          .nav-section-title i {
-            margin-right: 15px;
-            width: 20px;
-            text-align: center;
-            font-size: 1.1rem;
-          }
-
-          .nav-submenu {
-            list-style: none;
-            padding: 0;
-            margin: 5px 0 15px 0;
-            display: none;
-          }
-
-          .nav-section.active .nav-submenu {
-            display: block;
-          }
-
-          .nav-link {
-            padding: 12px 20px 12px 50px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            position: relative;
-            user-select: none;
-          }
-
-          .nav-link:hover {
-            color: var(--text-primary);
-            background: rgba(255, 215, 0, 0.05);
-          }
-
-          .nav-link.active {
-            color: var(--accent-color);
-            font-weight: 500;
-            background: rgba(255, 215, 0, 0.1);
-          }
-
-          .nav-link.active::before {
-            content: "";
-            position: absolute;
-            left: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            background: var(--accent-color);
-            border-radius: 50%;
-          }
-
-          .external-link {
-            position: relative;
-          }
-
-          .external-link::after {
-            content: "↗";
-            position: absolute;
-            right: 20px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-          }
-
-          .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-          }
-
-          .module-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-          }
-
-          .module-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-color);
-            font-size: 1.1rem;
-          }
-
-          .breadcrumb {
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 5px;
-          }
-
-          .breadcrumb a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-          }
-
-          .breadcrumb a:hover {
-            color: var(--text-primary);
-          }
-
-          .breadcrumb-separator {
-            margin: 0 8px;
-            color: var(--text-secondary);
-          }
-
-          .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-          }
-
-          .nav-tabs {
-            display: flex;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 4px;
-            border: 1px solid rgba(255,255,255,0.05);
-          }
-
-          .nav-tab {
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            color: var(--text-secondary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-          }
-
-          .nav-tab.active {
-            background: var(--primary-color);
-            color: var(--accent-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-          }
-
-          .nav-tab:hover:not(.active) {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--text-primary);
-          }
-
-          .nav-tab i {
-            font-size: 0.9rem;
-          }
-
-          .dropdown {
-            position: relative;
-          }
-
-          .menu-button {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--accent-color);
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-          }
-
-          .menu-button:hover {
-            background: rgba(255, 215, 0, 0.2);
-            transform: translateY(-1px);
-          }
-
-          .dropdown-content {
-            display: none;
-            position: absolute;
-            top: calc(100% + 5px);
-            right: 0;
-            min-width: 220px;
-            background: var(--medium-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-          }
-
-          .dropdown-content a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            text-decoration: none;
-            font-size: 14px;
-            color: var(--text-secondary);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.2s;
-          }
-
-          .dropdown-content a:hover {
-            color: var(--text-primary);
-            background: rgba(255, 215, 0, 0.05);
-          }
-
-          .dropdown-content a:last-child {
-            border-bottom: none;
-          }
-
-          .dropdown.open .dropdown-content {
-            display: block;
-          }
-
-          main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            overflow: auto;
-          }
-
-          .iframe-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-          }
-
-          iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
-            min-height: 500px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-            transition: opacity 0.3s ease;
-          }
-
-          .selection-prompt {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            padding: 40px;
-          }
-
-          .selection-prompt.hidden {
-            display: none;
-          }
-
-          .prompt-icon {
-            font-size: 4rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-          }
-
-          .prompt-title {
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-          }
-
-          .prompt-message {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-          }
-
-          .admin-external-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--dark-bg);
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-          }
-
-          .admin-external-page.active {
-            display: flex;
-          }
-
-          .admin-header {
-            background: var(--medium-bg);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-          }
-
-          .admin-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-          }
-
-          .admin-iframe {
-            flex: 1;
-            border: none;
-            border-radius: 8px;
-            background: white;
-            transition: opacity 0.3s ease;
-          }
-
-          .close-admin {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff6b6b;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-          }
-
-          .close-admin:hover {
-            background: rgba(255, 0, 0, 0.2);
-          }
-
-          footer {
-            background: var(--medium-bg);
-            color: var(--text-secondary);
-            text-align: center;
-            font-size: 13px;
-            padding: 12px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            flex-shrink: 0;
-          }
-
-          @media (max-width: 992px) {
-            .sidenav {
-              width: 80px;
-            }
-            
-            .outlet-code, .nav-section-title span, .nav-link span {
-              display: none;
-            }
-            
-            .nav-section-title {
-              justify-content: center;
-              padding: 16px 0;
-            }
-            
-            .nav-section-title i {
-              margin-right: 0;
-              font-size: 1.3rem;
-            }
-
-            .nav-link {
-              padding: 16px 0;
-              justify-content: center;
-            }
-
-            .nav-link.active::before {
-              left: 50%;
-              transform: translate(-50%, -50%);
-            }
-            
-            .external-link::after {
-              display: none;
-            }
-          }
-
-          @media (max-width: 768px) {
-            .app-container {
-              flex-direction: column;
-            }
-            
-            .sidenav {
-              width: 100%;
-              flex-direction: row;
-              height: auto;
-            }
-            
-            .nav-logo-placeholder, .outlet-code, .nav-spacer {
-              display: none;
-            }
-            
-            .nav-links {
-              display: flex;
-              overflow-x: auto;
-              padding: 0 10px;
-            }
-            
-            .nav-section {
-              margin-bottom: 0;
-              margin-right: 5px;
-              min-width: 80px;
-            }
-
-            .nav-section-title {
-              padding: 15px 10px;
-              border-radius: 0;
-              white-space: nowrap;
-            }
-
-            .nav-submenu {
-              position: absolute;
-              background: var(--medium-bg);
-              z-index: 100;
-              min-width: 200px;
-              box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            }
-
-            .nav-link {
-              padding: 12px 15px;
-              white-space: nowrap;
-            }
-            
-            header {
-              padding: 15px;
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 15px;
-            }
-            
-            .header-left {
-              width: 100%;
-              justify-content: space-between;
-            }
-            
-            .header-controls {
-              width: 100%;
-              justify-content: space-between;
-            }
-            
-            .nav-tabs {
-              order: 2;
-            }
-            
-            .dropdown {
-              order: 3;
-            }
-            
-            .prompt-title {
-              font-size: 1.5rem;
-            }
-            
-            .prompt-message {
-              font-size: 1rem;
-            }
-          }
-
-          @media (max-width: 600px) {
-            .module-title {
-              font-size: 1.2rem;
-            }
-            
-            .breadcrumb {
-              font-size: 0.8rem;
-            }
-            
-            .nav-tab span {
-              display: none;
-            }
-            
-            .nav-tab {
-              padding: 8px 12px;
-            }
-            
-            .menu-button span {
-              display: none;
-            }
-          }
-        `;
-        document.head.appendChild(style);
+    // Handle navigation link clicks
+    function handleNavLinkClick(link) {
+      // Update active states
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+      
+      // Update content
+      const section = link.dataset.section;
+      const data = moduleData[section];
+      
+      if (!data) {
+        console.error("No data found for section:", section);
+        return;
       }
       
-      // Initialize when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initApp);
+      moduleTitle.textContent = data.title;
+      
+      // Update module icon
+      updateModuleIcon(data.icon);
+      
+      // Update breadcrumb
+      breadcrumbModule.textContent = data.title;
+      
+      // Update tools dropdown
+      updateToolsMenu(data.tools);
+      
+      // Hide selection prompt and show iframe
+      hideSelectionPrompt();
+      
+      // Load the first tool's content by default
+      if (data.tools.length > 0) {
+        loadToolContent(data.tools[0].sheetUrl);
+      }
+      
+      // Update active tab
+      setActiveTab('workspace');
+    }
+
+    // Update the module icon
+    function updateModuleIcon(iconClass) {
+      moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
+    }
+
+    // Update the tools dropdown menu
+    function updateToolsMenu(tools) {
+      menuContent.innerHTML = '';
+      tools.forEach(tool => {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.innerHTML = `<i class="fas fa-${getToolIcon(tool.name)}"></i><span>${tool.name}</span>`;
+        link.dataset.link = tool.link;
+        link.dataset.sheetUrl = tool.sheetUrl;
+        menuContent.appendChild(link);
+      });
+    }
+
+    // Helper function to get appropriate icons for tools
+    function getToolIcon(toolName) {
+      const iconMap = {
+        'Session Planning': 'calendar-alt',
+        'Attendance Tracking': 'clipboard-check',
+        'Coach Assignment': 'user-tie',
+        'Performance Metrics': 'chart-line',
+        'Program Scheduling': 'calendar-plus',
+        'Participant Progress': 'user-check',
+        'Instructor Management': 'chalkboard-teacher',
+        'Class Capacity': 'users',
+        'Member Database': 'database',
+        'Health Profiles': 'heartbeat',
+        'Membership Status': 'id-card',
+        'Fitness Goals': 'bullseye',
+        'Achievement Records': 'trophy',
+        'Assessment History': 'clipboard-list',
+        'Renewal Tracking': 'sync-alt',
+        'Tier Management': 'layer-group',
+        'Member Communications': 'envelope'
+      };
+      
+      return iconMap[toolName] || 'cog';
+    }
+
+    // Handle tool selection
+    function handleToolClick(toolElement) {
+      dropdown.classList.remove("open");
+      const sheetUrl = toolElement.dataset.sheetUrl;
+      loadToolContent(sheetUrl);
+    }
+
+    // Load content for a tool
+    function loadToolContent(sheetUrl) {
+      if (sheetUrl && sheetUrl.includes('docs.google.com')) {
+        const sheetId = extractSheetId(sheetUrl);
+        if (sheetId) {
+          // Load the sheet with full toolbar
+          iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
+        } else {
+          showPlaceholderContent("Invalid Google Sheet URL format");
+        }
+      } else if (sheetUrl && sheetUrl.includes('script.google.com')) {
+        // Load Google Apps Script directly
+        iframe.src = sheetUrl;
       } else {
-        initApp();
+        showPlaceholderContent("No content configured for this tool");
       }
-      
-      // Load non-critical CSS after initial render
-      window.addEventListener('load', loadNonCriticalCSS);
-      
-      // Your existing functions (handleNavLinkClick, openAdminExternalPage, etc.)
-      // with optimizations applied...
-    })();
+    }
+
+    // Show placeholder content
+    function showPlaceholderContent(message) {
+      iframe.srcdoc = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+              font-family: Arial, sans-serif;
+              color: #666;
+              background: #f9f9f9;
+            }
+            .content {
+              text-align: center;
+              padding: 20px;
+              max-width: 500px;
+            }
+            i {
+              font-size: 3rem;
+              color: #ddd;
+              margin-bottom: 20px;
+            }
+            h2 {
+              color: #444;
+              margin: 0 0 15px 0;
+            }
+            p {
+              margin: 5px 0;
+              line-height: 1.5;
+            }
+          </style>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        </head>
+        <body>
+          <div class="content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Content Not Available</h2>
+            <p>${message}</p>
+            ${message.includes('configured') ? '<p>Please configure a valid Google Sheet URL in the moduleData object.</p>' : ''}
+          </div>
+        </body>
+        </html>
+      `;
+    }
+
+    // Helper function to extract sheet ID from URL
+    function extractSheetId(url) {
+      try {
+        const match = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+        return match ? match[1] : null;
+      } catch (e) {
+        console.error("Error extracting sheet ID:", e);
+        return null;
+      }
+    }
+
+    // Initialize the application when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      // DOM already loaded
+      initApp();
+    }
   </script>
+
 </body>
 </html>
