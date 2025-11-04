@@ -1,1387 +1,1055 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkFit - Management Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: #001f3f;
-      --secondary-color: #003366;
-      --accent-color: #FFD700;
-      --dark-bg: #0a192f;
-      --medium-bg: #172a45;
-      --light-bg: #243b55;
-      --text-primary: #e6f1ff;
-      --text-secondary: #a8b2d1;
-      --success-color: #4caf50;
-      --warning-color: #ff9800;
-      --gradient-primary: linear-gradient(135deg, #001f3f 0%, #003366 100%);
-      --gradient-bg: linear-gradient(135deg, #0a192f 0%, #172a45 100%);
-      --navy: #001f3f;
-      --navy-light: #003366;
-      --gold: #FFD700;
-    }
-
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Roboto', sans-serif;
-      background: var(--gradient-bg);
-      color: var(--text-primary);
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Layout structure */
-    .app-container {
-      display: flex;
-      flex: 1;
-      height: 100%;
-      min-height: 0;
-    }
-
-    /* Side navigation */
-    .sidenav {
-      width: 280px;
-      background: var(--medium-bg);
-      color: var(--text-primary);
-      display: flex;
-      flex-direction: column;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-      flex-shrink: 0;
-      z-index: 10;
-    }
-
-    .nav-logo-placeholder {
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 20px 0;
-      background: rgba(0, 0, 0, 0.1);
-    }
-
-    .logo-img {
-      width: 60px;
-      height: 60px;
-      background: var(--gradient-primary);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold);
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
-
-    .outlet-code {
-      padding: 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 20px;
-      color: var(--accent-color);
-      background: rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-spacer {
-      height: 30px;
-    }
-
-    .nav-links {
-      list-style: none;
-      padding: 0 15px;
-      margin: 0;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .nav-section {
-      margin-bottom: 15px;
-    }
-
-    .nav-section-title {
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      color: var(--accent-color);
-      font-weight: 600;
-      border-radius: 8px;
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .nav-section-title:hover {
-      background: rgba(255, 215, 0, 0.1);
-    }
-
-    .nav-section-title i {
-      margin-right: 15px;
-      width: 20px;
-      text-align: center;
-      font-size: 1.1rem;
-    }
-
-    .nav-submenu {
-      list-style: none;
-      padding: 0;
-      margin: 5px 0 15px 0;
-      display: none;
-    }
-
-    .nav-section.active .nav-submenu {
-      display: block;
-    }
-
-    .nav-link {
-      padding: 12px 20px 12px 50px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      position: relative;
-      user-select: none;
-    }
-
-    .nav-link:hover {
-      color: var(--text-primary);
-      background: rgba(255, 215, 0, 0.05);
-    }
-
-    .nav-link.active {
-      color: var(--accent-color);
-      font-weight: 500;
-      background: rgba(255, 215, 0, 0.1);
-    }
-
-    .nav-link.active::before {
-      content: "";
-      position: absolute;
-      left: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      background: var(--accent-color);
-      border-radius: 50%;
-    }
-
-    .external-link {
-      position: relative;
-    }
-
-    .external-link::after {
-      content: "↗";
-      position: absolute;
-      right: 20px;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-
-    /* Main content area */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background-color: var(--dark-bg);
-      min-height: 0;
-      position: relative;
-    }
-
-    /* ENHANCED HEADER STYLES */
-    header {
-      background: var(--medium-bg);
-      color: var(--text-primary);
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      flex-shrink: 0;
-      z-index: 5;
-      position: relative;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .module-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--accent-color);
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .module-icon {
-      width: 36px;
-      height: 36px;
-      background: rgba(255, 215, 0, 0.1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-color);
-      font-size: 1.1rem;
-    }
-
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-top: 5px;
-    }
-
-    .breadcrumb a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .breadcrumb a:hover {
-      color: var(--text-primary);
-    }
-
-    .breadcrumb-separator {
-      margin: 0 8px;
-      color: var(--text-secondary);
-    }
-
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .nav-tabs {
-      display: flex;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      padding: 4px;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .nav-tab {
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-      color: var(--text-secondary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .nav-tab.active {
-      background: var(--primary-color);
-      color: var(--accent-color);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .nav-tab:hover:not(.active) {
-      background: rgba(255, 215, 0, 0.1);
-      color: var(--text-primary);
-    }
-
-    .nav-tab i {
-      font-size: 0.9rem;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .menu-button {
-      background: rgba(255, 215, 0, 0.1);
-      color: var(--accent-color);
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-
-    .menu-button:hover {
-      background: rgba(255, 215, 0, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: calc(100% + 5px);
-      right: 0;
-      min-width: 220px;
-      background: var(--medium-bg);
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      border: 1px solid rgba(255,255,255,0.05);
-      overflow: hidden;
-    }
-
-    .dropdown-content a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      text-decoration: none;
-      font-size: 14px;
-      color: var(--text-secondary);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.2s;
-    }
-
-    .dropdown-content a:hover {
-      color: var(--text-primary);
-      background: rgba(255, 215, 0, 0.05);
-    }
-
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown.open .dropdown-content {
-      display: block;
-    }
-
-    /* Content area */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      overflow: auto;
-    }
-
-    .iframe-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    iframe {
-      border: none;
-      width: 100%;
-      height: 100%;
-      min-height: 500px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      background-color: #fff;
-    }
-
-    /* Selection Prompt */
-    .selection-prompt {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      text-align: center;
-      padding: 40px;
-    }
-
-    .selection-prompt.hidden {
-      display: none;
-    }
-
-    .prompt-icon {
-      font-size: 4rem;
-      color: var(--accent-color);
-      margin-bottom: 20px;
-    }
-
-    .prompt-title {
-      font-size: 1.8rem;
-      color: var(--text-primary);
-      margin-bottom: 15px;
-    }
-
-    .prompt-message {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    /* Admin External Page Styles */
-    .admin-external-page {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--dark-bg);
-      z-index: 100;
-      display: none;
-      flex-direction: column;
-    }
-
-    .admin-external-page.active {
-      display: flex;
-    }
-
-    .admin-header {
-      background: var(--medium-bg);
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .admin-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-    }
-
-    .admin-iframe {
-      flex: 1;
-      border: none;
-      border-radius: 8px;
-      background: white;
-    }
-
-    .close-admin {
-      background: rgba(255, 0, 0, 0.1);
-      color: #ff6b6b;
-      border: 1px solid rgba(255, 0, 0, 0.2);
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-
-    .close-admin:hover {
-      background: rgba(255, 0, 0, 0.2);
-    }
-
-    /* Footer */
-    footer {
-      background: var(--medium-bg);
-      color: var(--text-secondary);
-      text-align: center;
-      font-size: 13px;
-      padding: 12px 20px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      flex-shrink: 0;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 992px) {
-      .sidenav {
-        width: 80px;
-      }
-      
-      .outlet-code, .nav-section-title span, .nav-link span {
-        display: none;
-      }
-      
-      .nav-section-title {
-        justify-content: center;
-        padding: 16px 0;
-      }
-      
-      .nav-section-title i {
-        margin-right: 0;
-        font-size: 1.3rem;
-      }
-
-      .nav-link {
-        padding: 16px 0;
-        justify-content: center;
-      }
-
-      .nav-link.active::before {
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      
-      .external-link::after {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .app-container {
-        flex-direction: column;
-      }
-      
-      .sidenav {
-        width: 100%;
-        flex-direction: row;
-        height: auto;
-      }
-      
-      .nav-logo-placeholder, .outlet-code, .nav-spacer {
-        display: none;
-      }
-      
-      .nav-links {
-        display: flex;
-        overflow-x: auto;
-        padding: 0 10px;
-      }
-      
-      .nav-section {
-        margin-bottom: 0;
-        margin-right: 5px;
-        min-width: 80px;
-      }
-
-      .nav-section-title {
-        padding: 15px 10px;
-        border-radius: 0;
-        white-space: nowrap;
-      }
-
-      .nav-submenu {
-        position: absolute;
-        background: var(--medium-bg);
-        z-index: 100;
-        min-width: 200px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      }
-
-      .nav-link {
-        padding: 12px 15px;
-        white-space: nowrap;
-      }
-      
-      header {
-        padding: 15px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-      }
-      
-      .header-left {
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .header-controls {
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .nav-tabs {
-        order: 2;
-      }
-      
-      .dropdown {
-        order: 3;
-      }
-      
-      .prompt-title {
-        font-size: 1.5rem;
-      }
-      
-      .prompt-message {
-        font-size: 1rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .module-title {
-        font-size: 1.2rem;
-      }
-      
-      .breadcrumb {
-        font-size: 0.8rem;
-      }
-      
-      .nav-tab span {
-        display: none;
-      }
-      
-      .nav-tab {
-        padding: 8px 12px;
-      }
-      
-      .menu-button span {
-        display: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkFit - Management Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #001f3f;
+            --secondary-color: #003366;
+            --accent-color: #FFD700;
+            --dark-bg: #0a192f;
+            --medium-bg: #172a45;
+            --light-bg: #243b55;
+            --text-primary: #e6f1ff;
+            --text-secondary: #a8b2d1;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --gradient-primary: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+            --gradient-bg: linear-gradient(135deg, #0a192f 0%, #172a45 100%);
+            --navy: #001f3f;
+            --navy-light: #003366;
+            --gold: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Side Navigation */
+        .sidenav {
+            width: 280px;
+            background: var(--medium-bg);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .nav-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .outlet-code {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 5px;
+        }
+
+        .nav-section-title {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--accent-color);
+            font-weight: 600;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .nav-section-title:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .nav-section-title i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+        }
+
+        .nav-section.active .nav-submenu {
+            display: block;
+        }
+
+        .nav-link {
+            padding: 10px 20px 10px 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+            user-select: none;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .nav-link.active {
+            color: var(--accent-color);
+            font-weight: 500;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .nav-link.active::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--dark-bg);
+            min-height: 0;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background: var(--medium-bg);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            flex-shrink: 0;
+            z-index: 5;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .module-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 4px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tab.active {
+            background: var(--primary-color);
+            color: var(--accent-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--text-primary);
+        }
+
+        .tools-button {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .tools-button:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Content Area */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tools-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-card {
+            background: var(--medium-bg);
+            border-radius: 8px;
+            padding: 15px;
+            width: 180px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .tool-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .content-area {
+            flex: 1;
+            background: var(--medium-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iframe-container {
+            flex: 1;
+            position: relative;
+        }
+
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            background: white;
+        }
+
+        /* Selection Prompt */
+        .selection-prompt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .prompt-icon {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .prompt-title {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .prompt-message {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--medium-bg);
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 13px;
+            padding: 12px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidenav {
+                width: 80px;
+            }
+            
+            .logo-text, .outlet-code, .nav-section-title span, .nav-link span {
+                display: none;
+            }
+            
+            .nav-section-title {
+                justify-content: center;
+                padding: 16px 0;
+            }
+            
+            .nav-section-title i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .nav-link {
+                padding: 16px 0;
+                justify-content: center;
+            }
+
+            .nav-link.active::before {
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidenav {
+                width: 100%;
+                flex-direction: row;
+                height: auto;
+            }
+            
+            .nav-header {
+                display: none;
+            }
+            
+            .nav-links {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-section {
+                margin-bottom: 0;
+                margin-right: 5px;
+                min-width: 80px;
+            }
+
+            .nav-section-title {
+                padding: 15px 10px;
+                border-radius: 0;
+                white-space: nowrap;
+            }
+
+            .nav-submenu {
+                position: absolute;
+                background: var(--medium-bg);
+                z-index: 100;
+                min-width: 200px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                white-space: nowrap;
+            }
+            
+            header {
+                padding: 15px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .header-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="app-container">
-    <!-- Side Navigation -->
-    <nav class="sidenav">
-      <div class="nav-logo-placeholder">
-        <div class="logo-img">WF</div>
-      </div>
-      
-      <div class="outlet-code">WorkFit Club</div>
-      
-      <div class="nav-spacer"></div>
-      
-      <ul class="nav-links">
-        <!-- Programs Section -->
-        <li class="nav-section active">
-          <div class="nav-section-title">
-            <i class="fas fa-dumbbell"></i>
-            <span>Fitness Programs</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link active" data-section="sports-activities">
-                <span>WorkFit Sports</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="fitness-programs">
-                <span>WorkFit Fitness</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Members Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-users"></i>
-            <span>Members</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="member-profiles">
-                <span>Member Profiles</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="progress-tracking">
-                <span>Progress Tracking</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="membership-management">
-                <span>Membership Management</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Facilities Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-building"></i>
-            <span>Facilities</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="facility-booking">
-                <span>Facility Booking</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="equipment-management">
-                <span>Equipment Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="maintenance">
-                <span>Maintenance</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Financials Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-chart-line"></i>
-            <span>Financials</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="membership-payments">
-                <span>Membership Payments</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="program-revenue">
-                <span>Program Revenue</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="expense-management">
-                <span>Expense Management</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Communications Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-comments"></i>
-            <span>Communications</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="announcements">
-                <span>Announcements</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="event-management">
-                <span>Event Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="feedback-system">
-                <span>Feedback System</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Admin Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-cogs"></i>
-            <span>Admin</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link external-link" data-section="system-admin" data-external-url="https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec">
-                <span>System Administration</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link external-link" data-section="user-management" data-external-url="https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit">
-                <span>User Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link external-link" data-section="settings" data-external-url="https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit">
-                <span>System Settings</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- ENHANCED HEADER -->
-      <header>
-        <div class="header-left">
-          <div>
-            <h1 class="module-title" id="moduleTitle">
-              <span class="module-icon" id="moduleIcon">
-                <i class="fas fa-dumbbell"></i>
-              </span>
-              <span id="moduleTitleText">WorkFit Workspace</span>
-            </h1>
-            <div class="breadcrumb" id="breadcrumb">
-              <span id="breadcrumbModule">Select a section to begin</span>
+    <div class="app-container">
+        <!-- Side Navigation -->
+        <nav class="sidenav">
+            <div class="nav-header">
+                <div class="logo">
+                    <div class="logo-img">WF</div>
+                    <div class="logo-text">WorkFit</div>
+                </div>
+                <div class="outlet-code">Management Hub</div>
             </div>
-          </div>
+            
+            <ul class="nav-links">
+                <!-- Programs Section -->
+                <li class="nav-section active">
+                    <div class="nav-section-title">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>Fitness Programs</span>
+                    </div>
+                    <ul class="nav-submenu">
+                        <li>
+                            <a href="#" class="nav-link active" data-section="sports-activities">
+                                <span>WorkFit Sports</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="fitness-programs">
+                                <span>WorkFit Fitness</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Members Section -->
+                <li class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-users"></i>
+                        <span>Members</span>
+                    </div>
+                    <ul class="nav-submenu">
+                        <li>
+                            <a href="#" class="nav-link" data-section="member-profiles">
+                                <span>Member Profiles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="progress-tracking">
+                                <span>Progress Tracking</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="membership-management">
+                                <span>Membership Management</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Facilities Section -->
+                <li class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-building"></i>
+                        <span>Facilities</span>
+                    </div>
+                    <ul class="nav-submenu">
+                        <li>
+                            <a href="#" class="nav-link" data-section="facility-booking">
+                                <span>Facility Booking</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="equipment-management">
+                                <span>Equipment Management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="maintenance">
+                                <span>Maintenance</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Financials Section -->
+                <li class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Financials</span>
+                    </div>
+                    <ul class="nav-submenu">
+                        <li>
+                            <a href="#" class="nav-link" data-section="membership-payments">
+                                <span>Membership Payments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="program-revenue">
+                                <span>Program Revenue</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="expense-management">
+                                <span>Expense Management</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Communications Section -->
+                <li class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-comments"></i>
+                        <span>Communications</span>
+                    </div>
+                    <ul class="nav-submenu">
+                        <li>
+                            <a href="#" class="nav-link" data-section="announcements">
+                                <span>Announcements</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="event-management">
+                                <span>Event Management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="feedback-system">
+                                <span>Feedback System</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Admin Section -->
+                <li class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-cogs"></i>
+                        <span>Admin</span>
+                    </div>
+                    <ul class="nav-submenu">
+                        <li>
+                            <a href="#" class="nav-link" data-section="system-admin">
+                                <span>System Administration</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="user-management">
+                                <span>User Management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="settings">
+                                <span>System Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="header-left">
+                    <div>
+                        <h1 class="module-title">
+                            <span class="module-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </span>
+                            <span id="moduleTitleText">WorkFit Workspace</span>
+                        </h1>
+                        <div class="breadcrumb" id="breadcrumb">
+                            <span id="breadcrumbModule">Select a section to begin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-controls">
+                    <div class="nav-tabs">
+                        <a href="#" class="nav-tab" data-tab="home" id="homeTab">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="#" class="nav-tab active" data-tab="workspace" id="workspaceTab">
+                            <i class="fas fa-desktop"></i>
+                            <span>Workspace</span>
+                        </a>
+                        <a href="#" class="nav-tab" data-tab="admin" id="adminTab">
+                            <i class="fas fa-cog"></i>
+                            <span>Admin</span>
+                        </a>
+                    </div>
+
+                    <button class="tools-button" id="toolsButton">
+                        <i class="fas fa-tools"></i>
+                        <span>Quick Tools</span>
+                    </button>
+                </div>
+            </header>
+
+            <main>
+                <!-- Selection Prompt -->
+                <div class="selection-prompt" id="selectionPrompt">
+                    <div class="prompt-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h2 class="prompt-title">Welcome to WorkFit Workspace</h2>
+                    <p class="prompt-message">
+                        Select a section from the navigation menu to access management tools, reports, and analytics. 
+                        Choose from Fitness Programs, Members, Facilities, Financials, Communications, or Admin sections to get started.
+                    </p>
+                </div>
+                
+                <!-- Content Area (hidden by default) -->
+                <div class="content-area" id="contentArea" style="display: none;">
+                    <div class="content-header">
+                        <h2 id="contentTitle">Section Tools</h2>
+                    </div>
+                    <div class="tools-container" id="toolsContainer">
+                        <!-- Tools will be populated here -->
+                    </div>
+                    <div class="iframe-container">
+                        <iframe id="contentFrame" loading="lazy" title="WorkFit Management Content"></iframe>
+                    </div>
+                </div>
+            </main>
+
+            <footer>Powered by WorkFit Management System &copy; 2025</footer>
         </div>
-
-        <div class="header-controls">
-          <div class="nav-tabs">
-            <a href="emh-home.html" class="nav-tab" data-tab="home" id="homeTab">
-              <i class="fas fa-home"></i>
-              <span>Home</span>
-            </a>
-            <a href="#" class="nav-tab active" data-tab="workspace" id="workspaceTab">
-              <i class="fas fa-desktop"></i>
-              <span>Workspace</span>
-            </a>
-            <a href="#" class="nav-tab" data-tab="admin" id="adminTab">
-              <i class="fas fa-cog"></i>
-              <span>Admin</span>
-            </a>
-          </div>
-
-          <div class="dropdown" id="dropdown">
-            <button class="menu-button" id="menuToggle">
-              <i class="fas fa-tools"></i>
-              <span>Tools</span>
-            </button>
-            <div class="dropdown-content" id="menuContent">
-              <!-- Tools will be populated dynamically -->
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        <div class="iframe-container">
-          <!-- Selection Prompt -->
-          <div class="selection-prompt" id="selectionPrompt">
-            <div class="prompt-icon">
-              <i class="fas fa-folder-open"></i>
-            </div>
-            <h2 class="prompt-title">Welcome to WorkFit Workspace</h2>
-            <p class="prompt-message">
-              Select a section from the navigation menu to access management tools, reports, and analytics. 
-              Choose from Fitness Programs, Members, Facilities, Financials, Communications, or Admin sections to get started.
-            </p>
-          </div>
-          
-          <iframe id="iframe" loading="lazy" title="WorkFit Management Content"></iframe>
-        </div>
-      </main>
-
-      <footer>Powered by WorkFit Management System &copy; 2025</footer>
     </div>
-  </div>
 
-  <!-- Admin External Page Overlay -->
-  <div class="admin-external-page" id="adminExternalPage">
-    <div class="admin-header">
-      <div class="header-left">
-        <div>
-          <h1 class="module-title">
-            <span class="module-icon">
-              <i class="fas fa-cogs"></i>
-            </span>
-            <span id="adminPageTitle">System Administration</span>
-          </h1>
-          <div class="breadcrumb">
-            <span id="adminBreadcrumbModule">Admin Console</span>
-          </div>
-        </div>
-      </div>
-      <button class="close-admin" id="closeAdminPage">
-        <i class="fas fa-times"></i>
-        <span>Close Admin</span>
-      </button>
-    </div>
-    <div class="admin-content">
-      <iframe class="admin-iframe" id="adminIframe" loading="lazy" title="Admin Console"></iframe>
-    </div>
-  </div>
+    <script>
+        // Module data with all tools
+        const moduleData = {
+            "sports-activities": {
+                title: "WorkFit Sports",
+                icon: "fa-dumbbell",
+                tools: [
+                    { name: "Session Planning", icon: "calendar-alt", url: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit" },
+                    { name: "Attendance Tracking", icon: "clipboard-check", url: "https://docs.google.com/spreadsheets/d/1RysMBv_lrun6YQ2XcuHzckGq-1-6bJyCFY6WKFbjts0/edit" },
+                    { name: "Coach Assignment", icon: "user-tie", url: "https://docs.google.com/spreadsheets/d/1T6qn08TGl4Z49Noxla0e1vuBgzzNum1ZKqMYwboueQM/edit" },
+                    { name: "Performance Metrics", icon: "chart-line", url: "https://docs.google.com/spreadsheets/d/1SPORTS_PERFORMANCE_METRICS_SHEET_ID/edit" }
+                ]
+            },
+            "fitness-programs": {
+                title: "WorkFit Fitness",
+                icon: "fa-running",
+                tools: [
+                    { name: "Program Scheduling", icon: "calendar-plus", url: "https://docs.google.com/spreadsheets/d/1FITNESS_PROGRAM_SCHEDULING_SHEET_ID/edit" },
+                    { name: "Participant Progress", icon: "user-check", url: "https://docs.google.com/spreadsheets/d/1FITNESS_PARTICIPANT_PROGRESS_SHEET_ID/edit" },
+                    { name: "Instructor Management", icon: "chalkboard-teacher", url: "https://docs.google.com/spreadsheets/d/1FITNESS_INSTRUCTOR_MANAGEMENT_SHEET_ID/edit" },
+                    { name: "Class Capacity", icon: "users", url: "https://docs.google.com/spreadsheets/d/1FITNESS_CLASS_CAPACITY_SHEET_ID/edit" }
+                ]
+            },
+            "member-profiles": {
+                title: "Member Profiles",
+                icon: "fa-user",
+                tools: [
+                    { name: "Member Database", icon: "database", url: "https://docs.google.com/spreadsheets/d/1xMnPQ-RzWT_e5Lq4cUZQTDH9_An6lol-2ju1Zqdw53w/edit" },
+                    { name: "Health Profiles", icon: "heartbeat", url: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" },
+                    { name: "Membership Status", icon: "id-card", url: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" }
+                ]
+            },
+            "progress-tracking": {
+                title: "Progress Tracking",
+                icon: "fa-chart-line",
+                tools: [
+                    { name: "Fitness Goals", icon: "bullseye", url: "https://docs.google.com/spreadsheets/d/1PROGRESS_FITNESS_GOALS_SHEET_ID/edit" },
+                    { name: "Achievement Records", icon: "trophy", url: "https://docs.google.com/spreadsheets/d/1PROGRESS_ACHIEVEMENT_RECORDS_SHEET_ID/edit" },
+                    { name: "Assessment History", icon: "clipboard-list", url: "https://docs.google.com/spreadsheets/d/1PROGRESS_ASSESSMENT_HISTORY_SHEET_ID/edit" }
+                ]
+            },
+            "membership-management": {
+                title: "Membership Management",
+                icon: "fa-id-card",
+                tools: [
+                    { name: "Renewal Tracking", icon: "sync-alt", url: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" },
+                    { name: "Tier Management", icon: "layer-group", url: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" },
+                    { name: "Member Communications", icon: "envelope", url: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" }
+                ]
+            },
+            "facility-booking": {
+                title: "Facility Booking",
+                icon: "fa-building",
+                tools: [
+                    { name: "Booking Calendar", icon: "calendar", url: "https://docs.google.com/spreadsheets/d/1FACILITY_BOOKING_CALENDAR_SHEET_ID/edit" },
+                    { name: "Resource Allocation", icon: "project-diagram", url: "https://docs.google.com/spreadsheets/d/1FACILITY_RESOURCE_ALLOCATION_SHEET_ID/edit" },
+                    { name: "Usage Analytics", icon: "chart-pie", url: "https://docs.google.com/spreadsheets/d/1FACILITY_USAGE_ANALYTICS_SHEET_ID/edit" }
+                ]
+            },
+            "equipment-management": {
+                title: "Equipment Management",
+                icon: "fa-dumbbell",
+                tools: [
+                    { name: "Inventory Tracking", icon: "boxes", url: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_INVENTORY_TRACKING_SHEET_ID/edit" },
+                    { name: "Maintenance Schedule", icon: "calendar-check", url: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_MAINTENANCE_SCHEDULE_SHEET_ID/edit" },
+                    { name: "Checkout System", icon: "exchange-alt", url: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_CHECKOUT_SYSTEM_SHEET_ID/edit" }
+                ]
+            },
+            "maintenance": {
+                title: "Maintenance",
+                icon: "fa-tools",
+                tools: [
+                    { name: "Request Tracking", icon: "clipboard-list", url: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_REQUEST_TRACKING_SHEET_ID/edit" },
+                    { name: "Preventive Schedule", icon: "calendar-plus", url: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_PREVENTIVE_SCHEDULE_SHEET_ID/edit" },
+                    { name: "Vendor Management", icon: "handshake", url: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_VENDOR_MANAGEMENT_SHEET_ID/edit" }
+                ]
+            },
+            "membership-payments": {
+                title: "Membership Payments",
+                icon: "fa-money-bill-wave",
+                tools: [
+                    { name: "Payment Tracking", icon: "money-check", url: "https://docs.google.com/spreadsheets/d/1FIN_PAYMENT_TRACKING_SHEET_ID/edit" },
+                    { name: "Invoice Management", icon: "file-invoice", url: "https://docs.google.com/spreadsheets/d/1FIN_INVOICE_MANAGEMENT_SHEET_ID/edit" },
+                    { name: "Revenue Reports", icon: "chart-bar", url: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_REPORTS_SHEET_ID/edit" }
+                ]
+            },
+            "program-revenue": {
+                title: "Program Revenue",
+                icon: "fa-chart-bar",
+                tools: [
+                    { name: "Program Pricing", icon: "tags", url: "https://docs.google.com/spreadsheets/d/1FIN_PROGRAM_PRICING_SHEET_ID/edit" },
+                    { name: "Participation Revenue", icon: "user-plus", url: "https://docs.google.com/spreadsheets/d/1FIN_PARTICIPATION_REVENUE_SHEET_ID/edit" },
+                    { name: "Revenue Analysis", icon: "chart-line", url: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_ANALYSIS_SHEET_ID/edit" }
+                ]
+            },
+            "expense-management": {
+                title: "Expense Management",
+                icon: "fa-receipt",
+                tools: [
+                    { name: "Expense Tracking", icon: "receipt", url: "https://docs.google.com/spreadsheets/d/1FIN_EXPENSE_TRACKING_SHEET_ID/edit" },
+                    { name: "Budget Management", icon: "wallet", url: "https://docs.google.com/spreadsheets/d/1FIN_BUDGET_MANAGEMENT_SHEET_ID/edit" },
+                    { name: "Vendor Payments", icon: "money-bill-wave", url: "https://docs.google.com/spreadsheets/d/1FIN_VENDOR_PAYMENTS_SHEET_ID/edit" }
+                ]
+            },
+            "announcements": {
+                title: "Announcements",
+                icon: "fa-bullhorn",
+                tools: [
+                    { name: "News Feed", icon: "newspaper", url: "https://docs.google.com/spreadsheets/d/1COMM_NEWS_FEED_SHEET_ID/edit" },
+                    { name: "Priority Alerts", icon: "exclamation-circle", url: "https://docs.google.com/spreadsheets/d/1COMM_PRIORITY_ALERTS_SHEET_ID/edit" },
+                    { name: "Archive", icon: "archive", url: "https://docs.google.com/spreadsheets/d/1COMM_ANNOUNCEMENT_ARCHIVE_SHEET_ID/edit" }
+                ]
+            },
+            "event-management": {
+                title: "Event Management",
+                icon: "fa-calendar-alt",
+                tools: [
+                    { name: "Event Calendar", icon: "calendar-alt", url: "https://docs.google.com/spreadsheets/d/1EVENT_CALENDAR_SHEET_ID/edit" },
+                    { name: "Registration Tracking", icon: "clipboard-list", url: "https://docs.google.com/spreadsheets/d/1EVENT_REGISTRATION_TRACKING_SHEET_ID/edit" },
+                    { name: "Participant Management", icon: "users", url: "https://docs.google.com/spreadsheets/d/1EVENT_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" }
+                ]
+            },
+            "feedback-system": {
+                title: "Feedback System",
+                icon: "fa-comments",
+                tools: [
+                    { name: "Survey Management", icon: "poll", url: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" },
+                    { name: "Response Tracking", icon: "comments", url: "https://docs.google.com/spreadsheets/d/1FEEDBACK_RESPONSE_TRACKING_SHEET_ID/edit" },
+                    { name: "Improvement Plans", icon: "lightbulb", url: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" }
+                ]
+            },
+            "system-admin": {
+                title: "System Administration",
+                icon: "fa-cogs",
+                tools: [
+                    { name: "Admin Console", icon: "cogs", url: "https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec" }
+                ]
+            },
+            "user-management": {
+                title: "User Management",
+                icon: "fa-users-cog",
+                tools: [
+                    { name: "User Accounts", icon: "user-cog", url: "https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit" },
+                    { name: "Permissions", icon: "user-shield", url: "https://docs.google.com/spreadsheets/d/1ADMIN_PERMISSIONS_SHEET_ID/edit" }
+                ]
+            },
+            "settings": {
+                title: "System Settings",
+                icon: "fa-sliders-h",
+                tools: [
+                    { name: "Configuration", icon: "sliders-h", url: "https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit" },
+                    { name: "Backup & Restore", icon: "archive", url: "https://docs.google.com/spreadsheets/d/1ADMIN_BACKUP_SHEET_ID/edit" }
+                ]
+            }
+        };
 
-  <script>
-    // Data for each section with sheet URLs for each tool
-    const moduleData = {
-      // Sports Activities
-      "sports-activities": {
-        title: "WorkFit Sports",
-        icon: "fa-dumbbell",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Session Planning", 
-            link: "session-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit" 
-          },
-          { 
-            name: "Attendance Tracking", 
-            link: "attendance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RysMBv_lrun6YQ2XcuHzckGq-1-6bJyCFY6WKFbjts0/edit" 
-          },
-          { 
-            name: "Coach Assignment", 
-            link: "coach-assignment",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1T6qn08TGl4Z49Noxla0e1vuBgzzNum1ZKqMYwboueQM/edit" 
-          },
-          { 
-            name: "Performance Metrics", 
-            link: "performance-metrics",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1SPORTS_PERFORMANCE_METRICS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "fitness-programs": {
-        title: "WorkFit Fitness",
-        icon: "fa-running",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Program Scheduling", 
-            link: "program-scheduling",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_PROGRAM_SCHEDULING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Participant Progress", 
-            link: "participant-progress",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_PARTICIPANT_PROGRESS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Instructor Management", 
-            link: "instructor-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_INSTRUCTOR_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Class Capacity", 
-            link: "class-capacity",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_CLASS_CAPACITY_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Members Section
-      "member-profiles": {
-        title: "Member Profiles",
-        icon: "fa-user",
-        section: "Members",
-        tools: [
-          { 
-            name: "Member Database", 
-            link: "member-database",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1xMnPQ-RzWT_e5Lq4cUZQTDH9_An6lol-2ju1Zqdw53w/edit" 
-          },
-          { 
-            name: "Health Profiles", 
-            link: "health-profiles",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
-          },
-          { 
-            name: "Membership Status", 
-            link: "membership-status",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "progress-tracking": {
-        title: "Progress Tracking",
-        icon: "fa-chart-line",
-        section: "Members",
-        tools: [
-          { 
-            name: "Fitness Goals", 
-            link: "fitness-goals",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_FITNESS_GOALS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Achievement Records", 
-            link: "achievement-records",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_ACHIEVEMENT_RECORDS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Assessment History", 
-            link: "assessment-history",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_ASSESSMENT_HISTORY_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "membership-management": {
-        title: "Membership Management",
-        icon: "fa-id-card",
-        section: "Members",
-        tools: [
-          { 
-            name: "Renewal Tracking", 
-            link: "renewal-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Tier Management", 
-            link: "tier-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Member Communications", 
-            link: "member-communications",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
-          }
-        ]
-      }
-    };
+        // DOM elements
+        const selectionPrompt = document.getElementById('selectionPrompt');
+        const contentArea = document.getElementById('contentArea');
+        const contentTitle = document.getElementById('contentTitle');
+        const toolsContainer = document.getElementById('toolsContainer');
+        const contentFrame = document.getElementById('contentFrame');
+        const moduleTitleText = document.getElementById('moduleTitleText');
+        const moduleIcon = document.getElementById('moduleIcon');
+        const breadcrumbModule = document.getElementById('breadcrumbModule');
+        const navSections = document.querySelectorAll('.nav-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navTabs = document.querySelectorAll('.nav-tab');
 
-    // DOM elements
-    const iframe = document.getElementById("iframe");
-    const dropdown = document.getElementById("dropdown");
-    const menuToggle = document.getElementById("menuToggle");
-    const menuContent = document.getElementById("menuContent");
-    const moduleTitle = document.getElementById("moduleTitleText");
-    const moduleIcon = document.getElementById("moduleIcon");
-    const breadcrumb = document.getElementById("breadcrumb");
-    const breadcrumbModule = document.getElementById("breadcrumbModule");
-    const navSections = document.querySelectorAll(".nav-section");
-    const navLinks = document.querySelectorAll(".nav-link");
-    const navTabs = document.querySelectorAll(".nav-tab");
-    const homeTab = document.getElementById("homeTab");
-    const workspaceTab = document.getElementById("workspaceTab");
-    const adminTab = document.getElementById("adminTab");
-    const selectionPrompt = document.getElementById("selectionPrompt");
-    
-    // Admin external page elements
-    const adminExternalPage = document.getElementById("adminExternalPage");
-    const adminIframe = document.getElementById("adminIframe");
-    const adminPageTitle = document.getElementById("adminPageTitle");
-    const adminBreadcrumbModule = document.getElementById("adminBreadcrumbModule");
-    const closeAdminPage = document.getElementById("closeAdminPage");
-
-    // Initialize the application
-    function initApp() {
-      console.log("Initializing WorkFit Workspace...");
-      setupEventListeners();
-      
-      // Set workspace tab as active since this is the workspace page
-      setActiveTab('workspace');
-      
-      // Show selection prompt initially
-      showSelectionPrompt();
-      
-      console.log("WorkFit Workspace initialized successfully");
-    }
-
-    // Set up all event listeners
-    function setupEventListeners() {
-      console.log("Setting up event listeners...");
-      
-      // Navigation section clicks
-      document.querySelectorAll(".nav-section-title").forEach(title => {
-        title.addEventListener("click", function(e) {
-          e.stopPropagation();
-          const section = this.parentElement;
-          navSections.forEach(s => {
-            if (s !== section) s.classList.remove("active");
-          });
-          section.classList.toggle("active");
-        });
-      });
-
-      // Nav link clicks
-      navLinks.forEach(link => {
-        link.addEventListener("click", function(e) {
-          e.preventDefault();
-          console.log("Nav link clicked:", this.dataset.section);
-          const externalUrl = this.dataset.externalUrl;
-          if (externalUrl) {
-            // Open external admin page
-            openAdminExternalPage(this);
-          } else {
-            handleNavLinkClick(this);
-          }
-        });
-      });
-
-      // Tool clicks
-      menuContent.addEventListener("click", function(e) {
-        if (e.target.tagName === 'A') {
-          e.preventDefault();
-          handleToolClick(e.target);
+        // Initialize the application
+        function initApp() {
+            setupEventListeners();
+            showSelectionPrompt();
         }
-      });
 
-      // Toggle dropdown
-      menuToggle.addEventListener("click", function(e) {
-        e.stopPropagation();
-        dropdown.classList.toggle("open");
-      });
+        // Set up event listeners
+        function setupEventListeners() {
+            // Navigation section clicks
+            document.querySelectorAll('.nav-section-title').forEach(title => {
+                title.addEventListener('click', function() {
+                    const section = this.parentElement;
+                    navSections.forEach(s => {
+                        if (s !== section) s.classList.remove('active');
+                    });
+                    section.classList.toggle('active');
+                });
+            });
 
-      // Close dropdown when clicking outside
-      document.addEventListener("click", function() {
-        dropdown.classList.remove("open");
-      });
+            // Nav link clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleNavLinkClick(this);
+                });
+            });
 
-      // Tab clicks
-      homeTab.addEventListener("click", function(e) {
-        e.preventDefault();
-        // Redirect to your actual homepage
-        window.location.href = "emh-home.html";
-      });
-      
-      workspaceTab.addEventListener("click", function(e) {
-        e.preventDefault();
-        setActiveTab('workspace');
-        // Show selection prompt when switching to workspace
-        showSelectionPrompt();
-      });
-      
-      adminTab.addEventListener("click", function(e) {
-        e.preventDefault();
-        setActiveTab('admin');
-        // Open the first admin section in external page
-        const adminLink = document.querySelector('[data-section="system-admin"]');
-        if (adminLink) {
-          openAdminExternalPage(adminLink);
+            // Tab clicks
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    setActiveTab(this.dataset.tab);
+                });
+            });
+
+            // Tools button
+            document.getElementById('toolsButton').addEventListener('click', function() {
+                alert('Quick Tools feature would open here with frequently used tools.');
+            });
         }
-      });
 
-      // Admin external page close button
-      closeAdminPage.addEventListener("click", function() {
-        closeAdminExternalPage();
-        // Switch back to workspace tab when closing admin
-        setActiveTab('workspace');
-        showSelectionPrompt();
-      });
-      
-      console.log("Event listeners set up successfully");
-    }
-
-    // Show selection prompt
-    function showSelectionPrompt() {
-      selectionPrompt.classList.remove('hidden');
-      iframe.style.display = 'none';
-      moduleTitle.textContent = "WorkFit Workspace";
-      updateModuleIcon('fa-desktop');
-      breadcrumbModule.textContent = "Select a section to begin";
-    }
-
-    // Hide selection prompt
-    function hideSelectionPrompt() {
-      selectionPrompt.classList.add('hidden');
-      iframe.style.display = 'block';
-    }
-
-    // Open admin external page
-    function openAdminExternalPage(link) {
-      const section = link.dataset.section;
-      const data = moduleData[section];
-      const externalUrl = link.dataset.externalUrl;
-      
-      if (!data || !externalUrl) {
-        console.error("No data or URL found for admin section:", section);
-        return;
-      }
-      
-      // Update admin page title and breadcrumb
-      adminPageTitle.textContent = data.title;
-      adminBreadcrumbModule.textContent = data.title;
-      
-      // Load the external URL in admin iframe
-      adminIframe.src = externalUrl;
-      
-      // Show the admin external page
-      adminExternalPage.classList.add('active');
-      
-      // Update active states in sidebar
-      navLinks.forEach(l => l.classList.remove("active"));
-      link.classList.add("active");
-      
-      // Update active tab
-      setActiveTab('admin');
-    }
-
-    // Close admin external page
-    function closeAdminExternalPage() {
-      adminExternalPage.classList.remove('active');
-      adminIframe.src = '';
-    }
-
-    // Set active tab
-    function setActiveTab(tabName) {
-      navTabs.forEach(tab => {
-        if (tab.dataset.tab === tabName) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
+        // Handle navigation link clicks
+        function handleNavLinkClick(link) {
+            // Update active states
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Update content
+            const section = link.dataset.section;
+            const data = moduleData[section];
+            
+            if (!data) {
+                console.error('No data found for section:', section);
+                return;
+            }
+            
+            // Update UI
+            moduleTitleText.textContent = data.title;
+            updateModuleIcon(data.icon);
+            breadcrumbModule.textContent = data.title;
+            
+            // Show content area
+            showContentArea();
+            
+            // Update tools
+            updateTools(data.tools);
+            
+            // Load first tool by default
+            if (data.tools.length > 0) {
+                loadTool(data.tools[0]);
+            }
         }
-      });
-    }
 
-    // Handle navigation link clicks
-    function handleNavLinkClick(link) {
-      // Update active states
-      navLinks.forEach(l => l.classList.remove("active"));
-      link.classList.add("active");
-      
-      // Update content
-      const section = link.dataset.section;
-      const data = moduleData[section];
-      
-      if (!data) {
-        console.error("No data found for section:", section);
-        return;
-      }
-      
-      moduleTitle.textContent = data.title;
-      
-      // Update module icon
-      updateModuleIcon(data.icon);
-      
-      // Update breadcrumb
-      breadcrumbModule.textContent = data.title;
-      
-      // Update tools dropdown
-      updateToolsMenu(data.tools);
-      
-      // Hide selection prompt and show iframe
-      hideSelectionPrompt();
-      
-      // Load the first tool's content by default
-      if (data.tools.length > 0) {
-        loadToolContent(data.tools[0].sheetUrl);
-      }
-      
-      // Update active tab
-      setActiveTab('workspace');
-    }
-
-    // Update the module icon
-    function updateModuleIcon(iconClass) {
-      moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
-    }
-
-    // Update the tools dropdown menu
-    function updateToolsMenu(tools) {
-      menuContent.innerHTML = '';
-      tools.forEach(tool => {
-        const link = document.createElement('a');
-        link.href = '#';
-        link.innerHTML = `<i class="fas fa-${getToolIcon(tool.name)}"></i><span>${tool.name}</span>`;
-        link.dataset.link = tool.link;
-        link.dataset.sheetUrl = tool.sheetUrl;
-        menuContent.appendChild(link);
-      });
-    }
-
-    // Helper function to get appropriate icons for tools
-    function getToolIcon(toolName) {
-      const iconMap = {
-        'Session Planning': 'calendar-alt',
-        'Attendance Tracking': 'clipboard-check',
-        'Coach Assignment': 'user-tie',
-        'Performance Metrics': 'chart-line',
-        'Program Scheduling': 'calendar-plus',
-        'Participant Progress': 'user-check',
-        'Instructor Management': 'chalkboard-teacher',
-        'Class Capacity': 'users',
-        'Member Database': 'database',
-        'Health Profiles': 'heartbeat',
-        'Membership Status': 'id-card',
-        'Fitness Goals': 'bullseye',
-        'Achievement Records': 'trophy',
-        'Assessment History': 'clipboard-list',
-        'Renewal Tracking': 'sync-alt',
-        'Tier Management': 'layer-group',
-        'Member Communications': 'envelope'
-      };
-      
-      return iconMap[toolName] || 'cog';
-    }
-
-    // Handle tool selection
-    function handleToolClick(toolElement) {
-      dropdown.classList.remove("open");
-      const sheetUrl = toolElement.dataset.sheetUrl;
-      loadToolContent(sheetUrl);
-    }
-
-    // Load content for a tool
-    function loadToolContent(sheetUrl) {
-      if (sheetUrl && sheetUrl.includes('docs.google.com')) {
-        const sheetId = extractSheetId(sheetUrl);
-        if (sheetId) {
-          // Load the sheet with full toolbar
-          iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
-        } else {
-          showPlaceholderContent("Invalid Google Sheet URL format");
+        // Update the module icon
+        function updateModuleIcon(iconClass) {
+            moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
         }
-      } else if (sheetUrl && sheetUrl.includes('script.google.com')) {
-        // Load Google Apps Script directly
-        iframe.src = sheetUrl;
-      } else {
-        showPlaceholderContent("No content configured for this tool");
-      }
-    }
 
-    // Show placeholder content
-    function showPlaceholderContent(message) {
-      iframe.srcdoc = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100%;
-              font-family: Arial, sans-serif;
-              color: #666;
-              background: #f9f9f9;
-            }
-            .content {
-              text-align: center;
-              padding: 20px;
-              max-width: 500px;
-            }
-            i {
-              font-size: 3rem;
-              color: #ddd;
-              margin-bottom: 20px;
-            }
-            h2 {
-              color: #444;
-              margin: 0 0 15px 0;
-            }
-            p {
-              margin: 5px 0;
-              line-height: 1.5;
-            }
-          </style>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        </head>
-        <body>
-          <div class="content">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>Content Not Available</h2>
-            <p>${message}</p>
-            ${message.includes('configured') ? '<p>Please configure a valid Google Sheet URL in the moduleData object.</p>' : ''}
-          </div>
-        </body>
-        </html>
-      `;
-    }
+        // Update tools in the content area
+        function updateTools(tools) {
+            toolsContainer.innerHTML = '';
+            contentTitle.textContent = 'Available Tools';
+            
+            tools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'tool-card';
+                toolCard.innerHTML = `
+                    <div class="tool-icon">
+                        <i class="fas fa-${tool.icon}"></i>
+                    </div>
+                    <div class="tool-name">${tool.name}</div>
+                    <div class="tool-desc">Click to open</div>
+                `;
+                toolCard.addEventListener('click', () => loadTool(tool));
+                toolsContainer.appendChild(toolCard);
+            });
+        }
 
-    // Helper function to extract sheet ID from URL
-    function extractSheetId(url) {
-      try {
-        const match = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-        return match ? match[1] : null;
-      } catch (e) {
-        console.error("Error extracting sheet ID:", e);
-        return null;
-      }
-    }
+        // Load a tool in the iframe
+        function loadTool(tool) {
+            contentFrame.src = tool.url;
+            contentTitle.textContent = tool.name;
+        }
 
-    // Initialize the application when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initApp);
-    } else {
-      // DOM already loaded
-      initApp();
-    }
-  </script>
+        // Show selection prompt
+        function showSelectionPrompt() {
+            selectionPrompt.style.display = 'flex';
+            contentArea.style.display = 'none';
+        }
 
+        // Show content area
+        function showContentArea() {
+            selectionPrompt.style.display = 'none';
+            contentArea.style.display = 'flex';
+        }
+
+        // Set active tab
+        function setActiveTab(tabName) {
+            navTabs.forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            if (tabName === 'home') {
+                // In a real app, this would redirect to the home page
+                alert('Redirecting to Home page...');
+            } else if (tabName === 'admin') {
+                // Show admin section
+                const adminLink = document.querySelector('[data-section="system-admin"]');
+                if (adminLink) {
+                    handleNavLinkClick(adminLink);
+                }
+            }
+        }
+
+        // Initialize the app when DOM is ready
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
 </body>
 </html>
