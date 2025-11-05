@@ -119,6 +119,7 @@
       border-radius: 8px;
       transition: all 0.2s;
       user-select: none;
+      justify-content: space-between;
     }
 
     .nav-section-title:hover {
@@ -130,6 +131,16 @@
       width: 20px;
       text-align: center;
       font-size: 1.1rem;
+    }
+
+    .nav-section-title .dropdown-arrow {
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+      margin-right: 0;
+    }
+
+    .nav-section.active .dropdown-arrow {
+      transform: rotate(180deg);
     }
 
     .nav-submenu {
@@ -312,68 +323,6 @@
       font-size: 0.9rem;
     }
 
-    .dropdown {
-      position: relative;
-    }
-
-    .menu-button {
-      background: rgba(255, 215, 0, 0.1);
-      color: var(--accent-color);
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-
-    .menu-button:hover {
-      background: rgba(255, 215, 0, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: calc(100% + 5px);
-      right: 0;
-      min-width: 220px;
-      background: var(--medium-bg);
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      border: 1px solid rgba(255,255,255,0.05);
-      overflow: hidden;
-    }
-
-    .dropdown-content a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      text-decoration: none;
-      font-size: 14px;
-      color: var(--text-secondary);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.2s;
-    }
-
-    .dropdown-content a:hover {
-      color: var(--text-primary);
-      background: rgba(255, 215, 0, 0.05);
-    }
-
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown.open .dropdown-content {
-      display: block;
-    }
-
     /* Content area */
     main {
       flex: 1;
@@ -520,7 +469,7 @@
     }
 
     .loading-text {
-      color: var(--primary-color);
+      color: var(--text-primary);
       font-size: 1rem;
     }
 
@@ -566,6 +515,10 @@
       }
       
       .external-link::after {
+        display: none;
+      }
+      
+      .dropdown-arrow {
         display: none;
       }
     }
@@ -637,10 +590,6 @@
         order: 2;
       }
       
-      .dropdown {
-        order: 3;
-      }
-      
       .prompt-title {
         font-size: 1.5rem;
       }
@@ -666,10 +615,6 @@
       .nav-tab {
         padding: 8px 12px;
       }
-      
-      .menu-button span {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -690,8 +635,11 @@
         <!-- Programs Section -->
         <li class="nav-section active">
           <div class="nav-section-title">
-            <i class="fas fa-dumbbell"></i>
-            <span>Fitness Programs</span>
+            <div class="title-content">
+              <i class="fas fa-dumbbell"></i>
+              <span>Fitness Programs</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -710,8 +658,11 @@
         <!-- Members Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-users"></i>
-            <span>Members</span>
+            <div class="title-content">
+              <i class="fas fa-users"></i>
+              <span>Members</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -735,8 +686,11 @@
         <!-- Facilities Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-building"></i>
-            <span>Facilities</span>
+            <div class="title-content">
+              <i class="fas fa-building"></i>
+              <span>Facilities</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -760,8 +714,11 @@
         <!-- Financials Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-chart-line"></i>
-            <span>Financials</span>
+            <div class="title-content">
+              <i class="fas fa-chart-line"></i>
+              <span>Financials</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -785,8 +742,11 @@
         <!-- Communications Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-comments"></i>
-            <span>Communications</span>
+            <div class="title-content">
+              <i class="fas fa-comments"></i>
+              <span>Communications</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -810,8 +770,11 @@
         <!-- Client Relations Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-handshake"></i>
-            <span>Client Relations</span>
+            <div class="title-content">
+              <i class="fas fa-handshake"></i>
+              <span>Client Relations</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -835,8 +798,11 @@
         <!-- Store Systems Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-store"></i>
-            <span>Store Systems</span>
+            <div class="title-content">
+              <i class="fas fa-store"></i>
+              <span>Store Systems</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -860,8 +826,11 @@
         <!-- Admin Section -->
         <li class="nav-section">
           <div class="nav-section-title">
-            <i class="fas fa-cogs"></i>
-            <span>Admin</span>
+            <div class="title-content">
+              <i class="fas fa-cogs"></i>
+              <span>Admin</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
           <ul class="nav-submenu">
             <li>
@@ -917,16 +886,6 @@
               <span>Admin</span>
             </a>
           </div>
-
-          <div class="dropdown" id="dropdown">
-            <button class="menu-button" id="menuToggle">
-              <i class="fas fa-tools"></i>
-              <span>Tools</span>
-            </button>
-            <div class="dropdown-content" id="menuContent">
-              <!-- Tools will be populated dynamically -->
-            </div>
-          </div>
         </div>
       </header>
 
@@ -954,7 +913,7 @@
         </div>
       </main>
 
-      <footer>Powered by Enterprise Management System,  EMH &copy; 2025</footer>
+      <footer>Powered by WorkFit Management System &copy; 2025</footer>
     </div>
   </div>
 
@@ -992,45 +951,13 @@
         title: "WorkFit Sports",
         icon: "fa-dumbbell",
         section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Session Planning", 
-            link: "session-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Attendance Tracking", 
-            link: "attendance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RysMBv_lrun6YQ2XcuHzckGq-1-6bJyCFY6WKFbjts0/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Coach Assignment", 
-            link: "coach-assignment",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1T6qn08TGl4Z49Noxla0e1vuBgzzNum1ZKqMYwboueQM/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit?usp=sharing&rm=minimal"
       },
       "fitness-programs": {
         title: "WorkFit Fitness",
         icon: "fa-running",
         section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Program Scheduling", 
-            link: "program-scheduling",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1p59ctto0nc6wSYlVov3tWlmgN6FfMWD1ubvgon3PyD4/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Participant Progress", 
-            link: "participant-progress",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1lZlt9p4c_g81lnuAX3GgpmvYizEZmIR_Un4Q7rERR5I/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Instructor Management", 
-            link: "instructor-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1pVEfdP_vI5tqly-O25cM0X_aEzfabin2M3SAzpggsx4/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1p59ctto0nc6wSYlVov3tWlmgN6FfMWD1ubvgon3PyD4/edit?usp=sharing&rm=minimal"
       },
       
       // Members Section
@@ -1038,42 +965,19 @@
         title: "Member Profiles",
         icon: "fa-user",
         section: "Members",
-        tools: [
-          { 
-            name: "Member Database", 
-            link: "member-database",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1WYO_RK1zA1HDePWH6WUsuyLfoDEALdg9o1nsBZGzaLY/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1WYO_RK1zA1HDePWH6WUsuyLfoDEALdg9o1nsBZGzaLY/edit?usp=sharing&rm=minimal"
       },
       "progress-tracking": {
         title: "Progress Tracking",
         icon: "fa-chart-line",
         section: "Members",
-        tools: [
-          { 
-            name: "Fitness Tracker", 
-            link: "fitness-goals",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1r5LSlqC5PwhIURTjTAQE4kxRpPe-3io6sU15dGy6xmY/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Assessment History", 
-            link: "assessment-history",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RyJZkMkSB4CJSTRZhEjUC4eTICtheB4pxc7ITlgMoeE/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1r5LSlqC5PwhIURTjTAQE4kxRpPe-3io6sU15dGy6xmY/edit?usp=sharing&rm=minimal"
       },
       "membership-management": {
         title: "Membership Management",
         icon: "fa-id-card",
         section: "Members",
-        tools: [
-          { 
-            name: "Subscription Tracking", 
-            link: "renewal-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/15ktD-4U_xwV9uIvM4cqsEqVgZBpivAAGUNXc6KD0-rE/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/15ktD-4U_xwV9uIvM4cqsEqVgZBpivAAGUNXc6KD0-rE/edit?usp=sharing&rm=minimal"
       },
       
       // Facilities Section
@@ -1081,37 +985,19 @@
         title: "Facility Booking",
         icon: "fa-building",
         section: "Facilities",
-        tools: [
-          { 
-            name: "Facility Booking Management", 
-            link: "booking-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1wvxMDXTW_nfbfoVqiiazLFyOPJkBm3eGGcpxzh88Lhg/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1wvxMDXTW_nfbfoVqiiazLFyOPJkBm3eGGcpxzh88Lhg/edit?usp=sharing&rm=minimal"
       },
       "equipment-management": {
         title: "Equipment Management",
         icon: "fa-dumbbell",
         section: "Facilities",
-        tools: [
-          { 
-            name: "Equipment Master", 
-            link: "inventory-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/19pVVJnhfF2XhU5VMuw20UI0oTDXFWmUp2GnX4hiYn8c/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/19pVVJnhfF2XhU5VMuw20UI0oTDXFWmUp2GnX4hiYn8c/edit?usp=sharing&rm=minimal"
       },
       "maintenance": {
         title: "Maintenance",
         icon: "fa-tools",
         section: "Facilities",
-        tools: [
-          { 
-            name: "Repair and Maintenance", 
-            link: "request-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1-DhAGxvejOYdPG53l8m9EexlY3Qrx0gHe72oOAAoIfU/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1-DhAGxvejOYdPG53l8m9EexlY3Qrx0gHe72oOAAoIfU/edit?usp=sharing&rm=minimal"
       },
       
       // Financials
@@ -1119,37 +1005,19 @@
         title: "Payments",
         icon: "fa-money-bill-wave",
         section: "Financials",
-        tools: [
-          { 
-            name: "Payments Tracker", 
-            link: "payment-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RdfTXe-G5YJLFpC0Qi60eJJF8XWU4bSOzq1hczAVn6A/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1RdfTXe-G5YJLFpC0Qi60eJJF8XWU4bSOzq1hczAVn6A/edit?usp=sharing&rm=minimal"
       },
       "program-revenue": {
         title: "Program Revenue",
         icon: "fa-chart-bar",
         section: "Financials",
-        tools: [
-          { 
-            name: "Program Pricing", 
-            link: "program-pricing",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1nLgLcVpOnOt5oCd68UTAu9bAyJhl5yA5UdMQ0WaHCy4/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1nLgLcVpOnOt5oCd68UTAu9bAyJhl5yA5UdMQ0WaHCy4/edit?usp=sharing&rm=minimal"
       },
       "expense-management": {
         title: "Budget Management",
         icon: "fa-receipt",
         section: "Financials",
-        tools: [
-          { 
-            name: "Budget Management", 
-            link: "budget-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1-Y1eYHHzwLBILDzf53UwKiH3v3h7ZaXZahLAp1sgxI4/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1-Y1eYHHzwLBILDzf53UwKiH3v3h7ZaXZahLAp1sgxI4/edit?usp=sharing&rm=minimal"
       },
       
       // Communications
@@ -1157,25 +1025,19 @@
         title: "Announcements",
         icon: "fa-bullhorn",
         section: "Communications",
-        tools: [
-          { 
-            name: "Communications Feed", 
-            link: "news-feed",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CrEwgUV017TSK6aLJOv-CkN7lPHPwfdAnqJfAtgpLgE/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1CrEwgUV017TSK6aLJOv-CkN7lPHPwfdAnqJfAtgpLgE/edit?usp=sharing&rm=minimal"
       },
       "event-management": {
         title: "Event Management",
         icon: "fa-calendar-alt",
         section: "Communications",
-        tools: [
-          { 
-            name: "Event Database", 
-            link: "event-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1Y07nNrucQMbHAdKWLWGD0JGzCjGQ44aOHVSavKgID0o/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1Y07nNrucQMbHAdKWLWGD0JGzCjGQ44aOHVSavKgID0o/edit?usp=sharing&rm=minimal"
+      },
+      "feedback-system": {
+        title: "Feedback System",
+        icon: "fa-comments",
+        section: "Communications",
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal"
       },
       
       // Client Relations Section
@@ -1183,25 +1045,19 @@
         title: "Client Feedback",
         icon: "fa-star",
         section: "Client Relations",
-        tools: [
-          { 
-            name: "Feedback Collection", 
-            link: "feedback-collection",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1o-fkjDfXxE6UAC2kr48eRmIdVCPN1zBpdtmftNulAng/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1CLIENT_FEEDBACK_COLLECTION_SHEET_ID/edit?usp=sharing&rm=minimal"
+      },
+      "support-tickets": {
+        title: "Support Tickets",
+        icon: "fa-ticket-alt",
+        section: "Client Relations",
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1SUPPORT_TICKET_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal"
       },
       "client-engagement": {
         title: "Client Engagement",
         icon: "fa-handshake",
         section: "Client Relations",
-        tools: [
-          { 
-            name: "Engagement Tracking", 
-            link: "engagement-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1GazNX4RzCs79u3XkTT00GnBk2VidXMBh30uOWf6JYD0/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1CLIENT_ENGAGEMENT_TRACKING_SHEET_ID/edit?usp=sharing&rm=minimal"
       },
       
       // Store Systems Section
@@ -1209,42 +1065,19 @@
         title: "Inventory Management",
         icon: "fa-boxes",
         section: "Store Systems",
-        tools: [
-          { 
-            name: "Inventory Master", 
-            link: "product-catalog",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1Nk_hNfs639X4eAO0kHhyph-i5PnYTWL-BLWg-Tn9vr0/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_PRODUCT_CATALOG_SHEET_ID/edit?usp=sharing&rm=minimal"
       },
       "sales-tracking": {
         title: "Sales Tracking",
         icon: "fa-chart-line",
         section: "Store Systems",
-        tools: [
-          { 
-            name: "Sales Dashboard", 
-            link: "sales-dashboard",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1Sh0QuNQFrGEW-qj0WjDZQFinzI8OnpwSlXi8Cp0RoVk/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_SALES_DASHBOARD_SHEET_ID/edit?usp=sharing&rm=minimal"
       },
       "store-management": {
         title: "Store Management",
         icon: "fa-store",
         section: "Store Systems",
-        tools: [
-          { 
-            name: "Store Mastersheet", 
-            link: "store-mastersheet",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1R9B9Uc2hQshKppwjxP2g8gyjBQoXFwteLlMrDZGYD8Q/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Staff Scheduling", 
-            link: "staff-scheduling",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_STAFF_SCHEDULING_SHEET_ID/edit?usp=sharing&rm=minimal" 
-          }
-        ]
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1R9B9Uc2hQshKppwjxP2g8gyjBQoXFwteLlMrDZGYD8Q/edit?usp=sharing&rm=minimal"
       },
       
       // Admin Section
@@ -1252,61 +1085,29 @@
         title: "System Administration",
         icon: "fa-cogs",
         section: "Admin",
-        tools: [
-          { 
-            name: "Admin Console", 
-            link: "admin-console",
-            sheetUrl: "https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec" 
-          }
-        ],
+        sheetUrl: "https://script.google.com/macros/s/AKfycbwlkyI5oMXBV5Tq0Vo4GTJLv0wlwPu0WN6EZ2PKbale8ILBu878bVmSQd12tHtm-V8OjQ/exec",
         isAdmin: true
       },
       "user-management": {
         title: "User Management",
         icon: "fa-users-cog",
         section: "Admin",
-        tools: [
-          { 
-            name: "User Accounts", 
-            link: "user-accounts",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Permissions", 
-            link: "permissions",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_PERMISSIONS_SHEET_ID/edit?usp=sharing&rm=minimal" 
-          }
-        ],
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal",
         isAdmin: true
       },
       "settings": {
         title: "System Settings",
         icon: "fa-sliders-h",
         section: "Admin",
-        tools: [
-          { 
-            name: "Configuration", 
-            link: "configuration",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit?usp=sharing&rm=minimal" 
-          },
-          { 
-            name: "Backup & Restore", 
-            link: "backup-restore",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_BACKUP_SHEET_ID/edit?usp=sharing&rm=minimal" 
-          }
-        ],
+        sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit?usp=sharing&rm=minimal",
         isAdmin: true
       }
     };
 
     // DOM elements
     const iframe = document.getElementById("iframe");
-    const dropdown = document.getElementById("dropdown");
-    const menuToggle = document.getElementById("menuToggle");
-    const menuContent = document.getElementById("menuContent");
     const moduleTitle = document.getElementById("moduleTitleText");
     const moduleIcon = document.getElementById("moduleIcon");
-    const breadcrumb = document.getElementById("breadcrumb");
     const breadcrumbModule = document.getElementById("breadcrumbModule");
     const navSections = document.querySelectorAll(".nav-section");
     const navLinks = document.querySelectorAll(".nav-link");
@@ -1336,6 +1137,11 @@
       
       // Show selection prompt initially
       showSelectionPrompt();
+      
+      // Auto-expand the first section
+      if (navSections.length > 0) {
+        navSections[0].classList.add('active');
+      }
     }
 
     // Set up all event listeners
@@ -1364,25 +1170,6 @@
             handleNavLinkClick(this);
           }
         });
-      });
-
-      // Tool clicks
-      menuContent.addEventListener("click", function(e) {
-        if (e.target.tagName === 'A') {
-          e.preventDefault();
-          handleToolClick(e.target);
-        }
-      });
-
-      // Toggle dropdown
-      menuToggle.addEventListener("click", function(e) {
-        e.stopPropagation();
-        dropdown.classList.toggle("open");
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener("click", function() {
-        dropdown.classList.remove("open");
       });
 
       // Tab clicks
@@ -1525,16 +1312,11 @@
       // Update breadcrumb
       breadcrumbModule.textContent = data.title;
       
-      // Update tools dropdown
-      updateToolsMenu(data.tools);
-      
       // Hide selection prompt and show iframe
       hideSelectionPrompt();
       
-      // Load the first tool's content by default
-      if (data.tools.length > 0) {
-        loadToolContent(data.tools[0].sheetUrl);
-      }
+      // Load the content
+      loadContent(data.sheetUrl);
       
       // Update active tab
       setActiveTab('workspace');
@@ -1545,99 +1327,8 @@
       moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
     }
 
-    // Update the tools dropdown menu
-    function updateToolsMenu(tools) {
-      menuContent.innerHTML = '';
-      tools.forEach(tool => {
-        const link = document.createElement('a');
-        link.href = '#';
-        link.innerHTML = `<i class="fas fa-${getToolIcon(tool.name)}"></i><span>${tool.name}</span>`;
-        link.dataset.link = tool.link;
-        link.dataset.sheetUrl = tool.sheetUrl;
-        menuContent.appendChild(link);
-      });
-    }
-
-    // Helper function to get appropriate icons for tools
-    function getToolIcon(toolName) {
-      const iconMap = {
-        'Session Planning': 'calendar-alt',
-        'Attendance Tracking': 'clipboard-check',
-        'Coach Assignment': 'user-tie',
-        'Performance Metrics': 'chart-line',
-        'Program Scheduling': 'calendar-plus',
-        'Participant Progress': 'user-check',
-        'Instructor Management': 'chalkboard-teacher',
-        'Class Capacity': 'users',
-        'Member Database': 'database',
-        'Health Profiles': 'heartbeat',
-        'Membership Status': 'id-card',
-        'Fitness Goals': 'bullseye',
-        'Achievement Records': 'trophy',
-        'Assessment History': 'clipboard-list',
-        'Renewal Tracking': 'sync-alt',
-        'Tier Management': 'layer-group',
-        'Member Communications': 'envelope',
-        'Booking Calendar': 'calendar',
-        'Resource Allocation': 'project-diagram',
-        'Usage Analytics': 'chart-pie',
-        'Inventory Tracking': 'boxes',
-        'Maintenance Schedule': 'calendar-check',
-        'Checkout System': 'exchange-alt',
-        'Request Tracking': 'clipboard-list',
-        'Preventive Schedule': 'calendar-plus',
-        'Vendor Management': 'handshake',
-        'Payment Tracking': 'money-check',
-        'Invoice Management': 'file-invoice',
-        'Revenue Reports': 'chart-bar',
-        'Program Pricing': 'tags',
-        'Participation Revenue': 'user-plus',
-        'Revenue Analysis': 'chart-line',
-        'Expense Tracking': 'receipt',
-        'Budget Management': 'wallet',
-        'Vendor Payments': 'money-bill-wave',
-        'News Feed': 'newspaper',
-        'Priority Alerts': 'exclamation-circle',
-        'Archive': 'archive',
-        'Event Calendar': 'calendar-alt',
-        'Registration Tracking': 'clipboard-list',
-        'Participant Management': 'users',
-        'Survey Management': 'poll',
-        'Response Tracking': 'comments',
-        'Improvement Plans': 'lightbulb',
-        'Admin Console': 'cogs',
-        'User Accounts': 'user-cog',
-        'Permissions': 'user-shield',
-        'Configuration': 'sliders-h',
-        'Backup & Restore': 'archive',
-        // Client Relations icons
-        'Feedback Collection': 'comment-alt',
-        'Satisfaction Metrics': 'star-half-alt',
-        'Ticket Management': 'ticket-alt',
-        'Response Tracking': 'reply',
-        'Engagement Tracking': 'handshake',
-        'Retention Analytics': 'chart-line',
-        // Store Systems icons
-        'Product Catalog': 'list-alt',
-        'Stock Management': 'boxes',
-        'Sales Dashboard': 'chart-bar',
-        'Revenue Analytics': 'chart-line',
-        'Store Mastersheet': 'store',
-        'Staff Scheduling': 'user-clock'
-      };
-      
-      return iconMap[toolName] || 'cog';
-    }
-
-    // Handle tool selection
-    function handleToolClick(toolElement) {
-      dropdown.classList.remove("open");
-      const sheetUrl = toolElement.dataset.sheetUrl;
-      loadToolContent(sheetUrl);
-    }
-
-    // Load content for a tool
-    function loadToolContent(sheetUrl) {
+    // Load content for a section
+    function loadContent(sheetUrl) {
       if (sheetUrl && sheetUrl.includes('docs.google.com')) {
         const sheetId = extractSheetId(sheetUrl);
         if (sheetId) {
@@ -1657,7 +1348,7 @@
         // Load Google Apps Script directly
         iframe.src = sheetUrl;
       } else {
-        showPlaceholderContent("No content configured for this tool");
+        showPlaceholderContent("No content configured for this section");
       }
     }
 
