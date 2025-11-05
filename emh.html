@@ -338,6 +338,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       background-color: #fff;
+      display: none;
     }
 
     /* Selection Prompt */
@@ -870,7 +871,7 @@
             </p>
           </div>
           
-          <iframe id="workspaceIframe" class="hidden" loading="lazy" title="WorkFit Management Content"></iframe>
+          <iframe id="workspaceIframe" loading="lazy" title="WorkFit Management Content"></iframe>
         </div>
       </main>
 
@@ -1185,7 +1186,7 @@
     // Show selection prompt
     function showSelectionPrompt() {
       selectionPrompt.classList.remove('hidden');
-      workspaceIframe.classList.add('hidden');
+      workspaceIframe.style.display = 'none';
       moduleTitle.textContent = "WorkFit Workspace";
       updateModuleIcon('fa-desktop');
       breadcrumbModule.textContent = "Select a section to begin";
@@ -1269,7 +1270,7 @@
       
       // Hide selection prompt and show workspace iframe
       selectionPrompt.classList.add('hidden');
-      workspaceIframe.classList.remove('hidden');
+      workspaceIframe.style.display = 'block';
       
       // Load the content
       loadContent(data.sheetUrl);
