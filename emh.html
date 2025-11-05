@@ -822,23 +822,23 @@
           <div>
             <h1 class="module-title" id="moduleTitle">
               <span class="module-icon" id="moduleIcon">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-desktop"></i>
               </span>
-              <span id="moduleTitleText">WorkFit Dashboard</span>
+              <span id="moduleTitleText">WorkFit Workspace</span>
             </h1>
             <div class="breadcrumb" id="breadcrumb">
-              <span id="breadcrumbModule">Welcome to WorkFit Management System</span>
+              <span id="breadcrumbModule">Select a section to begin</span>
             </div>
           </div>
         </div>
 
         <div class="header-controls">
           <div class="nav-tabs">
-            <a href="emh-home.html" class="nav-tab active">
+            <a href="emh-home.html" class="nav-tab" data-tab="home" id="homeTab">
               <i class="fas fa-home"></i>
               <span>Home</span>
             </a>
-            <a href="#" class="nav-tab" data-tab="workspace" id="workspaceTab">
+            <a href="#" class="nav-tab active" data-tab="workspace" id="workspaceTab">
               <i class="fas fa-desktop"></i>
               <span>Workspace</span>
             </a>
@@ -849,6 +849,34 @@
           </div>
         </div>
       </header>
+
+      <main>
+        <div class="iframe-container">
+          <!-- Loading Indicator -->
+          <div class="loading-indicator" id="loadingIndicator">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading content...</div>
+          </div>
+          
+          <!-- Selection Prompt -->
+          <div class="selection-prompt" id="selectionPrompt">
+            <div class="prompt-icon">
+              <i class="fas fa-folder-open"></i>
+            </div>
+            <h2 class="prompt-title">Welcome to WorkFit Workspace</h2>
+            <p class="prompt-message">
+              Select a section from the navigation menu to access management tools, reports, and analytics. 
+              Choose from Fitness Programs, Members, Facilities, Financials, Communications, Client Relations, Store Systems, or Admin sections to get started.
+            </p>
+          </div>
+          
+          <iframe id="workspaceIframe" class="hidden" loading="lazy" title="WorkFit Management Content"></iframe>
+        </div>
+      </main>
+
+      <footer>Powered by WorkFit Management System &copy; 2025</footer>
+    </div>
+  </div>
 
   <!-- Admin External Page Overlay -->
   <div class="admin-external-page" id="adminExternalPage">
@@ -1038,7 +1066,7 @@
     };
 
     // DOM elements
-    const iframe = document.getElementById("iframe");
+    const workspaceIframe = document.getElementById("workspaceIframe");
     const moduleTitle = document.getElementById("moduleTitleText");
     const moduleIcon = document.getElementById("moduleIcon");
     const breadcrumbModule = document.getElementById("breadcrumbModule");
@@ -1048,8 +1076,7 @@
     const homeTab = document.getElementById("homeTab");
     const workspaceTab = document.getElementById("workspaceTab");
     const adminTab = document.getElementById("adminTab");
-    const homeContent = document.getElementById("homeContent");
-    const workspaceContent = document.getElementById("workspaceContent");
+    const selectionPrompt = document.getElementById("selectionPrompt");
     const loadingIndicator = document.getElementById("loadingIndicator");
     
     // Admin external page elements
@@ -1066,9 +1093,9 @@
     function initApp() {
       setupEventListeners();
       
-      // Set home tab as active by default
-      setActiveTab('home');
-      showHomeContent();
+      // Set workspace tab as active by default
+      setActiveTab('workspace');
+      showSelectionPrompt();
       
       // Auto-expand the first section
       if (navSections.length > 0) {
@@ -1107,14 +1134,14 @@
       // Tab clicks
       homeTab.addEventListener("click", function(e) {
         e.preventDefault();
-        setActiveTab('home');
-        showHomeContent();
+        // Redirect to your actual homepage
+        window.location.href = "emh-home.html";
       });
       
       workspaceTab.addEventListener("click", function(e) {
         e.preventDefault();
         setActiveTab('workspace');
-        showWorkspaceContent();
+        showSelectionPrompt();
       });
       
       adminTab.addEventListener("click", function(e) {
@@ -1130,13 +1157,13 @@
       // Admin external page close button
       closeAdminPage.addEventListener("click", function() {
         closeAdminExternalPage();
-        // Switch back to home tab when closing admin
-        setActiveTab('home');
-        showHomeContent();
+        // Switch back to workspace tab when closing admin
+        setActiveTab('workspace');
+        showSelectionPrompt();
       });
       
       // Iframe load events
-      iframe.addEventListener('load', function() {
+      workspaceIframe.addEventListener('load', function() {
         hideLoadingIndicator();
       });
       
@@ -1155,24 +1182,10 @@
       loadingIndicator.style.display = 'none';
     }
 
-    // Show home content
-    function showHomeContent() {
-      homeContent.classList.remove('hidden');
-      workspaceContent.classList.add('hidden');
-      iframe.style.display = 'none';
-      moduleTitle.textContent = "WorkFit Dashboard";
-      updateModuleIcon('fa-home');
-      breadcrumbModule.textContent = "Welcome to WorkFit Management System";
-      
-      // Reset active nav links
-      navLinks.forEach(l => l.classList.remove("active"));
-    }
-
-    // Show workspace content
-    function showWorkspaceContent() {
-      homeContent.classList.add('hidden');
-      workspaceContent.classList.remove('hidden');
-      iframe.style.display = 'none';
+    // Show selection prompt
+    function showSelectionPrompt() {
+      selectionPrompt.classList.remove('hidden');
+      workspaceIframe.classList.add('hidden');
       moduleTitle.textContent = "WorkFit Workspace";
       updateModuleIcon('fa-desktop');
       breadcrumbModule.textContent = "Select a section to begin";
@@ -1254,10 +1267,9 @@
       // Update breadcrumb
       breadcrumbModule.textContent = data.title;
       
-      // Hide content prompts and show iframe
-      homeContent.classList.add('hidden');
-      workspaceContent.classList.add('hidden');
-      iframe.style.display = 'block';
+      // Hide selection prompt and show workspace iframe
+      selectionPrompt.classList.add('hidden');
+      workspaceIframe.classList.remove('hidden');
       
       // Load the content
       loadContent(data.sheetUrl);
@@ -1284,13 +1296,13 @@
             ? `${sheetUrl}&rm=minimal`
             : `${sheetUrl}?rm=minimal`;
           
-          iframe.src = optimizedUrl;
+          workspaceIframe.src = optimizedUrl;
         } else {
           showPlaceholderContent("Invalid Google Sheet URL format");
         }
       } else if (sheetUrl && sheetUrl.includes('script.google.com')) {
         // Load Google Apps Script directly
-        iframe.src = sheetUrl;
+        workspaceIframe.src = sheetUrl;
       } else {
         showPlaceholderContent("No content configured for this section");
       }
@@ -1298,7 +1310,7 @@
 
     // Show placeholder content
     function showPlaceholderContent(message) {
-      iframe.srcdoc = `
+      workspaceIframe.srcdoc = `
         <!DOCTYPE html>
         <html>
         <head>
