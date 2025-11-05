@@ -494,6 +494,36 @@
       background: rgba(255, 0, 0, 0.2);
     }
 
+    /* Loading indicator */
+    .loading-indicator {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 215, 0, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--accent-color);
+      animation: spin 1s ease-in-out infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
     /* Footer */
     footer {
       background: var(--medium-bg);
@@ -777,6 +807,56 @@
           </ul>
         </li>
         
+        <!-- Client Relations Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-handshake"></i>
+            <span>Client Relations</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="client-feedback">
+                <span>Client Feedback</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="support-tickets">
+                <span>Support Tickets</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="client-engagement">
+                <span>Client Engagement</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Store Systems Section -->
+        <li class="nav-section">
+          <div class="nav-section-title">
+            <i class="fas fa-store"></i>
+            <span>Store Systems</span>
+          </div>
+          <ul class="nav-submenu">
+            <li>
+              <a href="#" class="nav-link" data-section="inventory-management">
+                <span>Inventory Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="sales-tracking">
+                <span>Sales Tracking</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-section="store-management">
+                <span>Store Management</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
         <!-- Admin Section -->
         <li class="nav-section">
           <div class="nav-section-title">
@@ -812,7 +892,7 @@
           <div>
             <h1 class="module-title" id="moduleTitle">
               <span class="module-icon" id="moduleIcon">
-                <i class="fas fa-dumbbell"></i>
+                <i class="fas fa-desktop"></i>
               </span>
               <span id="moduleTitleText">WorkFit Workspace</span>
             </h1>
@@ -852,6 +932,12 @@
 
       <main>
         <div class="iframe-container">
+          <!-- Loading Indicator -->
+          <div class="loading-indicator" id="loadingIndicator">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading content...</div>
+          </div>
+          
           <!-- Selection Prompt -->
           <div class="selection-prompt" id="selectionPrompt">
             <div class="prompt-icon">
@@ -860,7 +946,7 @@
             <h2 class="prompt-title">Welcome to WorkFit Workspace</h2>
             <p class="prompt-message">
               Select a section from the navigation menu to access management tools, reports, and analytics. 
-              Choose from Fitness Programs, Members, Facilities, Financials, Communications, or Admin sections to get started.
+              Choose from Fitness Programs, Members, Facilities, Financials, Communications, Client Relations, Store Systems, or Admin sections to get started.
             </p>
           </div>
           
@@ -910,17 +996,17 @@
           { 
             name: "Session Planning", 
             link: "session-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1tkyXqd2-yQ6bAdNdNnQVfvZ9U4o59HEl-fub_csjUAg/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Attendance Tracking", 
             link: "attendance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RysMBv_lrun6YQ2XcuHzckGq-1-6bJyCFY6WKFbjts0/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1RysMBv_lrun6YQ2XcuHzckGq-1-6bJyCFY6WKFbjts0/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Coach Assignment", 
             link: "coach-assignment",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1T6qn08TGl4Z49Noxla0e1vuBgzzNum1ZKqMYwboueQM/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1T6qn08TGl4Z49Noxla0e1vuBgzzNum1ZKqMYwboueQM/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -932,17 +1018,17 @@
           { 
             name: "Program Scheduling", 
             link: "program-scheduling",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1p59ctto0nc6wSYlVov3tWlmgN6FfMWD1ubvgon3PyD4/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1p59ctto0nc6wSYlVov3tWlmgN6FfMWD1ubvgon3PyD4/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Participant Progress", 
             link: "participant-progress",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1lZlt9p4c_g81lnuAX3GgpmvYizEZmIR_Un4Q7rERR5I/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1lZlt9p4c_g81lnuAX3GgpmvYizEZmIR_Un4Q7rERR5I/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Instructor Management", 
             link: "instructor-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1pVEfdP_vI5tqly-O25cM0X_aEzfabin2M3SAzpggsx4/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1pVEfdP_vI5tqly-O25cM0X_aEzfabin2M3SAzpggsx4/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -956,7 +1042,7 @@
           { 
             name: "Member Database", 
             link: "member-database",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1WYO_RK1zA1HDePWH6WUsuyLfoDEALdg9o1nsBZGzaLY/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1WYO_RK1zA1HDePWH6WUsuyLfoDEALdg9o1nsBZGzaLY/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -968,12 +1054,12 @@
           { 
             name: "Fitness Tracker", 
             link: "fitness-goals",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1r5LSlqC5PwhIURTjTAQE4kxRpPe-3io6sU15dGy6xmY/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1r5LSlqC5PwhIURTjTAQE4kxRpPe-3io6sU15dGy6xmY/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Assessment History", 
             link: "assessment-history",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RyJZkMkSB4CJSTRZhEjUC4eTICtheB4pxc7ITlgMoeE/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1RyJZkMkSB4CJSTRZhEjUC4eTICtheB4pxc7ITlgMoeE/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -985,7 +1071,7 @@
           { 
             name: "Subscription Tracking", 
             link: "renewal-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/15ktD-4U_xwV9uIvM4cqsEqVgZBpivAAGUNXc6KD0-rE/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/15ktD-4U_xwV9uIvM4cqsEqVgZBpivAAGUNXc6KD0-rE/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -997,9 +1083,9 @@
         section: "Facilities",
         tools: [
           { 
-            name: "Fability Booking Management", 
+            name: "Facility Booking Management", 
             link: "booking-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1wvxMDXTW_nfbfoVqiiazLFyOPJkBm3eGGcpxzh88Lhg/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1wvxMDXTW_nfbfoVqiiazLFyOPJkBm3eGGcpxzh88Lhg/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1011,7 +1097,7 @@
           { 
             name: "Equipment Master", 
             link: "inventory-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/19pVVJnhfF2XhU5VMuw20UI0oTDXFWmUp2GnX4hiYn8c/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/19pVVJnhfF2XhU5VMuw20UI0oTDXFWmUp2GnX4hiYn8c/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1023,7 +1109,7 @@
           { 
             name: "Repair and Maintenance", 
             link: "request-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1-DhAGxvejOYdPG53l8m9EexlY3Qrx0gHe72oOAAoIfU/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1-DhAGxvejOYdPG53l8m9EexlY3Qrx0gHe72oOAAoIfU/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1037,7 +1123,7 @@
           { 
             name: "Payments Tracker", 
             link: "payment-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RdfTXe-G5YJLFpC0Qi60eJJF8XWU4bSOzq1hczAVn6A/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1RdfTXe-G5YJLFpC0Qi60eJJF8XWU4bSOzq1hczAVn6A/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1049,7 +1135,7 @@
           { 
             name: "Program Pricing", 
             link: "program-pricing",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1nLgLcVpOnOt5oCd68UTAu9bAyJhl5yA5UdMQ0WaHCy4/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1nLgLcVpOnOt5oCd68UTAu9bAyJhl5yA5UdMQ0WaHCy4/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1061,7 +1147,7 @@
           { 
             name: "Budget Management", 
             link: "budget-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1-Y1eYHHzwLBILDzf53UwKiH3v3h7ZaXZahLAp1sgxI4/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1-Y1eYHHzwLBILDzf53UwKiH3v3h7ZaXZahLAp1sgxI4/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1075,7 +1161,7 @@
           { 
             name: "Communications Feed", 
             link: "news-feed",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CrEwgUV017TSK6aLJOv-CkN7lPHPwfdAnqJfAtgpLgE/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CrEwgUV017TSK6aLJOv-CkN7lPHPwfdAnqJfAtgpLgE/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1087,11 +1173,11 @@
           { 
             name: "Event Database", 
             link: "event-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1Y07nNrucQMbHAdKWLWGD0JGzCjGQ44aOHVSavKgID0o/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1Y07nNrucQMbHAdKWLWGD0JGzCjGQ44aOHVSavKgID0o/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
-      "client-relations": {
+      "feedback-system": {
         title: "Feedback System",
         icon: "fa-comments",
         section: "Communications",
@@ -1099,19 +1185,113 @@
           { 
             name: "Survey Management", 
             link: "survey-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          }
+        ]
+      },
+      
+      // Client Relations Section
+      "client-feedback": {
+        title: "Client Feedback",
+        icon: "fa-star",
+        section: "Client Relations",
+        tools: [
+          { 
+            name: "Feedback Collection", 
+            link: "feedback-collection",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLIENT_FEEDBACK_COLLECTION_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          },
+          { 
+            name: "Satisfaction Metrics", 
+            link: "satisfaction-metrics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLIENT_SATISFACTION_METRICS_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          }
+        ]
+      },
+      "support-tickets": {
+        title: "Support Tickets",
+        icon: "fa-ticket-alt",
+        section: "Client Relations",
+        tools: [
+          { 
+            name: "Ticket Management", 
+            link: "ticket-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1SUPPORT_TICKET_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          },
+          { 
+            name: "Response Tracking", 
+            link: "response-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1SUPPORT_RESPONSE_TRACKING_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          }
+        ]
+      },
+      "client-engagement": {
+        title: "Client Engagement",
+        icon: "fa-handshake",
+        section: "Client Relations",
+        tools: [
+          { 
+            name: "Engagement Tracking", 
+            link: "engagement-tracking",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLIENT_ENGAGEMENT_TRACKING_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          },
+          { 
+            name: "Retention Analytics", 
+            link: "retention-analytics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1CLIENT_RETENTION_ANALYTICS_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          }
+        ]
+      },
+      
+      // Store Systems Section
+      "inventory-management": {
+        title: "Inventory Management",
+        icon: "fa-boxes",
+        section: "Store Systems",
+        tools: [
+          { 
+            name: "Product Catalog", 
+            link: "product-catalog",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_PRODUCT_CATALOG_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          },
+          { 
+            name: "Stock Management", 
+            link: "stock-management",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_STOCK_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          }
+        ]
+      },
+      "sales-tracking": {
+        title: "Sales Tracking",
+        icon: "fa-chart-line",
+        section: "Store Systems",
+        tools: [
+          { 
+            name: "Sales Dashboard", 
+            link: "sales-dashboard",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_SALES_DASHBOARD_SHEET_ID/edit?usp=sharing&rm=minimal" 
+          },
+          { 
+            name: "Revenue Analytics", 
+            link: "revenue-analytics",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_REVENUE_ANALYTICS_SHEET_ID/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
       "store-management": {
-        title: "WorkFit Store System",
-        icon: "fa-comments",
-        section: "stores",
+        title: "Store Management",
+        icon: "fa-store",
+        section: "Store Systems",
         tools: [
           { 
             name: "Store Mastersheet", 
-            link: "survey-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1R9B9Uc2hQshKppwjxP2g8gyjBQoXFwteLlMrDZGYD8Q/edit" 
+            link: "store-mastersheet",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1R9B9Uc2hQshKppwjxP2g8gyjBQoXFwteLlMrDZGYD8Q/edit?usp=sharing&rm=minimal" 
+          },
+          { 
+            name: "Staff Scheduling", 
+            link: "staff-scheduling",
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1STORE_STAFF_SCHEDULING_SHEET_ID/edit?usp=sharing&rm=minimal" 
           }
         ]
       },
@@ -1138,12 +1318,12 @@
           { 
             name: "User Accounts", 
             link: "user-accounts",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_USER_MANAGEMENT_SHEET_ID/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Permissions", 
             link: "permissions",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_PERMISSIONS_SHEET_ID/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_PERMISSIONS_SHEET_ID/edit?usp=sharing&rm=minimal" 
           }
         ],
         isAdmin: true
@@ -1156,12 +1336,12 @@
           { 
             name: "Configuration", 
             link: "configuration",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_CONFIGURATION_SHEET_ID/edit?usp=sharing&rm=minimal" 
           },
           { 
             name: "Backup & Restore", 
             link: "backup-restore",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_BACKUP_SHEET_ID/edit" 
+            sheetUrl: "https://docs.google.com/spreadsheets/d/1ADMIN_BACKUP_SHEET_ID/edit?usp=sharing&rm=minimal" 
           }
         ],
         isAdmin: true
@@ -1184,6 +1364,7 @@
     const workspaceTab = document.getElementById("workspaceTab");
     const adminTab = document.getElementById("adminTab");
     const selectionPrompt = document.getElementById("selectionPrompt");
+    const loadingIndicator = document.getElementById("loadingIndicator");
     
     // Admin external page elements
     const adminExternalPage = document.getElementById("adminExternalPage");
@@ -1284,6 +1465,25 @@
         setActiveTab('workspace');
         showSelectionPrompt();
       });
+      
+      // Iframe load events
+      iframe.addEventListener('load', function() {
+        hideLoadingIndicator();
+      });
+      
+      adminIframe.addEventListener('load', function() {
+        hideLoadingIndicator();
+      });
+    }
+
+    // Show loading indicator
+    function showLoadingIndicator() {
+      loadingIndicator.style.display = 'block';
+    }
+
+    // Hide loading indicator
+    function hideLoadingIndicator() {
+      loadingIndicator.style.display = 'none';
     }
 
     // Show selection prompt
@@ -1311,6 +1511,9 @@
         console.error("No data or URL found for admin section:", section);
         return;
       }
+      
+      // Show loading indicator
+      showLoadingIndicator();
       
       // Update admin page title and breadcrumb
       adminPageTitle.textContent = data.title;
@@ -1455,7 +1658,21 @@
         'User Accounts': 'user-cog',
         'Permissions': 'user-shield',
         'Configuration': 'sliders-h',
-        'Backup & Restore': 'archive'
+        'Backup & Restore': 'archive',
+        // Client Relations icons
+        'Feedback Collection': 'comment-alt',
+        'Satisfaction Metrics': 'star-half-alt',
+        'Ticket Management': 'ticket-alt',
+        'Response Tracking': 'reply',
+        'Engagement Tracking': 'handshake',
+        'Retention Analytics': 'chart-line',
+        // Store Systems icons
+        'Product Catalog': 'list-alt',
+        'Stock Management': 'boxes',
+        'Sales Dashboard': 'chart-bar',
+        'Revenue Analytics': 'chart-line',
+        'Store Mastersheet': 'store',
+        'Staff Scheduling': 'user-clock'
       };
       
       return iconMap[toolName] || 'cog';
@@ -1473,8 +1690,15 @@
       if (sheetUrl && sheetUrl.includes('docs.google.com')) {
         const sheetId = extractSheetId(sheetUrl);
         if (sheetId) {
-          // Load the sheet with full toolbar - users can sign in directly in the iframe
-          iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
+          // Show loading indicator
+          showLoadingIndicator();
+          
+          // Load the sheet with minimal interface for faster loading
+          const optimizedUrl = sheetUrl.includes('?') 
+            ? `${sheetUrl}&rm=minimal`
+            : `${sheetUrl}?rm=minimal`;
+          
+          iframe.src = optimizedUrl;
         } else {
           showPlaceholderContent("Invalid Google Sheet URL format");
         }
@@ -1533,6 +1757,7 @@
         </body>
         </html>
       `;
+      hideLoadingIndicator();
     }
 
     // Helper function to extract sheet ID from URL
