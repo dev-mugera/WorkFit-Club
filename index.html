@@ -1154,6 +1154,66 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+    <div class="post-content">
+        <div class="challenge-badge">DAILY FITNESS TRIVIA 🧠</div>
+        <h3 class="post-title" id="trivia-question">Loading today's question...</h3>
+        
+        <div class="trivia-container">
+          <div class="trivia-stats">
+            <div class="stat">
+              <span class="stat-value" id="streak-count">0</span>
+              <span class="stat-label">Day Streak</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="correct-count">0</span>
+              <span class="stat-label">Correct Answers</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="trivia-points">0</span>
+              <span class="stat-label">Points</span>
+            </div>
+          </div>
+
+          <div class="answers-container" id="answers-container">
+            <!-- Answers will be populated by JavaScript -->
+          </div>
+
+          <div class="trivia-feedback" id="trivia-feedback">
+            <div class="feedback-content" id="feedback-content"></div>
+            <button class="next-trivia-btn" id="next-trivia-btn" style="display: none;">
+              <i class="fas fa-forward"></i> Next Question
+            </button>
+          </div>
+
+          <div class="trivia-tip">
+            <i class="fas fa-lightbulb"></i>
+            <span>Complete daily trivia to earn points and unlock achievements!</span>
+          </div>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#DailyTrivia</span>
+          <span class="post-tag">#FitnessFacts</span>
+          <span class="post-tag">#LearnAndGrow</span>
+          <span class="post-tag">#WorkFitBrain</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="daily-trivia">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action share-trivia-btn" data-post-id="daily-trivia">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share Trivia</span>
+        </button>
+        <button class="post-action leaderboard-btn" data-post-id="daily-trivia">
+          <i class="fas fa-trophy"></i>
+          <span class="post-action-count">Leaderboard</span>
+        </button>
+      </div>
+    </div>
+    
     <div class="post" data-post-id="day4cardio" data-timestamp="2025-11-05T08:00:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
