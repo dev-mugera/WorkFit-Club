@@ -1296,6 +1296,122 @@
 
   <!-- Social Media Style Feed -->
   <section class="social-feed">
+    <!-- Daily Fitness Trivia Post -->
+    <div class="post" data-post-id="daily-trivia" data-timestamp="2025-11-08T08:00:00Z">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Trivia" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Club · Daily Trivia</div>
+          <div class="post-time" id="trivia-date">Today</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="post-content">
+        <div class="challenge-badge">DAILY FITNESS TRIVIA 🧠</div>
+        <h3 class="post-title" id="trivia-question">Loading today's question...</h3>
+        
+        <div class="trivia-container">
+          <div class="trivia-stats">
+            <div class="stat">
+              <span class="stat-value" id="streak-count">0</span>
+              <span class="stat-label">Day Streak</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="correct-count">0</span>
+              <span class="stat-label">Correct Answers</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="trivia-points">0</span>
+              <span class="stat-label">Points</span>
+            </div>
+          </div>
+
+          <div class="answers-container" id="answers-container">
+            <!-- Answers will be populated by JavaScript -->
+          </div>
+
+          <div class="trivia-feedback" id="trivia-feedback">
+            <div class="feedback-content" id="feedback-content"></div>
+            <button class="next-trivia-btn" id="next-trivia-btn" style="display: none;">
+              <i class="fas fa-forward"></i> Next Question
+            </button>
+          </div>
+
+          <div class="trivia-tip">
+            <i class="fas fa-lightbulb"></i>
+            <span>Complete daily trivia to earn points and unlock achievements!</span>
+          </div>
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">#DailyTrivia</span>
+          <span class="post-tag">#FitnessFacts</span>
+          <span class="post-tag">#LearnAndGrow</span>
+          <span class="post-tag">#WorkFitBrain</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="daily-trivia">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action share-trivia-btn" data-post-id="daily-trivia">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share Trivia</span>
+        </button>
+        <button class="post-action leaderboard-btn" data-post-id="daily-trivia">
+          <i class="fas fa-trophy"></i>
+          <span class="post-action-count">Leaderboard</span>
+        </button>
+      </div>
+    </div>
+    <!-- HIIT Workout with YouTube -->
+    <div class="post" data-post-id="hiit-workout" data-timestamp="2025-11-08T14:30:00Z">
+      <div class="post-header">
+        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
+        <div class="post-user-info">
+          <div class="post-username">WorkFit Club · Tutorials</div>
+          <div class="post-time">1 week ago</div>
+        </div>
+        <button class="post-more">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="video-container" data-video-id="IjH_8pdybfs">
+        <div class="youtube-iframe" id="youtube-IjH_8pdybfs"></div>
+        <div class="workfit-watermark">WorkFit Exclusive</div>
+        <div class="video-overlay">
+          <button class="video-play-btn">
+            <i class="fas fa-play"></i>
+          </button>
+          <div class="video-title-overlay">Post workout stretches for your body</div>
+        </div>
+        <div class="video-loading">
+          <div class="loading-spinner"></div>
+          <div>Loading WorkFit content...</div>
+        </div>
+      </div>
+      <div class="post-content">
+        <p class="post-text">Stretch well enough before any workout💪</p>
+        <div class="post-tags">
+          <span class="post-tag">#Stetches</span>
+          <span class="post-tag">#Flexibility</span>
+          <span class="post-tag">#Motivation</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action save-btn" data-post-id="hiit-workout">
+          <i class="far fa-bookmark"></i>
+          <span class="post-action-count">Save</span>
+        </button>
+        <button class="post-action share-btn" data-post-id="hiit-workout">
+          <i class="fas fa-share-alt"></i>
+          <span class="post-action-count">Share</span>
+        </button>
+      </div>
+    </div>
     <!-- Activities Count Post -->
     <div class="post" data-post-id="activities-count" data-timestamp="2025-11-07T08:00:00Z">
       <div class="post-header">
@@ -1788,53 +1904,6 @@
         </button>
       </div>
     </div>
-
-    <!-- HIIT Workout with YouTube -->
-    <div class="post" data-post-id="hiit-workout" data-timestamp="2025-11-05T14:30:00Z">
-      <div class="post-header">
-        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
-        <div class="post-user-info">
-          <div class="post-username">WorkFit Club · Tutorials</div>
-          <div class="post-time">1 week ago</div>
-        </div>
-        <button class="post-more">
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
-      <div class="video-container" data-video-id="qmwKESXCrg4">
-        <div class="youtube-iframe" id="youtube-qmwKESXCrg4"></div>
-        <div class="workfit-watermark">WorkFit Exclusive</div>
-        <div class="video-overlay">
-          <button class="video-play-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <div class="video-title-overlay">Master your consistency </div>
-        </div>
-        <div class="video-loading">
-          <div class="loading-spinner"></div>
-          <div>Loading WorkFit content...</div>
-        </div>
-      </div>
-      <div class="post-content">
-        <p class="post-text">Master your consistency, become the best version of you💪</p>
-        <div class="post-tags">
-          <span class="post-tag">#Consistency</span>
-          <span class="post-tag">#Mastery</span>
-          <span class="post-tag">#Motivation</span>
-        </div>
-      </div>
-      <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="hiit-workout">
-          <i class="far fa-bookmark"></i>
-          <span class="post-action-count">Save</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="hiit-workout">
-          <i class="fas fa-share-alt"></i>
-          <span class="post-action-count">Share</span>
-        </button>
-      </div>
-    </div>
-
     <!-- How to Avoid Sugar Blog Post -->
     <div class="post" data-post-id="6" data-timestamp="2025-11-01T14:30:00Z">
       <div class="post-header">
@@ -2848,84 +2917,85 @@ class DailyFitnessTrivia {
 
     getFitnessQuestions() {
         return [
+            [
             {
-                question: "How many minutes of moderate exercise per day does WHO recommend for adults?",
+                question: "What is the primary benefit of 'fasted cardio'?",
                 answers: [
-                    { text: "15 minutes", correct: false },
-                    { text: "30 minutes", correct: true },
-                    { text: "60 minutes", correct: false },
-                    { text: "90 minutes", correct: false }
+                    { text: "It significantly increases your metabolism for the whole day.", correct: false },
+                    { text: "It may enhance the body's reliance on fat for fuel.", correct: true },
+                    { text: "It allows for a more intense workout session.", correct: false },
+                    { text: "It is the only way to effectively lose weight.", correct: false }
                 ],
-                explanation: "The World Health Organization recommends at least 150 minutes of moderate-intensity exercise per week, which averages to about 30 minutes daily.",
-                category: "Exercise Guidelines"
-            },
-            {
-                question: "Which macronutrient is most important for muscle recovery after workouts?",
-                answers: [
-                    { text: "Carbohydrates", correct: false },
-                    { text: "Fats", correct: false },
-                    { text: "Protein", correct: true },
-                    { text: "Vitamins", correct: false }
-                ],
-                explanation: "Protein provides amino acids that help repair and rebuild muscle tissue damaged during exercise.",
-                category: "Nutrition"
-            },
-            {
-                question: "What is the ideal heart rate zone for fat burning during cardio?",
-                answers: [
-                    { text: "50-60% of max heart rate", correct: false },
-                    { text: "60-70% of max heart rate", correct: true },
-                    { text: "70-80% of max heart rate", correct: false },
-                    { text: "80-90% of max heart rate", correct: false }
-                ],
-                explanation: "The 60-70% zone is often called the 'fat burning zone' where your body uses fat as its primary fuel source.",
+                explanation: "While research is mixed, the theory behind fasted cardio is that with lower glycogen stores, your body may tap into fat stores more readily for energy. However, total daily calorie balance is still most important for weight loss.",
                 category: "Cardio"
             },
             {
-                question: "How much water should you drink during intense exercise?",
+                question: "Which of these is a key component of an effective warm-up?",
                 answers: [
-                    { text: "4-6 ounces every 15-20 minutes", correct: true },
-                    { text: "Only when thirsty", correct: false },
-                    { text: "1 liter per hour", correct: false },
-                    { text: "No need for extra water", correct: false }
+                    { text: "Holding deep static stretches for 30 seconds.", correct: false },
+                    { text: "Performing exercises that mimic your workout at a lower intensity.", correct: true },
+                    { text: "Drinking a high-sugar energy drink.", correct: false },
+                    { text: "Completing a full workout at 50% effort.", correct: false }
                 ],
-                explanation: "For intense exercise, aim for 4-6 ounces of water every 15-20 minutes to maintain hydration.",
-                category: "Hydration"
+                explanation: "A 'dynamic warm-up' that uses movements similar to your main workout (e.g., bodyweight squats before leg day) prepares your muscles and nervous system specifically for the activity to come.",
+                category: "Warm-up & Cool-down"
             },
             {
-                question: "What's the recommended daily step count for general health?",
+                question: "What does RICE stand for in acute injury treatment?",
                 answers: [
-                    { text: "5,000 steps", correct: false },
-                    { text: "7,500 steps", correct: false },
-                    { text: "10,000 steps", correct: true },
-                    { text: "15,000 steps", correct: false }
+                    { text: "Rest, Ice, Compression, Elevation", correct: true },
+                    { text: "Run, Ice, Cushion, Exercise", correct: false },
+                    { text: "Relax, Inhale, Concentrate, Exhale", correct: false },
+                    { text: "Rest, Incline, Cycle, Elevate", correct: false }
                 ],
-                explanation: "While individual needs vary, 10,000 steps is a commonly recommended daily target for maintaining good health.",
-                category: "Daily Activity"
+                explanation: "RICE is a common acronym for the initial treatment of sprains, strains, and other acute injuries to reduce swelling and pain.",
+                category: "Injury Prevention"
             },
             {
-                question: "Which type of stretching is best BEFORE a workout?",
+                question: "What is the 'mind-muscle connection'?",
                 answers: [
-                    { text: "Static stretching", correct: false },
-                    { text: "Dynamic stretching", correct: true },
-                    { text: "PNF stretching", correct: false },
-                    { text: "Ballistic stretching", correct: false }
+                    { text: "Thinking about exercise while you are at work.", correct: false },
+                    { text: "The ability to consciously focus on and contract a specific muscle during training.", correct: true },
+                    { text: "A spiritual link between your brain and your fitness goals.", correct: false },
+                    { text: "Listening to music that pumps you up for a workout.", correct: false }
                 ],
-                explanation: "Dynamic stretching (moving stretches) is ideal before workouts as it warms up muscles, while static stretching is better for post-workout.",
-                category: "Warm-up"
+                explanation: "Consciously focusing on the target muscle during an exercise can improve muscle activation and lead to better growth and strength gains over time.",
+                category: "Strength Training"
             },
             {
-                question: "How long does it take to form a new fitness habit?",
+                question: "Why is sleep critical for fitness progress?",
                 answers: [
-                    { text: "21 days", correct: false },
-                    { text: "66 days", correct: true },
-                    { text: "90 days", correct: false },
-                    { text: "120 days", correct: false }
+                    { text: "It's the primary time when muscle repair and growth occur.", correct: true },
+                    { text: "It burns a significant number of calories.", correct: false },
+                    { text: "It allows you to dream about your fitness goals.", correct: false },
+                    { text: "It replaces the need for proper nutrition.", correct: false }
                 ],
-                explanation: "Research shows it takes an average of 66 days to form a new habit, though this can vary from 18 to 254 days depending on the person and behavior.",
-                category: "Habit Formation"
+                explanation: "During deep sleep, your body releases growth hormone, repairs muscle tissue broken down during exercise, and consolidates memory, including motor learning from your workouts.",
+                category: "Recovery"
+            },
+            {
+                question: "What is a 'deload' week in a training program?",
+                answers: [
+                    { text: "A week where you stop working out completely.", correct: false },
+                    { text: "A week where you focus only on cardio.", correct: false },
+                    { text: "A planned period of reduced training volume or intensity.", correct: true },
+                    { text: "A week where you try to lift your personal best.", correct: false }
+                ],
+                explanation: "A deload week involves intentionally reducing the weight, volume, or intensity of your workouts to allow for recovery, reduce fatigue, and help prevent overtraining and plateaus.",
+                category: "Program Design"
+            },
+            {
+                question: "Which of these best describes 'progressive overload'?",
+                answers: [
+                    { text: "Lifting until you vomit from exertion.", correct: false },
+                    { text: "Gradually increasing the demand on your musculoskeletal system over time.", correct: true },
+                    { text: "Progressively adding more exercises to a single workout.", correct: false },
+                    { text: "Only training with progressively heavier weights.", correct: false }
+                ],
+                explanation: "Progressive overload is the fundamental principle for getting stronger and building muscle. It can be achieved by increasing weight, reps, sets, or training frequency, not just by adding more weight.",
+                category: "Strength Training"
             }
-        ];
+]        ];
     }
 
     getTodaysQuestion() {
