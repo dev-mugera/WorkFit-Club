@@ -1,1482 +1,1555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkFit - Management Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: #001f3f;
-      --secondary-color: #003366;
-      --accent-color: #FFD700;
-      --dark-bg: #0a192f;
-      --medium-bg: #172a45;
-      --light-bg: #243b55;
-      --text-primary: #e6f1ff;
-      --text-secondary: #a8b2d1;
-      --success-color: #4caf50;
-      --warning-color: #ff9800;
-      --gradient-primary: linear-gradient(135deg, #001f3f 0%, #003366 100%);
-      --gradient-bg: linear-gradient(135deg, #0a192f 0%, #172a45 100%);
-      --navy: #001f3f;
-      --navy-light: #003366;
-      --gold: #FFD700;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>House of Glamour | Luxury Home, Clothing & Art</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="House of Glamour">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" as="style">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
+    <style>
+        :root {
+            --black: #000000;
+            --black-light: #1a1a1a;
+            --black-dark: #000000;
+            --black-medium: #0a0a0a;
+            --gold: #D4AF37;
+            --accent: #8B7355;
+            --light: #F7F7F7;
+            --gray: #777777;
+            --white: #FFFFFF;
+            --text-primary: #222222;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border-color: #e5e5e5;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --card-bg: #ffffff;
+            --success: #4CAF50;
+            --error: #f44336;
+            --warning: #ff9800;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Roboto', sans-serif;
-      background: var(--gradient-bg);
-      color: var(--text-primary);
-      display: flex;
-      flex-direction: column;
-    }
+        [data-theme="dark"] {
+            --black: #1a1a1a;
+            --black-light: #2a2a2a;
+            --black-dark: #000000;
+            --black-medium: #1a1a1a;
+            --gold: #D4AF37;
+            --accent: #8B7355;
+            --light: #1a1a1a;
+            --gray: #aaaaaa;
+            --white: #222222;
+            --text-primary: #f0f0f0;
+            --text-secondary: #cccccc;
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: #1e1e1e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-text-size-adjust: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 4rem;
+            overflow-x: hidden;
+        }
 
-    /* Layout structure */
-    .app-container {
-      display: flex;
-      flex: 1;
-      height: 100%;
-      min-height: 0;
-    }
+        /* Elegant Header */
+        header {
+            background-color: var(--bg-primary);
+            box-shadow: 0 2px 20px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    /* Side navigation */
-    .sidenav {
-      width: 280px;
-      background: var(--medium-bg);
-      color: var(--text-primary);
-      display: flex;
-      flex-direction: column;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-      flex-shrink: 0;
-      z-index: 10;
-    }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-    .nav-logo-placeholder {
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 20px 0;
-      background: rgba(0, 0, 0, 0.1);
-    }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            z-index: 1002;
+        }
 
-    .logo-img {
-      width: 60px;
-      height: 60px;
-      background: var(--gradient-primary);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold);
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
+        .logo {
+            height: 45px;
+            width: auto;
+            transition: var(--transition);
+        }
 
-    .outlet-code {
-      padding: 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 20px;
-      color: var(--accent-color);
-      background: rgba(0, 0, 0, 0.1);
-    }
+        [data-theme="dark"] .logo {
+            filter: brightness(0) invert(1);
+        }
 
-    .nav-spacer {
-      height: 30px;
-    }
+        /* Enhanced Hamburger Menu */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1002;
+            position: relative;
+        }
 
-    .nav-links {
-      list-style: none;
-      padding: 0 15px;
-      margin: 0;
-      flex: 1;
-      overflow-y: auto;
-    }
+        .hamburger-menu span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--text-primary);
+            border-radius: 3px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
 
-    .nav-section {
-      margin-bottom: 15px;
-    }
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
 
-    .nav-section-title {
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      color: var(--accent-color);
-      font-weight: 600;
-      border-radius: 8px;
-      transition: all 0.2s;
-      user-select: none;
-    }
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
 
-    .nav-section-title:hover {
-      background: rgba(255, 215, 0, 0.1);
-    }
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
 
-    .nav-section-title i {
-      margin-right: 15px;
-      width: 20px;
-      text-align: center;
-      font-size: 1.1rem;
-    }
+        .main-nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            transition: var(--transition);
+        }
 
-    .nav-submenu {
-      list-style: none;
-      padding: 0;
-      margin: 5px 0 15px 0;
-      display: none;
-    }
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
 
-    .nav-section.active .nav-submenu {
-      display: block;
-    }
+        .nav-link:hover {
+            color: var(--gold);
+        }
 
-    .nav-link {
-      padding: 12px 20px 12px 50px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      position: relative;
-      user-select: none;
-    }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
 
-    .nav-link:hover {
-      color: var(--text-primary);
-      background: rgba(255, 215, 0, 0.05);
-    }
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
-    .nav-link.active {
-      color: var(--accent-color);
-      font-weight: 500;
-      background: rgba(255, 215, 0, 0.1);
-    }
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            z-index: 1002;
+        }
 
-    .nav-link.active::before {
-      content: "";
-      position: absolute;
-      left: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      background: var(--accent-color);
-      border-radius: 50%;
-    }
+        .header-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            transition: var(--transition);
+            color: var(--text-primary);
+            position: relative;
+        }
 
-    /* Main content area */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background-color: var(--dark-bg);
-      min-height: 0;
-      position: relative;
-    }
+        .header-icon:hover {
+            background-color: var(--light);
+            transform: translateY(-1px);
+        }
 
-    /* ENHANCED HEADER STYLES */
-    header {
-      background: var(--medium-bg);
-      color: var(--text-primary);
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      flex-shrink: 0;
-      z-index: 5;
-      position: relative;
-    }
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            transition: var(--transition);
+        }
 
-    .module-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--accent-color);
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .theme-toggle:hover {
+            background-color: var(--light);
+        }
 
-    .module-icon {
-      width: 36px;
-      height: 36px;
-      background: rgba(255, 215, 0, 0.1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-color);
-      font-size: 1.1rem;
-    }
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
+        }
+        
+        /* Luxury Hero Section */
+        .hero-section {
+            position: relative;
+            height: 65vh;
+            min-height: 500px;
+            max-height: 700px;
+            overflow: hidden;
+            margin-top: 0;
+        }
+        
+        .hero-carousel {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .hero-swiper {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hero-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 3;
+            position: relative;
+            padding: 0 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .store-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+        
+        .store-tagline {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--white);
+            background: transparent;
+            color: var(--white);
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            min-width: 180px;
+        }
+        
+        .cta-btn.primary {
+            background: var(--white);
+            color: var(--black);
+        }
+        
+        .cta-btn:hover {
+            background: var(--white);
+            color: var(--black);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .cta-btn.primary:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+        
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            opacity: 0.7;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: var(--gold);
+            opacity: 1;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--white);
+            background: rgba(0,0,0,0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: rgba(0,0,0,0.6);
+        }
+        
+        /* Featured Categories */
+        .featured-categories {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .category-card:hover .category-image {
+            transform: scale(1.05);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem;
+        }
+        
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .category-description {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        /* Product Listings Section */
+        .product-listings {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .category-btn {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.8rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Enhanced responsive product grid */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .product-image-container {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .product-image-slider {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .product-image-slide {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .product-image-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image-slide img {
+            transform: scale(1.08);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            color: var(--text-primary);
+            margin: 0 0 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--black);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+        
+        .product-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        /* Elegant Add To Cart Button */
+        .add-to-cart-btn {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            width: 100%;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        /* Luxury Cart Button */
+        .cart-btn {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+        
+        .cart-btn:hover {
+            background: var(--gold);
+            transform: translateY(-3px) scale(1.05);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        /* Luxury Footer */
+        .main-footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 4rem 1.5rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
 
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-top: 5px;
-    }
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .hero-section {
+                height: 55vh;
+                min-height: 450px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
 
-    .breadcrumb a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+            .main-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                box-shadow: -5px 0 25px var(--shadow-color);
+                z-index: 1001;
+                gap: 0;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow-y: auto;
+            }
 
-    .breadcrumb a:hover {
-      color: var(--text-primary);
-    }
+            .main-nav.active {
+                right: 0;
+            }
 
-    .breadcrumb-separator {
-      margin: 0 8px;
-      color: var(--text-secondary);
-    }
+            .nav-link {
+                padding: 1.2rem 0;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+                font-size: 1.1rem;
+                text-align: center;
+            }
 
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+            .nav-link:last-child {
+                border-bottom: none;
+            }
 
-    .nav-tabs {
-      display: flex;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      padding: 4px;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
+            .header-actions {
+                gap: 0.5rem;
+            }
 
-    .nav-tab {
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-      color: var(--text-secondary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+            .header-icon {
+                width: 38px;
+                height: 38px;
+            }
 
-    .nav-tab.active {
-      background: var(--primary-color);
-      color: var(--accent-color);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
+            .hero-section {
+                height: 50vh;
+                min-height: 400px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .cart-btn {
+                right: 1rem;
+                top: 90px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .category-card {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .logo {
+                height: 35px;
+            }
+            
+            .hero-section {
+                height: 45vh;
+                min-height: 350px;
+            }
+            
+            .main-nav {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .category-filter {
+                gap: 0.5rem;
+            }
+            
+            .category-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
 
-    .nav-tab:hover:not(.active) {
-      background: rgba(255, 215, 0, 0.1);
-      color: var(--text-primary);
-    }
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
-    .nav-tab i {
-      font-size: 0.9rem;
-    }
+        /* PWA standalone mode adjustments */
+        @media all and (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: calc(env(safe-area-inset-bottom) + 4rem);
+            }
 
-    .dropdown {
-      position: relative;
-    }
+            header {
+                padding-top: env(safe-area-inset-top);
+            }
+        }
 
-    .menu-button {
-      background: rgba(255, 215, 0, 0.1);
-      color: var(--accent-color);
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
+        /* Performance optimizations */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-    .menu-button:hover {
-      background: rgba(255, 215, 0, 0.2);
-      transform: translateY(-1px);
-    }
+        .lazy-load.loaded {
+            opacity: 1;
+        }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: calc(100% + 5px);
-      right: 0;
-      min-width: 220px;
-      background: var(--medium-bg);
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      border: 1px solid rgba(255,255,255,0.05);
-      overflow: hidden;
-    }
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
 
-    .dropdown-content a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      text-decoration: none;
-      font-size: 14px;
-      color: var(--text-secondary);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.2s;
-    }
+        /* Backdrop for mobile menu */
+        .menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
 
-    .dropdown-content a:hover {
-      color: var(--text-primary);
-      background: rgba(255, 215, 0, 0.05);
-    }
-
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown.open .dropdown-content {
-      display: block;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .user-profile:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--gradient-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .user-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .user-name {
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .user-role {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-
-    /* Content area */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      overflow: auto;
-    }
-
-    .iframe-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    iframe {
-      border: none;
-      width: 100%;
-      height: 100%;
-      min-height: 500px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      background-color: #fff;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--medium-bg);
-      color: var(--text-secondary);
-      text-align: center;
-      font-size: 13px;
-      padding: 12px 20px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      flex-shrink: 0;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 992px) {
-      .sidenav {
-        width: 80px;
-      }
-      
-      .outlet-code, .nav-section-title span, .nav-link span {
-        display: none;
-      }
-      
-      .nav-section-title {
-        justify-content: center;
-        padding: 16px 0;
-      }
-      
-      .nav-section-title i {
-        margin-right: 0;
-        font-size: 1.3rem;
-      }
-
-      .nav-link {
-        padding: 16px 0;
-        justify-content: center;
-      }
-
-      .nav-link.active::before {
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      
-      .user-info {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .app-container {
-        flex-direction: column;
-      }
-      
-      .sidenav {
-        width: 100%;
-        flex-direction: row;
-        height: auto;
-      }
-      
-      .nav-logo-placeholder, .outlet-code, .nav-spacer {
-        display: none;
-      }
-      
-      .nav-links {
-        display: flex;
-        overflow-x: auto;
-        padding: 0 10px;
-      }
-      
-      .nav-section {
-        margin-bottom: 0;
-        margin-right: 5px;
-        min-width: 80px;
-      }
-
-      .nav-section-title {
-        padding: 15px 10px;
-        border-radius: 0;
-        white-space: nowrap;
-      }
-
-      .nav-submenu {
-        position: absolute;
-        background: var(--medium-bg);
-        z-index: 100;
-        min-width: 200px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      }
-
-      .nav-link {
-        padding: 12px 15px;
-        white-space: nowrap;
-      }
-      
-      header {
-        padding: 15px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-      }
-      
-      .header-left {
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .header-controls {
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .nav-tabs {
-        order: 2;
-      }
-      
-      .user-profile {
-        order: 1;
-      }
-      
-      .dropdown {
-        order: 3;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .module-title {
-        font-size: 1.2rem;
-      }
-      
-      .breadcrumb {
-        font-size: 0.8rem;
-      }
-      
-      .nav-tab span {
-        display: none;
-      }
-      
-      .nav-tab {
-        padding: 8px 12px;
-      }
-      
-      .menu-button span {
-        display: none;
-      }
-    }
-  </style>
+        .menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
 <body>
+    <!-- Backdrop for mobile menu -->
+    <div class="menu-backdrop" id="menuBackdrop"></div>
 
-  <div class="app-container">
-    <!-- Side Navigation -->
-    <nav class="sidenav">
-      <div class="nav-logo-placeholder">
-        <div class="logo-img">WF</div>
-      </div>
-      
-      <div class="outlet-code">WorkFit Club</div>
-      
-      <div class="nav-spacer"></div>
-      
-      <ul class="nav-links">
-        <!-- Programs Section -->
-        <li class="nav-section active">
-          <div class="nav-section-title">
-            <i class="fas fa-dumbbell"></i>
-            <span>Fitness Programs</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link active" data-section="sports-activities">
-                <span>Sports Activities</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="fitness-programs">
-                <span>Fitness Programs</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Members Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-users"></i>
-            <span>Members</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="member-profiles">
-                <span>Member Profiles</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="progress-tracking">
-                <span>Progress Tracking</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="membership-management">
-                <span>Membership Management</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Facilities Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-building"></i>
-            <span>Facilities</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="facility-booking">
-                <span>Facility Booking</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="equipment-management">
-                <span>Equipment Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="maintenance">
-                <span>Maintenance</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Financials Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-chart-line"></i>
-            <span>Financials</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="membership-payments">
-                <span>Membership Payments</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="program-revenue">
-                <span>Program Revenue</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="expense-management">
-                <span>Expense Management</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        
-        <!-- Communications Section -->
-        <li class="nav-section">
-          <div class="nav-section-title">
-            <i class="fas fa-comments"></i>
-            <span>Communications</span>
-          </div>
-          <ul class="nav-submenu">
-            <li>
-              <a href="#" class="nav-link" data-section="announcements">
-                <span>Announcements</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="event-management">
-                <span>Event Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-section="feedback-system">
-                <span>Feedback System</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- ENHANCED HEADER -->
-      <header>
-        <div class="header-left">
-          <div>
-            <h1 class="module-title" id="moduleTitle">
-              <span class="module-icon" id="moduleIcon">
-                <i class="fas fa-dumbbell"></i>
-              </span>
-              <span id="moduleTitleText">Sports Activities</span>
-            </h1>
-            <div class="breadcrumb" id="breadcrumb">
-              <a href="emh-home.html">Home</a>
-              <span class="breadcrumb-separator">/</span>
-              <a href="#" id="breadcrumbSection">Fitness Programs</a>
-              <span class="breadcrumb-separator">/</span>
-              <span id="breadcrumbModule">Sports Activities</span>
+    <!-- Luxury Header -->
+    <header>
+        <div class="main-header">
+            <div class="logo-container">
+                <img src="https://i.postimg.cc/c4zFGFxn/COLLECTIONS-removebg-preview.png" alt="House of Glamour" class="logo">
             </div>
-          </div>
-        </div>
-
-        <div class="header-controls">
-          <div class="nav-tabs">
-            <a href="emh-home.html" class="nav-tab" data-tab="home">
-              <i class="fas fa-home"></i>
-              <span>Home</span>
-            </a>
-            <a href="#" class="nav-tab active" data-tab="workspace">
-              <i class="fas fa-desktop"></i>
-              <span>Workspace</span>
-            </a>
-            <a href="admin.html" class="nav-tab" data-tab="admin">
-              <i class="fas fa-cog"></i>
-              <span>Admin</span>
-            </a>
-          </div>
-
-          <div class="user-profile">
-            <div class="user-avatar">JD</div>
-            <div class="user-info">
-              <div class="user-name">John Doe</div>
-              <div class="user-role">Manager</div>
-            </div>
-          </div>
-
-          <div class="dropdown" id="dropdown">
-            <button class="menu-button" id="menuToggle">
-              <i class="fas fa-tools"></i>
-              <span>Tools</span>
+            
+            <!-- Enhanced Hamburger Menu -->
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <div class="dropdown-content" id="menuContent">
-              <a href="#" data-link="session-planning">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Session Planning</span>
-              </a>
-              <a href="#" data-link="attendance">
-                <i class="fas fa-clipboard-check"></i>
-                <span>Attendance Tracking</span>
-              </a>
-              <a href="#" data-link="coach-assignment">
-                <i class="fas fa-user-tie"></i>
-                <span>Coach Assignment</span>
-              </a>
-              <a href="#" data-link="equipment-check">
-                <i class="fas fa-dumbbell"></i>
-                <span>Equipment Check</span>
-              </a>
-              <a href="#" data-link="performance-metrics">
-                <i class="fas fa-chart-line"></i>
-                <span>Performance Metrics</span>
-              </a> 
+            
+            <nav class="main-nav" id="mainNav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#clothing" class="nav-link">Clothing</a>
+                <a href="#art" class="nav-link">Art</a>
+                <a href="#home-goods" class="nav-link">Home Goods</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="header-icon" id="searchBtn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="header-icon" id="wishlistBtn" aria-label="Wishlist">
+                    <i class="fas fa-heart"></i>
+                    <span class="notification-badge">2</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>
+                    </svg>
+                </button>
             </div>
-          </div>
         </div>
-      </header>
+    </header>
 
-      <main>
-        <div class="iframe-container">
-          <iframe id="iframe" loading="lazy" title="WorkFit Management Content"></iframe>
+    <!-- Luxury Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-carousel">
+            <div class="swiper heroSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide hero-slide">
+                        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Luxury Home Interior" loading="lazy">
+                    </div>
+                    <div class="swiper-slide hero-slide">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Designer Clothing" loading="lazy">
+                    </div>
+                    <div class="swiper-slide hero-slide">
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Contemporary Art" loading="lazy">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
         </div>
-      </main>
+        
+        <div class="hero-overlay">
+            <div class="header-content">
+                <h1 class="store-name">House of Glamour</h1>
+                <p class="store-tagline">Where Luxury Meets Everyday Living</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn primary" id="shopNowBtn">Shop Collection</button>
+                    <button class="cta-btn" id="discoverBtn">Discover More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="section-header">
+            <h2>Our Collections</h2>
+            <p>Discover our curated selection of luxury items for your home and wardrobe</p>
+        </div>
+        
+        <div class="categories-grid">
+            <div class="category-card" data-category="clothing">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Clothing" class="category-image" loading="lazy">
+                <div class="category-overlay">
+                    <h3 class="category-title">Designer Clothing</h3>
+                    <p class="category-description">Elegant apparel for the sophisticated lifestyle</p>
+                </div>
+            </div>
+            
+            <div class="category-card" data-category="art">
+                <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Contemporary Art" class="category-image" loading="lazy">
+                <div class="category-overlay">
+                    <h3 class="category-title">Curated Art</h3>
+                    <p class="category-description">Transform your space with exceptional artworks</p>
+                </div>
+            </div>
+            
+            <div class="category-card" data-category="home-goods">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Home Goods" class="category-image" loading="lazy">
+                <div class="category-overlay">
+                    <h3 class="category-title">Home Essentials</h3>
+                    <p class="category-description">Elevate your living space with premium goods</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Product Listings Section -->
+    <section class="product-listings" id="products">
+        <div class="section-header">
+            <h2>Featured Products</h2>
+            <p>Handpicked items that define luxury and sophistication</p>
+        </div>
+        
+        <div class="category-filter" id="categoryFilter">
+            <button class="category-btn active" data-category="all">All Products</button>
+            <button class="category-btn" data-category="clothing">Clothing</button>
+            <button class="category-btn" data-category="art">Art</button>
+            <button class="category-btn" data-category="home-goods">Home Goods</button>
+        </div>
+        
+        <div class="product-grid" id="productListingsContainer">
+            <!-- Products will be loaded dynamically -->
+            <div class="product-card" style="text-align: center; padding: 3rem; grid-column: 1 / -1;">
+                <div class="loading" style="margin: 0 auto; border-top-color: var(--black); width: 40px; height: 40px;"></div>
+                <p style="margin-top: 1.5rem; font-size: 1rem; color: var(--gray);">Loading luxury products...</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Luxury Cart Button -->
+    <button class="cart-btn" id="cartBtn">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </button>
+    
+    <!-- Luxury Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>House of Glamour</h4>
+                <p style="opacity: 0.8; line-height: 1.6;">Elevating everyday living through exquisite design, curated art, and luxury essentials for the modern home.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#clothing">Clothing</a></li>
+                    <li><a href="#art">Art</a></li>
+                    <li><a href="#home-goods">Home Goods</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Customer Care</h4>
+                <ul class="footer-links">
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#shipping">Shipping Info</a></li>
+                    <li><a href="#returns">Returns</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="#instagram">Instagram</a></li>
+                    <li><a href="#pinterest">Pinterest</a></li>
+                    <li><a href="#newsletter">Newsletter</a></li>
+                    <li style="margin-top: 1rem; opacity: 0.8;">Email: hello@houseofglamour.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 House of Glamour. All rights reserved. Crafted with elegance.</p>
+        </div>
+    </footer>
 
-      <footer>Powered by WorkFit Management System &copy; 2025</footer>
-    </div>
-  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced Hamburger Menu Functionality
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mainNav = document.getElementById('mainNav');
+            const menuBackdrop = document.getElementById('menuBackdrop');
+            const body = document.body;
 
-  <script>
-    // Data for each section with sheet URLs for each tool
-    const moduleData = {
-      // Sports Activities
-      "sports-activities": {
-        title: "Sports Activities",
-        icon: "fa-dumbbell",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Session Planning", 
-            link: "session-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1DkxuE2uub1_PFJYRlptNUPhGEs_OTV90uUqwpmSOOfg/edit" 
-          },
-          { 
-            name: "Attendance Tracking", 
-            link: "attendance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1SPORTS_ATTENDANCE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Coach Assignment", 
-            link: "coach-assignment",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1SPORTS_COACH_ASSIGNMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Equipment Check", 
-            link: "equipment-check",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1SPORTS_EQUIPMENT_CHECK_SHEET_ID/edit" 
-          },
-          { 
-            name: "Performance Metrics", 
-            link: "performance-metrics",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1SPORTS_PERFORMANCE_METRICS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "fitness-programs": {
-        title: "Fitness Programs",
-        icon: "fa-running",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Program Scheduling", 
-            link: "program-scheduling",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_PROGRAM_SCHEDULING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Participant Progress", 
-            link: "participant-progress",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_PARTICIPANT_PROGRESS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Instructor Management", 
-            link: "instructor-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_INSTRUCTOR_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Class Capacity", 
-            link: "class-capacity",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FITNESS_CLASS_CAPACITY_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "running-club": {
-        title: "Running Club",
-        icon: "fa-running",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Training Schedules", 
-            link: "training-schedules",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_TRAINING_SCHEDULES_SHEET_ID/edit" 
-          },
-          { 
-            name: "Race Events", 
-            link: "race-events",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_RACE_EVENTS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Performance Tracking", 
-            link: "performance-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_PERFORMANCE_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Group Runs", 
-            link: "group-runs",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1RUNNING_GROUP_RUNS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "cycling-club": {
-        title: "Cycling Club",
-        icon: "fa-bicycle",
-        section: "Fitness Programs",
-        tools: [
-          { 
-            name: "Ride Planning", 
-            link: "ride-planning",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_RIDE_PLANNING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Route Management", 
-            link: "route-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_ROUTE_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Safety Protocols", 
-            link: "safety-protocols",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_SAFETY_PROTOCOLS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Equipment Maintenance", 
-            link: "equipment-maintenance",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1CYCLING_EQUIPMENT_MAINTENANCE_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Members Section
-      "member-profiles": {
-        title: "Member Profiles",
-        icon: "fa-user",
-        section: "Members",
-        tools: [
-          { 
-            name: "Member Database", 
-            link: "member-database",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1xMnPQ-RzWT_e5Lq4cUZQTDH9_An6lol-2ju1Zqdw53w/edit" 
-          },
-          { 
-            name: "Health Profiles", 
-            link: "health-profiles",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_HEALTH_PROFILES_SHEET_ID/edit" 
-          },
-          { 
-            name: "Membership Status", 
-            link: "membership-status",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBER_MEMBERSHIP_STATUS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "progress-tracking": {
-        title: "Progress Tracking",
-        icon: "fa-chart-line",
-        section: "Members",
-        tools: [
-          { 
-            name: "Fitness Goals", 
-            link: "fitness-goals",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_FITNESS_GOALS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Achievement Records", 
-            link: "achievement-records",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_ACHIEVEMENT_RECORDS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Assessment History", 
-            link: "assessment-history",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1PROGRESS_ASSESSMENT_HISTORY_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "membership-management": {
-        title: "Membership Management",
-        icon: "fa-id-card",
-        section: "Members",
-        tools: [
-          { 
-            name: "Renewal Tracking", 
-            link: "renewal-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_RENEWAL_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Tier Management", 
-            link: "tier-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_TIER_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Member Communications", 
-            link: "member-communications",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MEMBERSHIP_COMMUNICATIONS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Facilities Section
-      "facility-booking": {
-        title: "Facility Booking",
-        icon: "fa-building",
-        section: "Facilities",
-        tools: [
-          { 
-            name: "Booking Calendar", 
-            link: "booking-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_BOOKING_CALENDAR_SHEET_ID/edit" 
-          },
-          { 
-            name: "Resource Allocation", 
-            link: "resource-allocation",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_RESOURCE_ALLOCATION_SHEET_ID/edit" 
-          },
-          { 
-            name: "Usage Analytics", 
-            link: "usage-analytics",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FACILITY_USAGE_ANALYTICS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "equipment-management": {
-        title: "Equipment Management",
-        icon: "fa-dumbbell",
-        section: "Facilities",
-        tools: [
-          { 
-            name: "Inventory Tracking", 
-            link: "inventory-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_INVENTORY_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Maintenance Schedule", 
-            link: "maintenance-schedule",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_MAINTENANCE_SCHEDULE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Checkout System", 
-            link: "checkout-system",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EQUIPMENT_CHECKOUT_SYSTEM_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "maintenance": {
-        title: "Maintenance",
-        icon: "fa-tools",
-        section: "Facilities",
-        tools: [
-          { 
-            name: "Request Tracking", 
-            link: "request-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_REQUEST_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Preventive Schedule", 
-            link: "preventive-schedule",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_PREVENTIVE_SCHEDULE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Vendor Management", 
-            link: "vendor-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1MAINTENANCE_VENDOR_MANAGEMENT_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Financials
-      "membership-payments": {
-        title: "Membership Payments",
-        icon: "fa-money-bill-wave",
-        section: "Financials",
-        tools: [
-          { 
-            name: "Payment Tracking", 
-            link: "payment-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PAYMENT_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Invoice Management", 
-            link: "invoice-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_INVOICE_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Revenue Reports", 
-            link: "revenue-reports",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_REPORTS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "program-revenue": {
-        title: "Program Revenue",
-        icon: "fa-chart-bar",
-        section: "Financials",
-        tools: [
-          { 
-            name: "Program Pricing", 
-            link: "program-pricing",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PROGRAM_PRICING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Participation Revenue", 
-            link: "participation-revenue",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_PARTICIPATION_REVENUE_SHEET_ID/edit" 
-          },
-          { 
-            name: "Revenue Analysis", 
-            link: "revenue-analysis",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_REVENUE_ANALYSIS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "expense-management": {
-        title: "Expense Management",
-        icon: "fa-receipt",
-        section: "Financials",
-        tools: [
-          { 
-            name: "Expense Tracking", 
-            link: "expense-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_EXPENSE_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Budget Management", 
-            link: "budget-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_BUDGET_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Vendor Payments", 
-            link: "vendor-payments",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FIN_VENDOR_PAYMENTS_SHEET_ID/edit" 
-          }
-        ]
-      },
-      
-      // Communications
-      "announcements": {
-        title: "Announcements",
-        icon: "fa-bullhorn",
-        section: "Communications",
-        tools: [
-          { 
-            name: "News Feed", 
-            link: "news-feed",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_NEWS_FEED_SHEET_ID/edit" 
-          },
-          { 
-            name: "Priority Alerts", 
-            link: "priority-alerts",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_PRIORITY_ALERTS_SHEET_ID/edit" 
-          },
-          { 
-            name: "Archive", 
-            link: "announcement-archive",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1COMM_ANNOUNCEMENT_ARCHIVE_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "event-management": {
-        title: "Event Management",
-        icon: "fa-calendar-alt",
-        section: "Communications",
-        tools: [
-          { 
-            name: "Event Calendar", 
-            link: "event-calendar",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_CALENDAR_SHEET_ID/edit" 
-          },
-          { 
-            name: "Registration Tracking", 
-            link: "registration-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_REGISTRATION_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Participant Management", 
-            link: "participant-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1EVENT_PARTICIPANT_MANAGEMENT_SHEET_ID/edit" 
-          }
-        ]
-      },
-      "feedback-system": {
-        title: "Feedback System",
-        icon: "fa-comments",
-        section: "Communications",
-        tools: [
-          { 
-            name: "Survey Management", 
-            link: "survey-management",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_SURVEY_MANAGEMENT_SHEET_ID/edit" 
-          },
-          { 
-            name: "Response Tracking", 
-            link: "response-tracking",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_RESPONSE_TRACKING_SHEET_ID/edit" 
-          },
-          { 
-            name: "Improvement Plans", 
-            link: "improvement-plans",
-            sheetUrl: "https://docs.google.com/spreadsheets/d/1FEEDBACK_IMPROVEMENT_PLANS_SHEET_ID/edit" 
-          }
-        ]
-      }
-    };
+            function toggleMobileMenu() {
+                const isActive = hamburgerMenu.classList.contains('active');
+                
+                hamburgerMenu.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                menuBackdrop.classList.toggle('active');
+                body.style.overflow = isActive ? 'auto' : 'hidden';
+            }
 
-    // DOM elements
-    const iframe = document.getElementById("iframe");
-    const dropdown = document.getElementById("dropdown");
-    const menuToggle = document.getElementById("menuToggle");
-    const menuContent = document.getElementById("menuContent");
-    const moduleTitle = document.getElementById("moduleTitleText");
-    const moduleIcon = document.getElementById("moduleIcon");
-    const breadcrumb = document.getElementById("breadcrumb");
-    const breadcrumbSection = document.getElementById("breadcrumbSection");
-    const breadcrumbModule = document.getElementById("breadcrumbModule");
-    const navSections = document.querySelectorAll(".nav-section");
-    const navLinks = document.querySelectorAll(".nav-link");
-    const navTabs = document.querySelectorAll(".nav-tab");
+            function closeMobileMenu() {
+                hamburgerMenu.classList.remove('active');
+                mainNav.classList.remove('active');
+                menuBackdrop.classList.remove('active');
+                body.style.overflow = 'auto';
+            }
 
-    // Initialize the application
-    function initApp() {
-      setupEventListeners();
-      loadInitialSection();
-      
-      // Set workspace tab as active since this is the workspace page
-      setActiveTab('workspace');
-    }
+            hamburgerMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
 
-    // Set up all event listeners
-    function setupEventListeners() {
-      // Navigation section clicks
-      document.querySelectorAll(".nav-section-title").forEach(title => {
-        title.addEventListener("click", function(e) {
-          e.stopPropagation();
-          const section = this.parentElement;
-          navSections.forEach(s => {
-            if (s !== section) s.classList.remove("active");
-          });
-          section.classList.toggle("active");
+            menuBackdrop.addEventListener('click', closeMobileMenu);
+
+            // Close menu when clicking on nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+
+            // Theme Management
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const htmlElement = document.documentElement;
+
+            function initializeTheme() {
+                const savedTheme = localStorage.getItem('houseofglamour_theme');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                if (savedTheme) {
+                    htmlElement.setAttribute('data-theme', savedTheme);
+                    updateThemeIcon(savedTheme);
+                } else if (systemPrefersDark) {
+                    htmlElement.setAttribute('data-theme', 'dark');
+                    updateThemeIcon('dark');
+                }
+                
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', function() {
+                        const currentTheme = htmlElement.getAttribute('data-theme');
+                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                        
+                        htmlElement.setAttribute('data-theme', newTheme);
+                        localStorage.setItem('houseofglamour_theme', newTheme);
+                        updateThemeIcon(newTheme);
+                    });
+                }
+            }
+
+            function updateThemeIcon(theme) {
+                if (!themeIcon) return;
+                
+                if (theme === 'dark') {
+                    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
+                } else {
+                    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
+                }
+            }
+
+            // Initialize theme
+            initializeTheme();
+
+            // Initialize hero swiper
+            const heroSwiper = new Swiper('.heroSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 6000,
+                },
+                effect: 'fade',
+                speed: 1000,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            // Cart functionality
+            let cartItems = JSON.parse(localStorage.getItem('houseofglamour_cart')) || [];
+            const cartBtn = document.getElementById('cartBtn');
+            const cartCount = document.getElementById('cartCount');
+
+            function updateCartUI() {
+                const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+
+            // Make cart functions globally available
+            window.updateCartItemQuantity = function(index, newQuantity) {
+                if (newQuantity < 1) {
+                    removeFromCart(index);
+                    return;
+                }
+                
+                cartItems[index].quantity = newQuantity;
+                localStorage.setItem('houseofglamour_cart', JSON.stringify(cartItems));
+                updateCartUI();
+            };
+
+            window.removeFromCart = function(index) {
+                cartItems.splice(index, 1);
+                localStorage.setItem('houseofglamour_cart', JSON.stringify(cartItems));
+                updateCartUI();
+                showNotification('Item removed from cart');
+            };
+
+            // Initialize cart UI
+            updateCartUI();
+
+            // Lazy loading for images
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.classList.add('loaded');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(img => imageObserver.observe(img));
+            }
+
+            // Category filtering
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (categoryFilter) {
+                categoryFilter.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('category-btn')) {
+                        document.querySelectorAll('.category-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        
+                        const category = e.target.getAttribute('data-category');
+                        filterProducts(category);
+                    }
+                });
+            }
+
+            function filterProducts(category) {
+                const productCards = document.querySelectorAll('.product-card[data-category]');
+                let hasVisibleProducts = false;
+
+                productCards.forEach(card => {
+                    const productCategory = card.getAttribute('data-category');
+                    if (category === 'all' || productCategory === category) {
+                        card.style.display = 'flex';
+                        hasVisibleProducts = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (!hasVisibleProducts) {
+                    showNotification(`No ${category === 'all' ? '' : category + ' '}products found`);
+                }
+            }
+
+            // CTA buttons
+            const shopNowBtn = document.getElementById('shopNowBtn');
+            const discoverBtn = document.getElementById('discoverBtn');
+            
+            if (shopNowBtn) {
+                shopNowBtn.addEventListener('click', function() {
+                    document.getElementById('products').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                });
+            }
+            
+            if (discoverBtn) {
+                discoverBtn.addEventListener('click', function() {
+                    showNotification('Explore our luxury collections');
+                });
+            }
+
+            // Category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    document.querySelector(`.category-btn[data-category="${category}"]`).click();
+                    document.getElementById('products').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                });
+            });
+
+            // Sample product data
+            const sampleProducts = [
+                {
+                    id: 'HG-CL001',
+                    name: 'Luxury Cashmere Sweater',
+                    category: 'clothing',
+                    basePrice: 89.99,
+                    image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    description: 'Premium cashmere sweater with elegant ribbed detailing'
+                },
+                {
+                    id: 'HG-CL002',
+                    name: 'Silk Evening Robe',
+                    category: 'clothing',
+                    basePrice: 125.50,
+                    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    description: 'Luxurious silk robe with satin trim'
+                },
+                {
+                    id: 'HG-ART001',
+                    name: 'Abstract Canvas Art',
+                    category: 'art',
+                    basePrice: 245.75,
+                    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    description: 'Large abstract painting on canvas'
+                },
+                {
+                    id: 'HG-ART002',
+                    name: 'Sculptural Vase Set',
+                    category: 'art',
+                    basePrice: 89.99,
+                    image: 'https://images.unsplash.com/photo-1578506750688-8cd171a4b171?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    description: 'Minimalist ceramic vase set'
+                },
+                {
+                    id: 'HG-HG001',
+                    name: 'Marble Serving Tray',
+                    category: 'home-goods',
+                    basePrice: 45.75,
+                    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    description: 'Elegant marble serving tray with gold handles'
+                },
+                {
+                    id: 'HG-HG002',
+                    name: 'Velvet Throw Pillows',
+                    category: 'home-goods',
+                    basePrice: 35.99,
+                    image: 'https://images.unsplash.com/photo-1582582621959-48d27397dc69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    description: 'Premium velvet throw pillows'
+                }
+            ];
+
+            // Load sample products
+            setTimeout(() => {
+                const container = document.getElementById('productListingsContainer');
+                if (container) {
+                    container.innerHTML = '';
+                    
+                    sampleProducts.forEach(product => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'product-card';
+                        productCard.setAttribute('data-category', product.category);
+                        
+                        productCard.innerHTML = `
+                            <div class="product-image-container">
+                                <div class="product-image-slider">
+                                    <div class="product-image-slide">
+                                        <img src="${product.image}" alt="${product.name}" loading="lazy" class="lazy-load">
+                                    </div>
+                                </div>
+                                <span class="product-badge">${product.category}</span>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">${product.name}</h3>
+                                <div class="product-price">KSh ${product.basePrice}</div>
+                                <div class="product-meta">
+                                    <span><i class="fas fa-star"></i> Premium</span>
+                                    <span><i class="fas fa-shipping-fast"></i> Free Delivery</span>
+                                </div>
+                                <div class="product-footer">
+                                    <button class="add-to-cart-btn" data-product='${JSON.stringify(product).replace(/'/g, "&#39;")}'>
+                                        <i class="fas fa-shopping-bag"></i> Add To Cart
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        
+                        container.appendChild(productCard);
+                        
+                        // Add to cart functionality
+                        const addToCartBtn = productCard.querySelector('.add-to-cart-btn');
+                        addToCartBtn.addEventListener('click', function() {
+                            const productData = JSON.parse(this.getAttribute('data-product'));
+                            addToCart(productData);
+                        });
+                    });
+                }
+            }, 1500);
+
+            // Add to cart function
+            function addToCart(product) {
+                const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
+                
+                if (existingItemIndex !== -1) {
+                    cartItems[existingItemIndex].quantity += 1;
+                } else {
+                    cartItems.push({
+                        ...product,
+                        quantity: 1,
+                        selectedColor: 'Default',
+                        selectedMaterial: 'Standard',
+                        selectedSize: 'One Size'
+                    });
+                }
+                
+                localStorage.setItem('houseofglamour_cart', JSON.stringify(cartItems));
+                updateCartUI();
+                showNotification(`${product.name} added to cart!`);
+            }
+
+            // Notification system
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: var(--black);
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 0;
+                    box-shadow: var(--shadow-lg);
+                    z-index: 10000;
+                    transform: translateX(400px);
+                    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    max-width: 300px;
+                    font-weight: 600;
+                    border-left: 4px solid var(--gold);
+                `;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(400px)';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }
         });
-      });
-
-      // Nav link clicks
-      navLinks.forEach(link => {
-        link.addEventListener("click", function(e) {
-          e.preventDefault();
-          handleNavLinkClick(this);
-        });
-      });
-
-      // Tool clicks
-      menuContent.addEventListener("click", function(e) {
-        if (e.target.tagName === 'A') {
-          e.preventDefault();
-          handleToolClick(e.target);
-        }
-      });
-
-      // Toggle dropdown
-      menuToggle.addEventListener("click", function(e) {
-        e.stopPropagation();
-        dropdown.classList.toggle("open");
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener("click", function() {
-        dropdown.classList.remove("open");
-      });
-    }
-
-    // Set active tab
-    function setActiveTab(tabName) {
-      navTabs.forEach(tab => {
-        if (tab.dataset.tab === tabName) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
-        }
-      });
-    }
-
-    // Handle navigation link clicks
-    function handleNavLinkClick(link) {
-      // Update active states
-      navLinks.forEach(l => l.classList.remove("active"));
-      link.classList.add("active");
-      
-      // Update content
-      const section = link.dataset.section;
-      const data = moduleData[section];
-      
-      if (!data) {
-        console.error("No data found for section:", section);
-        return;
-      }
-      
-      moduleTitle.textContent = data.title;
-      
-      // Update module icon
-      updateModuleIcon(data.icon);
-      
-      // Update breadcrumb
-      updateBreadcrumb(data.section, data.title);
-      
-      // Update tools dropdown
-      updateToolsMenu(data.tools);
-      
-      // Load the first tool's content by default
-      if (data.tools.length > 0) {
-        loadToolContent(data.tools[0].sheetUrl);
-      }
-    }
-
-    // Update the module icon
-    function updateModuleIcon(iconClass) {
-      moduleIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
-    }
-
-    // Update breadcrumb
-    function updateBreadcrumb(section, module) {
-      breadcrumbSection.textContent = section;
-      breadcrumbModule.textContent = module;
-    }
-
-    // Update the tools dropdown menu
-    function updateToolsMenu(tools) {
-      menuContent.innerHTML = '';
-      tools.forEach(tool => {
-        const link = document.createElement('a');
-        link.href = '#';
-        link.innerHTML = `<i class="fas fa-${getToolIcon(tool.name)}"></i><span>${tool.name}</span>`;
-        link.dataset.link = tool.link;
-        link.dataset.sheetUrl = tool.sheetUrl;
-        menuContent.appendChild(link);
-      });
-    }
-
-    // Helper function to get appropriate icons for tools
-    function getToolIcon(toolName) {
-      const iconMap = {
-        'Session Planning': 'calendar-alt',
-        'Attendance Tracking': 'clipboard-check',
-        'Coach Assignment': 'user-tie',
-        'Equipment Check': 'dumbbell',
-        'Performance Metrics': 'chart-line',
-        'Program Scheduling': 'calendar-plus',
-        'Participant Progress': 'user-check',
-        'Instructor Management': 'chalkboard-teacher',
-        'Class Capacity': 'users',
-        'Training Schedules': 'running',
-        'Race Events': 'flag-checkered',
-        'Performance Tracking': 'chart-line',
-        'Group Runs': 'users',
-        'Ride Planning': 'route',
-        'Route Management': 'map-marked-alt',
-        'Safety Protocols': 'shield-alt',
-        'Equipment Maintenance': 'tools',
-        'Member Database': 'database',
-        'Health Profiles': 'heartbeat',
-        'Membership Status': 'id-card',
-        'Fitness Goals': 'bullseye',
-        'Achievement Records': 'trophy',
-        'Assessment History': 'clipboard-list',
-        'Renewal Tracking': 'sync-alt',
-        'Tier Management': 'layer-group',
-        'Member Communications': 'envelope',
-        'Booking Calendar': 'calendar',
-        'Resource Allocation': 'project-diagram',
-        'Usage Analytics': 'chart-pie',
-        'Inventory Tracking': 'boxes',
-        'Maintenance Schedule': 'calendar-check',
-        'Checkout System': 'exchange-alt',
-        'Request Tracking': 'clipboard-list',
-        'Preventive Schedule': 'calendar-plus',
-        'Vendor Management': 'handshake',
-        'Payment Tracking': 'money-check',
-        'Invoice Management': 'file-invoice',
-        'Revenue Reports': 'chart-bar',
-        'Program Pricing': 'tags',
-        'Participation Revenue': 'user-plus',
-        'Revenue Analysis': 'chart-line',
-        'Expense Tracking': 'receipt',
-        'Budget Management': 'wallet',
-        'Vendor Payments': 'money-bill-wave',
-        'News Feed': 'newspaper',
-        'Priority Alerts': 'exclamation-circle',
-        'Archive': 'archive',
-        'Event Calendar': 'calendar-alt',
-        'Registration Tracking': 'clipboard-list',
-        'Participant Management': 'users',
-        'Survey Management': 'poll',
-        'Response Tracking': 'comments',
-        'Improvement Plans': 'lightbulb'
-      };
-      
-      return iconMap[toolName] || 'cog';
-    }
-
-    // Handle tool selection
-    function handleToolClick(toolElement) {
-      dropdown.classList.remove("open");
-      const sheetUrl = toolElement.dataset.sheetUrl;
-      loadToolContent(sheetUrl);
-    }
-
-    // Load content for a tool
-    function loadToolContent(sheetUrl) {
-      if (sheetUrl && sheetUrl.includes('docs.google.com')) {
-        const sheetId = extractSheetId(sheetUrl);
-        if (sheetId) {
-          // Load the sheet with full toolbar
-          iframe.src = `https://docs.google.com/spreadsheets/d/${sheetId}/edit?usp=sharing`;
-        } else {
-          showPlaceholderContent("Invalid Google Sheet URL format");
-        }
-      } else {
-        showPlaceholderContent("No Google Sheet configured for this tool");
-      }
-    }
-
-    // Show placeholder content
-    function showPlaceholderContent(message) {
-      iframe.srcdoc = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100%;
-              font-family: Arial, sans-serif;
-              color: #666;
-              background: #f9f9f9;
-            }
-            .content {
-              text-align: center;
-              padding: 20px;
-              max-width: 500px;
-            }
-            i {
-              font-size: 3rem;
-              color: #ddd;
-              margin-bottom: 20px;
-            }
-            h2 {
-              color: #444;
-              margin: 0 0 15px 0;
-            }
-            p {
-              margin: 5px 0;
-              line-height: 1.5;
-            }
-          </style>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        </head>
-        <body>
-          <div class="content">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>Content Not Available</h2>
-            <p>${message}</p>
-            ${message.includes('configured') ? '<p>Please configure a valid Google Sheet URL in the moduleData object.</p>' : ''}
-          </div>
-        </body>
-        </html>
-      `;
-    }
-
-    // Helper function to extract sheet ID from URL
-    function extractSheetId(url) {
-      try {
-        const match = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-        return match ? match[1] : null;
-      } catch (e) {
-        console.error("Error extracting sheet ID:", e);
-        return null;
-      }
-    }
-
-    // Load initial section
-    function loadInitialSection() {
-      const activeLink = document.querySelector('.nav-link.active');
-      if (activeLink) {
-        handleNavLinkClick(activeLink);
-      } else if (navLinks.length > 0) {
-        // Activate first link if none is active
-        navLinks[0].classList.add("active");
-        handleNavLinkClick(navLinks[0]);
-      }
-    }
-
-    // Initialize the application
-    document.addEventListener('DOMContentLoaded', initApp);
-  </script>
-
+    </script>
 </body>
 </html>
