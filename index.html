@@ -67,13 +67,14 @@
       padding-bottom: 4rem;
     }
 
-    /* Header styles */
+    /* Social Media Style Header */
     header {
       background-color: var(--bg-primary);
       box-shadow: 0 2px 10px var(--shadow-color);
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .social-header {
@@ -83,26 +84,62 @@
       padding: 0.8rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .logo {
       height: 35px;
       width: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--navy);
+      letter-spacing: -0.5px;
     }
 
     .social-nav {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
       align-items: center;
     }
 
     .social-nav a {
       color: var(--text-primary);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       transition: color 0.3s;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       padding: 0.5rem;
+      position: relative;
+    }
+
+    .social-nav a.active {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .social-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0.5rem;
+      right: 0.5rem;
+      height: 2px;
+      background-color: var(--navy);
+      border-radius: 2px;
     }
 
     .social-nav a:hover {
@@ -111,7 +148,8 @@
 
     .social-nav-icons {
       display: flex;
-      gap: 1rem;
+      gap: 0.8rem;
+      align-items: center;
     }
 
     .social-nav-icon, .theme-toggle {
@@ -123,15 +161,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 35px;
-      height: 35px;
+      width: 38px;
+      height: 38px;
       transition: background-color 0.3s;
       color: var(--text-primary);
       position: relative;
     }
 
     .social-nav-icon:hover, .theme-toggle:hover {
-      background-color: rgba(0,0,0,0.1);
+      background-color: rgba(0,0,0,0.05);
     }
 
     .notification-badge {
@@ -147,6 +185,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: 600;
+      border: 2px solid var(--bg-primary);
     }
 
     .mobile-menu-btn {
@@ -158,12 +198,135 @@
       padding: 0.5rem;
       cursor: pointer;
       z-index: 101;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+
+    .mobile-menu-btn:hover {
+      background-color: rgba(0,0,0,0.05);
     }
 
     .theme-toggle svg {
       width: 20px;
       height: 20px;
       fill: var(--text-primary);
+    }
+
+    /* Enhanced Mobile Menu */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-primary);
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 5rem 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .mobile-nav-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .mobile-nav-user {
+      flex: 1;
+    }
+
+    .mobile-nav-username {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .mobile-nav-email {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      border-radius: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .mobile-nav-link:hover {
+      background-color: var(--bg-secondary);
+    }
+
+    .mobile-nav-link i {
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .mobile-nav-link.active {
+      background-color: var(--navy-light);
+      color: white;
+    }
+
+    .mobile-nav-footer {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
     }
 
     /* Social Feed */
@@ -591,109 +754,165 @@
       animation: celebrate 0.6s ease;
     }
 
-    /* Challenges Grid */
-    .challenges-grid {
-      display: grid;
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .challenge-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      border-left: 4px solid var(--gold);
-    }
-
-    .challenge-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--navy);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
       color: white;
-      font-size: 1.2rem;
-    }
-
-    .challenge-info {
-      flex: 1;
-    }
-
-    .challenge-info h4 {
-      margin-bottom: 0.3rem;
-      color: var(--navy);
-    }
-
-    .challenge-info p {
-      font-size: 0.9rem;
-      color: var(--gray);
-      margin-bottom: 0.5rem;
-    }
-
-    .challenge-progress {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .challenge-progress span {
-      font-size: 0.8rem;
-      color: var(--gray);
-      min-width: 60px;
-    }
-
-    /* Benefits List */
-    .benefits-list {
-      margin: 1.5rem 0;
-    }
-
-    .benefit-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .benefit-item:last-child {
-      border-bottom: none;
-    }
-
-    .benefit-item i {
-      color: var(--gold);
-      font-size: 1.5rem;
-      margin-top: 0.2rem;
-      min-width: 30px;
-    }
-
-    .benefit-item h4 {
-      margin-bottom: 0.3rem;
-      color: var(--navy);
-    }
-
-    .benefit-item p {
-      font-size: 0.9rem;
-      color: var(--gray);
-      margin: 0;
-    }
-
-    /* Call to Action */
-    .call-to-action, .membership-cta {
-      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
-      color: white;
-      padding: 1rem;
-      border-radius: 8px;
-      margin: 1.5rem 0;
-    }
-
-    .call-to-action p, .membership-cta p {
-      margin: 0;
+      padding: 3rem 1rem;
       text-align: center;
+      margin: 2rem 1rem;
+      border-radius: 20px;
+    }
+
+    .cta-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    /* Social Platform Bottom Navigation */
+    .social-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-primary);
+      box-shadow: 0 -2px 10px var(--shadow-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.4rem 0;
+      z-index: 1000;
+    }
+    
+    .social-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.65rem;
+      padding: 0.2rem;
+      transition: color 0.3s;
+      flex: 1;
+      max-width: 25%;
+    }
+    
+    .social-nav-item.active {
+      color: var(--navy);
+    }
+    
+    .social-nav-icon {
+      font-size: 1.1rem;
+      margin-bottom: 0.1rem;
+    }
+    
+    .social-nav-label {
+      font-weight: 500;
+    }
+
+    /* Special Buttons */
+    .register-all-btn, .join-club-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .register-all-btn:hover, .join-club-btn:hover {
+      background: linear-gradient(135deg, #ffed4e 0%, var(--gold) 100%);
+    }
+
+    .learn-more-btn {
+      background: var(--navy-light);
+      color: white;
+    }
+
+    .learn-more-btn:hover {
+      background: var(--navy);
+    }
+
+    /* View Latest Update Button */
+    .view-latest-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      transform: translateY(100px);
+      opacity: 0;
+    }
+
+    .view-latest-btn.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .view-latest-btn:hover {
+      background: var(--navy-light);
+      transform: translateY(-2px);
     }
 
     /* Modals */
@@ -881,169 +1100,24 @@
       transform: translateX(0);
     }
 
-    /* View Latest Update Button */
-    .view-latest-btn {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background: var(--navy);
-      color: white;
-      border: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: 25px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s ease;
-      transform: translateY(100px);
-      opacity: 0;
-    }
-
-    .view-latest-btn.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .view-latest-btn:hover {
-      background: var(--navy-light);
-      transform: translateY(-2px);
-    }
-
-    /* CTA Section */
-    .cta {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      color: white;
-      padding: 3rem 1rem;
-      text-align: center;
-      margin: 2rem 1rem;
-      border-radius: 20px;
-    }
-
-    .cta-content {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .cta p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary, .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
-    }
-
-    .btn-secondary:hover {
-      background: white;
-      color: var(--navy);
-      transform: translateY(-2px);
-    }
-
-    /* Social Platform Bottom Navigation */
-    .social-bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: var(--bg-primary);
-      box-shadow: 0 -2px 10px var(--shadow-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 0.4rem 0;
-      z-index: 1000;
-    }
-    
-    .social-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.65rem;
-      padding: 0.2rem;
-      transition: color 0.3s;
-      flex: 1;
-      max-width: 25%;
-    }
-    
-    .social-nav-item.active {
-      color: var(--navy);
-    }
-    
-    .social-nav-icon {
-      font-size: 1.1rem;
-      margin-bottom: 0.1rem;
-    }
-    
-    .social-nav-label {
-      font-weight: 500;
-    }
-
-    /* Special Buttons */
-    .register-all-btn, .join-club-btn {
-      background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
-      color: var(--navy);
-      font-weight: 600;
-    }
-
-    .register-all-btn:hover, .join-club-btn:hover {
-      background: linear-gradient(135deg, #ffed4e 0%, var(--gold) 100%);
-    }
-
-    .learn-more-btn {
-      background: var(--navy-light);
-      color: white;
-    }
-
-    .learn-more-btn:hover {
-      background: var(--navy);
-    }
-
     /* Responsive adjustments */
     @media (max-width: 768px) {
+      .social-nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .social-header {
+        padding: 0.7rem 1rem;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
       .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1086,216 +1160,97 @@
       .google-form-container {
         height: 95vh;
       }
-
-      .social-nav {
-        display: none;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: var(--navy);
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 4px 6px var(--shadow-color);
-        z-index: 99;
-        gap: 0;
-      }
-
-      .social-nav.active {
-        display: flex;
-      }
-
-      .social-nav a {
-        padding: 1rem;
-        border-bottom: 1px solid var(--border-color);
-        width: 100%;
-        color: var(--white);
-      }
-
-      .mobile-menu-btn {
-        display: block;
-      }
       
       .trivia-stats {
         grid-template-columns: 1fr;
-      }
-      
-      .challenges-grid {
-        grid-template-columns: 1fr;
-      }
-      /* Activities Grid Styles */
-      .activities-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.8rem;
-        margin: 1.2rem 0;
-      }
-
-      .activity-square {
-        background: var(--bg-secondary);
-        border-radius: 12px;
-        padding: 1rem;
-        text-align: center;
-        border: 2px solid var(--border-color);
-        transition: all 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 120px;
-      }
-
-      .activity-square:hover {
-        transform: translateY(-3px);
-        border-color: var(--gold);
-        box-shadow: 0 5px 15px var(--shadow-color);
-      }
-
-      .activity-icon {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-        margin-bottom: 0.7rem;
-      }
-
-      .activity-square h4 {
-        margin-bottom: 0.3rem;
-        color: var(--navy);
-        font-size: 0.95rem;
-      }
-
-      .activity-square p {
-        font-size: 0.8rem;
-        color: var(--gray);
-        margin: 0;
-        line-height: 1.3;
-      }
-
-      .activity-extra {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: var(--bg-secondary);
-        border-radius: 10px;
-        margin: 1rem 0;
-        border-left: 4px solid var(--gold);
-      }
-
-      .activity-extra .activity-icon {
-        margin-bottom: 0;
-        flex-shrink: 0;
-      }
-
-      .activity-info h4 {
-        margin-bottom: 0.2rem;
-        color: var(--navy);
-      }
-
-      .activity-info p {
-        font-size: 0.85rem;
-        color: var(--gray);
-        margin: 0;
-      }
-
-      /* Animated Join Button */
-      .post-action.join-btn {
-        background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
-        color: var(--navy);
-        font-weight: 600;
-        position: relative;
-        overflow: hidden;
-        animation: pulse 2s infinite;
-      }
-
-      .post-action.join-btn:hover {
-        animation: none;
-        transform: scale(1.05);
-      }
-
-      .post-action.join-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        transition: left 0.5s;
-      }
-
-      .post-action.join-btn:hover::before {
-        left: 100%;
-      }
-
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
-        }
-        70% {
-          box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
-        }
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 480px) {
-        .activities-grid {
-          grid-template-columns: 1fr;
-          gap: 0.6rem;
-        }
-        
-        .activity-square {
-          min-height: 100px;
-          padding: 0.8rem;
-        }
-        
-        .activity-icon {
-          width: 40px;
-          height: 40px;
-          font-size: 1rem;
-          margin-bottom: 0.5rem;
-        }
       }
     }
   </style>
 </head>
 <body>
-  <!-- Social Platform Header -->
+  <!-- Social Media Style Header -->
   <header>
     <div class="social-header">
-      <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+      <div class="logo-container">
+        <img src="https://i.postimg.cc/9fbXQC1m/Whats-App-Image-2025-10-04-at-06-52-57-removebg-preview-1.png" alt="WorkFit Logo" class="logo">
+        <span class="logo-text">WorkFit</span>
+      </div>
+      
+      <div class="social-nav">
+        <a href="index.html" class="active">
+          <i class="fas fa-home"></i> Home
+        </a>
+        <a href="media-wpa.html">
+          <i class="fas fa-play-circle"></i> Media
+        </a>
+        <a href="Announcements-wpa.html">
+          <i class="fas fa-calendar-alt"></i> Sessions
+        </a>
+        <a href="plans-wpa.html">
+          <i class="fas fa-running"></i> Membership
+        </a>
+      </div>
+      
+      <div class="social-nav-icons">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>
+          </svg>
+        </button>
+      </div>
+      
       <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle navigation menu">
         <i class="fas fa-bars"></i>
       </button>
-      <div class="social-nav" id="socialNav">
-        <a href="index.html" class="active">Feed</a>
-        <a href="media-wpa.html">Media</a>
-        <a href="contact.wpa.html">Contacts</a>
-        <a href="about-us.html">About</a>
-        
-        <div class="social-nav-icons">
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="themeIcon">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>
-            </svg>
-          </button>
-        </div>
-      </div>
     </div>
   </header>
 
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <div class="mobile-nav-avatar">
+        <i class="fas fa-dumbbell"></i>
+      </div>
+      <div class="mobile-nav-user">
+        <div class="mobile-nav-username">WorkFit Community</div>
+        <div class="mobile-nav-email">Join our fitness journey</div>
+      </div>
+    </div>
+    
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link active">
+        <i class="fas fa-home"></i> Home Feed
+      </a>
+      <a href="media-wpa.html" class="mobile-nav-link">
+        <i class="fas fa-play-circle"></i> Media
+      </a>
+      <a href="Announcements-wpa.html" class="mobile-nav-link">
+        <i class="fas fa-calendar-alt"></i> Sessions
+      </a>
+      <a href="plans-wpa.html" class="mobile-nav-link">
+        <i class="fas fa-running"></i> Membership
+      </a>
+      <a href="store-webpage.html" class="mobile-nav-link">
+        <i class="fas fa-store"></i> Store
+      </a>
+      <a href="contact.wpa.html" class="mobile-nav-link">
+        <i class="fas fa-users"></i> Contacts
+      </a>
+      <a href="about-us.html" class="mobile-nav-link">
+        <i class="fas fa-info-circle"></i> About
+      </a>
+    </div>
+    
+    <div class="mobile-nav-footer">
+      <button class="theme-toggle mobile-nav-link" id="mobileThemeToggle">
+        <i class="fas fa-moon"></i> Dark Mode
+      </button>
+    </div>
+  </div>
+
   <!-- Social Media Style Feed -->
-    <!-- 5AM Ckub challenge  -->
   <section class="social-feed">
     <!-- How to Avoid Sugar Blog Post -->
     <div class="post" data-post-id="6" data-timestamp="2025-11-10T14:30:00Z">
@@ -1406,6 +1361,8 @@
         </button>
       </div>
     </div>
+
+    <!-- 5AM Club Challenge Post -->
     <div class="post" data-post-id="9" data-timestamp="2025-11-09T09:15:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Team" class="post-avatar">
@@ -1456,7 +1413,7 @@
       </div>
     </div>
 
-    <!-- 30 Days Fitness streak Workout -->
+    <!-- Full Body Workout Video Post -->
     <div class="post" data-post-id="day4cardio" data-timestamp="2025-11-10T08:00:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
@@ -1520,7 +1477,7 @@
       </div>
     </div>
 
-    <!-- HIIT Workout with YouTube -->
+    <!-- Stretching Video Post -->
     <div class="post" data-post-id="hiit-workout" data-timestamp="2025-11-08T14:30:00Z">
       <div class="post-header">
         <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
@@ -1565,230 +1522,12 @@
         </button>
       </div>
     </div>
-
-     <!-- November Challenge Post -->
-    <div class="post" data-post-id="3" data-timestamp="2025-11-067T10:00:00Z">
-      <div class="post-header">
-        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="WorkFit Challenges" class="post-avatar">
-        <div class="post-user-info">
-          <div class="post-username">WorkFit Club · Challenges</div>
-          <div class="post-time">1 week ago</div>
-        </div>
-        <button class="post-more">
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
-      <div class="post-content">
-        <div class="challenge-badge">NOVEMBER CHALLENGE</div>
-        <h3 class="post-title">The 5AM Club Reading Challenge</h3>
-        <p class="post-text">Transform your mornings with Robin Sharma's "The 5AM Club"! Join our community reading challenge and implement life-changing morning routines. 📚✨</p>
-        
-        <div class="progress-container">
-          <div class="progress-header">
-            <span>Challenge Progress</span>
-            <span id="readingChallengeProgress2">7%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="readingChallengeFill2" style="width: 7%"></div>
-          </div>
-          <p id="readingChallengeText2">Day 2 of 30 - Keep going!</p>
-        </div>
-
-        <div class="post-tags">
-          <span class="post-tag">#5AMClub</span>
-          <span class="post-tag">#ReadingChallenge</span>
-          <span class="post-tag">#PersonalGrowth</span>
-        </div>
-      </div>
-      <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="3">
-          <i class="far fa-bookmark"></i>
-          <span class="post-action-count">Save</span>
-        </button>
-        <button class="post-action register-btn" data-post-id="3">
-          <i class="fas fa-user-plus"></i>
-          <span class="post-action-count">Join Challenge</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="3">
-          <i class="fas fa-share-alt"></i>
-          <span class="post-action-count">Share</span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="post" data-post-id="hiit-workout" data-timestamp="2025-11-06T14:30:00Z">
-      <div class="post-header">
-        <img src="https://i.postimg.cc/BbB7z873/Whats-App-Image-2025-09-02-at-18-42-12.gif" alt="Trainer Sarah" class="post-avatar">
-        <div class="post-user-info">
-          <div class="post-username">WorkFit Club · Tutorials</div>
-          <div class="post-time">1 week ago</div>
-        </div>
-        <button class="post-more">
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
-      <div class="video-container" data-video-id="RM2vStU7HY4">
-        <div class="youtube-iframe" id="youtube-RM2vStU7HY4"></div>
-        <div class="workfit-watermark">WorkFit Exclusive</div>
-        <div class="video-overlay">
-          <button class="video-play-btn">
-            <i class="fas fa-play"></i>
-          </button>
-          <div class="video-title-overlay">15-Minute Workout For Belly Fat</div>
-        </div>
-        <div class="video-loading">
-          <div class="loading-spinner"></div>
-          <div>Loading WorkFit content...</div>
-        </div>
-      </div>
-      <div class="post-content">
-        <p class="post-text">No equipment needed! Perfect for busy schedules. Follow along with this intense abs session.💪</p>
-        <div class="post-tags">
-          <span class="post-tag">#Abs</span>
-          <span class="post-tag">#HomeWorkout</span>
-          <span class="post-tag">#Fitness</span>
-        </div>
-      </div>
-      <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="hiit-workout">
-          <i class="far fa-bookmark"></i>
-          <span class="post-action-count">Save</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="hiit-workout">
-          <i class="fas fa-share-alt"></i>
-          <span class="post-action-count">Share</span>
-        </button>
-      </div>
-    </div> 
-    
-    <!-- No Sugar November Post -->
-    <div class="post" data-post-id="4" data-timestamp="2025-10-31T16:45:00Z">
-      <div class="post-header">
-        <img src="https://i.postimg.cc/Jhs3Xybh/Whats-App-Image-2022-10-10-at-12-33-57.jpg" alt="Nutrition Expert" class="post-avatar">
-        <div class="post-user-info">
-          <div class="post-username">Moses Mugera · Trainer</div>
-          <div class="post-time">4 days ago</div>
-        </div>
-        <button class="post-more">
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
-      <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Healthy Food" class="post-image">
-      <div class="post-content">
-        <div class="challenge-badge">NOVEMBER CHALLENGE</div>
-        <h3 class="post-title">No Sugar November Challenge</h3>
-        <p class="post-text">Reset your taste buds and improve your health! Join our 30-day no added sugar challenge with daily tips, recipes, and community support. 🍎🚫</p>
-        
-        <div class="progress-container">
-          <div class="progress-header">
-            <span>Challenge Progress</span>
-            <span id="sugarChallengeProgress">7%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="sugarChallengeFill" style="width: 7%"></div>
-          </div>
-          <p id="sugarChallengeText">Day 2 of 30 - Stay strong!</p>
-        </div>
-
-        <div class="post-tags">
-          <span class="post-tag">#NoSugarNovember</span>
-          <span class="post-tag">#HealthyEating</span>
-          <span class="post-tag">#Wellness</span>
-        </div>
-      </div>
-      <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="4">
-          <i class="far fa-bookmark"></i>
-          <span class="post-action-count">Save</span>
-        </button>
-        <button class="post-action register-btn" data-post-id="4">
-          <i class="fas fa-user-plus"></i>
-          <span class="post-action-count">Join Challenge</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="4">
-          <i class="fas fa-share-alt"></i>
-          <span class="post-action-count">Share</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Blog Post -->
-    <div class="post" data-post-id="5" data-timestamp="2025-10-26T16:20:00Z">
-      <div class="post-header">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="James Mwangi" class="post-avatar">
-        <div class="post-user-info">
-          <div class="post-username">James Mwangi · Basketball Coach</div>
-          <div class="post-time">1 week ago</div>
-        </div>
-        <button class="post-more">
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
-      <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Basketball Drills" class="post-image">
-      <div class="post-content">
-        <h3 class="post-title">Essential Drills to Improve Your Basketball Skills</h3>
-        <p class="post-text">Master these fundamental basketball drills to enhance your shooting, dribbling, and defensive skills. Perfect for players of all levels looking to take their game to the next level! 🏀</p>
-        <div class="post-tags">
-          <span class="post-tag">#Basketball</span>
-          <span class="post-tag">#Training</span>
-          <span class="post-tag">#Sports</span>
-        </div>
-      </div>
-      <div class="post-actions">
-        <button class="post-action save-btn" data-post-id="5">
-          <i class="far fa-bookmark"></i>
-          <span class="post-action-count">Save</span>
-        </button>
-        <button class="post-action read-btn" data-post-id="5">
-          <i class="fas fa-book-open"></i>
-          <span class="post-action-count">Read More</span>
-        </button>
-        <button class="post-action share-btn" data-post-id="5">
-          <i class="fas fa-share-alt"></i>
-          <span class="post-action-count">Share</span>
-        </button>
-      </div>
-    </div>
   </section>
 
   <!-- View Latest Update Button -->
   <button class="view-latest-btn" id="viewLatestBtn">
     <i class="fas fa-arrow-up"></i> View Latest Update
   </button>
-
-  <!-- Blog Modal -->
-  <div class="modal" id="blogModal">
-    <div class="modal-content">
-      <button class="modal-close" id="blogModalClose">&times;</button>
-      <div class="modal-img-container">
-        <img id="blogModalImg" src="" alt="Blog Image" class="modal-img">
-      </div>
-      <div class="modal-body">
-        <h2 id="blogModalTitle" class="modal-title">Blog Title</h2>
-        <div id="blogModalMeta" class="modal-meta"></div>
-        <div id="blogModalDescription" class="modal-description"></div>
-        <div class="modal-actions">
-          <button class="btn-primary" id="blogSaveBtn">
-            <i class="fas fa-bookmark"></i> Save Article
-          </button>
-          <button class="btn-secondary" id="blogShareBtn">
-            <i class="fas fa-share-alt"></i> Share Article
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Google Form Modal -->
-  <div class="google-form-modal" id="googleFormModal">
-    <div class="google-form-container">
-      <div class="google-form-header">
-        <h3 class="google-form-title">Join Event or Challenge</h3>
-        <button class="google-form-close" id="googleFormClose">&times;</button>
-      </div>
-      <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-    </div>
-  </div>
 
   <!-- CTA Section -->
   <section class="cta">
@@ -1827,40 +1566,40 @@
   </nav>
 
 <script>
-// Optimized JavaScript for WorkFit Social Platform
-
-// YouTube API integration
-let youtubeAPIReady = false;
-const youtubePlayers = new Map();
-
-// Load YouTube API
-function loadYouTubeAPI() {
-  const tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  const firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
+// Enhanced JavaScript for WorkFit Social Platform
 
 // Theme Management
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const htmlElement = document.documentElement;
-
 function initializeTheme() {
-  // Check for saved theme preference or use system preference
-  const savedTheme = localStorage.getItem('theme');
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
-  // Set initial theme
-  if (savedTheme) {
-    htmlElement.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
-  } else if (systemPrefersDark) {
-    htmlElement.setAttribute('data-theme', 'dark');
-    updateThemeIcon('dark');
+  const themeToggle = document.getElementById('themeToggle');
+  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const htmlElement = document.documentElement;
+
+  function setInitialTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+    } else if (systemPrefersDark) {
+      htmlElement.setAttribute('data-theme', 'dark');
+    }
+    
+    updateThemeIcon(htmlElement.getAttribute('data-theme') || 'light');
   }
+
+  function updateThemeIcon(theme) {
+    if (!themeIcon) return;
+    
+    if (theme === 'dark') {
+      themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M9 2c-1.05 0-2.05.16-3 .46 4.06 1.27 7 5.06 7 9.54 0 4.48-2.94 8.27-7 9.54.95.3 1.95.46 3 .46 5.52 0 10-4.48 10-10S14.52 2 9 2z"/>';
+    } else {
+      themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>';
+    }
+  }
+
+  setInitialTheme();
   
-  // Theme toggle functionality
   if (themeToggle) {
     themeToggle.addEventListener('click', function() {
       const currentTheme = htmlElement.getAttribute('data-theme');
@@ -1869,58 +1608,80 @@ function initializeTheme() {
       htmlElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
+      
+      showNotification(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`);
+    });
+  }
+  
+  if (mobileThemeToggle) {
+    mobileThemeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+      
+      // Update mobile theme toggle icon
+      const icon = this.querySelector('i');
+      if (newTheme === 'dark') {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        this.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        this.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+      }
+      
+      showNotification(`${newTheme === 'dark' ? 'Dark' : 'Light'} mode activated`);
     });
   }
 }
 
-function updateThemeIcon(theme) {
-  if (!themeIcon) return;
-  
-  if (theme === 'dark') {
-    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
-  } else {
-    themeIcon.innerHTML = '<path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79-4 4-4 4-1.79 4-4-1.79-4-4-4z"/>';
-  }
-}
-
-// Mobile Menu Toggle
+// Mobile Menu Functionality
 function initializeMobileMenu() {
   const menuBtn = document.getElementById('menuBtn');
-  const socialNav = document.getElementById('socialNav');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileNavOverlay = document.getElementById('mobileNavOverlay');
   
-  if (menuBtn && socialNav) {
+  function openMobileMenu() {
+    mobileNav.classList.add('active');
+    mobileNavOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeMobileMenu() {
+    mobileNav.classList.remove('active');
+    mobileNavOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+  
+  // Toggle mobile menu
+  if (menuBtn) {
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      socialNav.classList.toggle('active');
-      
-      const icon = menuBtn.querySelector('i');
-      if (socialNav.classList.contains('active')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
+      if (mobileNav.classList.contains('active')) {
+        closeMobileMenu();
       } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+        openMobileMenu();
       }
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!socialNav.contains(e.target) && !menuBtn.contains(e.target) && socialNav.classList.contains('active')) {
-        socialNav.classList.remove('active');
-        const icon = menuBtn.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    });
-    
-    // Prevent clicks inside nav from closing it
-    socialNav.addEventListener('click', (e) => {
-      e.stopPropagation();
     });
   }
+  
+  // Close menu when clicking overlay
+  if (mobileNavOverlay) {
+    mobileNavOverlay.addEventListener('click', closeMobileMenu);
+  }
+  
+  // Close menu when clicking a link
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
 }
 
-// November Challenge Progress Logic - UPDATED FOR AUTO-DAILY PROGRESS
+// November Challenge Progress Logic
 function initializeNovemberChallenges() {
   // Get current date and calculate progress
   const currentDate = new Date();
@@ -1935,9 +1696,7 @@ function initializeNovemberChallenges() {
   // Update all November challenges
   const challengeElements = [
     { progress: 'fitnessChallengeProgress', fill: 'fitnessChallengeFill', text: 'fitnessChallengeText' },
-    { progress: 'sugarChallengeProgress', fill: 'sugarChallengeFill', text: 'sugarChallengeText' },
-    { progress: 'readingChallengeProgress', fill: 'readingChallengeFill', text: 'readingChallengeText' },
-    { progress: 'readingChallengeProgress2', fill: 'readingChallengeFill2', text: 'readingChallengeText2' }
+    { progress: 'readingChallengeProgress', fill: 'readingChallengeFill', text: 'readingChallengeText' }
   ];
   
   challengeElements.forEach(challenge => {
@@ -1951,81 +1710,6 @@ function initializeNovemberChallenges() {
       textElement.textContent = `Day ${currentDay} of 30 - Keep going!`;
     }
   });
-}
-
-// YouTube Player Management
-function initializeYouTubePlayers() {
-  const videoContainers = document.querySelectorAll('.video-container[data-video-id]');
-  
-  videoContainers.forEach(container => {
-    const videoId = container.getAttribute('data-video-id');
-    const iframeId = `youtube-${videoId}`;
-    
-    // Create YouTube player when API is ready
-    if (youtubeAPIReady) {
-      createYouTubePlayer(iframeId, videoId, container);
-    }
-  });
-}
-
-function createYouTubePlayer(iframeId, videoId, container) {
-  const player = new YT.Player(iframeId, {
-    videoId: videoId,
-    playerVars: {
-      'autoplay': 0,
-      'controls': 1, // Use YouTube's native controls for simplicity
-      'disablekb': 0,
-      'enablejsapi': 1,
-      'fs': 1,
-      'iv_load_policy': 3,
-      'modestbranding': 1,
-      'playsinline': 1,
-      'rel': 0
-    },
-    events: {
-      'onReady': (event) => onYouTubePlayerReady(event, container),
-      'onStateChange': (event) => onYouTubePlayerStateChange(event, container)
-    }
-  });
-  
-  youtubePlayers.set(videoId, player);
-}
-
-function onYouTubePlayerReady(event, container) {
-  const player = event.target;
-  const loadingIndicator = container.querySelector('.video-loading');
-  const overlay = container.querySelector('.video-overlay');
-  
-  // Hide loading indicator
-  if (loadingIndicator) {
-    loadingIndicator.style.display = 'none';
-  }
-  
-  // Setup play button
-  const playBtn = container.querySelector('.video-play-btn');
-  if (playBtn) {
-    playBtn.addEventListener('click', () => {
-      player.playVideo();
-      if (overlay) overlay.classList.add('hidden');
-    });
-  }
-}
-
-function onYouTubePlayerStateChange(event, container) {
-  const player = event.target;
-  const overlay = container.querySelector('.video-overlay');
-  
-  if (event.data === YT.PlayerState.PLAYING) {
-    if (overlay) overlay.classList.add('hidden');
-  } else if (event.data === YT.PlayerState.ENDED) {
-    if (overlay) overlay.classList.remove('hidden');
-  }
-}
-
-// YouTube API callback
-function onYouTubeIframeAPIReady() {
-  youtubeAPIReady = true;
-  initializeYouTubePlayers();
 }
 
 // Social Media Interactions
@@ -2058,7 +1742,7 @@ function initializeSocialInteractions() {
     });
   });
   
-  // Register for events - ALL register buttons now use Google Form
+  // Register for events
   const registerButtons = document.querySelectorAll('.register-btn');
   
   registerButtons.forEach(button => {
@@ -2066,37 +1750,12 @@ function initializeSocialInteractions() {
       const postId = this.dataset.postId;
       const challengeNames = {
         'day2cardio': 'Cardio Challenge',
-        '4': 'No Sugar November Challenge',
-        '9': '5AM Club Reading Challenge',
-        '3': 'November Reading Challenge'
+        '9': '5AM Club Reading Challenge'
       };
       
       const challengeName = challengeNames[postId] || 'Challenge';
       showNotification(`Opening registration form for ${challengeName}...`);
       openJoinForm(challengeName);
-    });
-  });
-  
-  // Confirm button for meeting time update
-  const confirmButtons = document.querySelectorAll('.confirm-btn');
-  
-  confirmButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const postId = this.dataset.postId;
-      this.innerHTML = '<i class="fas fa-check"></i> Confirmed';
-      this.style.background = 'var(--success)';
-      this.style.color = 'white';
-      showNotification('Schedule update confirmed!');
-    });
-  });
-
-  // Read more - opens blog modal
-  const readButtons = document.querySelectorAll('.read-btn');
-  
-  readButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const postId = this.dataset.postId;
-      openBlogModal(postId);
     });
   });
   
@@ -2156,358 +1815,7 @@ function initializeSocialInteractions() {
   }
 }
 
-// Initialize Tracking Buttons in Post Actions
-function initializeTrackingButtons() {
-  const trackButtons = document.querySelectorAll('.post-action.track-btn');
-  
-  trackButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const challenge = this.dataset.challenge;
-      
-      const challengeNames = {
-        'schedule-update': 'Schedule Update',
-        'cardio-challenge': 'Cardio Challenge',
-        'no-sugar-challenge': 'No Sugar Challenge', 
-        'no-sugar-november': 'No Sugar November Challenge',
-        'hiit-challenge': 'HIIT Workout Challenge',
-        '5am-club': '5AM Club Reading Challenge',
-        'november-reading': 'November Reading Challenge'
-      };
-      
-      const challengeName = challengeNames[challenge] || 'Challenge';
-      
-      showNotification(`Opening progress tracker for ${challengeName}...`);
-      openTrackingForm(challengeName);
-    });
-  });
-}
-
-// Blog Modal Functionality
-function initializeBlogModal() {
-  const blogModal = document.getElementById('blogModal');
-  const blogModalClose = document.getElementById('blogModalClose');
-  const blogModalImg = document.getElementById('blogModalImg');
-  const blogModalTitle = document.getElementById('blogModalTitle');
-  const blogModalMeta = document.getElementById('blogModalMeta');
-  const blogModalDescription = document.getElementById('blogModalDescription');
-  const blogSaveBtn = document.getElementById('blogSaveBtn');
-  const blogShareBtn = document.getElementById('blogShareBtn');
-  
-  // Blog data
-  const blogData = {
-    5: {
-      title: "Essential Drills to Improve Your Basketball Skills",
-      category: "Basketball",
-      date: "October 5, 2025",
-      author: "James Mwangi",
-      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: `
-        <p>Whether you're a beginner or an experienced player, these fundamental basketball drills will help enhance your shooting, dribbling, and defensive skills.</p>
-        
-        <h4>Shooting Drills:</h4>
-        <ul>
-          <li><strong>Form shooting:</strong> Focus on proper technique close to the basket</li>
-          <li><strong>Spot shooting:</strong> Practice from different positions on the court</li>
-          <li><strong>Free throws:</strong> Develop consistency from the line</li>
-        </ul>
-        
-        <h4>Dribbling Drills:</h4>
-        <ul>
-          <li><strong>Stationary dribbling:</strong> Work on ball control with both hands</li>
-          <li><strong>Cone drills:</strong> Improve agility and ball handling</li>
-          <li><strong>Two-ball dribbling:</strong> Enhance coordination</li>
-        </ul>
-        
-        <h4>Defensive Drills:</h4>
-        <ul>
-          <li><strong>Defensive slides:</strong> Work on lateral movement and stance</li>
-          <li><strong>Closeout drills:</strong> Practice contesting shots effectively</li>
-          <li><strong>Shell drill:</strong> Learn team defensive principles</li>
-        </ul>
-        
-        <p>Remember to practice consistently and focus on proper form rather than speed. Quality repetitions will lead to better results than rushed, sloppy ones.</p>
-      `
-    },
-    6: {
-      title: "How to Avoid Sugar: Practical Tips for a Healthier Lifestyle",
-      category: "Nutrition",
-      date: "November 01, 2025",
-      author: "WorkFit Nutrition Team",
-      image: "https://i.postimg.cc/RFhCzHKn/20251101-0908-Leaving-Sugar-Behind-simple-compose-01k8z0e9zsf7xabfbqsazvykc1.png",
-      description: `
-        <p>Sugar is hidden in many foods we consume daily, and reducing your intake can significantly improve your health. Here are practical strategies to help you cut back on sugar without feeling deprived.</p>
-        
-        <h4>1. Read Food Labels Carefully</h4>
-        <p>Sugar goes by many names: sucrose, high-fructose corn syrup, agave nectar, maltose, dextrose, rice syrup, and more. Be aware of these hidden sugars in processed foods.</p>
-        
-        <h4>2. Choose Whole Foods</h4>
-        <p>Focus on eating whole, unprocessed foods like fruits, vegetables, lean proteins, and whole grains. These foods naturally contain less added sugar.</p>
-        
-        <h4>3. Healthy Sugar Alternatives</h4>
-        <ul>
-          <li>Use fresh or frozen fruits to sweeten oatmeal, yogurt, or smoothies</li>
-          <li>Try spices like cinnamon, nutmeg, or vanilla extract to add flavor without sugar</li>
-          <li>Consider natural sweeteners like stevia or monk fruit in moderation</li>
-        </ul>
-        
-        <h4>4. Manage Sugar Cravings</h4>
-        <ul>
-          <li>Stay hydrated - sometimes thirst is mistaken for sugar cravings</li>
-          <li>Eat balanced meals with protein, healthy fats, and fiber</li>
-          <li>Get enough sleep to regulate hunger hormones</li>
-          <li>When cravings hit, try going for a walk or drinking herbal tea</li>
-        </ul>
-        
-        <h4>5. Smart Swaps</h4>
-        <ul>
-          <li>Instead of soda → Sparkling water with a splash of fruit juice</li>
-          <li>Instead of candy → Fresh fruit or a small handful of nuts</li>
-          <li>Instead of sweetened yogurt → Plain Greek yogurt with berries</li>
-          <li>Instead of sugary cereals → Oatmeal with cinnamon and banana</li>
-        </ul>
-        
-        <p>Remember, the goal isn't to eliminate all sugar but to be mindful of added sugars and make healthier choices most of the time. Small, consistent changes lead to lasting results.</p>
-      `
-    }
-  };
-  
-  function openBlogModal(blogId) {
-    const blog = blogData[blogId];
-    
-    if (blog) {
-      blogModalImg.src = blog.image;
-      blogModalImg.alt = blog.title;
-      blogModalTitle.textContent = blog.title;
-      blogModalMeta.innerHTML = `
-        <p><strong>Category:</strong> ${blog.category}</p>
-        <p><strong>Date:</strong> ${blog.date}</p>
-        <p><strong>Author:</strong> ${blog.author}</p>
-      `;
-      blogModalDescription.innerHTML = blog.description;
-      
-      blogModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-  
-  // Close blog modal
-  if (blogModalClose) {
-    blogModalClose.addEventListener('click', () => {
-      blogModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    });
-  }
-  
-  // Close modal when clicking outside
-  blogModal.addEventListener('click', (e) => {
-    if (e.target === blogModal) {
-      blogModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-  });
-  
-  // Save blog article
-  if (blogSaveBtn) {
-    blogSaveBtn.addEventListener('click', () => {
-      showNotification('Blog article saved to your collection!');
-    });
-  }
-  
-  // Share blog article
-  if (blogShareBtn) {
-    blogShareBtn.addEventListener('click', () => {
-      const title = blogModalTitle.textContent;
-      const text = `Check out this blog post: ${title}`;
-      const url = window.location.href;
-      
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: text,
-          url: url
-        });
-      } else {
-        showNotification('Blog link copied to clipboard!');
-        navigator.clipboard.writeText(url);
-      }
-    });
-  }
-  
-  // Make openBlogModal function globally accessible
-  window.openBlogModal = openBlogModal;
-}
-
-// Google Form Modal Functionality
-function initializeGoogleFormModal() {
-  const googleFormModal = document.getElementById('googleFormModal');
-  const googleFormClose = document.getElementById('googleFormClose');
-  const googleFormFrame = document.querySelector('.google-form-frame');
-  const googleFormTitle = document.querySelector('.google-form-title');
-  
-  function openGoogleForm() {
-    googleFormModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  
-  function openJoinForm(challengeName) {
-    // Set the join form URL
-    googleFormFrame.src = "https://docs.google.com/forms/d/e/1FAIpQLSeTCvSffnUp_DEAeEZ1dQcN4nS2iFx7tfTensQEtOK_PHbdPw/viewform?embedded=true";
-    
-    // Update the title
-    googleFormTitle.textContent = `Join ${challengeName}`;
-    
-    // Open the modal
-    openGoogleForm();
-  }
-  
-  function openTrackingForm(challengeName) {
-    // Set the tracking form URL
-    googleFormFrame.src = "https://docs.google.com/forms/d/e/1FAIpQLSdDpic_EOUBtLty_cSe07tYGhyGNzDM24np9vuDrtwHEgYKRA/viewform?embedded=true";
-    
-    // Update the title
-    googleFormTitle.textContent = `Track ${challengeName} Progress`;
-    
-    // Open the modal
-    openGoogleForm();
-  }
-  
-  function closeGoogleForm() {
-    googleFormModal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-    // Clear the iframe src when closing to prevent multiple forms loading
-    googleFormFrame.src = '';
-  }
-  
-  // Close Google Form
-  if (googleFormClose) {
-    googleFormClose.addEventListener('click', closeGoogleForm);
-  }
-  
-  // Close modal when clicking outside
-  googleFormModal.addEventListener('click', (e) => {
-    if (e.target === googleFormModal) {
-      closeGoogleForm();
-    }
-  });
-  
-  // Make functions globally accessible
-  window.openGoogleForm = openGoogleForm;
-  window.openJoinForm = openJoinForm;
-  window.openTrackingForm = openTrackingForm;
-}
-
-// Timestamp Updates
-function initializeTimestampUpdates() {
-  // Check if we need to set initial timestamps
-  const newPosts = document.querySelectorAll('[data-timestamp=""]');
-  
-  newPosts.forEach(post => {
-    const postId = post.getAttribute('data-post-id');
-    
-    // Try to get timestamp from localStorage first
-    const storedTimestamp = localStorage.getItem(`post-timestamp-${postId}`);
-    
-    if (storedTimestamp) {
-      // Use stored timestamp
-      post.setAttribute('data-timestamp', storedTimestamp);
-    } else {
-      // Set new timestamp and store it
-      const now = new Date();
-      const timestamp = now.toISOString();
-      post.setAttribute('data-timestamp', timestamp);
-      localStorage.setItem(`post-timestamp-${postId}`, timestamp);
-    }
-  });
-  
-  // Update all post timestamps every minute
-  setInterval(updateAllTimestamps, 60000);
-  
-  // Initial update
-  updateAllTimestamps();
-}
-
-function updateAllTimestamps() {
-  const posts = document.querySelectorAll('[data-timestamp]');
-  const now = new Date();
-  
-  posts.forEach(post => {
-    const timestamp = post.getAttribute('data-timestamp');
-    if (!timestamp) return;
-    
-    const postTime = new Date(timestamp);
-    const timeDiff = now - postTime;
-    const timestampElement = post.querySelector('.post-time');
-    
-    if (!timestampElement) return;
-    
-    const timeText = formatTimeDifference(timeDiff);
-    timestampElement.textContent = timeText;
-  });
-}
-
-function formatTimeDifference(timeDiff) {
-  const seconds = Math.floor(timeDiff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
-  
-  if (weeks > 0) {
-    return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-  } else if (days > 0) {
-    return `${days} day${days > 1 ? 's' : ''} ago`;
-  } else if (hours > 0) {
-    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-  } else if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-  } else {
-    return 'Just now';
-  }
-}
-
-// View Latest Update Button
-function initializeViewLatestButton() {
-  const viewLatestBtn = document.getElementById('viewLatestBtn');
-  let scrollTimeout;
-  
-  if (viewLatestBtn) {
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', function() {
-      clearTimeout(scrollTimeout);
-      
-      // Show button when scrolled down
-      if (window.scrollY > 300) {
-        viewLatestBtn.classList.add('show');
-      } else {
-        viewLatestBtn.classList.remove('show');
-      }
-      
-      // Hide button after a moment of inactivity
-      scrollTimeout = setTimeout(() => {
-        viewLatestBtn.classList.remove('show');
-      }, 3000);
-    });
-    
-    // Scroll to top when button is clicked
-    viewLatestBtn.addEventListener('click', function() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-}
-
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-  if (!localStorage.getItem('theme')) {
-    const newTheme = e.matches ? 'dark' : 'light';
-    htmlElement.setAttribute('data-theme', newTheme);
-    updateThemeIcon(newTheme);
-  }
-});
-
-// Daily Fitness Trivia System - UPDATED VERSION
+// Daily Fitness Trivia System
 class DailyFitnessTrivia {
     constructor() {
         this.currentQuestion = null;
@@ -2569,54 +1877,9 @@ class DailyFitnessTrivia {
                 ],
                 explanation: "RICE is a common acronym for the initial treatment of sprains, strains, and other acute injuries to reduce swelling and pain.",
                 category: "Injury Prevention"
-            },
-            {
-                question: "What is the 'mind-muscle connection'?",
-                answers: [
-                    { text: "Thinking about exercise while you are at work.", correct: false },
-                    { text: "The ability to consciously focus on and contract a specific muscle during training.", correct: true },
-                    { text: "A spiritual link between your brain and your fitness goals.", correct: false },
-                    { text: "Listening to music that pumps you up for a workout.", correct: false }
-                ],
-                explanation: "Consciously focusing on the target muscle during an exercise can improve muscle activation and lead to better growth and strength gains over time.",
-                category: "Strength Training"
-            },
-            {
-                question: "Why is sleep critical for fitness progress?",
-                answers: [
-                    { text: "It's the primary time when muscle repair and growth occur.", correct: true },
-                    { text: "It burns a significant number of calories.", correct: false },
-                    { text: "It allows you to dream about your fitness goals.", correct: false },
-                    { text: "It replaces the need for proper nutrition.", correct: false }
-                ],
-                explanation: "During deep sleep, your body releases growth hormone, repairs muscle tissue broken down during exercise, and consolidates memory, including motor learning from your workouts.",
-                category: "Recovery"
-            },
-            {
-                question: "What is a 'deload' week in a training program?",
-                answers: [
-                    { text: "A week where you stop working out completely.", correct: false },
-                    { text: "A week where you focus only on cardio.", correct: false },
-                    { text: "A planned period of reduced training volume or intensity.", correct: true },
-                    { text: "A week where you try to lift your personal best.", correct: false }
-                ],
-                explanation: "A deload week involves intentionally reducing the weight, volume, or intensity of your workouts to allow for recovery, reduce fatigue, and help prevent overtraining and plateaus.",
-                category: "Program Design"
-            },
-            {
-                question: "Which of these best describes 'progressive overload'?",
-                answers: [
-                    { text: "Lifting until you vomit from exertion.", correct: false },
-                    { text: "Gradually increasing the demand on your musculoskeletal system over time.", correct: true },
-                    { text: "Progressively adding more exercises to a single workout.", correct: false },
-                    { text: "Only training with progressively heavier weights.", correct: false }
-                ],
-                explanation: "Progressive overload is the fundamental principle for getting stronger and building muscle. It can be achieved by increasing weight, reps, sets, or training frequency, not just by adding more weight.",
-                category: "Strength Training"
             }
-      ];
+        ];
     }
-    
 
     getTodaysQuestion() {
         // Use date to determine which question to show (cycles through questions)
@@ -2811,21 +2074,39 @@ class DailyFitnessTrivia {
         }, 3000);
     }
 }
-// Add to your existing JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-  const joinBtn = document.getElementById('animatedJoinBtn');
-  if (joinBtn) {
-    joinBtn.addEventListener('click', function() {
-      // Add a quick feedback animation
-      this.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        this.style.transform = 'scale(1)';
-        // Redirect to membership page
-        window.location.href = 'plans-wpa.html';
-      }, 150);
+
+// View Latest Update Button
+function initializeViewLatestButton() {
+  const viewLatestBtn = document.getElementById('viewLatestBtn');
+  let scrollTimeout;
+  
+  if (viewLatestBtn) {
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', function() {
+      clearTimeout(scrollTimeout);
+      
+      // Show button when scrolled down
+      if (window.scrollY > 300) {
+        viewLatestBtn.classList.add('show');
+      } else {
+        viewLatestBtn.classList.remove('show');
+      }
+      
+      // Hide button after a moment of inactivity
+      scrollTimeout = setTimeout(() => {
+        viewLatestBtn.classList.remove('show');
+      }, 3000);
+    });
+    
+    // Scroll to top when button is clicked
+    viewLatestBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
   }
-});
+}
 
 // Initialize trivia when page loads
 document.addEventListener('DOMContentLoaded', function() {
@@ -2844,13 +2125,8 @@ function initializeApp() {
   initializeTheme();
   initializeMobileMenu();
   initializeNovemberChallenges();
-  loadYouTubeAPI();
   initializeSocialInteractions();
-  initializeBlogModal();
-  initializeGoogleFormModal();
-  initializeTimestampUpdates();
   initializeViewLatestButton();
-  initializeTrackingButtons();
   
   console.log('WorkFit Social Platform initialized successfully');
 }
@@ -2858,8 +2134,13 @@ function initializeApp() {
 // Start the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializeApp);
 
-// Global YouTube API callback
-window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('theme')) {
+    const newTheme = e.matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', newTheme);
+  }
+});
 </script>
 </body>
 </html>
